@@ -2,11 +2,12 @@ import { DashboardLayout } from "@/components/DashboardLayout";
 import { StatusBadge } from "@/components/StatusBadge";
 import { PhaseIndicator } from "@/components/PhaseIndicator";
 import { PHASES } from "@/lib/phases";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Calendar, User, Building2 } from "lucide-react";
+import { Calendar, User, Building2, List, Columns3 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 const projects = [
   { name: "Acme Corp", segment: "Enterprise", owner: "Sarah K.", phase: 3, status: "on-track" as const, progress: 58, startDate: "Jan 15", targetDate: "Apr 20", daysRemaining: 26 },
@@ -19,20 +20,75 @@ const projects = [
   { name: "FinServ Pro", segment: "Enterprise", owner: "Mike R.", phase: 4, status: "on-track" as const, progress: 78, startDate: "Nov 20", targetDate: "Apr 2", daysRemaining: 8 },
 ];
 
+type ViewMode = "list" | "kanban";
 const statusFilters = ["All", "on-track", "at-risk", "delayed", "not-started"] as const;
+
+function ProjectCardCompact({ project }: { project: typeof projects[number] }) {
+  return (
+    <Card className="hover:shadow-md transition-shadow">
+      <CardContent className="p-3.5">
+        <div className="flex items-center justify-between mb-2">
+          <h4 className="text-sm font-semibold truncate">{project.name}</h4>
+          <StatusBadge status={project.status} />
+        </div>
+        <div className="flex flex-wrap items-center gap-2 text-[11px] text-muted-foreground mb-3">
+          <span className="flex items-center gap-1"><Building2 className="h-3 w-3" />{project.segment}</span>
+          <span className="flex items-center gap-1"><User className="h-3 w-3" />{project.owner}</span>
+        </div>
+        <div className="space-y-1.5">
+          <div className="flex items-center justify-between text-[11px]">
+            <span className="text-muted-foreground">Progress</span>
+            <span className="font-medium">{project.progress}%</span>
+          </div>
+          <Progress value={project.progress} className="h-1.5" />
+        </div>
+        <div className="flex items-center justify-between mt-2.5 text-[11px] text-muted-foreground">
+          <span>{project.startDate} → {project.targetDate}</span>
+          <span className={`font-medium ${project.daysRemaining <= 10 ? "text-destructive" : ""}`}>
+            {project.daysRemaining}d left
+          </span>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
 
 export default function ActiveProjects() {
   const [filter, setFilter] = useState<string>("All");
+  const [view, setView] = useState<ViewMode>("list");
   const filtered = filter === "All" ? projects : projects.filter(p => p.status === filter);
 
   return (
     <DashboardLayout>
-      <div className="space-y-6 max-w-6xl">
+      <div className="space-y-6 max-w-[1400px]">
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-2xl font-semibold">Active Projects</h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            Track all customer implementations across the 6-phase lifecycle.
-          </p>
+          <div className="flex items-start justify-between">
+            <div>
+              <h1 className="text-2xl font-semibold">Active Projects</h1>
+              <p className="text-sm text-muted-foreground mt-1">
+                Track all customer implementations across the 6-phase lifecycle.
+              </p>
+            </div>
+            {/* View Toggle */}
+            <div className="flex items-center bg-muted rounded-lg p-0.5">
+              <button
+                onClick={() => setView("list")}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                  view === "list" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <List className="h-3.5 w-3.5" /> List
+              </button>
+              <button
+                onClick={() => setView("kanban")}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                  view === "kanban" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <Columns3 className="h-3.5 w-3.5" /> Board
+              </button>
+            </div>
+          </div>
         </motion.div>
 
         <div className="flex flex-wrap gap-2">
@@ -49,47 +105,95 @@ export default function ActiveProjects() {
           ))}
         </div>
 
-        <div className="space-y-3">
-          {filtered.map((project, i) => (
-            <motion.div key={project.name} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
-              <Card className="hover:shadow-md transition-shadow">
-                <CardContent className="p-5">
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="text-sm font-semibold">{project.name}</h3>
-                        <StatusBadge status={project.status} />
+        {view === "list" ? (
+          /* LIST VIEW */
+          <div className="space-y-3">
+            {filtered.map((project, i) => (
+              <motion.div key={project.name} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
+                <Card className="hover:shadow-md transition-shadow">
+                  <CardContent className="p-5">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h3 className="text-sm font-semibold">{project.name}</h3>
+                          <StatusBadge status={project.status} />
+                        </div>
+                        <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
+                          <span className="flex items-center gap-1"><Building2 className="h-3 w-3" />{project.segment}</span>
+                          <span className="flex items-center gap-1"><User className="h-3 w-3" />{project.owner}</span>
+                          <span className="flex items-center gap-1"><Calendar className="h-3 w-3" />{project.startDate} → {project.targetDate}</span>
+                        </div>
                       </div>
-                      <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
-                        <span className="flex items-center gap-1"><Building2 className="h-3 w-3" />{project.segment}</span>
-                        <span className="flex items-center gap-1"><User className="h-3 w-3" />{project.owner}</span>
-                        <span className="flex items-center gap-1"><Calendar className="h-3 w-3" />{project.startDate} → {project.targetDate}</span>
+                      <div className="flex items-center gap-6 shrink-0">
+                        <div className="text-center">
+                          <p className="text-xs text-muted-foreground mb-1">Phase</p>
+                          <PhaseIndicator currentPhase={project.phase} compact />
+                          <p className="text-[10px] text-muted-foreground mt-1">{PHASES[project.phase]?.label ?? "Pending"}</p>
+                        </div>
+                        <div className="w-24">
+                          <p className="text-xs text-muted-foreground mb-1">Progress</p>
+                          <Progress value={project.progress} className="h-1.5" />
+                          <p className="text-[10px] text-muted-foreground mt-1">{project.progress}%</p>
+                        </div>
+                        <div className="text-center hidden md:block">
+                          <p className="text-xs text-muted-foreground mb-1">Days Left</p>
+                          <p className={`text-lg font-semibold ${project.daysRemaining <= 10 ? "text-destructive" : ""}`}>
+                            {project.daysRemaining}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-6 shrink-0">
-                      <div className="text-center">
-                        <p className="text-xs text-muted-foreground mb-1">Phase</p>
-                        <PhaseIndicator currentPhase={project.phase} compact />
-                        <p className="text-[10px] text-muted-foreground mt-1">{PHASES[project.phase]?.label ?? "Pending"}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        ) : (
+          /* KANBAN VIEW */
+          <ScrollArea className="w-full">
+            <div className="flex gap-4 pb-4 min-w-max">
+              {PHASES.map((phase, phaseIndex) => {
+                const phaseProjects = filtered.filter(p => p.phase === phaseIndex);
+                return (
+                  <motion.div
+                    key={phase.id}
+                    className="w-[280px] shrink-0"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: phaseIndex * 0.05 }}
+                  >
+                    <div className="rounded-xl bg-muted/50 border p-3">
+                      {/* Column Header */}
+                      <div className="flex items-center justify-between mb-3 px-1">
+                        <div className="flex items-center gap-2">
+                          <div className={`h-2.5 w-2.5 rounded-full phase-${phase.id}`} />
+                          <h3 className="text-xs font-semibold uppercase tracking-wider">{phase.label}</h3>
+                        </div>
+                        <span className="text-[10px] font-medium text-muted-foreground bg-background rounded-full px-2 py-0.5">
+                          {phaseProjects.length}
+                        </span>
                       </div>
-                      <div className="w-24">
-                        <p className="text-xs text-muted-foreground mb-1">Progress</p>
-                        <Progress value={project.progress} className="h-1.5" />
-                        <p className="text-[10px] text-muted-foreground mt-1">{project.progress}%</p>
-                      </div>
-                      <div className="text-center hidden md:block">
-                        <p className="text-xs text-muted-foreground mb-1">Days Left</p>
-                        <p className={`text-lg font-semibold ${project.daysRemaining <= 10 ? "text-destructive" : ""}`}>
-                          {project.daysRemaining}
-                        </p>
+
+                      {/* Column Cards */}
+                      <div className="space-y-2.5 min-h-[120px]">
+                        {phaseProjects.length > 0 ? (
+                          phaseProjects.map((project) => (
+                            <ProjectCardCompact key={project.name} project={project} />
+                          ))
+                        ) : (
+                          <div className="flex items-center justify-center h-[120px] rounded-lg border border-dashed text-xs text-muted-foreground">
+                            No projects
+                          </div>
+                        )}
                       </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
+        )}
       </div>
     </DashboardLayout>
   );
