@@ -1,10 +1,11 @@
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { StatusBadge } from "@/components/StatusBadge";
 import { PhaseIndicator } from "@/components/PhaseIndicator";
+import { ProjectDetailDialog } from "@/components/ProjectDetailDialog";
 import { PHASES } from "@/lib/phases";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Calendar, User, Building2, List, Columns3, GripVertical } from "lucide-react";
+import { Calendar, User, Building2, List, Columns3 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
@@ -50,9 +51,9 @@ const initialProjects: Project[] = [
 type ViewMode = "list" | "kanban";
 const statusFilters = ["All", "on-track", "at-risk", "delayed", "not-started"] as const;
 
-function ProjectCardCompact({ project }: { project: Project }) {
+function ProjectCardCompact({ project, onClick }: { project: Project; onClick?: () => void }) {
   return (
-    <Card className="hover:shadow-md transition-shadow">
+    <Card className="hover:shadow-md transition-shadow cursor-pointer" onClick={onClick}>
       <CardContent className="p-3.5">
         <div className="flex items-center justify-between mb-2">
           <h4 className="text-sm font-semibold truncate">{project.name}</h4>
@@ -89,12 +90,13 @@ function DroppableColumn({ phaseIndex, children }: { phaseIndex: number; childre
   );
 }
 
-function DraggableCard({ project }: { project: Project }) {
+function DraggableCard({ project, onClick }: { project: Project; onClick?: () => void }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id: project.id });
   const style = transform ? { transform: CSS.Translate.toString(transform), opacity: isDragging ? 0.4 : 1 } : undefined;
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners} className="cursor-grab active:cursor-grabbing">
+    <div ref={setNodeRef} style={style} {...attributes} {...listeners} className="cursor-grab active:cursor-grabbing"
+      onClick={(e) => { if (!transform) onClick?.(); }}>
       <ProjectCardCompact project={project} />
     </div>
   );
@@ -105,6 +107,7 @@ export default function ActiveProjects() {
   const [filter, setFilter] = useState<string>("All");
   const [view, setView] = useState<ViewMode>("list");
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const filtered = filter === "All" ? projects : projects.filter(p => p.status === filter);
 
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
