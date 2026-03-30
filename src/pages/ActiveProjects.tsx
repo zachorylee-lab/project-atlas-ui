@@ -179,7 +179,7 @@ export default function ActiveProjects() {
           <div className="space-y-3">
             {filtered.map((project, i) => (
               <motion.div key={project.name} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
-                <Card className="hover:shadow-md transition-shadow">
+                <Card className="hover:shadow-md transition-shadow cursor-pointer" onClick={() => setSelectedProject(project)}>
                   <CardContent className="p-5">
                     <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                       <div className="flex-1 min-w-0">
@@ -245,7 +245,7 @@ export default function ActiveProjects() {
                         <DroppableColumn phaseIndex={phaseIndex}>
                           {phaseProjects.length > 0 ? (
                             phaseProjects.map((project) => (
-                              <DraggableCard key={project.id} project={project} />
+                              <DraggableCard key={project.id} project={project} onClick={() => setSelectedProject(project)} />
                             ))
                           ) : (
                             <div className="flex items-center justify-center h-[120px] rounded-lg border border-dashed text-xs text-muted-foreground">
@@ -270,6 +270,11 @@ export default function ActiveProjects() {
           </DndContext>
         )}
       </div>
+      <ProjectDetailDialog
+        project={selectedProject}
+        open={!!selectedProject}
+        onOpenChange={(open) => !open && setSelectedProject(null)}
+      />
     </DashboardLayout>
   );
 }
