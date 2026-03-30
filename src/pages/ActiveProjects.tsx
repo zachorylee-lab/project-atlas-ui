@@ -50,7 +50,7 @@ const initialProjects: Project[] = [
 type ViewMode = "list" | "kanban";
 const statusFilters = ["All", "on-track", "at-risk", "delayed", "not-started"] as const;
 
-function ProjectCardCompact({ project }: { project: typeof projects[number] }) {
+function ProjectCardCompact({ project }: { project: Project }) {
   return (
     <Card className="hover:shadow-md transition-shadow">
       <CardContent className="p-3.5">
@@ -80,10 +80,49 @@ function ProjectCardCompact({ project }: { project: typeof projects[number] }) {
   );
 }
 
+function DroppableColumn({ phaseIndex, children }: { phaseIndex: number; children: React.ReactNode }) {
+  const { setNodeRef, isOver } = useDroppable({ id: `phase-${phaseIndex}` });
+  return (
+    <div ref={setNodeRef} className={`space-y-2.5 min-h-[120px] transition-colors rounded-lg ${isOver ? "bg-primary/5 ring-2 ring-primary/20" : ""}`}>
+      {children}
+    </div>
+  );
+}
+
+function DraggableCard({ project }: { project: Project }) {
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id: project.id });
+  const style = transform ? { transform: CSS.Translate.toString(transform), opacity: isDragging ? 0.4 : 1 } : undefined;
+
+  return (
+    <div ref={setNodeRef} style={style} {...attributes} {...listeners} className="cursor-grab active:cursor-grabbing">
+      <ProjectCardCompact project={project} />
+    </div>
+  );
+}
+
 export default function ActiveProjects() {
+  const [projects, setProjects] = useState<Project[]>(initialProjects);
   const [filter, setFilter] = useState<string>("All");
   const [view, setView] = useState<ViewMode>("list");
+  const [activeId, setActiveId] = useState<string | null>(null);
   const filtered = filter === "All" ? projects : projects.filter(p => p.status === filter);
+
+  const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
+  const activeProject = projects.find(p => p.id === activeId) ?? null;
+
+  function handleDragStart(event: DragStartEvent) {
+    setActiveId(String(event.active.id));
+  }
+
+  function handleDragEnd(event: DragEndEvent) {
+    setActiveId(null);
+    const { active, over } = event;
+    if (!over) return;
+    const overId = String(over.id);
+    const newPhase = overId.startsWith("phase-") ? parseInt(overId.replace("phase-", "")) : null;
+    if (newPhase === null || isNaN(newPhase)) return;
+    setProjects(prev => prev.map(p => p.id === String(active.id) ? { ...p, phase: newPhase } : p));
+  }
 
   return (
     <DashboardLayout>
