@@ -216,49 +216,55 @@ export default function ActiveProjects() {
           </div>
         ) : (
           /* KANBAN VIEW */
-          <ScrollArea className="w-full">
-            <div className="flex gap-4 pb-4 min-w-max">
-              {PHASES.map((phase, phaseIndex) => {
-                const phaseProjects = filtered.filter(p => p.phase === phaseIndex);
-                return (
-                  <motion.div
-                    key={phase.id}
-                    className="w-[280px] shrink-0"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: phaseIndex * 0.05 }}
-                  >
-                    <div className="rounded-xl bg-muted/50 border p-3">
-                      {/* Column Header */}
-                      <div className="flex items-center justify-between mb-3 px-1">
-                        <div className="flex items-center gap-2">
-                          <div className={`h-2.5 w-2.5 rounded-full phase-${phase.id}`} />
-                          <h3 className="text-xs font-semibold uppercase tracking-wider">{phase.label}</h3>
-                        </div>
-                        <span className="text-[10px] font-medium text-muted-foreground bg-background rounded-full px-2 py-0.5">
-                          {phaseProjects.length}
-                        </span>
-                      </div>
-
-                      {/* Column Cards */}
-                      <div className="space-y-2.5 min-h-[120px]">
-                        {phaseProjects.length > 0 ? (
-                          phaseProjects.map((project) => (
-                            <ProjectCardCompact key={project.name} project={project} />
-                          ))
-                        ) : (
-                          <div className="flex items-center justify-center h-[120px] rounded-lg border border-dashed text-xs text-muted-foreground">
-                            No projects
+          <DndContext sensors={sensors} collisionDetection={closestCorners} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+            <ScrollArea className="w-full">
+              <div className="flex gap-4 pb-4 min-w-max">
+                {PHASES.map((phase, phaseIndex) => {
+                  const phaseProjects = filtered.filter(p => p.phase === phaseIndex);
+                  return (
+                    <motion.div
+                      key={phase.id}
+                      className="w-[280px] shrink-0"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: phaseIndex * 0.05 }}
+                    >
+                      <div className="rounded-xl bg-muted/50 border p-3">
+                        <div className="flex items-center justify-between mb-3 px-1">
+                          <div className="flex items-center gap-2">
+                            <div className={`h-2.5 w-2.5 rounded-full phase-${phase.id}`} />
+                            <h3 className="text-xs font-semibold uppercase tracking-wider">{phase.label}</h3>
                           </div>
-                        )}
+                          <span className="text-[10px] font-medium text-muted-foreground bg-background rounded-full px-2 py-0.5">
+                            {phaseProjects.length}
+                          </span>
+                        </div>
+                        <DroppableColumn phaseIndex={phaseIndex}>
+                          {phaseProjects.length > 0 ? (
+                            phaseProjects.map((project) => (
+                              <DraggableCard key={project.id} project={project} />
+                            ))
+                          ) : (
+                            <div className="flex items-center justify-center h-[120px] rounded-lg border border-dashed text-xs text-muted-foreground">
+                              No projects
+                            </div>
+                          )}
+                        </DroppableColumn>
                       </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea>
+                    </motion.div>
+                  );
+                })}
+              </div>
+              <ScrollBar orientation="horizontal" />
+            </ScrollArea>
+            <DragOverlay>
+              {activeProject ? (
+                <div className="w-[280px] opacity-90 rotate-2 scale-105">
+                  <ProjectCardCompact project={activeProject} />
+                </div>
+              ) : null}
+            </DragOverlay>
+          </DndContext>
         )}
       </div>
     </DashboardLayout>
