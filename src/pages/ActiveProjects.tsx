@@ -4,20 +4,47 @@ import { PhaseIndicator } from "@/components/PhaseIndicator";
 import { PHASES } from "@/lib/phases";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Calendar, User, Building2, List, Columns3 } from "lucide-react";
+import { Calendar, User, Building2, List, Columns3, GripVertical } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import {
+  DndContext,
+  DragOverlay,
+  closestCorners,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  type DragStartEvent,
+  type DragEndEvent,
+  type DragOverEvent,
+} from "@dnd-kit/core";
+import { useDroppable } from "@dnd-kit/core";
+import { useDraggable } from "@dnd-kit/core";
+import { CSS } from "@dnd-kit/utilities";
 
-const projects = [
-  { name: "Acme Corp", segment: "Enterprise", owner: "Sarah K.", phase: 3, status: "on-track" as const, progress: 58, startDate: "Jan 15", targetDate: "Apr 20", daysRemaining: 26 },
-  { name: "TechFlow Inc", segment: "Mid-Market", owner: "Mike R.", phase: 4, status: "at-risk" as const, progress: 72, startDate: "Feb 1", targetDate: "Apr 5", daysRemaining: 11 },
-  { name: "GlobalBank", segment: "Enterprise", owner: "Lisa M.", phase: 1, status: "on-track" as const, progress: 18, startDate: "Mar 10", targetDate: "Jun 30", daysRemaining: 97 },
-  { name: "RetailPro", segment: "SMB", owner: "James W.", phase: 5, status: "on-track" as const, progress: 90, startDate: "Dec 5", targetDate: "Mar 28", daysRemaining: 3 },
-  { name: "HealthSync", segment: "Enterprise", owner: "Ana P.", phase: 2, status: "delayed" as const, progress: 35, startDate: "Feb 15", targetDate: "May 30", daysRemaining: 66 },
-  { name: "EduLearn", segment: "Mid-Market", owner: "Tom B.", phase: 0, status: "not-started" as const, progress: 5, startDate: "Mar 22", targetDate: "Jun 15", daysRemaining: 82 },
-  { name: "LogiChain", segment: "Enterprise", owner: "Sarah K.", phase: 3, status: "on-track" as const, progress: 55, startDate: "Jan 28", targetDate: "May 10", daysRemaining: 46 },
-  { name: "FinServ Pro", segment: "Enterprise", owner: "Mike R.", phase: 4, status: "on-track" as const, progress: 78, startDate: "Nov 20", targetDate: "Apr 2", daysRemaining: 8 },
+type Project = {
+  id: string;
+  name: string;
+  segment: string;
+  owner: string;
+  phase: number;
+  status: "on-track" | "at-risk" | "delayed" | "not-started";
+  progress: number;
+  startDate: string;
+  targetDate: string;
+  daysRemaining: number;
+};
+
+const initialProjects: Project[] = [
+  { id: "1", name: "Acme Corp", segment: "Enterprise", owner: "Sarah K.", phase: 3, status: "on-track", progress: 58, startDate: "Jan 15", targetDate: "Apr 20", daysRemaining: 26 },
+  { id: "2", name: "TechFlow Inc", segment: "Mid-Market", owner: "Mike R.", phase: 4, status: "at-risk", progress: 72, startDate: "Feb 1", targetDate: "Apr 5", daysRemaining: 11 },
+  { id: "3", name: "GlobalBank", segment: "Enterprise", owner: "Lisa M.", phase: 1, status: "on-track", progress: 18, startDate: "Mar 10", targetDate: "Jun 30", daysRemaining: 97 },
+  { id: "4", name: "RetailPro", segment: "SMB", owner: "James W.", phase: 5, status: "on-track", progress: 90, startDate: "Dec 5", targetDate: "Mar 28", daysRemaining: 3 },
+  { id: "5", name: "HealthSync", segment: "Enterprise", owner: "Ana P.", phase: 2, status: "delayed", progress: 35, startDate: "Feb 15", targetDate: "May 30", daysRemaining: 66 },
+  { id: "6", name: "EduLearn", segment: "Mid-Market", owner: "Tom B.", phase: 0, status: "not-started", progress: 5, startDate: "Mar 22", targetDate: "Jun 15", daysRemaining: 82 },
+  { id: "7", name: "LogiChain", segment: "Enterprise", owner: "Sarah K.", phase: 3, status: "on-track", progress: 55, startDate: "Jan 28", targetDate: "May 10", daysRemaining: 46 },
+  { id: "8", name: "FinServ Pro", segment: "Enterprise", owner: "Mike R.", phase: 4, status: "on-track", progress: 78, startDate: "Nov 20", targetDate: "Apr 2", daysRemaining: 8 },
 ];
 
 type ViewMode = "list" | "kanban";
