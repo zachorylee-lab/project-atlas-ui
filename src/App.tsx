@@ -9,6 +9,7 @@ import Templates from "./pages/Templates";
 import ActiveProjects from "./pages/ActiveProjects";
 import Metrics from "./pages/Metrics";
 import SalesHandoff from "./pages/SalesHandoff";
+import DataWorkflows from "./pages/DataWorkflows";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
