@@ -5,6 +5,7 @@ import {
   Kanban,
   BarChart3,
   ArrowRightLeft,
+  Database,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
@@ -28,6 +29,7 @@ const navItems = [
   { title: "Templates", url: "/templates", icon: FolderOpen },
   { title: "Active Projects", url: "/projects", icon: Kanban },
   { title: "Metrics", url: "/metrics", icon: BarChart3 },
+  { title: "Data Workflows", url: "/workflows", icon: Database },
   { title: "Sales Handoff", url: "/handoff", icon: ArrowRightLeft },
 ];
 

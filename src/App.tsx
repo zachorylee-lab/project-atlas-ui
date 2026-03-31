@@ -9,6 +9,7 @@ import Templates from "./pages/Templates";
 import ActiveProjects from "./pages/ActiveProjects";
 import Metrics from "./pages/Metrics";
 import SalesHandoff from "./pages/SalesHandoff";
+import DataWorkflows from "./pages/DataWorkflows";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/templates" element={<Templates />} />
           <Route path="/projects" element={<ActiveProjects />} />
           <Route path="/metrics" element={<Metrics />} />
+          <Route path="/workflows" element={<DataWorkflows />} />
           <Route path="/handoff" element={<SalesHandoff />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
