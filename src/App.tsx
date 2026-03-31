@@ -29,6 +29,7 @@ const App = () => (
           <Route path="/metrics" element={<Metrics />} />
           <Route path="/workflows" element={<DataWorkflows />} />
           <Route path="/handoff" element={<SalesHandoff />} />
+          <Route path="/integrations" element={<Integrations />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
