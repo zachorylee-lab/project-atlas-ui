@@ -10,6 +10,7 @@ import ActiveProjects from "./pages/ActiveProjects";
 import Metrics from "./pages/Metrics";
 import SalesHandoff from "./pages/SalesHandoff";
 import DataWorkflows from "./pages/DataWorkflows";
+import Integrations from "./pages/Integrations";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/metrics" element={<Metrics />} />
           <Route path="/workflows" element={<DataWorkflows />} />
           <Route path="/handoff" element={<SalesHandoff />} />
+          <Route path="/integrations" element={<Integrations />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
