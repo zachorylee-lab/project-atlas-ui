@@ -31,6 +31,7 @@ const App = () => (
           <Route path="/workflows" element={<DataWorkflows />} />
           <Route path="/handoff" element={<SalesHandoff />} />
           <Route path="/integrations" element={<Integrations />} />
+          <Route path="/deck" element={<StrategicDeck />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
