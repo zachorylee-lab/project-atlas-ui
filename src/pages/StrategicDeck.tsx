@@ -616,7 +616,7 @@ const slides: Slide[] = [
             </div>
 
             <p className="mt-6 text-sm" style={{ color: "hsl(210 14% 65%)" }}>
-              Rob — we'd love to walk through a live demo tailored to Boom's workflows.
+              James — we'd love to walk through a live demo tailored to NovaCorp's workflows.
             </p>
           </motion.div>
         </div>
