@@ -624,7 +624,7 @@ const slides: Slide[] = [
           className="flex items-center justify-between px-12 py-5 text-xs"
           style={{ color: "hsl(215 14% 40%)", borderTop: `1px solid hsl(220 20% 18%)` }}
         >
-          <span>sona.ai</span>
+          <span>velocity.io</span>
           <span>Confidential</span>
         </div>
       </div>
