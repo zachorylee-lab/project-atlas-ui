@@ -478,7 +478,7 @@ const slides: Slide[] = [
             </h3>
             <Bar label="Before" pct={100} color="hsl(215 14% 70%)" />
             <div className="h-2" />
-            <Bar label="After Sona" pct={58} color={C.teal} />
+            <Bar label="After Velocity" pct={58} color={C.teal} />
             <p className="mt-2 text-xs" style={{ color: C.slate }}>
               42% reduction in per-implementation cost while increasing CSAT by 23 points.
             </p>
