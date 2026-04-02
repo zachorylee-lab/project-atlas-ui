@@ -137,13 +137,13 @@ const slides: Slide[] = [
                 className="flex h-12 w-12 items-center justify-center rounded-xl"
                 style={{ background: C.teal }}
               >
-                <span className="text-lg font-bold text-white">S</span>
+                <span className="text-lg font-bold text-white">V</span>
               </div>
               <span
                 className="text-lg font-semibold tracking-wide"
                 style={{ color: C.tealMuted }}
               >
-                SONA
+                VELOCITY
               </span>
             </div>
 
@@ -164,7 +164,7 @@ const slides: Slide[] = [
           className="flex items-center justify-between px-12 py-5 text-xs"
           style={{ color: "hsl(215 14% 40%)", borderTop: `1px solid hsl(220 20% 18%)` }}
         >
-          <span>Prepared for Rob Whiting · Boom</span>
+          <span>Prepared for James Chen · NovaCorp</span>
           <span>Confidential · {new Date().toLocaleDateString("en-GB", { month: "long", year: "numeric" })}</span>
         </div>
       </div>
@@ -197,7 +197,7 @@ const slides: Slide[] = [
           style={{ background: `hsl(220 25% 10% / 0.04)` }}
         >
           <p className="text-sm leading-relaxed" style={{ color: C.slate }}>
-            Sona's Implementation OS transforms the traditional services engagement into a
+            Velocity's Implementation OS transforms the traditional services engagement into a
             scalable, repeatable operating system. By codifying best practices,
             automating handoffs, and providing real-time visibility, we compress
             time-to-value while preserving the white-glove experience customers
@@ -234,7 +234,7 @@ const slides: Slide[] = [
           </div>
           <div className="flex flex-col gap-4">
             <h3 className="text-sm font-bold uppercase tracking-wider" style={{ color: C.navy }}>
-              Sona's Differentiation
+              Our Differentiation
             </h3>
             {[
               { icon: Zap, text: "Automated phase transitions with built-in quality gates" },
@@ -478,7 +478,7 @@ const slides: Slide[] = [
             </h3>
             <Bar label="Before" pct={100} color="hsl(215 14% 70%)" />
             <div className="h-2" />
-            <Bar label="After Sona" pct={58} color={C.teal} />
+            <Bar label="After Velocity" pct={58} color={C.teal} />
             <p className="mt-2 text-xs" style={{ color: C.slate }}>
               42% reduction in per-implementation cost while increasing CSAT by 23 points.
             </p>
@@ -616,7 +616,7 @@ const slides: Slide[] = [
             </div>
 
             <p className="mt-6 text-sm" style={{ color: "hsl(210 14% 65%)" }}>
-              Rob — we'd love to walk through a live demo tailored to Boom's workflows.
+              James — we'd love to walk through a live demo tailored to NovaCorp's workflows.
             </p>
           </motion.div>
         </div>
@@ -624,7 +624,7 @@ const slides: Slide[] = [
           className="flex items-center justify-between px-12 py-5 text-xs"
           style={{ color: "hsl(215 14% 40%)", borderTop: `1px solid hsl(220 20% 18%)` }}
         >
-          <span>sona.ai</span>
+          <span>velocity.io</span>
           <span>Confidential</span>
         </div>
       </div>
@@ -653,7 +653,7 @@ function SlideFrame({
         </div>
         <div className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg" style={{ background: C.teal }}>
-            <span className="text-xs font-bold text-white">S</span>
+            <span className="text-xs font-bold text-white">V</span>
           </div>
         </div>
       </div>
@@ -704,7 +704,7 @@ export default function StrategicDeck() {
       >
         <div className="flex items-center gap-3">
           <div className="flex h-7 w-7 items-center justify-center rounded-md" style={{ background: C.teal }}>
-            <span className="text-xs font-bold text-white">S</span>
+            <span className="text-xs font-bold text-white">V</span>
           </div>
           <span
             className="text-sm font-semibold"
