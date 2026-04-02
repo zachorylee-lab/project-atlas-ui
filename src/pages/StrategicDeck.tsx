@@ -137,13 +137,13 @@ const slides: Slide[] = [
                 className="flex h-12 w-12 items-center justify-center rounded-xl"
                 style={{ background: C.teal }}
               >
-                <span className="text-lg font-bold text-white">S</span>
+                <span className="text-lg font-bold text-white">V</span>
               </div>
               <span
                 className="text-lg font-semibold tracking-wide"
                 style={{ color: C.tealMuted }}
               >
-                SONA
+                VELOCITY
               </span>
             </div>
 
