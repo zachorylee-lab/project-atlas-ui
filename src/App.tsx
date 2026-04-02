@@ -12,6 +12,7 @@ import SalesHandoff from "./pages/SalesHandoff";
 import DataWorkflows from "./pages/DataWorkflows";
 import Integrations from "./pages/Integrations";
 import NotFound from "./pages/NotFound";
+import StrategicDeck from "./pages/StrategicDeck";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/workflows" element={<DataWorkflows />} />
           <Route path="/handoff" element={<SalesHandoff />} />
           <Route path="/integrations" element={<Integrations />} />
+          <Route path="/deck" element={<StrategicDeck />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
