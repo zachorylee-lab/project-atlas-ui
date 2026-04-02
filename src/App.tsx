@@ -12,6 +12,7 @@ import SalesHandoff from "./pages/SalesHandoff";
 import DataWorkflows from "./pages/DataWorkflows";
 import Integrations from "./pages/Integrations";
 import NotFound from "./pages/NotFound";
+import StrategicDeck from "./pages/StrategicDeck";
 
 const queryClient = new QueryClient();
 
