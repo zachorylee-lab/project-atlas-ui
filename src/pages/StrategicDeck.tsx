@@ -164,7 +164,7 @@ const slides: Slide[] = [
           className="flex items-center justify-between px-12 py-5 text-xs"
           style={{ color: "hsl(215 14% 40%)", borderTop: `1px solid hsl(220 20% 18%)` }}
         >
-          <span>Prepared for Rob Whiting · Boom</span>
+          <span>Prepared for James Chen · NovaCorp</span>
           <span>Confidential · {new Date().toLocaleDateString("en-GB", { month: "long", year: "numeric" })}</span>
         </div>
       </div>
