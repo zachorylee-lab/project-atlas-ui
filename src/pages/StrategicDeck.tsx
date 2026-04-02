@@ -653,7 +653,7 @@ function SlideFrame({
         </div>
         <div className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg" style={{ background: C.teal }}>
-            <span className="text-xs font-bold text-white">S</span>
+            <span className="text-xs font-bold text-white">V</span>
           </div>
         </div>
       </div>
