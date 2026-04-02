@@ -197,7 +197,7 @@ const slides: Slide[] = [
           style={{ background: `hsl(220 25% 10% / 0.04)` }}
         >
           <p className="text-sm leading-relaxed" style={{ color: C.slate }}>
-            Sona's Implementation OS transforms the traditional services engagement into a
+            Velocity's Implementation OS transforms the traditional services engagement into a
             scalable, repeatable operating system. By codifying best practices,
             automating handoffs, and providing real-time visibility, we compress
             time-to-value while preserving the white-glove experience customers
