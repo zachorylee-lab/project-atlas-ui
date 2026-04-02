@@ -234,7 +234,7 @@ const slides: Slide[] = [
           </div>
           <div className="flex flex-col gap-4">
             <h3 className="text-sm font-bold uppercase tracking-wider" style={{ color: C.navy }}>
-              Sona's Differentiation
+              Our Differentiation
             </h3>
             {[
               { icon: Zap, text: "Automated phase transitions with built-in quality gates" },
