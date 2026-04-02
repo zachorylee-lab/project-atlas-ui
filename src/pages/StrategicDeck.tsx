@@ -704,7 +704,7 @@ export default function StrategicDeck() {
       >
         <div className="flex items-center gap-3">
           <div className="flex h-7 w-7 items-center justify-center rounded-md" style={{ background: C.teal }}>
-            <span className="text-xs font-bold text-white">S</span>
+            <span className="text-xs font-bold text-white">V</span>
           </div>
           <span
             className="text-sm font-semibold"
