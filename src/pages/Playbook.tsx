@@ -21,34 +21,34 @@ const phaseIcons: Record<string, React.ElementType> = {
 
 const phaseDetails: Record<string, { tasks: string[]; deliverables: string[]; stakeholders: string[] }> = {
   handoff: {
-    tasks: ["Review sales notes & SOW", "Validate customer requirements", "Assign implementation manager", "Schedule internal alignment call", "Create project in system"],
-    deliverables: ["Handoff document", "Requirements matrix", "Project charter draft"],
-    stakeholders: ["Sales AE", "Solutions Engineer", "Implementation Manager", "CS Lead"],
+    tasks: ["Review sales notes & property portfolio details", "Validate property manager requirements", "Assign onboarding specialist", "Schedule internal alignment call", "Create account in RentFlow"],
+    deliverables: ["Handoff document", "Property portfolio summary", "Account setup checklist"],
+    stakeholders: ["Sales AE", "Solutions Engineer", "Onboarding Specialist", "CS Lead"],
   },
   kickoff: {
-    tasks: ["Conduct internal kickoff", "Host customer kickoff call", "Confirm timeline & milestones", "Set up communication channels", "Define success metrics"],
-    deliverables: ["Project plan", "RACI matrix", "Communication plan", "Success criteria doc"],
-    stakeholders: ["Implementation Manager", "Customer PM", "Executive Sponsor", "Technical Lead"],
+    tasks: ["Conduct internal kickoff", "Host property manager kickoff call", "Confirm timeline & milestones", "Set up communication channels", "Define success metrics (rent collection rate, time-to-first-payment)"],
+    deliverables: ["Onboarding plan", "RACI matrix", "Communication plan", "Success criteria doc"],
+    stakeholders: ["Onboarding Specialist", "Property Manager", "Finance Lead", "Technical Lead"],
   },
   build: {
-    tasks: ["Configure platform", "Set up integrations", "Execute data migration", "Build custom workflows", "Create training materials"],
-    deliverables: ["Configuration document", "Integration specs", "Migration report", "Training deck"],
-    stakeholders: ["Technical Lead", "Solutions Architect", "Customer IT", "Data Engineer"],
+    tasks: ["Configure rent collection workflows", "Set up payment gateway integration", "Import property & tenant data", "Build custom lease templates", "Create tenant portal branding"],
+    deliverables: ["Configuration document", "Payment integration specs", "Data migration report", "Tenant portal mockups"],
+    stakeholders: ["Technical Lead", "Solutions Architect", "Property Manager IT", "Data Engineer"],
   },
   testing: {
-    tasks: ["Create test plans", "Execute UAT", "Performance testing", "Security review", "Obtain sign-off"],
-    deliverables: ["Test plan", "UAT results", "Bug tracker", "Sign-off document"],
-    stakeholders: ["QA Lead", "Customer UAT Team", "Security Team", "Implementation Manager"],
+    tasks: ["Create test payment scenarios", "Execute UAT with sample tenants", "Test ACH/card payment flows", "Security & compliance review", "Obtain sign-off"],
+    deliverables: ["Test plan", "UAT results", "Payment reconciliation report", "Sign-off document"],
+    stakeholders: ["QA Lead", "Property Manager Team", "Compliance Team", "Onboarding Specialist"],
   },
   golive: {
-    tasks: ["Final data sync", "Cutover execution", "Monitor system health", "Enable end users", "Activate support escalation path"],
-    deliverables: ["Go-live checklist", "Cutover runbook", "Monitoring dashboard", "Support guide"],
-    stakeholders: ["Implementation Manager", "DevOps", "Customer IT", "Support Team"],
+    tasks: ["Final tenant data sync", "Activate payment processing", "Enable tenant portal access", "Send tenant welcome communications", "Activate support escalation path"],
+    deliverables: ["Go-live checklist", "Tenant communication templates", "Monitoring dashboard", "Support guide"],
+    stakeholders: ["Onboarding Specialist", "DevOps", "Property Manager", "Support Team"],
   },
   hypercare: {
-    tasks: ["Daily health checks", "Rapid issue resolution", "Gather feedback", "Optimize configurations", "Transition to BAU support"],
-    deliverables: ["Issue log", "Optimization report", "BAU transition plan", "Customer health score"],
-    stakeholders: ["CS Manager", "Support Lead", "Customer Success", "Product Team"],
+    tasks: ["Daily payment monitoring", "Rapid issue resolution", "Gather property manager feedback", "Optimize rent collection timing", "Transition to BAU support"],
+    deliverables: ["Issue log", "Collection optimization report", "BAU transition plan", "Account health score"],
+    stakeholders: ["CS Manager", "Support Lead", "Property Manager", "Product Team"],
   },
 };
 
@@ -57,13 +57,12 @@ export default function Playbook() {
     <DashboardLayout>
       <div className="space-y-8 max-w-4xl">
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-2xl font-semibold">Implementation Playbook</h1>
+          <h1 className="text-2xl font-semibold">Onboarding Playbook</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            A standardized 6-phase framework for repeatable, scalable implementations.
+            A standardized 6-phase framework for repeatable, scalable property manager onboardings.
           </p>
         </motion.div>
 
-        {/* Phase Timeline Visual */}
         <div className="flex items-center gap-0 overflow-x-auto pb-2">
           {PHASES.map((phase, i) => {
             const Icon = phaseIcons[phase.icon];
@@ -83,7 +82,6 @@ export default function Playbook() {
           })}
         </div>
 
-        {/* Phase Details */}
         <Accordion type="multiple" defaultValue={["handoff"]} className="space-y-3">
           {PHASES.map((phase, i) => {
             const Icon = phaseIcons[phase.icon];

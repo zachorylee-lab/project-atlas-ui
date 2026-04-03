@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Building2, User, Calendar, ListChecks, MessageSquare,
-  CheckCircle2, Clock, AlertTriangle,
+  CheckCircle2, Clock,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -33,51 +33,51 @@ type PhaseTask = { label: string; done: boolean };
 const phaseTasks: Record<number, PhaseTask[]> = {
   0: [
     { label: "Receive signed SOW from sales", done: false },
-    { label: "Review deal notes and customer expectations", done: false },
-    { label: "Validate technical requirements", done: false },
-    { label: "Assign implementation lead", done: false },
+    { label: "Review property portfolio details and unit count", done: false },
+    { label: "Validate payment processing requirements", done: false },
+    { label: "Assign onboarding specialist", done: false },
     { label: "Schedule internal alignment meeting", done: false },
   ],
   1: [
-    { label: "Send kickoff agenda to customer", done: false },
+    { label: "Send kickoff agenda to property manager", done: false },
     { label: "Conduct kickoff meeting", done: false },
-    { label: "Confirm project timeline and milestones", done: false },
+    { label: "Confirm onboarding timeline and milestones", done: false },
     { label: "Introduce team members and roles", done: false },
-    { label: "Define success criteria and KPIs", done: false },
-    { label: "Distribute project charter for sign-off", done: false },
+    { label: "Define success criteria (collection rate, adoption targets)", done: false },
+    { label: "Distribute onboarding charter for sign-off", done: false },
   ],
   2: [
-    { label: "Set up customer environment", done: false },
-    { label: "Configure core platform settings", done: false },
-    { label: "Build integrations per requirements", done: false },
-    { label: "Execute data migration (trial run)", done: false },
-    { label: "Develop custom workflows", done: false },
-    { label: "Internal QA review", done: false },
+    { label: "Configure payment gateway and bank accounts", done: false },
+    { label: "Set up property portfolio in RentFlow", done: false },
+    { label: "Import tenant and lease data", done: false },
+    { label: "Build rent collection schedules and late fee rules", done: false },
+    { label: "Configure tenant portal branding", done: false },
+    { label: "Internal QA review of payment flows", done: false },
     { label: "Document configuration decisions", done: false },
   ],
   3: [
-    { label: "Prepare UAT test plan", done: false },
-    { label: "Set up test environment with production data", done: false },
-    { label: "Conduct functional testing", done: false },
-    { label: "Conduct integration testing", done: false },
-    { label: "Log and triage defects", done: false },
-    { label: "Retest resolved defects", done: false },
-    { label: "Obtain UAT sign-off from customer", done: false },
+    { label: "Prepare payment flow test plan", done: false },
+    { label: "Set up test environment with sample tenants", done: false },
+    { label: "Conduct ACH and card payment testing", done: false },
+    { label: "Test autopay enrollment and cancellation", done: false },
+    { label: "Log and triage payment discrepancies", done: false },
+    { label: "Retest resolved issues", done: false },
+    { label: "Obtain UAT sign-off from property manager", done: false },
   ],
   4: [
-    { label: "Finalize deployment runbook", done: false },
-    { label: "Execute production data migration", done: false },
-    { label: "Deploy to production", done: false },
-    { label: "Run post-deployment smoke tests", done: false },
-    { label: "Enable monitoring and alerting", done: false },
-    { label: "Send go-live notification to stakeholders", done: false },
+    { label: "Finalize payment activation runbook", done: false },
+    { label: "Execute final tenant data sync", done: false },
+    { label: "Activate live payment processing", done: false },
+    { label: "Run post-activation smoke tests", done: false },
+    { label: "Send tenant welcome communications", done: false },
+    { label: "Notify property manager of go-live confirmation", done: false },
   ],
   5: [
-    { label: "Set up daily stand-up cadence", done: false },
-    { label: "Monitor system health and performance", done: false },
-    { label: "Triage and resolve post-launch issues", done: false },
-    { label: "Conduct mid-hypercare review with customer", done: false },
-    { label: "Gather customer feedback and satisfaction", done: false },
+    { label: "Set up daily payment monitoring cadence", done: false },
+    { label: "Monitor collection rates and failure patterns", done: false },
+    { label: "Triage and resolve post-launch payment issues", done: false },
+    { label: "Conduct mid-hypercare review with property manager", done: false },
+    { label: "Gather property manager satisfaction feedback", done: false },
     { label: "Prepare BAU transition documentation", done: false },
     { label: "Hand off to support/CSM team", done: false },
   ],
@@ -87,14 +87,14 @@ type Note = { text: string; timestamp: string; author: string };
 
 const seedNotes: Record<string, Note[]> = {
   "1": [
-    { text: "Customer requested additional SSO integration scope. Reviewing LOE.", timestamp: "Mar 25, 2026", author: "Sarah K." },
-    { text: "Testing environment provisioned. Ready for UAT next week.", timestamp: "Mar 20, 2026", author: "DevOps" },
+    { text: "PM requested separate bank accounts for each property entity. Reviewing with payments team.", timestamp: "Mar 25, 2026", author: "Sarah K." },
+    { text: "Test environment provisioned with 50 sample tenants. Ready for UAT next week.", timestamp: "Mar 20, 2026", author: "DevOps" },
   ],
   "2": [
-    { text: "API rate limits may cause issues during peak — flagged to engineering.", timestamp: "Mar 28, 2026", author: "Mike R." },
+    { text: "ACH processing delay with tenant's bank — may need to switch to same-day ACH.", timestamp: "Mar 28, 2026", author: "Mike R." },
   ],
   "5": [
-    { text: "Customer stakeholder out sick — kickoff tasks paused for 1 week.", timestamp: "Mar 18, 2026", author: "Ana P." },
+    { text: "Property manager's accounting lead out on leave — financial reconciliation paused for 1 week.", timestamp: "Mar 18, 2026", author: "Ana P." },
   ],
 };
 
@@ -134,7 +134,6 @@ export function ProjectDetailDialog({ project, open, onOpenChange }: ProjectDeta
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl max-h-[88vh] overflow-y-auto p-0">
-        {/* Header */}
         <div className="px-6 pt-6 pb-4">
           <DialogHeader>
             <div className="flex items-center justify-between">
@@ -150,7 +149,6 @@ export function ProjectDetailDialog({ project, open, onOpenChange }: ProjectDeta
             </div>
           </DialogHeader>
 
-          {/* Progress summary */}
           <div className="grid grid-cols-3 gap-4 mt-5">
             <div className="rounded-lg border p-3 text-center">
               <p className="text-[11px] text-muted-foreground mb-1">Progress</p>
@@ -172,7 +170,6 @@ export function ProjectDetailDialog({ project, open, onOpenChange }: ProjectDeta
           </div>
         </div>
 
-        {/* Phase Timeline */}
         <div className="px-6 pb-4">
           <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">Phase Timeline</h3>
           <div className="flex items-center gap-0">
@@ -182,28 +179,20 @@ export function ProjectDetailDialog({ project, open, onOpenChange }: ProjectDeta
               return (
                 <div key={phase.id} className="flex items-center flex-1">
                   <div className="flex flex-col items-center flex-1">
-                    <div
-                      className={cn(
-                        "h-8 w-8 rounded-full flex items-center justify-center text-xs font-medium border-2 transition-all",
-                        isCompleted && "bg-primary border-primary text-primary-foreground",
-                        isCurrent && "border-primary bg-primary/10 text-primary ring-4 ring-primary/15",
-                        !isCompleted && !isCurrent && "border-muted bg-muted/50 text-muted-foreground"
-                      )}
-                    >
+                    <div className={cn(
+                      "h-8 w-8 rounded-full flex items-center justify-center text-xs font-medium border-2 transition-all",
+                      isCompleted && "bg-primary border-primary text-primary-foreground",
+                      isCurrent && "border-primary bg-primary/10 text-primary ring-4 ring-primary/15",
+                      !isCompleted && !isCurrent && "border-muted bg-muted/50 text-muted-foreground"
+                    )}>
                       {isCompleted ? <CheckCircle2 className="h-4 w-4" /> : i + 1}
                     </div>
-                    <span className={cn(
-                      "text-[10px] mt-1.5 text-center leading-tight",
-                      isCurrent ? "font-semibold text-foreground" : "text-muted-foreground"
-                    )}>
+                    <span className={cn("text-[10px] mt-1.5 text-center leading-tight", isCurrent ? "font-semibold text-foreground" : "text-muted-foreground")}>
                       {phase.label}
                     </span>
                   </div>
                   {i < PHASES.length - 1 && (
-                    <div className={cn(
-                      "h-0.5 w-full -mt-4",
-                      isCompleted ? "bg-primary" : "bg-muted"
-                    )} />
+                    <div className={cn("h-0.5 w-full -mt-4", isCompleted ? "bg-primary" : "bg-muted")} />
                   )}
                 </div>
               );
@@ -213,7 +202,6 @@ export function ProjectDetailDialog({ project, open, onOpenChange }: ProjectDeta
 
         <Separator />
 
-        {/* Tabs: Tasks & Notes */}
         <Tabs defaultValue="tasks" className="px-6 pb-6 pt-4">
           <TabsList className="w-full grid grid-cols-2">
             <TabsTrigger value="tasks" className="flex items-center gap-1.5 text-xs">
@@ -226,9 +214,7 @@ export function ProjectDetailDialog({ project, open, onOpenChange }: ProjectDeta
 
           <TabsContent value="tasks" className="mt-4">
             <div className="flex items-center justify-between mb-3">
-              <p className="text-xs text-muted-foreground">
-                {PHASES[project.phase]?.label} phase tasks
-              </p>
+              <p className="text-xs text-muted-foreground">{PHASES[project.phase]?.label} phase tasks</p>
               {doneCount === tasks.length && tasks.length > 0 && (
                 <Badge className="bg-success/10 text-success border-success/20 text-[10px]">
                   <CheckCircle2 className="h-3 w-3 mr-1" /> All Complete
@@ -236,28 +222,15 @@ export function ProjectDetailDialog({ project, open, onOpenChange }: ProjectDeta
               )}
             </div>
             <div className="h-1.5 w-full bg-muted rounded-full mb-4 overflow-hidden">
-              <motion.div
-                className="h-full bg-primary rounded-full"
-                initial={{ width: 0 }}
-                animate={{ width: `${tasks.length ? (doneCount / tasks.length) * 100 : 0}%` }}
-                transition={{ duration: 0.3 }}
-              />
+              <motion.div className="h-full bg-primary rounded-full" initial={{ width: 0 }} animate={{ width: `${tasks.length ? (doneCount / tasks.length) * 100 : 0}%` }} transition={{ duration: 0.3 }} />
             </div>
             <div className="space-y-0.5">
               {tasks.map((task, idx) => {
                 const checked = checkedStates[idx];
                 return (
-                  <label
-                    key={idx}
-                    className={cn(
-                      "flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-colors hover:bg-muted/50",
-                      checked && "opacity-60"
-                    )}
-                  >
+                  <label key={idx} className={cn("flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-colors hover:bg-muted/50", checked && "opacity-60")}>
                     <Checkbox checked={checked} onCheckedChange={() => toggleTask(idx)} />
-                    <span className={cn("text-sm", checked && "line-through text-muted-foreground")}>
-                      {task.label}
-                    </span>
+                    <span className={cn("text-sm", checked && "line-through text-muted-foreground")}>{task.label}</span>
                   </label>
                 );
               })}
@@ -266,22 +239,8 @@ export function ProjectDetailDialog({ project, open, onOpenChange }: ProjectDeta
 
           <TabsContent value="notes" className="mt-4">
             <div className="space-y-3 mb-4">
-              <Textarea
-                placeholder="Add a note about this project…"
-                value={newNote}
-                onChange={(e) => setNewNote(e.target.value)}
-                className="min-h-[80px] text-sm"
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) addNote();
-                }}
-              />
-              <button
-                onClick={addNote}
-                disabled={!newNote.trim()}
-                className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-xs font-medium disabled:opacity-40 transition-opacity"
-              >
-                Add Note
-              </button>
+              <Textarea placeholder="Add a note about this account…" value={newNote} onChange={(e) => setNewNote(e.target.value)} className="min-h-[80px] text-sm" onKeyDown={(e) => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) addNote(); }} />
+              <button onClick={addNote} disabled={!newNote.trim()} className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-xs font-medium disabled:opacity-40 transition-opacity">Add Note</button>
             </div>
             <Separator className="mb-4" />
             {projectNotes.length > 0 ? (

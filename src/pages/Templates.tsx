@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
-import { FileText, Download, Clock, Star, CheckCircle2, Circle, ListChecks } from "lucide-react";
+import { FileText, Download, Clock, Star, CheckCircle2, ListChecks } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
@@ -22,101 +22,101 @@ type Template = {
 
 const templates: Template[] = [
   {
-    name: "Customer Kickoff Deck",
+    name: "Property Manager Kickoff Deck",
     category: "Kickoff",
     phase: "kickoff",
     downloads: 142,
     rating: 4.8,
     updated: "Mar 12, 2026",
-    description: "Presentation template for the first customer meeting. Covers project scope, team introductions, timeline, and success criteria.",
+    description: "Presentation template for the first property manager meeting. Covers portfolio scope, rent collection goals, tenant portal setup, and timeline.",
     tasks: [
-      { label: "Customize company logo and branding", done: false },
-      { label: "Fill in project scope section", done: false },
+      { label: "Customize with property manager branding", done: false },
+      { label: "Fill in property portfolio details", done: false },
       { label: "Add team member bios and roles", done: false },
-      { label: "Define project timeline milestones", done: false },
-      { label: "List success criteria and KPIs", done: false },
-      { label: "Prepare Q&A talking points", done: false },
+      { label: "Define rent collection timeline milestones", done: false },
+      { label: "List success criteria (collection rate, tenant adoption)", done: false },
+      { label: "Prepare Q&A talking points on payment processing", done: false },
       { label: "Review with internal stakeholders", done: false },
-      { label: "Send to customer 24h before kickoff", done: false },
+      { label: "Send to property manager 24h before kickoff", done: false },
     ],
   },
   {
-    name: "Project Charter Template",
+    name: "Onboarding Charter Template",
     category: "Kickoff",
     phase: "kickoff",
     downloads: 98,
     rating: 4.6,
     updated: "Feb 28, 2026",
-    description: "Formal project charter defining objectives, scope boundaries, resource allocation, governance structure, and escalation paths.",
+    description: "Formal onboarding charter defining objectives, portfolio scope, payment processing setup, and escalation paths.",
     tasks: [
-      { label: "Define project objectives and goals", done: false },
-      { label: "Document scope and exclusions", done: false },
-      { label: "Identify key stakeholders", done: false },
-      { label: "Outline governance structure", done: false },
+      { label: "Define onboarding objectives and goals", done: false },
+      { label: "Document portfolio scope and unit count", done: false },
+      { label: "Identify key stakeholders at property management company", done: false },
+      { label: "Outline payment gateway configuration", done: false },
       { label: "Set budget and resource allocation", done: false },
       { label: "Define escalation procedures", done: false },
       { label: "Get executive sponsor sign-off", done: false },
     ],
   },
   {
-    name: "Technical Requirements Doc",
+    name: "Property & Tenant Data Requirements",
     category: "Handoff",
     phase: "handoff",
     downloads: 187,
     rating: 4.9,
     updated: "Mar 18, 2026",
-    description: "Comprehensive technical requirements document capturing integrations, APIs, data schemas, security needs, and infrastructure dependencies.",
+    description: "Comprehensive data requirements document capturing property details, tenant records, lease terms, payment histories, and banking info.",
     tasks: [
-      { label: "Gather integration requirements", done: false },
-      { label: "Document API endpoints and auth methods", done: false },
-      { label: "Map data schemas and field mappings", done: false },
-      { label: "Define security and compliance needs", done: false },
-      { label: "List infrastructure dependencies", done: false },
-      { label: "Identify performance requirements", done: false },
-      { label: "Review with engineering team", done: false },
-      { label: "Get customer technical lead approval", done: false },
+      { label: "Gather property portfolio data (addresses, units, types)", done: false },
+      { label: "Document tenant records and lease agreements", done: false },
+      { label: "Map payment history and outstanding balances", done: false },
+      { label: "Define banking and ACH configuration needs", done: false },
+      { label: "List security deposit and escrow requirements", done: false },
+      { label: "Identify state/local regulatory requirements", done: false },
+      { label: "Review with property manager's accounting team", done: false },
+      { label: "Get data migration approval", done: false },
       { label: "Create environment setup checklist", done: false },
     ],
   },
   {
-    name: "Data Migration Checklist",
+    name: "Tenant Data Migration Checklist",
     category: "Build",
     phase: "build",
     downloads: 76,
     rating: 4.5,
     updated: "Mar 5, 2026",
-    description: "Step-by-step checklist for planning and executing data migrations including validation, rollback plans, and cutover scheduling.",
+    description: "Step-by-step checklist for migrating tenant data, lease terms, payment histories, and security deposit records.",
     tasks: [
-      { label: "Inventory source data systems", done: false },
-      { label: "Define data mapping rules", done: false },
-      { label: "Build extraction scripts", done: false },
-      { label: "Create data validation rules", done: false },
+      { label: "Inventory source property management systems", done: false },
+      { label: "Define data mapping rules (tenants, leases, units)", done: false },
+      { label: "Build extraction scripts for legacy system", done: false },
+      { label: "Create data validation rules for balances", done: false },
       { label: "Run trial migration on staging", done: false },
       { label: "Document rollback procedure", done: false },
       { label: "Schedule production cutover window", done: false },
       { label: "Execute final migration", done: false },
-      { label: "Run post-migration validation", done: false },
+      { label: "Run post-migration balance reconciliation", done: false },
       { label: "Sign off on data integrity", done: false },
     ],
   },
   {
-    name: "UAT Test Plan",
+    name: "Payment Flow UAT Plan",
     category: "Testing",
     phase: "testing",
     downloads: 112,
     rating: 4.7,
     updated: "Feb 20, 2026",
-    description: "User acceptance testing plan with test scenarios, expected outcomes, defect tracking, and sign-off criteria.",
+    description: "User acceptance testing plan for rent payments, ACH transfers, late fee calculations, and tenant portal functionality.",
     tasks: [
-      { label: "Define test scenarios and cases", done: false },
-      { label: "Set up test environment", done: false },
-      { label: "Assign testers and roles", done: false },
-      { label: "Prepare test data", done: false },
-      { label: "Execute functional test cases", done: false },
-      { label: "Execute integration test cases", done: false },
-      { label: "Log and triage defects", done: false },
-      { label: "Retest fixed defects", done: false },
-      { label: "Get UAT sign-off from customer", done: false },
+      { label: "Define test scenarios for rent payment flows", done: false },
+      { label: "Set up test environment with sample properties", done: false },
+      { label: "Assign testers (PM staff and sample tenants)", done: false },
+      { label: "Prepare test data (leases, balances, fees)", done: false },
+      { label: "Execute ACH and card payment test cases", done: false },
+      { label: "Execute late fee and autopay test cases", done: false },
+      { label: "Log and triage payment discrepancies", done: false },
+      { label: "Retest resolved issues", done: false },
+      { label: "Get UAT sign-off from property manager", done: false },
     ],
   },
   {
@@ -126,35 +126,35 @@ const templates: Template[] = [
     downloads: 134,
     rating: 4.9,
     updated: "Mar 15, 2026",
-    description: "Detailed runbook for go-live day operations including deployment steps, monitoring checkpoints, rollback triggers, and communication plan.",
+    description: "Detailed runbook for go-live day including payment activation, tenant notifications, monitoring checkpoints, and rollback triggers.",
     tasks: [
-      { label: "Finalize deployment sequence", done: false },
-      { label: "Set up monitoring dashboards", done: false },
+      { label: "Finalize payment processing activation sequence", done: false },
+      { label: "Set up payment monitoring dashboards", done: false },
       { label: "Define rollback triggers and procedure", done: false },
-      { label: "Prepare customer communication plan", done: false },
+      { label: "Prepare tenant communication plan (welcome emails)", done: false },
       { label: "Brief on-call support team", done: false },
-      { label: "Execute pre-deployment smoke tests", done: false },
-      { label: "Deploy to production", done: false },
-      { label: "Run post-deployment verification", done: false },
-      { label: "Send go-live confirmation to stakeholders", done: false },
+      { label: "Execute pre-go-live smoke tests on payments", done: false },
+      { label: "Activate live payment processing", done: false },
+      { label: "Run post-activation payment verification", done: false },
+      { label: "Send go-live confirmation to property manager", done: false },
     ],
   },
   {
-    name: "Hypercare Tracker",
+    name: "Post-Launch Support Tracker",
     category: "Hypercare",
     phase: "hypercare",
     downloads: 63,
     rating: 4.4,
     updated: "Jan 30, 2026",
-    description: "Post-launch support tracker for monitoring issues, SLA compliance, customer satisfaction, and transition to steady-state operations.",
+    description: "Post-launch tracker for monitoring payment success rates, tenant adoption, support tickets, and transition to steady-state operations.",
     tasks: [
-      { label: "Set up issue tracking board", done: false },
-      { label: "Define SLA thresholds and alerts", done: false },
-      { label: "Schedule daily stand-ups for week 1", done: false },
-      { label: "Monitor system performance metrics", done: false },
-      { label: "Track and resolve P1/P2 issues", done: false },
-      { label: "Conduct mid-hypercare review", done: false },
-      { label: "Gather customer satisfaction feedback", done: false },
+      { label: "Set up payment success rate monitoring", done: false },
+      { label: "Define SLA thresholds for payment failures", done: false },
+      { label: "Schedule daily check-ins for week 1", done: false },
+      { label: "Monitor tenant portal adoption metrics", done: false },
+      { label: "Track and resolve P1/P2 payment issues", done: false },
+      { label: "Conduct mid-hypercare review with PM", done: false },
+      { label: "Gather property manager satisfaction feedback", done: false },
       { label: "Create BAU transition plan", done: false },
       { label: "Hand off to support team", done: false },
     ],
@@ -166,15 +166,15 @@ const templates: Template[] = [
     downloads: 201,
     rating: 4.8,
     updated: "Mar 20, 2026",
-    description: "Standardized form for capturing deal context, customer expectations, technical landscape, and key contacts during sales-to-implementation handoff.",
+    description: "Standardized form for capturing deal context, portfolio size, current payment methods, and key contacts during sales-to-onboarding handoff.",
     tasks: [
       { label: "Fill in deal summary and contract terms", done: false },
-      { label: "Document customer expectations and goals", done: false },
-      { label: "List key customer contacts and roles", done: false },
-      { label: "Capture current tech stack details", done: false },
-      { label: "Note any special commitments or risks", done: false },
+      { label: "Document property manager expectations and goals", done: false },
+      { label: "List key contacts and roles at PM company", done: false },
+      { label: "Capture current property management software details", done: false },
+      { label: "Note any special payment processing requirements", done: false },
       { label: "Attach relevant sales artifacts", done: false },
-      { label: "Schedule handoff meeting with impl team", done: false },
+      { label: "Schedule handoff meeting with onboarding team", done: false },
     ],
   },
   {
@@ -184,13 +184,13 @@ const templates: Template[] = [
     downloads: 89,
     rating: 4.3,
     updated: "Feb 14, 2026",
-    description: "Responsibility assignment matrix to clarify who is Responsible, Accountable, Consulted, and Informed for every project activity.",
+    description: "Responsibility assignment matrix to clarify who is Responsible, Accountable, Consulted, and Informed for every onboarding activity.",
     tasks: [
-      { label: "List all project activities and deliverables", done: false },
+      { label: "List all onboarding activities and deliverables", done: false },
       { label: "Identify all stakeholders", done: false },
       { label: "Assign R/A/C/I for each activity", done: false },
-      { label: "Review with project sponsor", done: false },
-      { label: "Review with customer team", done: false },
+      { label: "Review with onboarding sponsor", done: false },
+      { label: "Review with property manager team", done: false },
       { label: "Resolve any conflicts or gaps", done: false },
       { label: "Distribute final matrix to all parties", done: false },
     ],
@@ -226,7 +226,7 @@ export default function Templates() {
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-2xl font-semibold">Templates Library</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Standardized templates across all implementation phases. Click any template to view tasks.
+            Standardized templates across all onboarding phases. Click any template to view tasks.
           </p>
         </motion.div>
 
@@ -288,7 +288,6 @@ export default function Templates() {
         </div>
       </div>
 
-      {/* Template Detail Dialog */}
       <Dialog open={!!selectedTemplate} onOpenChange={(open) => !open && setSelectedTemplate(null)}>
         {selectedTemplate && (
           <DialogContent className="max-w-lg max-h-[85vh] overflow-y-auto">
@@ -327,7 +326,6 @@ export default function Templates() {
                 </span>
               </div>
 
-              {/* Progress bar */}
               <div className="h-1.5 w-full bg-muted rounded-full mb-4 overflow-hidden">
                 <motion.div
                   className="h-full bg-primary rounded-full"

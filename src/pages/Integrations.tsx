@@ -3,44 +3,26 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import {
-  Plug, CheckCircle2, AlertTriangle, Info, ArrowRight,
-  Users, Briefcase, GraduationCap, ShoppingCart, BookOpen,
-  MessageSquare, Wallet, Heart, UserCheck, DollarSign,
-  Shield, Clock, FileText, Zap, Globe, Server,
-  ChevronRight, Star, ExternalLink,
+  Plug, CheckCircle2, AlertTriangle, ArrowRight,
+  CreditCard, Users, Building2, Wrench,
+  Shield, FileText, Zap, Globe, Server,
+  ChevronRight, DollarSign, BarChart3, MessageSquare,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
+  Accordion, AccordionContent, AccordionItem, AccordionTrigger,
 } from "@/components/ui/accordion";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
+  Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription,
 } from "@/components/ui/dialog";
 
 const fadeUp = {
   initial: { opacity: 0, y: 16 },
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.4 },
-};
-
-type IntegrationCategory = {
-  id: string;
-  label: string;
-  icon: React.ElementType;
-  color: string;
-  description: string;
-  integrations: Integration[];
 };
 
 type Integration = {
@@ -53,483 +35,349 @@ type Integration = {
   setupSteps: string[];
 };
 
+type IntegrationCategory = {
+  id: string;
+  label: string;
+  icon: React.ElementType;
+  color: string;
+  description: string;
+  integrations: Integration[];
+};
+
 const categories: IntegrationCategory[] = [
   {
-    id: "ats",
-    label: "ATS",
-    icon: UserCheck,
+    id: "payments",
+    label: "Payment Processing",
+    icon: CreditCard,
     color: "text-blue-500",
-    description: "Applicant Tracking Systems — seamless candidate-to-employee data transfer",
+    description: "Payment gateways and ACH providers for rent collection and disbursements",
     integrations: [
       {
-        name: "Workday",
-        description: "Enterprise-grade HCM and ATS platform",
+        name: "Stripe",
+        description: "Full-stack payment platform for cards, ACH, and wire transfers",
         status: "available",
         bestPractices: [
-          "Map candidate fields before go-live to avoid data gaps",
-          "Configure auto-sync frequency based on hiring volume",
-          "Test with a batch of 50 candidates before full migration",
-          "Set up webhook notifications for new hire events",
+          "Configure separate Stripe accounts per property for clean fund segregation",
+          "Enable ACH as the default payment method for lower processing fees",
+          "Set up webhook notifications for failed payments to trigger tenant alerts",
+          "Use Stripe Connect for multi-entity disbursements to property owners",
         ],
         clientNeeds: [
-          "Workday API credentials (ISU account with integration permissions)",
-          "Custom report definitions for candidate export",
-          "Field mapping document signed off by HR lead",
-          "Staging tenant access for testing",
+          "Stripe business account with Connect enabled",
+          "Banking details for each property entity",
+          "Payment fee structure agreement (PM-absorbed vs tenant-paid)",
+          "PCI compliance documentation",
         ],
-        dataFlows: ["New hires → Sona employee records", "Position data → Role mapping", "Org structure → Location hierarchy"],
-        setupSteps: ["Provision API credentials", "Configure field mappings", "Test in staging", "Enable production sync"],
+        dataFlows: ["Rent payments → RentFlow ledger", "Refunds → Tenant credit", "Payouts → Owner disbursements"],
+        setupSteps: ["Create Stripe Connect accounts", "Configure payment methods", "Set up webhooks", "Test payment flows", "Go live"],
       },
       {
-        name: "BambooHR",
-        description: "Cloud-based HR platform for SMBs",
+        name: "Plaid",
+        description: "Bank account verification and ACH payment initiation",
         status: "available",
         bestPractices: [
-          "Use BambooHR's webhook system for real-time sync",
-          "Align custom fields before integration setup",
-          "Schedule initial bulk import during off-peak hours",
+          "Use Plaid Link for instant bank account verification during tenant onboarding",
+          "Enable balance checks before ACH debit to reduce NSF failures",
+          "Configure identity verification for fraud prevention",
         ],
         clientNeeds: [
-          "BambooHR API key (admin access required)",
-          "List of custom fields in use",
-          "Employee data export for validation",
+          "Plaid API credentials (production environment)",
+          "Tenant bank verification workflow approval",
+          "NSF fee policy documentation",
         ],
-        dataFlows: ["Employee records → Sona profiles", "Time-off requests → Absence data", "Department structure → Teams"],
-        setupSteps: ["Generate API key", "Map employee fields", "Run test sync", "Go live"],
+        dataFlows: ["Bank verification → Tenant payment setup", "Balance checks → Payment validation", "ACH initiation → Rent collection"],
+        setupSteps: ["Connect Plaid API", "Configure Link component", "Set up verification flow", "Test ACH transfers", "Enable production"],
       },
       {
-        name: "SAP SuccessFactors",
-        description: "Enterprise HR and talent management",
+        name: "Dwolla",
+        description: "ACH payment platform optimized for rent collection",
         status: "available",
         bestPractices: [
-          "Engage SAP BASIS team early for API provisioning",
-          "Use OData API v2 for maximum compatibility",
-          "Plan for complex org hierarchy mapping",
+          "Use Dwolla's mass payment feature for batch owner disbursements",
+          "Configure same-day ACH for faster fund availability",
+          "Set up automatic retry for failed ACH payments",
         ],
         clientNeeds: [
-          "SAP SuccessFactors API user credentials",
-          "OData endpoint configuration",
-          "Company structure documentation",
-          "IT team availability for firewall/network configuration",
+          "Dwolla business verified account",
+          "Operating agreement for fund holding",
+          "ACH authorization forms for tenants",
         ],
-        dataFlows: ["Employee master data → Sona profiles", "Position management → Roles", "Org units → Location mapping"],
-        setupSteps: ["Configure API access", "Set up middleware connection", "Map org hierarchy", "Validate data", "Enable sync"],
-      },
-      {
-        name: "TalentFunnel",
-        description: "Recruitment and applicant tracking for frontline hiring",
-        status: "available",
-        bestPractices: [
-          "Configure auto-push for accepted candidates only",
-          "Align role taxonomy between systems before go-live",
-        ],
-        clientNeeds: [
-          "TalentFunnel API access",
-          "Role mapping spreadsheet",
-          "Hiring workflow documentation",
-        ],
-        dataFlows: ["Accepted candidates → New employee records", "Role data → Position mapping"],
-        setupSteps: ["Connect API", "Map roles", "Test candidate flow", "Enable auto-sync"],
+        dataFlows: ["Rent invoices → ACH debits", "Fund clearing → Trust account", "Disbursements → Owner bank accounts"],
+        setupSteps: ["Set up Dwolla account", "Configure funding sources", "Map payment routes", "Test transfers", "Go live"],
       },
     ],
   },
   {
-    id: "lms",
-    label: "LMS",
-    icon: GraduationCap,
+    id: "screening",
+    label: "Tenant Screening",
+    icon: Users,
     color: "text-emerald-500",
-    description: "Learning Management Systems — training compliance and completion tracking",
+    description: "Credit checks, background verification, and income validation for applicant screening",
     integrations: [
       {
-        name: "Moodle",
-        description: "Open-source learning management platform",
+        name: "TransUnion SmartMove",
+        description: "Tenant screening with credit, criminal, and eviction reports",
         status: "available",
         bestPractices: [
-          "Map mandatory training courses to Sona compliance flags",
-          "Set up automated alerts for expiring certifications",
-          "Use Moodle web services API for real-time completion sync",
+          "Configure screening packages per property class (A/B/C properties may have different criteria)",
+          "Set up automated adverse action notices for compliance",
+          "Enable applicant-initiated screening to reduce PM liability",
         ],
         clientNeeds: [
-          "Moodle admin access for API token generation",
-          "List of mandatory training courses with IDs",
-          "Certification expiry rules by role",
-          "Web services plugin enabled",
+          "TransUnion SmartMove business account",
+          "Screening criteria documentation per property",
+          "Fair housing compliance policy",
+          "State-specific adverse action notice templates",
         ],
-        dataFlows: ["Course completions → Training compliance", "Certifications → Qualification records", "Enrolments → Training schedule"],
-        setupSteps: ["Enable web services", "Generate API token", "Map courses to compliance", "Test completion sync", "Go live"],
+        dataFlows: ["Applications → Screening requests", "Reports → Approval decisions", "Adverse actions → Compliance records"],
+        setupSteps: ["Register for SmartMove", "Configure screening packages", "Set up criteria rules", "Test application flow", "Go live"],
       },
       {
-        name: "Docebo",
-        description: "AI-powered enterprise learning platform",
+        name: "Experian RentBureau",
+        description: "Rental payment history and credit reporting for tenants",
         status: "available",
         bestPractices: [
-          "Leverage Docebo's SSO integration for seamless user experience",
-          "Sync training completions daily at minimum",
-          "Map learning plans to role-based requirements",
+          "Report positive rent payment data to build tenant credit profiles",
+          "Use rental history data to supplement traditional credit scores",
+          "Configure automated reporting on the 1st of each month",
         ],
         clientNeeds: [
-          "Docebo API credentials (OAuth2 app)",
-          "Learning plan structure documentation",
-          "SSO configuration details if applicable",
+          "Experian RentBureau data furnisher agreement",
+          "Tenant consent forms for credit reporting",
+          "12 months of historical payment data for initial reporting",
         ],
-        dataFlows: ["Learning completions → Compliance tracking", "User enrolments → Training assignments"],
-        setupSteps: ["Create OAuth2 app", "Configure webhook events", "Map learning plans", "Enable sync"],
-      },
-      {
-        name: "Your Hippo",
-        description: "Social care training and compliance platform",
-        status: "available",
-        bestPractices: [
-          "Align training modules with CQC/regulatory requirements",
-          "Configure automatic expiry notifications for mandatory training",
-        ],
-        clientNeeds: [
-          "Your Hippo account with API access",
-          "Mandatory training matrix by role",
-          "Expiry period definitions",
-        ],
-        dataFlows: ["Training completions → Staff compliance", "Certificate data → Qualification records"],
-        setupSteps: ["Connect API", "Map training modules", "Set expiry rules", "Test and go live"],
+        dataFlows: ["Payment history → Credit reporting", "Tenant data → Credit profiles", "Delinquencies → Negative marks"],
+        setupSteps: ["Sign data furnisher agreement", "Configure reporting schedule", "Map tenant data", "Submit initial data file", "Enable ongoing reporting"],
       },
     ],
   },
   {
-    id: "pos",
-    label: "POS",
-    icon: ShoppingCart,
+    id: "accounting",
+    label: "Accounting & Finance",
+    icon: DollarSign,
+    color: "text-violet-500",
+    description: "Accounting platforms for financial reporting, owner statements, and tax preparation",
+    integrations: [
+      {
+        name: "QuickBooks Online",
+        description: "Cloud accounting for property management financials",
+        status: "available",
+        bestPractices: [
+          "Map RentFlow chart of accounts to QBO before go-live",
+          "Sync transactions daily to keep books current",
+          "Use class tracking for per-property P&L reporting",
+        ],
+        clientNeeds: [
+          "QuickBooks Online subscription (Plus or Advanced)",
+          "Chart of accounts mapping document",
+          "Current financial data export for baseline",
+          "Accountant/bookkeeper contact for validation",
+        ],
+        dataFlows: ["Rent income → QBO revenue entries", "Expenses → QBO expense entries", "Owner distributions → QBO journal entries"],
+        setupSteps: ["Connect QBO OAuth", "Map chart of accounts", "Configure sync rules", "Test transaction sync", "Go live"],
+      },
+      {
+        name: "Xero",
+        description: "Cloud accounting platform with property management add-ons",
+        status: "available",
+        bestPractices: [
+          "Use Xero tracking categories for property-level reporting",
+          "Enable bank feed connections for automated reconciliation",
+          "Configure monthly auto-close for financial statements",
+        ],
+        clientNeeds: [
+          "Xero subscription with API access",
+          "Tracking category structure",
+          "Bank feed credentials",
+        ],
+        dataFlows: ["Rent transactions → Xero invoices", "Expenses → Xero bills", "Reconciliation → Bank matching"],
+        setupSteps: ["Connect Xero API", "Map accounts", "Configure tracking", "Test sync", "Go live"],
+      },
+    ],
+  },
+  {
+    id: "pms",
+    label: "Property Management",
+    icon: Building2,
     color: "text-orange-500",
-    description: "Point of Sale — revenue and demand data for intelligent scheduling",
+    description: "Legacy property management systems for data migration and coexistence",
     integrations: [
       {
-        name: "Fourth",
-        description: "Hospitality workforce and inventory management",
+        name: "AppFolio",
+        description: "Cloud-based property management software",
         status: "available",
         bestPractices: [
-          "Pull sales data at 15-min intervals for accurate demand forecasting",
-          "Align POS location IDs with Sona site hierarchy",
-          "Configure revenue-per-labour-hour targets per location",
+          "Export all tenant, lease, and transaction data before migration",
+          "Map AppFolio property structure to RentFlow hierarchy",
+          "Plan a parallel run period for financial reconciliation",
         ],
         clientNeeds: [
-          "Fourth API credentials",
-          "Location/site mapping document",
-          "12 months of historical sales data (CSV or API access)",
-          "Revenue targets per location",
+          "AppFolio data export (CSV format)",
+          "Property and unit structure documentation",
+          "Lease agreement terms and renewal dates",
+          "Open balance report as of migration date",
         ],
-        dataFlows: ["Transaction data → Demand forecasting", "Revenue metrics → Labour cost analysis", "Cover counts → Staffing ratios"],
-        setupSteps: ["Connect API", "Map locations", "Import historical data", "Configure demand models", "Validate forecasts"],
+        dataFlows: ["Properties → RentFlow portfolio", "Tenants → RentFlow profiles", "Leases → RentFlow agreements", "Balances → Opening ledger"],
+        setupSteps: ["Export AppFolio data", "Map data fields", "Run trial migration", "Validate balances", "Cutover"],
       },
       {
-        name: "Square",
-        description: "All-in-one POS and payment platform",
+        name: "Buildium",
+        description: "Property management and accounting platform",
         status: "available",
         bestPractices: [
-          "Use Square's webhook API for real-time transaction events",
-          "Map Square locations to Sona sites 1:1",
+          "Use Buildium's reporting API for historical data extraction",
+          "Align unit numbering conventions before migration",
+          "Validate security deposit balances independently",
         ],
         clientNeeds: [
-          "Square Developer application credentials",
-          "Location list with IDs",
-          "Historical transaction data access",
+          "Buildium admin access for data export",
+          "Property and unit inventory spreadsheet",
+          "Financial reconciliation report",
+          "Vendor and owner contact lists",
         ],
-        dataFlows: ["Sales transactions → Demand data", "Location metrics → Staffing insights"],
-        setupSteps: ["Create Square app", "Authorise locations", "Map sites", "Enable data sync"],
+        dataFlows: ["Units → RentFlow properties", "Tenants → Profiles", "Transactions → Financial history", "Vendors → Directory"],
+        setupSteps: ["Export Buildium data", "Clean and map fields", "Test import", "Reconcile financials", "Go live"],
       },
       {
-        name: "Toast",
-        description: "Restaurant-focused POS and management platform",
-        status: "available",
+        name: "Yardi Voyager",
+        description: "Enterprise property management and accounting",
+        status: "custom",
         bestPractices: [
-          "Sync labour data alongside sales for real-time cost tracking",
-          "Use Toast's reporting API for end-of-day summaries",
+          "Engage Yardi's integration team early for API provisioning",
+          "Plan for complex entity and fund structure mapping",
+          "Run parallel financials for at least 2 months",
         ],
         clientNeeds: [
-          "Toast Partner API access",
-          "Restaurant GUID list",
-          "Menu and revenue category structure",
+          "Yardi API credentials and documentation",
+          "Entity structure and fund mapping",
+          "IT team availability for firewall configuration",
+          "Chart of accounts with fund assignments",
         ],
-        dataFlows: ["Sales data → Demand forecasting", "Labour reports → Cost analysis", "Menu data → Revenue categories"],
-        setupSteps: ["Get Partner API access", "Map restaurants", "Configure data feeds", "Validate"],
-      },
-      {
-        name: "Tenzo",
-        description: "AI-powered restaurant analytics platform",
-        status: "available",
-        bestPractices: [
-          "Leverage Tenzo's demand forecasting alongside Sona scheduling",
-          "Sync daily sales summaries for labour planning",
-        ],
-        clientNeeds: [
-          "Tenzo API credentials",
-          "Location mapping",
-          "Forecast model preferences",
-        ],
-        dataFlows: ["Sales analytics → Demand insights", "Forecast data → Scheduling inputs"],
-        setupSteps: ["Connect Tenzo API", "Align location data", "Configure forecast sync", "Go live"],
-      },
-      {
-        name: "Comtrex (Zonal)",
-        description: "Hospitality POS and EPOS solutions",
-        status: "available",
-        bestPractices: [
-          "Configure SFTP or API data exchange based on client infrastructure",
-          "Schedule data pulls aligned with shift closing times",
-        ],
-        clientNeeds: [
-          "Comtrex/Zonal API or SFTP credentials",
-          "Site and terminal mapping",
-          "Data format specifications",
-        ],
-        dataFlows: ["Transaction data → Demand planning", "Cover counts → Staffing levels"],
-        setupSteps: ["Set up data connection", "Map sites", "Test data ingestion", "Enable production sync"],
+        dataFlows: ["Properties → RentFlow portfolio", "Resident data → Tenant profiles", "GL transactions → Financial ledger"],
+        setupSteps: ["Configure API access", "Map entity structure", "Build data pipeline", "Validate", "Enable sync"],
       },
     ],
   },
   {
-    id: "care-planning",
-    label: "Care Planning",
-    icon: Heart,
+    id: "maintenance",
+    label: "Maintenance & Vendors",
+    icon: Wrench,
     color: "text-rose-500",
-    description: "Care management platforms — resident needs driving staffing requirements",
+    description: "Work order management and vendor coordination platforms",
     integrations: [
       {
-        name: "Nourish",
-        description: "Digital care planning and management",
+        name: "Latchel",
+        description: "24/7 maintenance coordination and emergency triage",
         status: "available",
         bestPractices: [
-          "Sync care needs data to inform staffing ratios",
-          "Map care categories to skill requirements in Sona",
-          "Configure alerts for acuity changes affecting staffing",
+          "Configure emergency triage rules to match PM escalation policy",
+          "Sync work orders bidirectionally for real-time visibility",
+          "Set up cost thresholds for auto-approval vs PM review",
         ],
         clientNeeds: [
-          "Nourish API access",
-          "Care category taxonomy",
-          "Staffing ratio rules by care level",
-          "Location/home mapping",
+          "Latchel account setup",
+          "Emergency escalation policy documentation",
+          "Vendor network and preferred vendor list",
+          "Cost approval thresholds by category",
         ],
-        dataFlows: ["Care needs → Staffing requirements", "Acuity levels → Skill matching", "Resident data → Demand planning"],
-        setupSteps: ["Connect API", "Map care categories", "Configure staffing rules", "Test acuity-driven scheduling", "Go live"],
+        dataFlows: ["Tenant requests → Latchel triage", "Work orders → RentFlow tracking", "Vendor invoices → Expense records"],
+        setupSteps: ["Connect Latchel", "Configure triage rules", "Map vendor network", "Set approval thresholds", "Go live"],
       },
       {
-        name: "PCS",
-        description: "Person Centred Software — digital care management",
+        name: "Property Meld",
+        description: "Maintenance coordination and scheduling platform",
         status: "available",
         bestPractices: [
-          "Use dependency levels to drive minimum staffing thresholds",
-          "Sync daily to capture care plan updates",
+          "Sync maintenance requests from tenant portal to Property Meld automatically",
+          "Configure vendor scheduling windows to minimize vacancy downtime",
         ],
         clientNeeds: [
-          "PCS API credentials",
-          "Dependency level definitions",
-          "Home/unit structure",
+          "Property Meld API credentials",
+          "Vendor directory with trade specialties",
+          "Scheduling availability preferences",
         ],
-        dataFlows: ["Dependency data → Minimum staffing", "Care activities → Workload planning"],
-        setupSteps: ["Connect PCS API", "Map dependency levels", "Set staffing thresholds", "Validate and go live"],
-      },
-      {
-        name: "CareDocs",
-        description: "Electronic care planning system",
-        status: "available",
-        bestPractices: [
-          "Align care plan updates with shift planning cycles",
-          "Map resident categories to role requirements",
-        ],
-        clientNeeds: [
-          "CareDocs data export access",
-          "Resident categorisation rules",
-          "Care home structure documentation",
-        ],
-        dataFlows: ["Resident needs → Staffing levels", "Care categories → Skill requirements"],
-        setupSteps: ["Set up data connection", "Map categories", "Configure rules", "Test and go live"],
+        dataFlows: ["Maintenance requests → Work orders", "Scheduling → Vendor dispatch", "Completions → RentFlow updates"],
+        setupSteps: ["Connect API", "Import vendor directory", "Configure scheduling", "Test work order flow", "Go live"],
       },
     ],
   },
   {
-    id: "comms",
+    id: "communications",
     label: "Communications",
     icon: MessageSquare,
     color: "text-indigo-500",
-    description: "Messaging and communication platforms for staff engagement",
+    description: "Tenant and owner communication platforms for notices, reminders, and messaging",
     integrations: [
       {
-        name: "Sona Comms (Built-in)",
-        description: "Native in-app messaging and announcements",
+        name: "RentFlow Comms (Built-in)",
+        description: "Native in-app messaging, SMS, and email notifications",
         status: "available",
         bestPractices: [
-          "Enable push notifications for shift changes and announcements",
-          "Use targeted messaging by location and role",
-          "Set up automated shift reminder notifications",
+          "Enable SMS reminders 3 days before rent due date",
+          "Use targeted messaging by property and lease status",
+          "Set up automated lease renewal reminders 90 days before expiry",
         ],
         clientNeeds: [
-          "Staff mobile app rollout plan",
-          "Communication policy/guidelines",
-          "Notification preference defaults by role",
+          "Tenant contact info (email and phone)",
+          "Communication policy and frequency preferences",
+          "Notice templates (late rent, lease renewal, move-out)",
         ],
-        dataFlows: ["Shift changes → Push notifications", "Announcements → Targeted messages", "Schedule updates → Staff alerts"],
-        setupSteps: ["Configure notification settings", "Set up message templates", "Define audience groups", "Enable push notifications"],
+        dataFlows: ["Rent due → Payment reminders", "Lease events → Automated notices", "Maintenance updates → Tenant alerts"],
+        setupSteps: ["Configure notification settings", "Set up message templates", "Define audience segments", "Enable SMS/email"],
       },
     ],
   },
   {
-    id: "ewa",
-    label: "Earned Wage Access",
-    icon: Wallet,
+    id: "insurance",
+    label: "Renters Insurance",
+    icon: Shield,
     color: "text-teal-500",
-    description: "Earned Wage Access providers — financial wellbeing for staff",
+    description: "Renters insurance verification and enrollment platforms",
     integrations: [
       {
-        name: "Stream",
-        description: "Earned wage access and financial wellbeing",
+        name: "Sure",
+        description: "Embedded renters insurance enrollment at lease signing",
         status: "available",
         bestPractices: [
-          "Sync worked hours in real-time for accurate earned wage calculations",
-          "Ensure payroll integration is configured first",
-          "Communicate EWA benefit during onboarding",
+          "Embed insurance enrollment in the lease signing flow for maximum adoption",
+          "Configure automatic compliance tracking for insurance requirements",
+          "Set up expiry alerts to maintain continuous coverage",
         ],
         clientNeeds: [
-          "Stream partnership agreement",
-          "Payroll schedule and pay period definitions",
-          "Worked hours data feed configuration",
-          "Staff communication plan for EWA rollout",
+          "Sure partnership agreement",
+          "Insurance requirement policy per property",
+          "Minimum coverage amounts by unit type",
+          "Tenant communication plan for insurance enrollment",
         ],
-        dataFlows: ["Worked hours → Earned wage calculations", "Pay periods → Withdrawal limits", "Employee data → EWA eligibility"],
-        setupSteps: ["Set up Stream partnership", "Configure hours data feed", "Align pay periods", "Test withdrawals", "Staff rollout"],
+        dataFlows: ["Lease signing → Insurance enrollment", "Policy data → Compliance tracking", "Expiry alerts → Tenant notifications"],
+        setupSteps: ["Set up Sure partnership", "Configure coverage requirements", "Embed in lease flow", "Test enrollment", "Go live"],
       },
     ],
   },
   {
-    id: "tipping",
-    label: "Tipping",
-    icon: Star,
-    color: "text-yellow-500",
-    description: "Tip management and distribution platforms",
-    integrations: [
-      {
-        name: "TipJar",
-        description: "Digital tipping and tip distribution",
-        status: "available",
-        bestPractices: [
-          "Map tip pools to Sona team/location structure",
-          "Sync worked hours for proportional tip distribution",
-          "Configure tip reporting for payroll integration",
-        ],
-        clientNeeds: [
-          "TipJar account setup",
-          "Tip distribution policy documentation",
-          "Team/pool structure aligned with Sona locations",
-        ],
-        dataFlows: ["Worked hours → Tip allocation", "Team structure → Tip pools", "Tip data → Payroll reporting"],
-        setupSteps: ["Connect TipJar", "Map team structures", "Configure distribution rules", "Test tip flows", "Go live"],
-      },
-    ],
-  },
-  {
-    id: "neutral-vendor",
-    label: "Neutral Vendor",
-    icon: Briefcase,
-    color: "text-slate-500",
-    description: "Agency and temporary staffing management",
-    integrations: [
-      {
-        name: "Neuven",
-        description: "Neutral vendor management for agency staff",
-        status: "available",
-        bestPractices: [
-          "Sync open shifts to agency platform only after internal fill attempts",
-          "Map agency worker profiles to Sona role requirements",
-          "Track agency spend alongside permanent staff costs",
-        ],
-        clientNeeds: [
-          "Neuven account and API access",
-          "Agency usage policy (fill order, approval rules)",
-          "Role and qualification requirements for agency workers",
-          "Budget thresholds for agency spend alerts",
-        ],
-        dataFlows: ["Unfilled shifts → Agency requests", "Agency bookings → Schedule", "Agency costs → Labour spend reporting"],
-        setupSteps: ["Connect Neuven API", "Configure fill order rules", "Map roles and qualifications", "Set budget alerts", "Go live"],
-      },
-    ],
-  },
-  {
-    id: "payroll",
-    label: "Payroll",
-    icon: DollarSign,
-    color: "text-green-500",
-    description: "Payroll systems — accurate, automated pay data transfer",
-    integrations: [
-      {
-        name: "Custom Payroll API",
-        description: "Bespoke integration with any payroll provider",
-        status: "custom",
-        bestPractices: [
-          "Validate pay rules in Sona match payroll system exactly",
-          "Run parallel payroll for at least 2 pay periods before cutover",
-          "Automate timesheet approval workflows to reduce pay delays",
-          "Configure exception reporting for payroll discrepancies",
-        ],
-        clientNeeds: [
-          "Payroll system API documentation or SFTP details",
-          "Complete pay rules document (overtime, premiums, allowances)",
-          "Pay period schedule and cutoff dates",
-          "Timesheet approval workflow documentation",
-          "Payroll team point of contact for UAT",
-        ],
-        dataFlows: ["Approved timesheets → Payroll input file", "Pay rules → Automated calculations", "Absence data → Pay adjustments", "Overtime → Premium calculations"],
-        setupSteps: ["Document pay rules", "Configure Sona pay calculations", "Build export file format", "Run parallel payroll", "Validate and go live"],
-      },
-    ],
-  },
-  {
-    id: "hr",
-    label: "HR Systems",
-    icon: Users,
-    color: "text-violet-500",
-    description: "Core HR platforms — employee lifecycle management",
-    integrations: [
-      {
-        name: "Custom HR Integration",
-        description: "Connect to existing HRIS for employee data sync",
-        status: "custom",
-        bestPractices: [
-          "Establish Sona as the source of truth for scheduling data",
-          "Sync employee lifecycle events (joiners, leavers, transfers)",
-          "Align absence types between HR system and Sona",
-        ],
-        clientNeeds: [
-          "HR system API access or data export capabilities",
-          "Employee data fields list and mapping requirements",
-          "Absence type taxonomy",
-          "Joiner/leaver process documentation",
-          "Data governance requirements",
-        ],
-        dataFlows: ["Employee records → Sona profiles", "Joiners/Leavers → Auto-activation/deactivation", "Absence requests → Schedule adjustments", "Contract changes → Availability updates"],
-        setupSteps: ["Audit HR data quality", "Define field mappings", "Configure sync direction", "Test lifecycle events", "Enable production sync"],
-      },
-    ],
-  },
-  {
-    id: "bookings",
-    label: "Bookings",
-    icon: BookOpen,
+    id: "analytics",
+    label: "Analytics & Reporting",
+    icon: BarChart3,
     color: "text-cyan-500",
-    description: "Reservation and booking platforms — demand-driven scheduling",
+    description: "Business intelligence and reporting tools for portfolio performance",
     integrations: [
       {
-        name: "Custom Bookings Integration",
-        description: "Connect reservation systems for demand-based staffing",
+        name: "Custom BI Integration",
+        description: "Connect to any BI platform for advanced portfolio analytics",
         status: "custom",
         bestPractices: [
-          "Sync booking data at least every 30 minutes for accurate demand",
-          "Map booking types to staffing requirement models",
-          "Configure overbooking thresholds for buffer staffing",
+          "Export rent roll, vacancy, and delinquency data on a nightly schedule",
+          "Map property hierarchies for drill-down reporting",
+          "Configure real-time dashboards for portfolio-level KPIs",
         ],
         clientNeeds: [
-          "Booking system API or data feed access",
-          "Booking type definitions and staffing impact rules",
-          "Historical booking data (6+ months)",
-          "Peak period definitions",
+          "BI platform details (Tableau, Power BI, Looker, etc.)",
+          "KPI definitions and reporting requirements",
+          "Data warehouse connection details",
+          "Reporting frequency and distribution list",
         ],
-        dataFlows: ["Reservations → Demand forecasting", "Booking volumes → Staffing requirements", "Cancellations → Real-time schedule adjustments"],
-        setupSteps: ["Connect booking data source", "Map booking types", "Configure demand models", "Validate against historical data", "Go live"],
+        dataFlows: ["Financial data → BI warehouse", "Occupancy metrics → Dashboards", "Maintenance KPIs → Performance reports"],
+        setupSteps: ["Connect data warehouse", "Map data models", "Build report templates", "Validate metrics", "Go live"],
       },
     ],
   },
@@ -545,18 +393,16 @@ export default function Integrations() {
   return (
     <DashboardLayout>
       <motion.div {...fadeUp} className="space-y-6">
-        {/* Header */}
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2">
             <Plug className="h-5 w-5 text-primary" />
             <h1 className="text-2xl font-bold text-foreground">Integrations</h1>
           </div>
           <p className="text-sm text-muted-foreground">
-            Connect Sona to the tools your clients already use. Best practices, data requirements, and setup guides for every integration.
+            Connect RentFlow to the tools your property managers already use. Best practices, data requirements, and setup guides for every integration.
           </p>
         </div>
 
-        {/* Summary Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <Card>
             <CardContent className="p-4 flex items-center gap-3">
@@ -593,7 +439,6 @@ export default function Integrations() {
           </Card>
         </div>
 
-        {/* Integration Categories */}
         <Tabs defaultValue="all" className="space-y-4">
           <TabsList className="flex-wrap h-auto gap-1">
             <TabsTrigger value="all" className="text-xs">All Categories</TabsTrigger>
@@ -601,7 +446,6 @@ export default function Integrations() {
             <TabsTrigger value="client-needs" className="text-xs">Client Requirements</TabsTrigger>
           </TabsList>
 
-          {/* All Categories View */}
           <TabsContent value="all" className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {categories.map((category) => {
@@ -652,7 +496,6 @@ export default function Integrations() {
             </div>
           </TabsContent>
 
-          {/* Best Practices View */}
           <TabsContent value="best-practices" className="space-y-4">
             <Accordion type="multiple" defaultValue={[categories[0].id]} className="space-y-3">
               {categories.map((category) => {
@@ -694,7 +537,6 @@ export default function Integrations() {
             </Accordion>
           </TabsContent>
 
-          {/* Client Requirements View */}
           <TabsContent value="client-needs" className="space-y-4">
             <Accordion type="multiple" defaultValue={[categories[0].id]} className="space-y-3">
               {categories.map((category) => {
@@ -737,7 +579,6 @@ export default function Integrations() {
           </TabsContent>
         </Tabs>
 
-        {/* Integration Detail Dialog */}
         <Dialog open={!!selectedIntegration} onOpenChange={() => setSelectedIntegration(null)}>
           <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
             {selectedIntegration && (
@@ -763,7 +604,6 @@ export default function Integrations() {
 
                 <Separator />
 
-                {/* Data Flows */}
                 <div className="space-y-2">
                   <h4 className="text-sm font-semibold flex items-center gap-1.5">
                     <Zap className="h-3.5 w-3.5 text-primary" /> Data Flows
@@ -780,7 +620,6 @@ export default function Integrations() {
 
                 <Separator />
 
-                {/* Setup Steps */}
                 <div className="space-y-2">
                   <h4 className="text-sm font-semibold flex items-center gap-1.5">
                     <Server className="h-3.5 w-3.5 text-primary" /> Setup Steps
@@ -797,10 +636,9 @@ export default function Integrations() {
 
                 <Separator />
 
-                {/* Best Practices */}
                 <div className="space-y-2">
                   <h4 className="text-sm font-semibold flex items-center gap-1.5">
-                    <Shield className="h-3.5 w-3.5 text-emerald-500" /> Best Practices
+                    <Shield className="h-3.5 w-3.5 text-primary" /> Best Practices
                   </h4>
                   <ul className="space-y-1.5">
                     {selectedIntegration.bestPractices.map((bp, i) => (
@@ -814,15 +652,14 @@ export default function Integrations() {
 
                 <Separator />
 
-                {/* Client Requirements */}
                 <div className="space-y-2">
                   <h4 className="text-sm font-semibold flex items-center gap-1.5">
-                    <AlertTriangle className="h-3.5 w-3.5 text-amber-500" /> What We Need From Clients
+                    <FileText className="h-3.5 w-3.5 text-primary" /> What We Need From Clients
                   </h4>
                   <ul className="space-y-1.5">
                     {selectedIntegration.clientNeeds.map((need, i) => (
                       <li key={i} className="flex items-start gap-2 text-xs text-muted-foreground">
-                        <Info className="h-3.5 w-3.5 text-amber-500 mt-0.5 shrink-0" />
+                        <AlertTriangle className="h-3.5 w-3.5 text-amber-500 mt-0.5 shrink-0" />
                         <span>{need}</span>
                       </li>
                     ))}
