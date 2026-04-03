@@ -23,19 +23,19 @@ const monthlyCompletions = [
 ];
 
 const timeToValue = [
-  { month: "Oct", days: 42 },
-  { month: "Nov", days: 39 },
-  { month: "Dec", days: 38 },
-  { month: "Jan", days: 35 },
-  { month: "Feb", days: 34 },
-  { month: "Mar", days: 32 },
+  { month: "Oct", days: 22 },
+  { month: "Nov", days: 19 },
+  { month: "Dec", days: 18 },
+  { month: "Jan", days: 15 },
+  { month: "Feb", days: 14 },
+  { month: "Mar", days: 12 },
 ];
 
 const kpis = [
-  { label: "CSAT Score", value: "4.7/5", target: "4.5/5", progress: 94 },
-  { label: "On-Time Delivery", value: "87%", target: "90%", progress: 87 },
-  { label: "First-Call Resolution", value: "92%", target: "85%", progress: 100 },
-  { label: "Avg. Time to Value", value: "32 days", target: "35 days", progress: 100 },
+  { label: "PM Satisfaction", value: "4.7/5", target: "4.5/5", progress: 94 },
+  { label: "On-Time Go-Live", value: "87%", target: "90%", progress: 87 },
+  { label: "First-Payment Success", value: "96%", target: "95%", progress: 100 },
+  { label: "Avg. Time to First Rent", value: "12 days", target: "14 days", progress: 100 },
 ];
 
 export default function Metrics() {
@@ -45,11 +45,10 @@ export default function Metrics() {
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-2xl font-semibold">Metrics & Reporting</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Key performance indicators across all implementations.
+            Key performance indicators across all property manager onboardings.
           </p>
         </motion.div>
 
-        {/* KPIs */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {kpis.map((kpi, i) => (
             <motion.div key={kpi.label} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
@@ -63,12 +62,11 @@ export default function Metrics() {
           ))}
         </div>
 
-        {/* Charts */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-base font-semibold">Monthly Completions</CardTitle>
+                <CardTitle className="text-base font-semibold">Monthly Onboarding Completions</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="h-64">
@@ -89,7 +87,7 @@ export default function Metrics() {
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-base font-semibold">Time to Value Trend</CardTitle>
+                <CardTitle className="text-base font-semibold">Time to First Rent Collection</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="h-64">
@@ -110,7 +108,7 @@ export default function Metrics() {
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
             <Card className="lg:col-span-2">
               <CardHeader className="pb-2">
-                <CardTitle className="text-base font-semibold">Projects by Phase</CardTitle>
+                <CardTitle className="text-base font-semibold">Accounts by Phase</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="h-64 flex items-center justify-center">

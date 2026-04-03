@@ -6,7 +6,7 @@ import { Progress } from "@/components/ui/progress";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import {
-  TrendingUp, Calendar, Users, DollarSign,
+  CreditCard, Home, Users, DollarSign,
   CheckCircle2, Clock, AlertTriangle, Database,
   Upload, Settings, ChevronRight, ArrowRight,
 } from "lucide-react";
@@ -14,119 +14,118 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-type ModuleId = "forecasting" | "scheduling" | "hr" | "payroll";
+type ModuleId = "rent-collection" | "tenant-screening" | "property-accounting" | "maintenance";
 
 type WorkflowTask = { label: string; done: boolean };
 type MigrationItem = { source: string; target: string; records: string; status: "pending" | "in-progress" | "complete" | "failed" };
 type ConfigStep = { label: string; description: string; done: boolean };
 
 const modulesMeta: Record<ModuleId, { label: string; icon: React.ElementType; color: string; description: string }> = {
-  forecasting: { label: "Forecasting", icon: TrendingUp, color: "text-blue-500", description: "Demand planning, labour optimisation, and real-time insights" },
-  scheduling: { label: "Scheduling", icon: Calendar, color: "text-emerald-500", description: "Auto-scheduling, time & attendance, and compliance" },
-  hr: { label: "HR", icon: Users, color: "text-violet-500", description: "Onboarding, absence management, and documentation" },
-  payroll: { label: "Payroll", icon: DollarSign, color: "text-amber-500", description: "Auto-calculations, error reduction, and audit-ready payroll" },
+  "rent-collection": { label: "Rent Collection", icon: CreditCard, color: "text-blue-500", description: "Payment processing, ACH transfers, autopay, and late fee automation" },
+  "tenant-screening": { label: "Tenant Screening", icon: Users, color: "text-emerald-500", description: "Credit checks, background verification, income validation, and approval workflows" },
+  "property-accounting": { label: "Property Accounting", icon: DollarSign, color: "text-violet-500", description: "Revenue tracking, expense management, owner distributions, and financial reporting" },
+  maintenance: { label: "Maintenance", icon: Home, color: "text-amber-500", description: "Work order management, vendor coordination, and preventive maintenance scheduling" },
 };
 
 const implementationChecklists: Record<ModuleId, WorkflowTask[]> = {
-  forecasting: [
-    { label: "Collect historical demand data (12+ months)", done: false },
-    { label: "Define demand drivers (covers, footfall, orders)", done: false },
-    { label: "Configure location-level demand models", done: false },
-    { label: "Set forecasting granularity (half-hourly/hourly)", done: false },
-    { label: "Map staffing ratios to demand levels", done: false },
-    { label: "Validate forecast accuracy against actuals", done: false },
-    { label: "Enable real-time demand adjustments", done: false },
-    { label: "Train managers on forecast dashboard", done: false },
+  "rent-collection": [
+    { label: "Configure payment gateway (Stripe/ACH)", done: false },
+    { label: "Set up property-level bank accounts", done: false },
+    { label: "Define rent due dates and grace periods", done: false },
+    { label: "Configure late fee rules per lease type", done: false },
+    { label: "Set up autopay enrollment workflows", done: false },
+    { label: "Enable tenant payment portal", done: false },
+    { label: "Configure payment receipt notifications", done: false },
+    { label: "Test end-to-end payment flow", done: false },
   ],
-  scheduling: [
-    { label: "Define shift templates and patterns", done: false },
-    { label: "Configure role types and skill requirements", done: false },
-    { label: "Set up time & attendance rules", done: false },
-    { label: "Import existing employee availability", done: false },
-    { label: "Configure auto-scheduling parameters", done: false },
-    { label: "Set compliance rules (max hours, breaks, etc.)", done: false },
-    { label: "Test shift swap and open shift workflows", done: false },
-    { label: "Enable manager schedule publishing", done: false },
-    { label: "Configure clock-in/out integrations", done: false },
+  "tenant-screening": [
+    { label: "Connect credit bureau APIs (Experian/TransUnion)", done: false },
+    { label: "Configure screening criteria thresholds", done: false },
+    { label: "Set up background check workflow", done: false },
+    { label: "Define income verification rules (3× rent)", done: false },
+    { label: "Configure approval/denial notification templates", done: false },
+    { label: "Set up co-signer and guarantor flows", done: false },
+    { label: "Test screening application pipeline", done: false },
+    { label: "Enable applicant self-service portal", done: false },
   ],
-  hr: [
-    { label: "Map employee data fields to Sona schema", done: false },
-    { label: "Configure onboarding checklists per role", done: false },
-    { label: "Set up right-to-work verification workflow", done: false },
-    { label: "Import existing employee records", done: false },
-    { label: "Configure absence types and policies", done: false },
-    { label: "Set up document storage and templates", done: false },
-    { label: "Enable training assignment workflows", done: false },
-    { label: "Test certification tracking and expiry alerts", done: false },
+  "property-accounting": [
+    { label: "Map chart of accounts to RentFlow schema", done: false },
+    { label: "Configure owner distribution schedules", done: false },
+    { label: "Set up expense categorization rules", done: false },
+    { label: "Import historical financial data", done: false },
+    { label: "Configure monthly financial statement generation", done: false },
+    { label: "Set up 1099 reporting for owners", done: false },
+    { label: "Enable bank reconciliation automation", done: false },
+    { label: "Test month-end close process", done: false },
   ],
-  payroll: [
-    { label: "Map pay rules to Sona payroll engine", done: false },
-    { label: "Configure overtime thresholds per location", done: false },
-    { label: "Set up holiday pay and premium rates", done: false },
-    { label: "Define payroll approval workflow", done: false },
-    { label: "Configure exception flagging rules", done: false },
-    { label: "Test payroll run with sample data", done: false },
-    { label: "Set up export format for payroll provider", done: false },
-    { label: "Validate calculations against parallel run", done: false },
-    { label: "Enable audit trail and reporting", done: false },
+  maintenance: [
+    { label: "Configure work order categories and priorities", done: false },
+    { label: "Set up vendor directory and assignments", done: false },
+    { label: "Define SLA thresholds by priority level", done: false },
+    { label: "Configure tenant maintenance request portal", done: false },
+    { label: "Set up preventive maintenance schedules", done: false },
+    { label: "Enable photo/video attachment for work orders", done: false },
+    { label: "Configure vendor invoice approval workflow", done: false },
+    { label: "Test work order lifecycle end-to-end", done: false },
+    { label: "Set up maintenance cost tracking per unit", done: false },
   ],
 };
 
 const migrationData: Record<ModuleId, MigrationItem[]> = {
-  forecasting: [
-    { source: "POS / EPOS System", target: "Demand History", records: "52 weeks", status: "pending" },
-    { source: "Reservation System", target: "Booking Forecast", records: "12 months", status: "pending" },
-    { source: "Foot Traffic Sensors", target: "Footfall Data", records: "6 months", status: "pending" },
-    { source: "Labour Budget Sheets", target: "Staffing Ratios", records: "All locations", status: "pending" },
+  "rent-collection": [
+    { source: "Legacy PM Software", target: "Lease Records", records: "~2,400 leases", status: "pending" },
+    { source: "Bank Statements", target: "Payment History", records: "12 months", status: "pending" },
+    { source: "Spreadsheets", target: "Tenant Balances", records: "All units", status: "pending" },
+    { source: "Old Payment Portal", target: "Autopay Enrollments", records: "~800 tenants", status: "pending" },
   ],
-  scheduling: [
-    { source: "Legacy Rota System", target: "Shift Templates", records: "~120 templates", status: "pending" },
-    { source: "HR System", target: "Employee Availability", records: "~2,400 employees", status: "pending" },
-    { source: "Timeclock System", target: "Attendance Records", records: "6 months", status: "pending" },
-    { source: "Compliance Documents", target: "Working Time Rules", records: "Per region", status: "pending" },
+  "tenant-screening": [
+    { source: "Application Files", target: "Screening Templates", records: "~15 templates", status: "pending" },
+    { source: "PM Records", target: "Tenant Profiles", records: "~2,400 tenants", status: "pending" },
+    { source: "Credit Reports", target: "Historical Screens", records: "6 months", status: "pending" },
+    { source: "Approval Records", target: "Decision History", records: "~500 decisions", status: "pending" },
   ],
-  hr: [
-    { source: "HRIS / Spreadsheets", target: "Employee Profiles", records: "~2,400 records", status: "pending" },
-    { source: "Document Store", target: "Right-to-Work Docs", records: "~2,400 documents", status: "pending" },
-    { source: "Training Platform", target: "Certifications", records: "~1,800 certs", status: "pending" },
-    { source: "Leave System", target: "Absence History", records: "12 months", status: "pending" },
+  "property-accounting": [
+    { source: "QuickBooks/Xero", target: "Chart of Accounts", records: "~120 accounts", status: "pending" },
+    { source: "Bank Records", target: "Transaction History", records: "12 months", status: "pending" },
+    { source: "Owner Statements", target: "Distribution History", records: "All owners", status: "pending" },
+    { source: "Expense Records", target: "Vendor Payments", records: "12 months", status: "pending" },
   ],
-  payroll: [
-    { source: "Payroll Provider", target: "Pay Rules", records: "~35 rules", status: "pending" },
-    { source: "HR System", target: "Employee Pay Rates", records: "~2,400 rates", status: "pending" },
-    { source: "Finance", target: "Cost Centres", records: "All locations", status: "pending" },
-    { source: "Payroll Reports", target: "Historical Payroll", records: "3 months", status: "pending" },
+  maintenance: [
+    { source: "Work Order System", target: "Open Work Orders", records: "~85 orders", status: "pending" },
+    { source: "Vendor Contacts", target: "Vendor Directory", records: "~40 vendors", status: "pending" },
+    { source: "Maintenance Logs", target: "Service History", records: "24 months", status: "pending" },
+    { source: "Inspection Reports", target: "Property Conditions", records: "All units", status: "pending" },
   ],
 };
 
 const configSteps: Record<ModuleId, ConfigStep[]> = {
-  forecasting: [
-    { label: "Demand Drivers", description: "Select primary demand metric (covers, orders, footfall) per location type", done: false },
-    { label: "Forecast Horizon", description: "Set how far ahead the system generates forecasts (1-4 weeks)", done: false },
-    { label: "Granularity", description: "Choose half-hourly or hourly demand buckets", done: false },
-    { label: "Event Detection", description: "Enable automatic demand spike detection from historical patterns", done: false },
-    { label: "Labour Optimisation", description: "Define staffing ratio rules per demand level and role", done: false },
+  "rent-collection": [
+    { label: "Payment Gateway", description: "Connect Stripe or ACH provider and configure merchant accounts per property", done: false },
+    { label: "Rent Schedules", description: "Set due dates, grace periods, and pro-ration rules per lease type", done: false },
+    { label: "Late Fees", description: "Configure flat or percentage-based late fees with grace period thresholds", done: false },
+    { label: "Autopay Rules", description: "Set up recurring payment options and enrollment/cancellation flows", done: false },
+    { label: "Notifications", description: "Configure rent due reminders, payment confirmations, and late notices", done: false },
   ],
-  scheduling: [
-    { label: "Shift Patterns", description: "Define standard shifts (open, mid, close) and break rules", done: false },
-    { label: "Role Configuration", description: "Set up roles, skills, and minimum coverage per time block", done: false },
-    { label: "Auto-Schedule Rules", description: "Configure fairness, cost, and preference weighting", done: false },
-    { label: "Compliance Engine", description: "Set working time directive rules, max hours, and rest periods", done: false },
-    { label: "Notifications", description: "Configure shift assignment, swap request, and reminder alerts", done: false },
+  "tenant-screening": [
+    { label: "Screening Criteria", description: "Define minimum credit score, income ratio, and background check requirements", done: false },
+    { label: "Application Flow", description: "Configure multi-step application with document upload and fee collection", done: false },
+    { label: "Bureau Connections", description: "Set up API connections to credit bureaus and background check providers", done: false },
+    { label: "Approval Workflow", description: "Define approval, conditional approval, and denial criteria and routing", done: false },
+    { label: "Adverse Action", description: "Configure compliant adverse action notice templates per jurisdiction", done: false },
   ],
-  hr: [
-    { label: "Onboarding Flows", description: "Build role-specific onboarding checklists with document requirements", done: false },
-    { label: "Right-to-Work", description: "Configure verification workflow and document expiry alerts", done: false },
-    { label: "Absence Policies", description: "Set up absence types, accrual rules, and approval chains", done: false },
-    { label: "Training Matrix", description: "Define required certifications per role and auto-assign on hire", done: false },
-    { label: "Document Templates", description: "Upload contract templates and configure e-signature flow", done: false },
+  "property-accounting": [
+    { label: "Chart of Accounts", description: "Map property income, expenses, and trust accounts to standard categories", done: false },
+    { label: "Owner Distributions", description: "Configure distribution schedules, reserve holdbacks, and payment methods", done: false },
+    { label: "Expense Rules", description: "Set up automatic categorization, approval workflows, and budget alerts", done: false },
+    { label: "Financial Reports", description: "Configure P&L, balance sheet, and rent roll report templates", done: false },
+    { label: "Bank Reconciliation", description: "Connect bank feeds and configure automated reconciliation matching rules", done: false },
   ],
-  payroll: [
-    { label: "Pay Rules Engine", description: "Map base rates, overtime, night premiums, and holiday pay rules", done: false },
-    { label: "Exception Handling", description: "Configure auto-flagging for missed clock-outs, overtime, and shift swaps", done: false },
-    { label: "Approval Workflow", description: "Set up manager review → finance approval → export pipeline", done: false },
-    { label: "Export Format", description: "Configure CSV/API export format matching your payroll provider", done: false },
-    { label: "Audit & Reporting", description: "Enable audit trail, variance reports, and cost-per-location dashboards", done: false },
+  maintenance: [
+    { label: "Work Order Types", description: "Define categories (plumbing, electrical, HVAC, etc.) and priority levels", done: false },
+    { label: "Vendor Assignment", description: "Configure automatic vendor routing based on trade, location, and availability", done: false },
+    { label: "SLA Thresholds", description: "Set response and resolution time targets by priority (emergency, urgent, routine)", done: false },
+    { label: "Tenant Portal", description: "Enable self-service maintenance requests with photo uploads and status tracking", done: false },
+    { label: "Preventive Maintenance", description: "Schedule recurring inspections, filter changes, and seasonal maintenance tasks", done: false },
   ],
 };
 
@@ -140,7 +139,7 @@ const statusStyles: Record<string, { label: string; classes: string }> = {
 const fadeUp = { initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.3 } };
 
 export default function DataWorkflows() {
-  const [activeModule, setActiveModule] = useState<ModuleId>("forecasting");
+  const [activeModule, setActiveModule] = useState<ModuleId>("rent-collection");
   const [checklistStates, setChecklistStates] = useState<Record<string, boolean[]>>({});
   const [migrationStates, setMigrationStates] = useState<Record<string, MigrationItem[]>>({});
   const [configStates, setConfigStates] = useState<Record<string, boolean[]>>({});
@@ -188,7 +187,7 @@ export default function DataWorkflows() {
           <div>
             <h1 className="text-2xl font-bold tracking-tight">Data Workflows</h1>
             <p className="text-sm text-muted-foreground mt-1">
-              Configure, migrate, and validate data for each Sona module
+              Configure, migrate, and validate data for each RentFlow module
             </p>
           </div>
           <Badge variant="outline" className="text-xs gap-1.5 px-3 py-1.5">
@@ -197,7 +196,6 @@ export default function DataWorkflows() {
         </div>
       </motion.div>
 
-      {/* Module selector */}
       <motion.div {...fadeUp} transition={{ delay: 0.05 }}>
         <div className="grid grid-cols-4 gap-3 mb-6">
           {(Object.keys(modulesMeta) as ModuleId[]).map((id) => {
@@ -224,7 +222,6 @@ export default function DataWorkflows() {
         </div>
       </motion.div>
 
-      {/* Module progress overview */}
       <motion.div {...fadeUp} transition={{ delay: 0.1 }}>
         <Card className="mb-6">
           <CardContent className="pt-5 pb-4">
@@ -256,7 +253,6 @@ export default function DataWorkflows() {
         </Card>
       </motion.div>
 
-      {/* Three workflow sections */}
       <Tabs defaultValue="checklist" className="space-y-4">
         <TabsList className="grid grid-cols-3 w-full">
           <TabsTrigger value="checklist" className="gap-1.5 text-xs">
@@ -270,7 +266,6 @@ export default function DataWorkflows() {
           </TabsTrigger>
         </TabsList>
 
-        {/* Checklist Tab */}
         <TabsContent value="checklist">
           <motion.div {...fadeUp}>
             <Card>
@@ -315,7 +310,6 @@ export default function DataWorkflows() {
           </motion.div>
         </TabsContent>
 
-        {/* Migration Tab */}
         <TabsContent value="migration">
           <motion.div {...fadeUp}>
             <Card>
@@ -327,7 +321,7 @@ export default function DataWorkflows() {
                   <div className="grid grid-cols-[1fr_auto_1fr_auto_auto] gap-0 text-[11px] font-medium text-muted-foreground bg-muted/50 px-4 py-2.5">
                     <span>Source System</span>
                     <span />
-                    <span>Target in Sona</span>
+                    <span>Target in RentFlow</span>
                     <span className="text-center">Records</span>
                     <span className="text-center">Status</span>
                   </div>
@@ -361,7 +355,6 @@ export default function DataWorkflows() {
           </motion.div>
         </TabsContent>
 
-        {/* Configuration Tab */}
         <TabsContent value="config">
           <motion.div {...fadeUp}>
             <Card>

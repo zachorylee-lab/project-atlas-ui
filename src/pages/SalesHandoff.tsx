@@ -2,53 +2,53 @@ import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { CheckCircle2, Clock, AlertCircle, ArrowRight, User, DollarSign, Building2 } from "lucide-react";
+import { CheckCircle2, Clock, AlertCircle, User, DollarSign, Building2 } from "lucide-react";
 import { motion } from "framer-motion";
 
 const handoffs = [
   {
-    customer: "NovaTech",
+    customer: "Summit Property Group",
     ae: "Chris D.",
     deal: "$185K ARR",
-    segment: "Enterprise",
+    segment: "Enterprise PM",
     readiness: 92,
     status: "ready" as const,
     submitted: "Mar 22, 2026",
     items: { complete: 11, total: 12 },
-    notes: "Custom API integration required. Customer executive sponsor confirmed.",
+    notes: "450-unit portfolio. Requires custom ACH routing for multiple bank accounts per property.",
   },
   {
-    customer: "CloudBase",
+    customer: "HomeBase Rentals",
     ae: "Amy L.",
     deal: "$72K ARR",
-    segment: "Mid-Market",
+    segment: "Mid-Market PM",
     readiness: 67,
     status: "incomplete" as const,
     submitted: "Mar 20, 2026",
     items: { complete: 8, total: 12 },
-    notes: "Missing technical requirements and data migration scope.",
+    notes: "Missing tenant data export from legacy system and banking setup details.",
   },
   {
-    customer: "GreenEnergy Co",
+    customer: "Pacific Coast Realty",
     ae: "Mark T.",
     deal: "$320K ARR",
-    segment: "Enterprise",
+    segment: "Enterprise PM",
     readiness: 100,
     status: "ready" as const,
     submitted: "Mar 18, 2026",
     items: { complete: 12, total: 12 },
-    notes: "Fast-track requested. Multiple integrations needed.",
+    notes: "Fast-track requested. 1,200 units across 8 properties. Multiple payment gateway integrations needed.",
   },
   {
-    customer: "PetCare Plus",
+    customer: "EasyRent LLC",
     ae: "Jen S.",
     deal: "$45K ARR",
-    segment: "SMB",
+    segment: "SMB Landlord",
     readiness: 42,
     status: "blocked" as const,
     submitted: "Mar 15, 2026",
     items: { complete: 5, total: 12 },
-    notes: "SOW not signed. Awaiting legal review from customer side.",
+    notes: "SOW not signed. Awaiting legal review from property owner.",
   },
 ];
 
@@ -60,15 +60,15 @@ const statusStyles = {
 
 const checklist = [
   "SOW / Contract signed",
-  "Technical requirements documented",
-  "Data migration scope defined",
-  "Integration requirements listed",
+  "Property portfolio data collected",
+  "Tenant records exported from legacy system",
+  "Banking & ACH details provided",
   "Executive sponsor identified",
-  "Success criteria defined",
+  "Rent collection goals defined",
   "Timeline expectations aligned",
   "Internal kickoff scheduled",
-  "Customer kickoff scheduled",
-  "Project charter drafted",
+  "Property manager kickoff scheduled",
+  "Onboarding charter drafted",
   "Communication plan set",
   "Risk assessment completed",
 ];
@@ -78,13 +78,12 @@ export default function SalesHandoff() {
     <DashboardLayout>
       <div className="space-y-6 max-w-6xl">
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-2xl font-semibold">Sales → Implementation Handoff</h1>
+          <h1 className="text-2xl font-semibold">Sales → Onboarding Handoff</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Manage the transition from closed deals to active implementations. Ensure completeness before kickoff.
+            Manage the transition from closed deals to active property manager onboardings. Ensure completeness before kickoff.
           </p>
         </motion.div>
 
-        {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
             { label: "Pending Handoffs", value: "4", sub: "2 ready, 1 incomplete, 1 blocked" },
@@ -101,7 +100,6 @@ export default function SalesHandoff() {
           ))}
         </div>
 
-        {/* Handoff Cards */}
         <div className="space-y-4">
           <h2 className="text-base font-semibold">Pending Handoffs</h2>
           {handoffs.map((handoff, i) => {
@@ -146,7 +144,6 @@ export default function SalesHandoff() {
           })}
         </div>
 
-        {/* Checklist Reference */}
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
           <Card>
             <CardHeader className="pb-2">
