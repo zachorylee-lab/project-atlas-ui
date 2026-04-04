@@ -27,14 +27,14 @@ import {
 
 const navItems = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
+  { title: "Metrics", url: "/metrics", icon: BarChart3 },
+  { title: "Active Projects", url: "/projects", icon: Kanban },
   { title: "Playbook", url: "/playbook", icon: BookOpen },
   { title: "Templates", url: "/templates", icon: FolderOpen },
-  { title: "Active Projects", url: "/projects", icon: Kanban },
-  { title: "Metrics", url: "/metrics", icon: BarChart3 },
   { title: "Data Workflows", url: "/workflows", icon: Database },
   { title: "Integrations", url: "/integrations", icon: Plug },
   { title: "Sales Handoff", url: "/handoff", icon: ArrowRightLeft },
-  { title: "Strategic Deck", url: "/deck", icon: Presentation },
+  { title: "Executive Reporting", url: "/deck", icon: Presentation },
 ];
 
 export function AppSidebar() {
