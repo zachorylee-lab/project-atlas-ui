@@ -341,6 +341,180 @@ const slides: Slide[] = [
     ),
   },
   {
+    id: "raci-matrix",
+    render: () => (
+      <SlideFrame tag="Governance" title="RACI Matrix — Onboarding Roles & Responsibilities">
+        <div className="overflow-auto">
+          <table className="w-full text-xs border-collapse">
+            <thead>
+              <tr>
+                <th className="text-left py-2 px-3 font-bold border-b-2" style={{ color: C.navy, borderColor: C.teal }}>Activity</th>
+                {["PM Ops Lead", "RentFlow PM", "IT / Engineering", "Finance Team", "Exec Sponsor"].map((h) => (
+                  <th key={h} className="text-center py-2 px-2 font-bold border-b-2" style={{ color: C.navy, borderColor: C.teal }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                { task: "Data Migration & Validation", roles: ["A", "R", "C", "I", "I"] },
+                { task: "Payment Gateway Configuration", roles: ["C", "R", "A", "C", "I"] },
+                { task: "Tenant Communication & Invitations", roles: ["R", "A", "I", "I", "I"] },
+                { task: "Autopay Enrollment Campaign", roles: ["R", "A", "I", "C", "I"] },
+                { task: "Trust Accounting Setup", roles: ["C", "I", "I", "A", "R"] },
+                { task: "UAT & Go-Live Sign-Off", roles: ["A", "R", "C", "C", "R"] },
+                { task: "Hypercare Monitoring", roles: ["I", "R", "C", "A", "I"] },
+                { task: "Escalation & Risk Decisions", roles: ["C", "C", "I", "I", "A"] },
+              ].map((row) => (
+                <tr key={row.task} className="border-b" style={{ borderColor: C.border }}>
+                  <td className="py-2.5 px-3 font-medium" style={{ color: C.navy }}>{row.task}</td>
+                  {row.roles.map((role, i) => (
+                    <td key={i} className="text-center py-2.5 px-2">
+                      <span
+                        className="inline-flex h-7 w-7 items-center justify-center rounded-full text-[11px] font-bold"
+                        style={{
+                          background: role === "R" ? C.teal : role === "A" ? C.navy : role === "C" ? C.gold : `hsl(215 14% 90%)`,
+                          color: role === "I" ? C.slate : C.white,
+                        }}
+                      >
+                        {role}
+                      </span>
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="flex gap-6 mt-5 justify-center">
+          {[
+            { letter: "R", label: "Responsible", color: C.teal },
+            { letter: "A", label: "Accountable", color: C.navy },
+            { letter: "C", label: "Consulted", color: C.gold },
+            { letter: "I", label: "Informed", color: `hsl(215 14% 90%)` },
+          ].map((l) => (
+            <div key={l.letter} className="flex items-center gap-2 text-xs">
+              <span className="inline-flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold" style={{ background: l.color, color: l.letter === "I" ? C.slate : C.white }}>{l.letter}</span>
+              <span style={{ color: C.slate }}>{l.label}</span>
+            </div>
+          ))}
+        </div>
+      </SlideFrame>
+    ),
+  },
+  {
+    id: "steering-committee",
+    render: () => (
+      <SlideFrame tag="Governance" title="Steering Committee Deck — Executive Review">
+        <div className="grid grid-cols-2 gap-6 mb-6">
+          <div className="rounded-xl border p-5" style={{ borderColor: C.border }}>
+            <h3 className="text-sm font-bold uppercase tracking-wider mb-3" style={{ color: C.navy }}>Meeting Cadence</h3>
+            {[
+              { freq: "Weekly", desc: "Tactical standups — PM Ops + RentFlow PM", icon: Clock },
+              { freq: "Bi-Weekly", desc: "Steering review — Exec Sponsor + Finance", icon: Users },
+              { freq: "Monthly", desc: "Portfolio health report — All stakeholders", icon: BarChart3 },
+            ].map((m) => (
+              <div key={m.freq} className="flex items-start gap-3 mb-3">
+                <IconCircle icon={m.icon} color={C.teal} />
+                <div>
+                  <span className="text-sm font-bold" style={{ color: C.navy }}>{m.freq}</span>
+                  <p className="text-xs" style={{ color: C.slate }}>{m.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="rounded-xl border p-5" style={{ borderColor: C.border }}>
+            <h3 className="text-sm font-bold uppercase tracking-wider mb-3" style={{ color: C.navy }}>Standard Agenda</h3>
+            {[
+              { item: "Project Status & Phase Progress", time: "10 min" },
+              { item: "KPI Review — Collection Rates & Adoption", time: "10 min" },
+              { item: "Risk & Issue Escalations", time: "10 min" },
+              { item: "Upcoming Milestones & Dependencies", time: "5 min" },
+              { item: "Decisions Required & Action Items", time: "10 min" },
+              { item: "Open Discussion", time: "5 min" },
+            ].map((a, i) => (
+              <div key={a.item} className="flex items-center justify-between py-2 border-b" style={{ borderColor: C.border }}>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-bold" style={{ color: C.teal }}>{i + 1}.</span>
+                  <span className="text-xs font-medium" style={{ color: C.navy }}>{a.item}</span>
+                </div>
+                <span className="text-[10px] font-medium rounded-full px-2 py-0.5" style={{ background: `hsl(172 66% 40% / 0.1)`, color: C.teal }}>{a.time}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="rounded-xl p-5" style={{ background: `hsl(220 25% 10% / 0.04)` }}>
+          <h3 className="text-sm font-bold mb-2" style={{ color: C.navy }}>Escalation Path</h3>
+          <div className="flex items-center gap-2">
+            {["PM Ops Lead", "RentFlow PM", "VP Operations", "Exec Sponsor"].map((role, i) => (
+              <div key={role} className="flex items-center gap-2">
+                <span className="rounded-lg px-3 py-1.5 text-xs font-semibold" style={{ background: i === 3 ? C.navy : i === 2 ? C.gold : C.teal, color: C.white }}>{role}</span>
+                {i < 3 && <ChevronRight className="h-4 w-4" style={{ color: C.slate }} />}
+              </div>
+            ))}
+          </div>
+        </div>
+      </SlideFrame>
+    ),
+  },
+  {
+    id: "risk-log",
+    render: () => (
+      <SlideFrame tag="Risk Management" title="Risk Mitigation Log — Active Tracker">
+        <div className="overflow-auto">
+          <table className="w-full text-xs border-collapse">
+            <thead>
+              <tr>
+                {["ID", "Risk Description", "Likelihood", "Impact", "Status", "Mitigation Plan", "Owner"].map((h) => (
+                  <th key={h} className="text-left py-2 px-2 font-bold border-b-2 whitespace-nowrap" style={{ color: C.navy, borderColor: C.teal }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                { id: "R-001", desc: "Low tenant autopay adoption (<50%)", like: "Medium", impact: "High", status: "Open", mitigation: "Phased incentives, waived fees for 90 days, in-app nudges", owner: "PM Ops Lead" },
+                { id: "R-002", desc: "ACH payment failures spike >5%", like: "Low", impact: "High", status: "Mitigated", mitigation: "Pre-check balances via Plaid, smart retry at T+2/T+5", owner: "RentFlow PM" },
+                { id: "R-003", desc: "Data migration errors in ledger balances", like: "Medium", impact: "High", status: "Open", mitigation: "Reconciliation gates at each milestone, parallel run period", owner: "IT Lead" },
+                { id: "R-004", desc: "State compliance gaps (security deposits)", like: "Low", impact: "Critical", status: "Mitigated", mitigation: "Built-in state rules engine, quarterly compliance audit", owner: "Finance" },
+                { id: "R-005", desc: "PM staff resistance to new workflows", like: "High", impact: "Medium", status: "Open", mitigation: "Dedicated training sprints, champion program, 1:1 support", owner: "PM Ops Lead" },
+                { id: "R-006", desc: "Integration downtime with PMS (Yardi/AppFolio)", like: "Low", impact: "Medium", status: "Monitoring", mitigation: "Webhook retry queues, daily sync health checks", owner: "RentFlow PM" },
+              ].map((r) => {
+                const statusColor = r.status === "Mitigated" ? C.teal : r.status === "Open" ? "hsl(0 72% 51%)" : C.gold;
+                const impactColor = r.impact === "Critical" ? "hsl(0 72% 51%)" : r.impact === "High" ? C.gold : C.teal;
+                return (
+                  <tr key={r.id} className="border-b" style={{ borderColor: C.border }}>
+                    <td className="py-2.5 px-2 font-bold" style={{ color: C.teal }}>{r.id}</td>
+                    <td className="py-2.5 px-2 font-medium max-w-[200px]" style={{ color: C.navy }}>{r.desc}</td>
+                    <td className="py-2.5 px-2" style={{ color: C.slate }}>{r.like}</td>
+                    <td className="py-2.5 px-2">
+                      <span className="rounded-full px-2 py-0.5 text-[10px] font-bold uppercase" style={{ background: `${impactColor}15`, color: impactColor }}>{r.impact}</span>
+                    </td>
+                    <td className="py-2.5 px-2">
+                      <span className="rounded-full px-2 py-0.5 text-[10px] font-bold uppercase" style={{ background: `${statusColor}15`, color: statusColor }}>{r.status}</span>
+                    </td>
+                    <td className="py-2.5 px-2 max-w-[220px]" style={{ color: C.slate }}>{r.mitigation}</td>
+                    <td className="py-2.5 px-2 whitespace-nowrap font-medium" style={{ color: C.navy }}>{r.owner}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        <div className="flex gap-4 mt-5 justify-center">
+          {[
+            { label: "Open", color: "hsl(0 72% 51%)", count: 3 },
+            { label: "Mitigated", color: C.teal, count: 2 },
+            { label: "Monitoring", color: C.gold, count: 1 },
+          ].map((s) => (
+            <div key={s.label} className="flex items-center gap-2 text-xs">
+              <div className="h-2.5 w-2.5 rounded-full" style={{ background: s.color }} />
+              <span style={{ color: C.slate }}>{s.label} ({s.count})</span>
+            </div>
+          ))}
+        </div>
+      </SlideFrame>
+    ),
+  },
+  {
     id: "next-steps",
     render: () => (
       <div className="flex h-full flex-col" style={{ background: C.navy }}>
