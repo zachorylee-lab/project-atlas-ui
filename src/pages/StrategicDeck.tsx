@@ -94,7 +94,7 @@ const slides: Slide[] = [
           </motion.div>
         </div>
         <div className="flex items-center justify-between px-12 py-5 text-xs" style={{ color: "hsl(215 14% 40%)", borderTop: `1px solid hsl(220 20% 18%)` }}>
-          <span>Prepared for David Chen · Pinnacle Real Estate Group</span>
+          <span>Prepared for [Client Name] · [Organization]</span>
           <span>Confidential · {new Date().toLocaleDateString("en-GB", { month: "long", year: "numeric" })}</span>
         </div>
       </div>
@@ -363,7 +363,7 @@ const slides: Slide[] = [
               ))}
             </div>
             <p className="mt-6 text-sm" style={{ color: "hsl(210 14% 65%)" }}>
-              David — we'd love to walk through a live demo tailored to Pinnacle's portfolio.
+              We'd love to walk through a live demo tailored to your portfolio.
             </p>
           </motion.div>
         </div>
