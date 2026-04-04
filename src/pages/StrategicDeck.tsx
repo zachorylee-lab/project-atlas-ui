@@ -363,7 +363,7 @@ const slides: Slide[] = [
               ))}
             </div>
             <p className="mt-6 text-sm" style={{ color: "hsl(210 14% 65%)" }}>
-              David — we'd love to walk through a live demo tailored to Pinnacle's portfolio.
+              We'd love to walk through a live demo tailored to your portfolio.
             </p>
           </motion.div>
         </div>
