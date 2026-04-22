@@ -47,12 +47,12 @@ export function AppSidebar() {
       <SidebarHeader className="p-4">
         <div className="flex items-center gap-3">
           <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary">
-            <span className="text-sm font-bold text-primary-foreground">R</span>
+            <span className="text-sm font-bold text-primary-foreground">C</span>
           </div>
           {!collapsed && (
             <div className="flex flex-col">
-              <span className="text-sm font-semibold text-sidebar-accent-foreground">RentFlow</span>
-              <span className="text-[10px] uppercase tracking-widest text-sidebar-foreground/60">Rental Finance OS</span>
+              <span className="text-sm font-semibold text-sidebar-accent-foreground">CommerceOS</span>
+              <span className="text-[10px] uppercase tracking-widest text-sidebar-foreground/60">Global Commerce Ops</span>
             </div>
           )}
         </div>
