@@ -1,54 +1,53 @@
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { CheckCircle2, Clock, AlertCircle, User, DollarSign, Building2 } from "lucide-react";
 import { motion } from "framer-motion";
 
 const handoffs = [
   {
-    customer: "Summit Property Group",
+    customer: "Aurora & Oak",
     ae: "Chris D.",
     deal: "$185K ARR",
-    segment: "Enterprise PM",
+    segment: "Enterprise · Beauty",
     readiness: 92,
     status: "ready" as const,
     submitted: "Mar 22, 2026",
     items: { complete: 11, total: 12 },
-    notes: "450-unit portfolio. Requires custom ACH routing for multiple bank accounts per property.",
+    notes: "Launching US, UK, EU, AU on Shopify Plus. Requires DDP duties at checkout and IOSS registration.",
   },
   {
-    customer: "HomeBase Rentals",
+    customer: "Hearthwood Home",
     ae: "Amy L.",
     deal: "$72K ARR",
-    segment: "Mid-Market PM",
+    segment: "Mid-Market · Home & Living",
     readiness: 67,
     status: "incomplete" as const,
     submitted: "Mar 20, 2026",
     items: { complete: 8, total: 12 },
-    notes: "Missing tenant data export from legacy system and banking setup details.",
+    notes: "Missing GPSR responsible-person details for EU launch and HS codes for 40% of catalog.",
   },
   {
-    customer: "Pacific Coast Realty",
+    customer: "Pelagos Surf Co.",
     ae: "Mark T.",
     deal: "$320K ARR",
-    segment: "Enterprise PM",
+    segment: "Enterprise · Sports",
     readiness: 100,
     status: "ready" as const,
     submitted: "Mar 18, 2026",
     items: { complete: 12, total: 12 },
-    notes: "Fast-track requested. 1,200 units across 8 properties. Multiple payment gateway integrations needed.",
+    notes: "Fast-track requested. 14 markets, BigCommerce headless, agentic storefront pilot in scope.",
   },
   {
-    customer: "EasyRent LLC",
+    customer: "Tilbury Kids",
     ae: "Jen S.",
     deal: "$45K ARR",
-    segment: "SMB Landlord",
+    segment: "Mid-Market · Baby & Kids",
     readiness: 42,
     status: "blocked" as const,
     submitted: "Mar 15, 2026",
     items: { complete: 5, total: 12 },
-    notes: "SOW not signed. Awaiting legal review from property owner.",
+    notes: "MSA not signed. Awaiting legal review on data processing addendum for EU customers.",
   },
 ];
 
@@ -59,18 +58,18 @@ const statusStyles = {
 };
 
 const checklist = [
-  "SOW / Contract signed",
-  "Property portfolio data collected",
-  "Tenant records exported from legacy system",
-  "Banking & ACH details provided",
+  "MSA / Order form signed",
+  "Storefront platform & theme details captured",
+  "Product catalog with HS codes & country of origin",
+  "Launch markets, currencies, and shipping zones confirmed",
+  "Returns policy & exchange rules documented",
+  "Compliance posture (GPSR, IOSS, tariffs) reviewed",
+  "Tax registrations & merchant of record decision",
   "Executive sponsor identified",
-  "Rent collection goals defined",
-  "Timeline expectations aligned",
   "Internal kickoff scheduled",
-  "Property manager kickoff scheduled",
+  "Brand kickoff scheduled",
   "Onboarding charter drafted",
-  "Communication plan set",
-  "Risk assessment completed",
+  "Risk & dependency log started",
 ];
 
 export default function SalesHandoff() {
@@ -80,7 +79,7 @@ export default function SalesHandoff() {
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-2xl font-semibold">Sales → Onboarding Handoff</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Manage the transition from closed deals to active property manager onboardings. Ensure completeness before kickoff.
+            Manage the transition from closed deals to active brand onboardings. Ensure cross-border, returns, and compliance readiness before kickoff.
           </p>
         </motion.div>
 
