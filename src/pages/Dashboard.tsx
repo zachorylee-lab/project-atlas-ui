@@ -4,7 +4,7 @@ import { PhaseIndicator } from "@/components/PhaseIndicator";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import {
-  Users,
+  Globe,
   TrendingUp,
   Clock,
   CheckCircle2,
@@ -14,18 +14,18 @@ import {
 import { motion } from "framer-motion";
 
 const stats = [
-  { label: "Active Onboardings", value: "24", change: "+3 this month", icon: Users, trend: "up" as const },
-  { label: "Avg. Time to First Rent", value: "12 days", change: "-3 days vs Q3", icon: Clock, trend: "up" as const },
-  { label: "Completion Rate", value: "94%", change: "+2% vs last quarter", icon: CheckCircle2, trend: "up" as const },
-  { label: "At-Risk Accounts", value: "3", change: "Needs attention", icon: AlertTriangle, trend: "down" as const },
+  { label: "Active Brand Onboardings", value: "27", change: "+5 this month", icon: Globe, trend: "up" as const },
+  { label: "Avg. Time to First Order", value: "9 days", change: "-4 days vs Q3", icon: Clock, trend: "up" as const },
+  { label: "Launch Success Rate", value: "96%", change: "+3% vs last quarter", icon: CheckCircle2, trend: "up" as const },
+  { label: "At-Risk Accounts", value: "4", change: "Tariff & duties blockers", icon: AlertTriangle, trend: "down" as const },
 ];
 
 const activeProjects = [
-  { name: "Greystone Properties", client: "Enterprise PM", phase: 3, status: "on-track" as const, progress: 58, owner: "Sarah K." },
-  { name: "UrbanNest Rentals", client: "Mid-Market PM", phase: 4, status: "at-risk" as const, progress: 72, owner: "Mike R." },
-  { name: "Pinnacle Real Estate", client: "Enterprise PM", phase: 1, status: "on-track" as const, progress: 18, owner: "Lisa M." },
-  { name: "QuickLease Co", client: "SMB Landlord", phase: 5, status: "on-track" as const, progress: 90, owner: "James W." },
-  { name: "Maple Ridge Mgmt", client: "Enterprise PM", phase: 2, status: "delayed" as const, progress: 35, owner: "Ana P." },
+  { name: "Northwind Beauty Co.", client: "Enterprise · Beauty", phase: 3, status: "on-track" as const, progress: 58, owner: "Sarah K." },
+  { name: "Hearthwood Home", client: "Mid-Market · Home & Living", phase: 4, status: "at-risk" as const, progress: 72, owner: "Mike R." },
+  { name: "Lumen Activewear", client: "Enterprise · Sports", phase: 1, status: "on-track" as const, progress: 18, owner: "Lisa M." },
+  { name: "Pawtonic Pet Co.", client: "Mid-Market · Pet", phase: 5, status: "on-track" as const, progress: 90, owner: "James W." },
+  { name: "Vesta Wellness", client: "Enterprise · Health", phase: 2, status: "delayed" as const, progress: 35, owner: "Ana P." },
 ];
 
 const fadeUp = {
@@ -41,7 +41,7 @@ export default function Dashboard() {
         <motion.div {...fadeUp}>
           <h1 className="text-2xl font-semibold text-foreground">Executive Dashboard</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Overview of all active property manager onboardings and key rental finance KPIs.
+            Overview of all active brand onboardings across cross-border commerce, returns, compliance, and agentic storefront launches.
           </p>
         </motion.div>
 
@@ -77,7 +77,7 @@ export default function Dashboard() {
           <Card>
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-base font-semibold">Active Onboardings</CardTitle>
+                <CardTitle className="text-base font-semibold">Active Brand Onboardings</CardTitle>
                 <a href="/projects" className="text-xs font-medium text-primary hover:underline">View all →</a>
               </div>
             </CardHeader>
@@ -107,14 +107,14 @@ export default function Dashboard() {
           <motion.div {...fadeUp} transition={{ delay: 0.3 }}>
             <Card className="h-full">
               <CardHeader className="pb-3">
-                <CardTitle className="text-base font-semibold">Speed to First Rent Collection</CardTitle>
+                <CardTitle className="text-base font-semibold">Time to First International Order</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   {[
-                    { label: "Enterprise PM", avg: "18 days", target: "15 days", progress: 83 },
-                    { label: "Mid-Market PM", avg: "10 days", target: "10 days", progress: 100 },
-                    { label: "SMB Landlord", avg: "5 days", target: "7 days", progress: 100 },
+                    { label: "Enterprise Brand", avg: "14 days", target: "12 days", progress: 86 },
+                    { label: "Mid-Market Brand", avg: "8 days", target: "10 days", progress: 100 },
+                    { label: "SMB / DTC", avg: "4 days", target: "7 days", progress: 100 },
                   ].map((seg) => (
                     <div key={seg.label} className="space-y-1.5">
                       <div className="flex justify-between text-sm">
@@ -137,11 +137,11 @@ export default function Dashboard() {
               <CardContent>
                 <div className="space-y-3">
                   {[
-                    { text: "Greystone Properties moved to Tenant Portal Setup phase", time: "2h ago" },
-                    { text: "UrbanNest Rentals flagged at-risk — payment gateway delay", time: "4h ago" },
-                    { text: "QuickLease Co Go-Live scheduled for Mar 28", time: "6h ago" },
-                    { text: "Pinnacle Real Estate kickoff completed", time: "1d ago" },
-                    { text: "Maple Ridge Mgmt timeline extended by 5 days", time: "1d ago" },
+                    { text: "Northwind Beauty Co. moved to Storefront Build phase (EU + UK markets)", time: "2h ago" },
+                    { text: "Hearthwood Home flagged at-risk — GPSR compliance documents pending", time: "4h ago" },
+                    { text: "Pawtonic Pet Co. cross-border launch scheduled for Mar 28 (CA, AU, EU)", time: "6h ago" },
+                    { text: "Lumen Activewear discovery completed — 14 markets in scope", time: "1d ago" },
+                    { text: "Vesta Wellness timeline extended 5 days — duties calculation rework", time: "1d ago" },
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-3">
                       <div className="h-1.5 w-1.5 rounded-full bg-primary mt-2 shrink-0" />

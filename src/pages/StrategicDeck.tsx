@@ -5,18 +5,19 @@ import {
   ChevronRight,
   Maximize2,
   Minimize2,
-  TrendingUp,
   Target,
   Zap,
   Shield,
   BarChart3,
   CheckCircle2,
   Clock,
-  DollarSign,
   Users,
   Layers,
   ArrowUpRight,
-  Home,
+  Globe,
+  RotateCcw,
+  Sparkles,
+  AlertTriangle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -79,22 +80,22 @@ const slides: Slide[] = [
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="flex flex-col items-center gap-5">
             <div className="flex items-center gap-3">
               <div className="flex h-12 w-12 items-center justify-center rounded-xl" style={{ background: C.teal }}>
-                <span className="text-lg font-bold text-white">R</span>
+                <span className="text-lg font-bold text-white">C</span>
               </div>
-              <span className="text-lg font-semibold tracking-wide" style={{ color: C.tealMuted }}>RENTFLOW</span>
+              <span className="text-lg font-semibold tracking-wide" style={{ color: C.tealMuted }}>COMMERCEOS</span>
             </div>
             <h1 className="text-5xl font-bold leading-tight tracking-tight text-white max-w-2xl">
-              Rental Finance
+              Global Commerce
               <br />Transformation
             </h1>
             <div className="h-1 w-16 rounded-full" style={{ background: C.teal }} />
             <p className="max-w-lg text-base leading-relaxed" style={{ color: "hsl(210 14% 65%)" }}>
-              A data-driven framework for modernizing rent collection, tenant financial services, and property management operations.
+              A data-driven framework for cross-border commerce, returns, compliance, and agentic storefront infrastructure.
             </p>
           </motion.div>
         </div>
         <div className="flex items-center justify-between px-12 py-5 text-xs" style={{ color: "hsl(215 14% 40%)", borderTop: `1px solid hsl(220 20% 18%)` }}>
-          <span>Prepared for [Client Name] · [Organization]</span>
+          <span>Prepared for [Brand Name] · [Organization]</span>
           <span>Confidential · {new Date().toLocaleDateString("en-GB", { month: "long", year: "numeric" })}</span>
         </div>
       </div>
@@ -106,10 +107,10 @@ const slides: Slide[] = [
       <SlideFrame tag="Executive Summary" title="The Opportunity at a Glance">
         <div className="grid grid-cols-4 gap-6 mb-8">
           {[
-            { v: "96%", l: "Collection Rate", s: "vs. 89% industry avg" },
-            { v: "3 days", l: "Time to First Rent", s: "after tenant move-in" },
-            { v: "72%", l: "Autopay Adoption", s: "within 90 days" },
-            { v: "$0", l: "NSF Losses", s: "with smart verification" },
+            { v: "+34%", l: "International AOV", s: "with DDP at checkout" },
+            { v: "9 days", l: "Time to First Intl. Order", s: "from contract signed" },
+            { v: "22%", l: "Returns Revenue Retained", s: "via exchange-first flow" },
+            { v: "99.2%", l: "Duties Accuracy", s: "across all markets" },
           ].map((m) => (
             <div key={m.l} className="rounded-xl border p-5 text-center" style={{ borderColor: C.border }}>
               <Metric value={m.v} label={m.l} sub={m.s} />
@@ -118,7 +119,7 @@ const slides: Slide[] = [
         </div>
         <div className="rounded-xl p-6" style={{ background: `hsl(220 25% 10% / 0.04)` }}>
           <p className="text-sm leading-relaxed" style={{ color: C.slate }}>
-            RentFlow transforms fragmented rent collection into a unified, automated financial platform. By combining smart payment routing, real-time verification, and tenant-friendly payment options, we help property managers collect rent faster while giving tenants modern financial tools they expect.
+            CommerceOS unifies cross-border checkout, returns, compliance, and agentic storefront infrastructure into a single operating layer for modern brands. By controlling pricing, tax, and duties upfront — and retaining revenue before refunds happen — we help merchants launch new markets faster and convert more global demand.
           </p>
         </div>
       </SlideFrame>
@@ -127,15 +128,15 @@ const slides: Slide[] = [
   {
     id: "problem",
     render: () => (
-      <SlideFrame tag="Context" title="The Rental Finance Challenge">
+      <SlideFrame tag="Context" title="The Global Commerce Challenge">
         <div className="grid grid-cols-2 gap-8">
           <div className="flex flex-col gap-4">
             <h3 className="text-sm font-bold uppercase tracking-wider" style={{ color: C.navy }}>Industry Pain Points</h3>
             {[
-              { icon: Clock, text: "Manual rent collection leads to 11% average delinquency rates" },
-              { icon: Users, text: "Tenants expect digital payment options — 78% prefer online payments" },
-              { icon: DollarSign, text: "NSF fees and failed payments cost PMs $500+ per unit annually" },
-              { icon: Layers, text: "Disconnected accounting creates month-end reconciliation nightmares" },
+              { icon: Globe, text: "Surprise duties at delivery cause 28% of cross-border refusals" },
+              { icon: RotateCcw, text: "Returns drain 16-24% of ecommerce revenue when handled reactively" },
+              { icon: Shield, text: "GPSR, IOSS, and tariff changes outpace most brands' compliance teams" },
+              { icon: Layers, text: "Fragmented stacks (tax, returns, shipping) create checkout drop-off" },
             ].map((item) => (
               <div key={item.text} className="flex items-start gap-3">
                 <IconCircle icon={item.icon} color="hsl(0 72% 51%)" />
@@ -144,12 +145,12 @@ const slides: Slide[] = [
             ))}
           </div>
           <div className="flex flex-col gap-4">
-            <h3 className="text-sm font-bold uppercase tracking-wider" style={{ color: C.navy }}>RentFlow Differentiation</h3>
+            <h3 className="text-sm font-bold uppercase tracking-wider" style={{ color: C.navy }}>CommerceOS Differentiation</h3>
             {[
-              { icon: Zap, text: "Automated ACH with smart retry logic and balance pre-checks" },
-              { icon: Target, text: "Tenant credit building — report on-time payments to bureaus" },
-              { icon: BarChart3, text: "Real-time collection dashboards across entire portfolio" },
-              { icon: Shield, text: "Built-in compliance for security deposits and trust accounting" },
+              { icon: Zap, text: "Landed cost shown upfront — DDP checkout in every supported market" },
+              { icon: RotateCcw, text: "Exchange-first returns with bonus credit retain revenue before refunds" },
+              { icon: Shield, text: "Built-in GPSR, IOSS, and restricted-SKU enforcement at checkout" },
+              { icon: Sparkles, text: "Agentic storefront infrastructure ready for ChatGPT and AI commerce" },
             ].map((item) => (
               <div key={item.text} className="flex items-start gap-3">
                 <IconCircle icon={item.icon} color={C.teal} />
@@ -185,9 +186,9 @@ const slides: Slide[] = [
         </div>
         <div className="mt-6 grid grid-cols-3 gap-4">
           {[
-            { title: "Standardise", desc: "Codify PM onboarding into repeatable templates per portfolio size." },
-            { title: "Automate", desc: "Trigger payment activation, tenant invites, and compliance checks automatically." },
-            { title: "Measure", desc: "Track collection rates, tenant adoption, and time-to-first-payment in real time." },
+            { title: "Standardise", desc: "Codify brand onboarding into repeatable templates per market mix and platform." },
+            { title: "Automate", desc: "Trigger duties, returns, compliance, and agentic feed sync automatically." },
+            { title: "Measure", desc: "Track international AOV, return retention, duties accuracy, and time-to-launch in real time." },
           ].map((c) => (
             <div key={c.title} className="rounded-lg p-4" style={{ background: `hsl(172 66% 40% / 0.06)` }}>
               <h4 className="text-sm font-bold mb-1" style={{ color: C.teal }}>{c.title}</h4>
@@ -201,25 +202,25 @@ const slides: Slide[] = [
   {
     id: "metrics",
     render: () => (
-      <SlideFrame tag="Performance Data" title="Rental Finance Metrics That Matter">
+      <SlideFrame tag="Performance Data" title="Global Commerce Metrics That Matter">
         <div className="grid grid-cols-2 gap-8">
           <div className="flex flex-col gap-4">
-            <h3 className="text-sm font-bold uppercase tracking-wider mb-2" style={{ color: C.navy }}>Collection Performance</h3>
-            <Bar label="On-Time Rate" pct={96} />
-            <Bar label="Autopay" pct={72} />
-            <Bar label="Digital Adopt." pct={88} color={C.gold} />
-            <Bar label="Tenant Sat." pct={91} />
-            <Bar label="NSF Recovery" pct={94} />
-            <Bar label="Owner Payout" pct={99} />
+            <h3 className="text-sm font-bold uppercase tracking-wider mb-2" style={{ color: C.navy }}>Launch Performance</h3>
+            <Bar label="Checkout Conv." pct={94} />
+            <Bar label="Duties Accuracy" pct={99} />
+            <Bar label="DDP Adoption" pct={78} color={C.gold} />
+            <Bar label="CSAT" pct={91} />
+            <Bar label="Return Retention" pct={64} />
+            <Bar label="Compliance Pass" pct={98} />
           </div>
           <div className="flex flex-col gap-4">
             <h3 className="text-sm font-bold uppercase tracking-wider mb-2" style={{ color: C.navy }}>Business Impact</h3>
             {[
-              { metric: "Collection Rate", value: "96%", delta: "+7pp", up: true },
-              { metric: "Time to First Rent", value: "3 days", delta: "−8 days", up: true },
-              { metric: "PM Operating Cost", value: "$42/unit", delta: "−34%", up: true },
-              { metric: "Tenant Delinquency", value: "4.2%", delta: "−6.8pp", up: true },
-              { metric: "Annual Revenue/PM", value: "$2.1M", delta: "+45%", up: true },
+              { metric: "International AOV", value: "+34%", delta: "vs. baseline", up: true },
+              { metric: "Time to Launch (new market)", value: "9 days", delta: "−12 days", up: true },
+              { metric: "Returns Revenue Retained", value: "22%", delta: "+18pp", up: true },
+              { metric: "Cross-border Refusals", value: "3.1%", delta: "−24pp", up: true },
+              { metric: "Annual Net New GMV", value: "$2.1M", delta: "+45%", up: true },
             ].map((row) => (
               <div key={row.metric} className="flex items-center justify-between rounded-lg border px-4 py-3" style={{ borderColor: C.border }}>
                 <span className="text-sm font-medium" style={{ color: C.navy }}>{row.metric}</span>
@@ -239,20 +240,20 @@ const slides: Slide[] = [
   {
     id: "roadmap",
     render: () => (
-      <SlideFrame tag="Execution Plan" title="90-Day Portfolio Onboarding Roadmap">
+      <SlideFrame tag="Execution Plan" title="90-Day Brand Onboarding Roadmap">
         <div className="relative flex gap-6">
           {[
             {
               q: "Days 1–30", title: "Foundation", color: "hsl(199 89% 48%)",
-              items: ["Audit current rent collection processes", "Migrate property and tenant data", "Configure payment gateways and bank accounts", "Train PM staff on RentFlow platform"],
+              items: ["Audit storefront, catalog, and current intl. flow", "Connect platform, tax, and 3PL integrations", "Classify HS codes and compliance posture", "Train brand team on CommerceOS"],
             },
             {
               q: "Days 31–60", title: "Activation", color: C.teal,
-              items: ["Launch tenant payment portal", "Enable autopay enrollment campaigns", "Activate late fee automation", "Begin credit reporting for tenants"],
+              items: ["Launch DDP checkout in priority markets", "Activate branded returns portal with exchanges", "Go live with compliance enforcement (GPSR, IOSS)", "Pilot agentic storefront feed"],
             },
             {
               q: "Days 61–90", title: "Optimization", color: C.gold,
-              items: ["Analyze collection patterns and optimize timing", "Roll out tenant financial wellness features", "Implement predictive delinquency scoring", "Publish portfolio performance reports"],
+              items: ["Tune duties, FX, and local payment methods", "Expand exchange-first flows and credit incentives", "Roll out agentic storefront to full traffic", "Publish global performance dashboards"],
             },
           ].map((phase, i) => (
             <motion.div key={phase.q} className="flex-1 rounded-xl border p-5" style={{ borderColor: C.border, borderTop: `3px solid ${phase.color}` }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.15 }}>
@@ -277,8 +278,8 @@ const slides: Slide[] = [
       <SlideFrame tag="Financial Model" title="Projected Impact Over 12 Months">
         <div className="grid grid-cols-3 gap-6 mb-8">
           {[
-            { v: "$1.2M", l: "Additional Collections", s: "From reduced delinquency" },
-            { v: "$480K", l: "Cost Savings", s: "Automated operations" },
+            { v: "$1.2M", l: "Net New Intl. GMV", s: "From DDP & new markets" },
+            { v: "$480K", l: "Returns Revenue Retained", s: "Exchanges + credit" },
             { v: "5.8×", l: "ROI", s: "Year 1 return" },
           ].map((m) => (
             <div key={m.l} className="flex flex-col items-center gap-2 rounded-xl p-6" style={{ background: C.navy, color: C.white }}>
@@ -290,18 +291,18 @@ const slides: Slide[] = [
         </div>
         <div className="grid grid-cols-2 gap-6">
           <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider mb-3" style={{ color: C.navy }}>Cost Per Unit Shift</h3>
+            <h3 className="text-sm font-bold uppercase tracking-wider mb-3" style={{ color: C.navy }}>Cost Per Order Shift</h3>
             <Bar label="Before" pct={100} color="hsl(215 14% 70%)" />
             <div className="h-2" />
-            <Bar label="After RentFlow" pct={66} color={C.teal} />
-            <p className="mt-2 text-xs" style={{ color: C.slate }}>34% reduction in per-unit operating cost while increasing collection rates by 7 points.</p>
+            <Bar label="After CommerceOS" pct={66} color={C.teal} />
+            <p className="mt-2 text-xs" style={{ color: C.slate }}>34% reduction in fulfillment + returns cost while expanding to 4 new markets.</p>
           </div>
           <div>
             <h3 className="text-sm font-bold uppercase tracking-wider mb-3" style={{ color: C.navy }}>Revenue Impact Model</h3>
             {[
-              { label: "Reduced delinquency", value: "+$640K" },
-              { label: "Lower processing costs", value: "+$280K" },
-              { label: "Tenant retention uplift", value: "+$320K" },
+              { label: "International conversion uplift", value: "+$640K" },
+              { label: "Returns revenue retained", value: "+$480K" },
+              { label: "Lower customs refusals", value: "+$120K" },
             ].map((r) => (
               <div key={r.label} className="flex items-center justify-between border-b py-2.5" style={{ borderColor: C.border }}>
                 <span className="text-sm" style={{ color: C.slate }}>{r.label}</span>
@@ -323,10 +324,10 @@ const slides: Slide[] = [
       <SlideFrame tag="Risk Mitigation" title="Proactive Risk Management">
         <div className="grid grid-cols-2 gap-6">
           {[
-            { risk: "Tenant Adoption Resistance", impact: "High", mitigation: "Phased rollout with incentives (waived convenience fees for first 3 months). In-app onboarding tutorials and 24/7 support.", color: "hsl(0 72% 51%)" },
-            { risk: "Payment Processing Failures", impact: "Medium", mitigation: "Pre-built retry logic with smart scheduling. Balance pre-checks via Plaid before ACH initiation.", color: C.gold },
-            { risk: "Data Migration Complexity", impact: "Medium", mitigation: "Pre-built connectors for AppFolio, Buildium, and Yardi. Dedicated migration sprint with balance reconciliation gates.", color: C.gold },
-            { risk: "Regulatory Compliance", impact: "High", mitigation: "Built-in security deposit tracking per state requirements. Automated trust accounting and audit trails.", color: "hsl(0 72% 51%)" },
+            { risk: "Surprise Duties at Delivery", impact: "High", mitigation: "Show landed cost on PDP and enforce DDP at checkout in every supported market.", color: "hsl(0 72% 51%)" },
+            { risk: "GPSR / Compliance Gaps", impact: "Critical", mitigation: "Built-in responsible-person mapping, restricted SKU enforcement, and quarterly tariff audits.", color: "hsl(0 72% 51%)" },
+            { risk: "High Refund Rate Erodes Margin", impact: "High", mitigation: "Exchange-first returns flow with bonus store credit and shop-now conversion.", color: "hsl(0 72% 51%)" },
+            { risk: "Catalog Migration Complexity", impact: "Medium", mitigation: "Pre-built connectors for Shopify, BigCommerce, SFCC. Reconciliation gates per milestone.", color: C.gold },
           ].map((r) => (
             <div key={r.risk} className="rounded-xl border p-5" style={{ borderColor: C.border, borderLeft: `3px solid ${r.color}` }}>
               <div className="flex items-center justify-between mb-2">
@@ -349,19 +350,19 @@ const slides: Slide[] = [
             <thead>
               <tr>
                 <th className="text-left py-2 px-3 font-bold border-b-2" style={{ color: C.navy, borderColor: C.teal }}>Activity</th>
-                {["PM Ops Lead", "RentFlow PM", "IT / Engineering", "Finance Team", "Exec Sponsor"].map((h) => (
+                {["Brand Ops Lead", "CommerceOS PM", "Engineering", "Tax & Compliance", "Exec Sponsor"].map((h) => (
                   <th key={h} className="text-center py-2 px-2 font-bold border-b-2" style={{ color: C.navy, borderColor: C.teal }}>{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {[
-                { task: "Data Migration & Validation", roles: ["A", "R", "C", "I", "I"] },
-                { task: "Payment Gateway Configuration", roles: ["C", "R", "A", "C", "I"] },
-                { task: "Tenant Communication & Invitations", roles: ["R", "A", "I", "I", "I"] },
-                { task: "Autopay Enrollment Campaign", roles: ["R", "A", "I", "C", "I"] },
-                { task: "Trust Accounting Setup", roles: ["C", "I", "I", "A", "R"] },
-                { task: "UAT & Go-Live Sign-Off", roles: ["A", "R", "C", "C", "R"] },
+                { task: "Catalog & HS Code Migration", roles: ["A", "R", "C", "C", "I"] },
+                { task: "Storefront / Checkout Integration", roles: ["C", "R", "A", "C", "I"] },
+                { task: "Returns Portal Configuration", roles: ["A", "R", "C", "I", "I"] },
+                { task: "Compliance (GPSR / IOSS) Setup", roles: ["C", "R", "C", "A", "I"] },
+                { task: "Agentic Storefront Pilot", roles: ["A", "R", "C", "I", "I"] },
+                { task: "UAT & Launch Sign-Off", roles: ["A", "R", "C", "C", "R"] },
                 { task: "Hypercare Monitoring", roles: ["I", "R", "C", "A", "I"] },
                 { task: "Escalation & Risk Decisions", roles: ["C", "C", "I", "I", "A"] },
               ].map((row) => (
@@ -409,8 +410,8 @@ const slides: Slide[] = [
           <div className="rounded-xl border p-5" style={{ borderColor: C.border }}>
             <h3 className="text-sm font-bold uppercase tracking-wider mb-3" style={{ color: C.navy }}>Meeting Cadence</h3>
             {[
-              { freq: "Weekly", desc: "Tactical standups — PM Ops + RentFlow PM", icon: Clock },
-              { freq: "Bi-Weekly", desc: "Steering review — Exec Sponsor + Finance", icon: Users },
+              { freq: "Weekly", desc: "Tactical standups — Brand Ops + CommerceOS PM", icon: Clock },
+              { freq: "Bi-Weekly", desc: "Steering review — Exec Sponsor + Tax Lead", icon: Users },
               { freq: "Monthly", desc: "Portfolio health report — All stakeholders", icon: BarChart3 },
             ].map((m) => (
               <div key={m.freq} className="flex items-start gap-3 mb-3">
@@ -426,9 +427,9 @@ const slides: Slide[] = [
             <h3 className="text-sm font-bold uppercase tracking-wider mb-3" style={{ color: C.navy }}>Standard Agenda</h3>
             {[
               { item: "Project Status & Phase Progress", time: "10 min" },
-              { item: "KPI Review — Collection Rates & Adoption", time: "10 min" },
+              { item: "KPI Review — Intl. AOV, Return Retention, Duties Accuracy", time: "10 min" },
               { item: "Risk & Issue Escalations", time: "10 min" },
-              { item: "Upcoming Milestones & Dependencies", time: "5 min" },
+              { item: "Upcoming Market Launches & Dependencies", time: "5 min" },
               { item: "Decisions Required & Action Items", time: "10 min" },
               { item: "Open Discussion", time: "5 min" },
             ].map((a, i) => (
@@ -445,7 +446,7 @@ const slides: Slide[] = [
         <div className="rounded-xl p-5" style={{ background: `hsl(220 25% 10% / 0.04)` }}>
           <h3 className="text-sm font-bold mb-2" style={{ color: C.navy }}>Escalation Path</h3>
           <div className="flex items-center gap-2">
-            {["PM Ops Lead", "RentFlow PM", "VP Operations", "Exec Sponsor"].map((role, i) => (
+            {["Brand Ops Lead", "CommerceOS PM", "VP Operations", "Exec Sponsor"].map((role, i) => (
               <div key={role} className="flex items-center gap-2">
                 <span className="rounded-lg px-3 py-1.5 text-xs font-semibold" style={{ background: i === 3 ? C.navy : i === 2 ? C.gold : C.teal, color: C.white }}>{role}</span>
                 {i < 3 && <ChevronRight className="h-4 w-4" style={{ color: C.slate }} />}
@@ -471,12 +472,12 @@ const slides: Slide[] = [
             </thead>
             <tbody>
               {[
-                { id: "R-001", desc: "Low tenant autopay adoption (<50%)", like: "Medium", impact: "High", status: "Open", mitigation: "Phased incentives, waived fees for 90 days, in-app nudges", owner: "PM Ops Lead" },
-                { id: "R-002", desc: "ACH payment failures spike >5%", like: "Low", impact: "High", status: "Mitigated", mitigation: "Pre-check balances via Plaid, smart retry at T+2/T+5", owner: "RentFlow PM" },
-                { id: "R-003", desc: "Data migration errors in ledger balances", like: "Medium", impact: "High", status: "Open", mitigation: "Reconciliation gates at each milestone, parallel run period", owner: "IT Lead" },
-                { id: "R-004", desc: "State compliance gaps (security deposits)", like: "Low", impact: "Critical", status: "Mitigated", mitigation: "Built-in state rules engine, quarterly compliance audit", owner: "Finance" },
-                { id: "R-005", desc: "PM staff resistance to new workflows", like: "High", impact: "Medium", status: "Open", mitigation: "Dedicated training sprints, champion program, 1:1 support", owner: "PM Ops Lead" },
-                { id: "R-006", desc: "Integration downtime with PMS (Yardi/AppFolio)", like: "Low", impact: "Medium", status: "Monitoring", mitigation: "Webhook retry queues, daily sync health checks", owner: "RentFlow PM" },
+                { id: "R-001", desc: "Surprise duties cause checkout abandonment", like: "Medium", impact: "High", status: "Mitigated", mitigation: "DDP at checkout with landed-cost display on PDP", owner: "CommerceOS PM" },
+                { id: "R-002", desc: "EU GPSR responsible-person not assigned", like: "Medium", impact: "Critical", status: "Open", mitigation: "Block EU launch until responsible person registered per market", owner: "Tax & Compliance" },
+                { id: "R-003", desc: "HS code misclassification causes customs holds", like: "Medium", impact: "High", status: "Open", mitigation: "AI-assisted classification + quarterly audit with brand legal", owner: "Tax & Compliance" },
+                { id: "R-004", desc: "Catalog migration breaks variant relationships", like: "Low", impact: "High", status: "Mitigated", mitigation: "Reconciliation gates and parallel-run period before cutover", owner: "Engineering" },
+                { id: "R-005", desc: "Returns volume spikes post-launch", like: "High", impact: "Medium", status: "Open", mitigation: "Exchange-first portal + bonus store credit; daily monitoring in week 1-2", owner: "Brand Ops Lead" },
+                { id: "R-006", desc: "Agentic storefront responses off-brand", like: "Medium", impact: "Medium", status: "Monitoring", mitigation: "Voice guardrails + conversation logging + 5% pilot before full rollout", owner: "CommerceOS PM" },
               ].map((r) => {
                 const statusColor = r.status === "Mitigated" ? C.teal : r.status === "Open" ? "hsl(0 72% 51%)" : C.gold;
                 const impactColor = r.impact === "Critical" ? "hsl(0 72% 51%)" : r.impact === "High" ? C.gold : C.teal;
@@ -521,13 +522,13 @@ const slides: Slide[] = [
         <div className="flex flex-1 flex-col items-center justify-center gap-8 px-12 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col items-center gap-6">
             <SectionTag>Next Steps</SectionTag>
-            <h2 className="text-4xl font-bold text-white max-w-xl leading-tight">Let's Modernize Your Rent Collection</h2>
+            <h2 className="text-4xl font-bold text-white max-w-xl leading-tight">Let's Launch Your Global Commerce Stack</h2>
             <div className="h-1 w-16 rounded-full" style={{ background: C.teal }} />
             <div className="grid grid-cols-3 gap-6 mt-4 max-w-2xl">
               {[
-                { step: "1", title: "Portfolio Review", desc: "Map current collection processes & identify quick wins" },
-                { step: "2", title: "Pilot Launch", desc: "Deploy with 2-3 properties to validate impact" },
-                { step: "3", title: "Full Rollout", desc: "Scale across entire portfolio with proven playbook" },
+                { step: "1", title: "Catalog Review", desc: "Map current intl. flow & identify quick wins" },
+                { step: "2", title: "Pilot Market", desc: "Launch DDP + returns in 1-2 markets to validate impact" },
+                { step: "3", title: "Full Rollout", desc: "Scale across all priority markets with proven playbook" },
               ].map((s) => (
                 <div key={s.step} className="flex flex-col items-center gap-2">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold" style={{ background: C.teal, color: C.white }}>{s.step}</div>
@@ -537,12 +538,12 @@ const slides: Slide[] = [
               ))}
             </div>
             <p className="mt-6 text-sm" style={{ color: "hsl(210 14% 65%)" }}>
-              We'd love to walk through a live demo tailored to your portfolio.
+              We'd love to walk through a live demo tailored to your catalog and target markets.
             </p>
           </motion.div>
         </div>
         <div className="flex items-center justify-between px-12 py-5 text-xs" style={{ color: "hsl(215 14% 40%)", borderTop: `1px solid hsl(220 20% 18%)` }}>
-          <span>rentflow.io</span>
+          <span>commerceos.io</span>
           <span>Confidential</span>
         </div>
       </div>
@@ -560,7 +561,7 @@ function SlideFrame({ tag, title, children }: { tag: string; title: string; chil
         </div>
         <div className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg" style={{ background: C.teal }}>
-            <span className="text-xs font-bold text-white">R</span>
+            <span className="text-xs font-bold text-white">C</span>
           </div>
         </div>
       </div>
@@ -595,9 +596,9 @@ export default function StrategicDeck() {
       <div className="flex items-center justify-between px-4 py-2 shrink-0" style={{ background: fullscreen ? "hsl(220 30% 8%)" : C.offWhite, borderBottom: fullscreen ? "none" : `1px solid ${C.border}` }}>
         <div className="flex items-center gap-3">
           <div className="flex h-7 w-7 items-center justify-center rounded-md" style={{ background: C.teal }}>
-            <span className="text-xs font-bold text-white">R</span>
+            <span className="text-xs font-bold text-white">C</span>
           </div>
-          <span className="text-sm font-semibold" style={{ color: fullscreen ? C.white : C.navy }}>Rental Finance Transformation Deck</span>
+          <span className="text-sm font-semibold" style={{ color: fullscreen ? C.white : C.navy }}>Global Commerce Transformation Deck</span>
         </div>
         <div className="flex items-center gap-2">
           <span className="text-xs font-medium" style={{ color: C.slate }}>{current + 1} / {total}</span>

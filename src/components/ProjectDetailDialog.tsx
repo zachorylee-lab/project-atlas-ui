@@ -32,54 +32,54 @@ type PhaseTask = { label: string; done: boolean };
 
 const phaseTasks: Record<number, PhaseTask[]> = {
   0: [
-    { label: "Receive signed SOW from sales", done: false },
-    { label: "Review property portfolio details and unit count", done: false },
-    { label: "Validate payment processing requirements", done: false },
-    { label: "Assign onboarding specialist", done: false },
+    { label: "Receive signed order form from sales", done: false },
+    { label: "Review brand catalog scope and target markets", done: false },
+    { label: "Validate cross-border, returns, and compliance requirements", done: false },
+    { label: "Assign onboarding lead and solutions architect", done: false },
     { label: "Schedule internal alignment meeting", done: false },
   ],
   1: [
-    { label: "Send kickoff agenda to property manager", done: false },
-    { label: "Conduct kickoff meeting", done: false },
-    { label: "Confirm onboarding timeline and milestones", done: false },
-    { label: "Introduce team members and roles", done: false },
-    { label: "Define success criteria (collection rate, adoption targets)", done: false },
+    { label: "Send kickoff agenda to brand stakeholders", done: false },
+    { label: "Conduct brand kickoff meeting", done: false },
+    { label: "Confirm launch markets, currencies, and timeline", done: false },
+    { label: "Introduce team members and confirm RACI", done: false },
+    { label: "Define success criteria (intl. AOV, return rate, duties accuracy)", done: false },
     { label: "Distribute onboarding charter for sign-off", done: false },
   ],
   2: [
-    { label: "Configure payment gateway and bank accounts", done: false },
-    { label: "Set up property portfolio in RentFlow", done: false },
-    { label: "Import tenant and lease data", done: false },
-    { label: "Build rent collection schedules and late fee rules", done: false },
-    { label: "Configure tenant portal branding", done: false },
-    { label: "Internal QA review of payment flows", done: false },
+    { label: "Configure landed-cost engine (duties, taxes, IOSS)", done: false },
+    { label: "Connect storefront platform (Shopify / BigCommerce / custom)", done: false },
+    { label: "Wire returns portal and exchange flows", done: false },
+    { label: "Map compliance rules per market (GPSR, RoHS, FDA)", done: false },
+    { label: "Provision agentic storefront keys and feed sync", done: false },
+    { label: "Internal QA review of checkout and returns flows", done: false },
     { label: "Document configuration decisions", done: false },
   ],
   3: [
-    { label: "Prepare payment flow test plan", done: false },
-    { label: "Set up test environment with sample tenants", done: false },
-    { label: "Conduct ACH and card payment testing", done: false },
-    { label: "Test autopay enrollment and cancellation", done: false },
-    { label: "Log and triage payment discrepancies", done: false },
-    { label: "Retest resolved issues", done: false },
-    { label: "Obtain UAT sign-off from property manager", done: false },
+    { label: "Prepare end-to-end test plan across all markets", done: false },
+    { label: "Stand up staging with full catalog and inventory", done: false },
+    { label: "Test checkout, duties, and currency conversion", done: false },
+    { label: "Test returns initiation, labels, and refund/exchange", done: false },
+    { label: "QA agentic storefront responses against catalog", done: false },
+    { label: "Triage and retest defects", done: false },
+    { label: "Obtain UAT sign-off from brand", done: false },
   ],
   4: [
-    { label: "Finalize payment activation runbook", done: false },
-    { label: "Execute final tenant data sync", done: false },
-    { label: "Activate live payment processing", done: false },
-    { label: "Run post-activation smoke tests", done: false },
-    { label: "Send tenant welcome communications", done: false },
-    { label: "Notify property manager of go-live confirmation", done: false },
+    { label: "Finalize launch runbook", done: false },
+    { label: "Execute final catalog & inventory sync", done: false },
+    { label: "Activate live checkout, duties, and returns portal", done: false },
+    { label: "Run post-launch smoke tests on real orders", done: false },
+    { label: "Send brand & customer launch communications", done: false },
+    { label: "Confirm go-live with brand stakeholders", done: false },
   ],
   5: [
-    { label: "Set up daily payment monitoring cadence", done: false },
-    { label: "Monitor collection rates and failure patterns", done: false },
-    { label: "Triage and resolve post-launch payment issues", done: false },
-    { label: "Conduct mid-hypercare review with property manager", done: false },
-    { label: "Gather property manager satisfaction feedback", done: false },
+    { label: "Set up daily checkout & returns monitoring cadence", done: false },
+    { label: "Monitor conversion, return rate, and duties accuracy", done: false },
+    { label: "Triage and resolve post-launch issues", done: false },
+    { label: "Conduct mid-hypercare review with brand", done: false },
+    { label: "Gather merchant satisfaction feedback", done: false },
     { label: "Prepare BAU transition documentation", done: false },
-    { label: "Hand off to support/CSM team", done: false },
+    { label: "Hand off to CSM team", done: false },
   ],
 };
 
@@ -87,14 +87,14 @@ type Note = { text: string; timestamp: string; author: string };
 
 const seedNotes: Record<string, Note[]> = {
   "1": [
-    { text: "PM requested separate bank accounts for each property entity. Reviewing with payments team.", timestamp: "Mar 25, 2026", author: "Sarah K." },
-    { text: "Test environment provisioned with 50 sample tenants. Ready for UAT next week.", timestamp: "Mar 20, 2026", author: "DevOps" },
+    { text: "Brand requested DDP at checkout for all EU markets. Reviewing IOSS registration timing with tax team.", timestamp: "Mar 25, 2026", author: "Sarah K." },
+    { text: "Staging environment provisioned with full catalog (~3,200 SKUs). Ready for UAT next week.", timestamp: "Mar 20, 2026", author: "DevOps" },
   ],
   "2": [
-    { text: "ACH processing delay with tenant's bank — may need to switch to same-day ACH.", timestamp: "Mar 28, 2026", author: "Mike R." },
+    { text: "GPSR responsible-person details still pending from brand legal — blocking EU launch milestone.", timestamp: "Mar 28, 2026", author: "Mike R." },
   ],
   "5": [
-    { text: "Property manager's accounting lead out on leave — financial reconciliation paused for 1 week.", timestamp: "Mar 18, 2026", author: "Ana P." },
+    { text: "Brand's tax lead out on leave — duties reconciliation paused for 1 week.", timestamp: "Mar 18, 2026", author: "Ana P." },
   ],
 };
 
@@ -239,7 +239,7 @@ export function ProjectDetailDialog({ project, open, onOpenChange }: ProjectDeta
 
           <TabsContent value="notes" className="mt-4">
             <div className="space-y-3 mb-4">
-              <Textarea placeholder="Add a note about this account…" value={newNote} onChange={(e) => setNewNote(e.target.value)} className="min-h-[80px] text-sm" onKeyDown={(e) => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) addNote(); }} />
+              <Textarea placeholder="Add a note about this brand…" value={newNote} onChange={(e) => setNewNote(e.target.value)} className="min-h-[80px] text-sm" onKeyDown={(e) => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) addNote(); }} />
               <button onClick={addNote} disabled={!newNote.trim()} className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-xs font-medium disabled:opacity-40 transition-opacity">Add Note</button>
             </div>
             <Separator className="mb-4" />
