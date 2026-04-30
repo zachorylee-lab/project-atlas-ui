@@ -6,126 +6,126 @@ import { Progress } from "@/components/ui/progress";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import {
-  Globe, RotateCcw, ShieldCheck, Sparkles,
-  CheckCircle2, Database,
+  CreditCard, Home, Users, DollarSign,
+  CheckCircle2, Clock, AlertTriangle, Database,
   Upload, Settings, ChevronRight, ArrowRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-type ModuleId = "cross-border" | "returns" | "compliance" | "agentic-storefront";
+type ModuleId = "rent-collection" | "tenant-screening" | "property-accounting" | "maintenance";
 
 type WorkflowTask = { label: string; done: boolean };
 type MigrationItem = { source: string; target: string; records: string; status: "pending" | "in-progress" | "complete" | "failed" };
 type ConfigStep = { label: string; description: string; done: boolean };
 
 const modulesMeta: Record<ModuleId, { label: string; icon: React.ElementType; color: string; description: string }> = {
-  "cross-border": { label: "Global / Cross-Border", icon: Globe, color: "text-blue-500", description: "Landed cost, duties, taxes, multi-currency, and merchant of record setup" },
-  returns: { label: "Returns & Exchanges", icon: RotateCcw, color: "text-emerald-500", description: "Branded returns portal, exchanges, store credit, and revenue retention flows" },
-  compliance: { label: "Compliance", icon: ShieldCheck, color: "text-violet-500", description: "GPSR, IOSS, tariffs, restricted SKUs, and per-market regulatory rules" },
-  "agentic-storefront": { label: "Agentic Storefront", icon: Sparkles, color: "text-amber-500", description: "Catalog feed, attribute enrichment, and AI agent storefront configuration" },
+  "rent-collection": { label: "Rent Collection", icon: CreditCard, color: "text-blue-500", description: "Payment processing, ACH transfers, autopay, and late fee automation" },
+  "tenant-screening": { label: "Tenant Screening", icon: Users, color: "text-emerald-500", description: "Credit checks, background verification, income validation, and approval workflows" },
+  "property-accounting": { label: "Property Accounting", icon: DollarSign, color: "text-violet-500", description: "Revenue tracking, expense management, owner distributions, and financial reporting" },
+  maintenance: { label: "Maintenance", icon: Home, color: "text-amber-500", description: "Work order management, vendor coordination, and preventive maintenance scheduling" },
 };
 
 const implementationChecklists: Record<ModuleId, WorkflowTask[]> = {
-  "cross-border": [
-    { label: "Configure landed-cost engine per launch market", done: false },
-    { label: "Set up DDP / DAP shipping terms by region", done: false },
-    { label: "Enable multi-currency display and FX rules", done: false },
-    { label: "Wire IOSS / OSS for EU shipments under €150", done: false },
-    { label: "Configure regional payment methods (iDEAL, Klarna, Alipay)", done: false },
-    { label: "Set HS codes and country of origin per SKU", done: false },
-    { label: "Test checkout end-to-end across each market", done: false },
-    { label: "Validate duties calculations against test scenarios", done: false },
+  "rent-collection": [
+    { label: "Configure payment gateway (Stripe/ACH)", done: false },
+    { label: "Set up property-level bank accounts", done: false },
+    { label: "Define rent due dates and grace periods", done: false },
+    { label: "Configure late fee rules per lease type", done: false },
+    { label: "Set up autopay enrollment workflows", done: false },
+    { label: "Enable tenant payment portal", done: false },
+    { label: "Configure payment receipt notifications", done: false },
+    { label: "Test end-to-end payment flow", done: false },
   ],
-  returns: [
-    { label: "Configure branded returns portal", done: false },
-    { label: "Set return windows per market and SKU class", done: false },
-    { label: "Enable exchange-first flow with bonus credit", done: false },
-    { label: "Configure store credit incentive (+10% offer)", done: false },
-    { label: "Wire regional return labels (UPS, DHL, Royal Mail)", done: false },
-    { label: "Set restocking and inspection rules", done: false },
-    { label: "Test refund-to-original-payment per market", done: false },
-    { label: "QA branded returns portal UX", done: false },
+  "tenant-screening": [
+    { label: "Connect credit bureau APIs (Experian/TransUnion)", done: false },
+    { label: "Configure screening criteria thresholds", done: false },
+    { label: "Set up background check workflow", done: false },
+    { label: "Define income verification rules (3× rent)", done: false },
+    { label: "Configure approval/denial notification templates", done: false },
+    { label: "Set up co-signer and guarantor flows", done: false },
+    { label: "Test screening application pipeline", done: false },
+    { label: "Enable applicant self-service portal", done: false },
   ],
-  compliance: [
-    { label: "Map GPSR responsible-person per EU market", done: false },
-    { label: "Validate CE / RoHS / FDA documentation", done: false },
-    { label: "Configure restricted SKU rules per market", done: false },
-    { label: "Register IOSS and confirm VAT thresholds", done: false },
-    { label: "Set up tariff classification audit cadence", done: false },
-    { label: "Configure compliant adverse-action notices where needed", done: false },
-    { label: "Run compliance dry-run on sample shipments", done: false },
-    { label: "Get sign-off from brand legal team", done: false },
+  "property-accounting": [
+    { label: "Map chart of accounts to RentFlow schema", done: false },
+    { label: "Configure owner distribution schedules", done: false },
+    { label: "Set up expense categorization rules", done: false },
+    { label: "Import historical financial data", done: false },
+    { label: "Configure monthly financial statement generation", done: false },
+    { label: "Set up 1099 reporting for owners", done: false },
+    { label: "Enable bank reconciliation automation", done: false },
+    { label: "Test month-end close process", done: false },
   ],
-  "agentic-storefront": [
-    { label: "Provision agentic storefront API keys", done: false },
-    { label: "Sync product feed with attribute enrichment", done: false },
-    { label: "Configure brand voice & guardrails", done: false },
-    { label: "Map merchandising rules (collections, exclusions)", done: false },
-    { label: "Wire inventory & price signals to agent", done: false },
-    { label: "Connect order, returns, and shipping context", done: false },
-    { label: "QA agent responses against catalog gold set", done: false },
-    { label: "Enable analytics & conversation logging", done: false },
-    { label: "Run pilot with controlled traffic split", done: false },
+  maintenance: [
+    { label: "Configure work order categories and priorities", done: false },
+    { label: "Set up vendor directory and assignments", done: false },
+    { label: "Define SLA thresholds by priority level", done: false },
+    { label: "Configure tenant maintenance request portal", done: false },
+    { label: "Set up preventive maintenance schedules", done: false },
+    { label: "Enable photo/video attachment for work orders", done: false },
+    { label: "Configure vendor invoice approval workflow", done: false },
+    { label: "Test work order lifecycle end-to-end", done: false },
+    { label: "Set up maintenance cost tracking per unit", done: false },
   ],
 };
 
 const migrationData: Record<ModuleId, MigrationItem[]> = {
-  "cross-border": [
-    { source: "Legacy Shopify", target: "Product Catalog", records: "~3,200 SKUs", status: "pending" },
-    { source: "ERP", target: "HS Codes & Origin", records: "All SKUs", status: "pending" },
-    { source: "Tax Provider", target: "Tax Profiles", records: "8 markets", status: "pending" },
-    { source: "Pricing Sheet", target: "Multi-Currency Prices", records: "12 currencies", status: "pending" },
+  "rent-collection": [
+    { source: "Legacy PM Software", target: "Lease Records", records: "~2,400 leases", status: "pending" },
+    { source: "Bank Statements", target: "Payment History", records: "12 months", status: "pending" },
+    { source: "Spreadsheets", target: "Tenant Balances", records: "All units", status: "pending" },
+    { source: "Old Payment Portal", target: "Autopay Enrollments", records: "~800 tenants", status: "pending" },
   ],
-  returns: [
-    { source: "Returns Spreadsheet", target: "Return Reasons", records: "~24 reasons", status: "pending" },
-    { source: "Legacy Returns Tool", target: "Active RMAs", records: "~180 RMAs", status: "pending" },
-    { source: "Order History", target: "Eligibility Rules", records: "12 months", status: "pending" },
-    { source: "Carrier Contracts", target: "Label Configs", records: "~12 carriers", status: "pending" },
+  "tenant-screening": [
+    { source: "Application Files", target: "Screening Templates", records: "~15 templates", status: "pending" },
+    { source: "PM Records", target: "Tenant Profiles", records: "~2,400 tenants", status: "pending" },
+    { source: "Credit Reports", target: "Historical Screens", records: "6 months", status: "pending" },
+    { source: "Approval Records", target: "Decision History", records: "~500 decisions", status: "pending" },
   ],
-  compliance: [
-    { source: "Brand Legal Docs", target: "GPSR Records", records: "All EU SKUs", status: "pending" },
-    { source: "Tariff Database", target: "Duty Rates", records: "All HS codes", status: "pending" },
-    { source: "Restricted Lists", target: "Restricted SKU Map", records: "~340 SKUs", status: "pending" },
-    { source: "Tax Registrations", target: "Market Profiles", records: "8 markets", status: "pending" },
+  "property-accounting": [
+    { source: "QuickBooks/Xero", target: "Chart of Accounts", records: "~120 accounts", status: "pending" },
+    { source: "Bank Records", target: "Transaction History", records: "12 months", status: "pending" },
+    { source: "Owner Statements", target: "Distribution History", records: "All owners", status: "pending" },
+    { source: "Expense Records", target: "Vendor Payments", records: "12 months", status: "pending" },
   ],
-  "agentic-storefront": [
-    { source: "PIM / ERP", target: "Enriched Catalog", records: "~3,200 SKUs", status: "pending" },
-    { source: "Brand Guidelines", target: "Voice Profile", records: "1 ruleset", status: "pending" },
-    { source: "FAQ Knowledge", target: "Agent Knowledge Base", records: "~120 articles", status: "pending" },
-    { source: "Order System", target: "Live Order Context", records: "Realtime", status: "pending" },
+  maintenance: [
+    { source: "Work Order System", target: "Open Work Orders", records: "~85 orders", status: "pending" },
+    { source: "Vendor Contacts", target: "Vendor Directory", records: "~40 vendors", status: "pending" },
+    { source: "Maintenance Logs", target: "Service History", records: "24 months", status: "pending" },
+    { source: "Inspection Reports", target: "Property Conditions", records: "All units", status: "pending" },
   ],
 };
 
 const configSteps: Record<ModuleId, ConfigStep[]> = {
-  "cross-border": [
-    { label: "Landed Cost Engine", description: "Connect duties & tax provider; configure DDP vs. DAP per market", done: false },
-    { label: "Currencies & FX", description: "Enable display currencies, set FX margins, and rounding rules", done: false },
-    { label: "Regional Payments", description: "Enable iDEAL, Klarna, Alipay, and other local payment methods", done: false },
-    { label: "Shipping Zones", description: "Configure carrier services and rate shopping per region", done: false },
-    { label: "Merchant of Record", description: "Confirm MoR posture per market and IOSS / OSS registration", done: false },
+  "rent-collection": [
+    { label: "Payment Gateway", description: "Connect Stripe or ACH provider and configure merchant accounts per property", done: false },
+    { label: "Rent Schedules", description: "Set due dates, grace periods, and pro-ration rules per lease type", done: false },
+    { label: "Late Fees", description: "Configure flat or percentage-based late fees with grace period thresholds", done: false },
+    { label: "Autopay Rules", description: "Set up recurring payment options and enrollment/cancellation flows", done: false },
+    { label: "Notifications", description: "Configure rent due reminders, payment confirmations, and late notices", done: false },
   ],
-  returns: [
-    { label: "Return Windows", description: "Set return windows per market and product class", done: false },
-    { label: "Exchange-First Flow", description: "Configure exchange UX with bonus credit incentives", done: false },
-    { label: "Store Credit", description: "Enable store credit option with +10% bonus to retain revenue", done: false },
-    { label: "Label Generation", description: "Wire regional carriers (UPS, DHL, Royal Mail) for prepaid labels", done: false },
-    { label: "Inspection & Restocking", description: "Define inspection workflow and restocking fee rules", done: false },
+  "tenant-screening": [
+    { label: "Screening Criteria", description: "Define minimum credit score, income ratio, and background check requirements", done: false },
+    { label: "Application Flow", description: "Configure multi-step application with document upload and fee collection", done: false },
+    { label: "Bureau Connections", description: "Set up API connections to credit bureaus and background check providers", done: false },
+    { label: "Approval Workflow", description: "Define approval, conditional approval, and denial criteria and routing", done: false },
+    { label: "Adverse Action", description: "Configure compliant adverse action notice templates per jurisdiction", done: false },
   ],
-  compliance: [
-    { label: "GPSR Responsible Person", description: "Assign and document GPSR responsible person per EU market", done: false },
-    { label: "Tariff Classification", description: "Validate HS codes and run quarterly classification audit", done: false },
-    { label: "Restricted SKUs", description: "Map per-market restricted SKUs and block at checkout", done: false },
-    { label: "Tax Registrations", description: "Confirm IOSS, OSS, and local VAT registrations are active", done: false },
-    { label: "Documentation Vault", description: "Store CE / RoHS / FDA docs with expiry monitoring", done: false },
+  "property-accounting": [
+    { label: "Chart of Accounts", description: "Map property income, expenses, and trust accounts to standard categories", done: false },
+    { label: "Owner Distributions", description: "Configure distribution schedules, reserve holdbacks, and payment methods", done: false },
+    { label: "Expense Rules", description: "Set up automatic categorization, approval workflows, and budget alerts", done: false },
+    { label: "Financial Reports", description: "Configure P&L, balance sheet, and rent roll report templates", done: false },
+    { label: "Bank Reconciliation", description: "Connect bank feeds and configure automated reconciliation matching rules", done: false },
   ],
-  "agentic-storefront": [
-    { label: "Catalog Sync", description: "Configure product feed sync cadence and attribute enrichment", done: false },
-    { label: "Brand Voice", description: "Define tone, style, and guardrails for the AI agent", done: false },
-    { label: "Merchandising Rules", description: "Set collection priority, exclusions, and bundling rules", done: false },
-    { label: "Live Context Wiring", description: "Connect inventory, price, order, and returns context", done: false },
-    { label: "Pilot & Analytics", description: "Enable conversation logging and start a controlled pilot", done: false },
+  maintenance: [
+    { label: "Work Order Types", description: "Define categories (plumbing, electrical, HVAC, etc.) and priority levels", done: false },
+    { label: "Vendor Assignment", description: "Configure automatic vendor routing based on trade, location, and availability", done: false },
+    { label: "SLA Thresholds", description: "Set response and resolution time targets by priority (emergency, urgent, routine)", done: false },
+    { label: "Tenant Portal", description: "Enable self-service maintenance requests with photo uploads and status tracking", done: false },
+    { label: "Preventive Maintenance", description: "Schedule recurring inspections, filter changes, and seasonal maintenance tasks", done: false },
   ],
 };
 
@@ -139,7 +139,7 @@ const statusStyles: Record<string, { label: string; classes: string }> = {
 const fadeUp = { initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.3 } };
 
 export default function DataWorkflows() {
-  const [activeModule, setActiveModule] = useState<ModuleId>("cross-border");
+  const [activeModule, setActiveModule] = useState<ModuleId>("rent-collection");
   const [checklistStates, setChecklistStates] = useState<Record<string, boolean[]>>({});
   const [migrationStates, setMigrationStates] = useState<Record<string, MigrationItem[]>>({});
   const [configStates, setConfigStates] = useState<Record<string, boolean[]>>({});
@@ -187,7 +187,7 @@ export default function DataWorkflows() {
           <div>
             <h1 className="text-2xl font-bold tracking-tight">Data Workflows</h1>
             <p className="text-sm text-muted-foreground mt-1">
-              Configure, migrate, and validate data for each CommerceOS module
+              Configure, migrate, and validate data for each RentFlow module
             </p>
           </div>
           <Badge variant="outline" className="text-xs gap-1.5 px-3 py-1.5">
@@ -197,7 +197,7 @@ export default function DataWorkflows() {
       </motion.div>
 
       <motion.div {...fadeUp} transition={{ delay: 0.05 }}>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+        <div className="grid grid-cols-4 gap-3 mb-6">
           {(Object.keys(modulesMeta) as ModuleId[]).map((id) => {
             const meta = modulesMeta[id];
             const Icon = meta.icon;
@@ -321,7 +321,7 @@ export default function DataWorkflows() {
                   <div className="grid grid-cols-[1fr_auto_1fr_auto_auto] gap-0 text-[11px] font-medium text-muted-foreground bg-muted/50 px-4 py-2.5">
                     <span>Source System</span>
                     <span />
-                    <span>Target in CommerceOS</span>
+                    <span>Target in RentFlow</span>
                     <span className="text-center">Records</span>
                     <span className="text-center">Status</span>
                   </div>

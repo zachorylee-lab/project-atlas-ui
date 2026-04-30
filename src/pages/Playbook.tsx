@@ -21,70 +21,34 @@ const phaseIcons: Record<string, React.ElementType> = {
 
 const phaseDetails: Record<string, { tasks: string[]; deliverables: string[]; stakeholders: string[] }> = {
   handoff: {
-    tasks: [
-      "Review sales notes, target markets, and SKU catalog scope",
-      "Validate cross-border markets, currencies, and shipping zones",
-      "Capture returns policy and compliance posture (GPSR, tariffs)",
-      "Assign solutions architect and onboarding lead",
-      "Provision merchant workspace in CommerceOS",
-    ],
-    deliverables: ["Brand handoff brief", "Market & catalog scope sheet", "Account setup checklist"],
-    stakeholders: ["Sales AE", "Solutions Engineer", "Onboarding Lead", "CS Lead"],
+    tasks: ["Review sales notes & property portfolio details", "Validate property manager requirements", "Assign onboarding specialist", "Schedule internal alignment call", "Create account in RentFlow"],
+    deliverables: ["Handoff document", "Property portfolio summary", "Account setup checklist"],
+    stakeholders: ["Sales AE", "Solutions Engineer", "Onboarding Specialist", "CS Lead"],
   },
   kickoff: {
-    tasks: [
-      "Run internal kickoff with implementation pod",
-      "Host brand kickoff with merchant stakeholders",
-      "Confirm launch markets, currencies, and go-live date",
-      "Set up shared Slack/Teams channel and RACI",
-      "Define success metrics (international AOV, return rate, duties accuracy)",
-    ],
+    tasks: ["Conduct internal kickoff", "Host property manager kickoff call", "Confirm timeline & milestones", "Set up communication channels", "Define success metrics (rent collection rate, time-to-first-payment)"],
     deliverables: ["Onboarding plan", "RACI matrix", "Communication plan", "Success criteria doc"],
-    stakeholders: ["Onboarding Lead", "Brand PM", "Brand Tech Lead", "Finance / Tax Lead"],
+    stakeholders: ["Onboarding Specialist", "Property Manager", "Finance Lead", "Technical Lead"],
   },
   build: {
-    tasks: [
-      "Configure landed-cost engine (duties, taxes, VAT, IOSS)",
-      "Connect storefront platform (Shopify / BigCommerce / custom)",
-      "Wire up returns portal, exchanges, and store credit flows",
-      "Map compliance rules per market (GPSR, RoHS, FDA, etc.)",
-      "Provision agentic storefront keys & product feed sync",
-    ],
-    deliverables: ["Configuration doc", "Integration architecture diagram", "Compliance matrix", "Returns flow spec"],
-    stakeholders: ["Solutions Architect", "Brand Engineering", "Compliance Lead", "3PL / Logistics Partner"],
+    tasks: ["Configure rent collection workflows", "Set up payment gateway integration", "Import property & tenant data", "Build custom lease templates", "Create tenant portal branding"],
+    deliverables: ["Configuration document", "Payment integration specs", "Data migration report", "Tenant portal mockups"],
+    stakeholders: ["Technical Lead", "Solutions Architect", "Property Manager IT", "Data Engineer"],
   },
   testing: {
-    tasks: [
-      "End-to-end checkout test across all launch markets",
-      "Validate duties, taxes, and currency conversion at checkout",
-      "Test returns initiation, label generation, and refund/exchange flows",
-      "QA agentic storefront responses against product catalog",
-      "Compliance dry-run with sample shipments",
-    ],
-    deliverables: ["Test plan", "UAT results", "Compliance audit log", "Sign-off document"],
-    stakeholders: ["QA Lead", "Brand Ops Team", "Compliance Team", "Onboarding Lead"],
+    tasks: ["Create test payment scenarios", "Execute UAT with sample tenants", "Test ACH/card payment flows", "Security & compliance review", "Obtain sign-off"],
+    deliverables: ["Test plan", "UAT results", "Payment reconciliation report", "Sign-off document"],
+    stakeholders: ["QA Lead", "Property Manager Team", "Compliance Team", "Onboarding Specialist"],
   },
   golive: {
-    tasks: [
-      "Final catalog & inventory sync",
-      "Activate live checkout, duties, and returns portal",
-      "Switch DNS / theme blocks for agentic storefront",
-      "Send merchant launch comms and customer announcement",
-      "Activate 24/7 support escalation path",
-    ],
-    deliverables: ["Go-live runbook", "Customer comms templates", "Live monitoring dashboard", "Support guide"],
-    stakeholders: ["Onboarding Lead", "DevOps", "Brand Marketing", "Support Team"],
+    tasks: ["Final tenant data sync", "Activate payment processing", "Enable tenant portal access", "Send tenant welcome communications", "Activate support escalation path"],
+    deliverables: ["Go-live checklist", "Tenant communication templates", "Monitoring dashboard", "Support guide"],
+    stakeholders: ["Onboarding Specialist", "DevOps", "Property Manager", "Support Team"],
   },
   hypercare: {
-    tasks: [
-      "Daily checkout & returns monitoring",
-      "Rapid triage of duties / tax discrepancies",
-      "Gather merchant feedback on conversion and return rates",
-      "Optimize agentic storefront prompts and product attributes",
-      "Transition to BAU CSM ownership",
-    ],
-    deliverables: ["Issue log", "Conversion & returns optimization report", "BAU transition plan", "Account health score"],
-    stakeholders: ["CSM", "Support Lead", "Brand PM", "Product Team"],
+    tasks: ["Daily payment monitoring", "Rapid issue resolution", "Gather property manager feedback", "Optimize rent collection timing", "Transition to BAU support"],
+    deliverables: ["Issue log", "Collection optimization report", "BAU transition plan", "Account health score"],
+    stakeholders: ["CS Manager", "Support Lead", "Property Manager", "Product Team"],
   },
 };
 
@@ -95,7 +59,7 @@ export default function Playbook() {
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-2xl font-semibold">Onboarding Playbook</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            A standardized 6-phase framework for repeatable, scalable brand onboardings across cross-border, returns, compliance, and agentic storefront launches.
+            A standardized 6-phase framework for repeatable, scalable property manager onboardings.
           </p>
         </motion.div>
 

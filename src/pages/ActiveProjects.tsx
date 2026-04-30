@@ -37,14 +37,14 @@ type Project = {
 };
 
 const initialProjects: Project[] = [
-  { id: "1", name: "Northwind Beauty Co.", segment: "Enterprise · Beauty", owner: "Sarah K.", phase: 3, status: "on-track", progress: 58, startDate: "Jan 15", targetDate: "Apr 20", daysRemaining: 26 },
-  { id: "2", name: "Hearthwood Home", segment: "Mid-Market · Home & Living", owner: "Mike R.", phase: 4, status: "at-risk", progress: 72, startDate: "Feb 1", targetDate: "Apr 5", daysRemaining: 11 },
-  { id: "3", name: "Lumen Activewear", segment: "Enterprise · Sports", owner: "Lisa M.", phase: 1, status: "on-track", progress: 18, startDate: "Mar 10", targetDate: "Jun 30", daysRemaining: 97 },
-  { id: "4", name: "Pawtonic Pet Co.", segment: "Mid-Market · Pet", owner: "James W.", phase: 5, status: "on-track", progress: 90, startDate: "Dec 5", targetDate: "Mar 28", daysRemaining: 3 },
-  { id: "5", name: "Vesta Wellness", segment: "Enterprise · Health", owner: "Ana P.", phase: 2, status: "delayed", progress: 35, startDate: "Feb 15", targetDate: "May 30", daysRemaining: 66 },
-  { id: "6", name: "Pelagos Surf Co.", segment: "Mid-Market · Sports", owner: "Tom B.", phase: 0, status: "not-started", progress: 5, startDate: "Mar 22", targetDate: "Jun 15", daysRemaining: 82 },
-  { id: "7", name: "Tilbury Kids", segment: "Enterprise · Baby & Kids", owner: "Sarah K.", phase: 3, status: "on-track", progress: 55, startDate: "Jan 28", targetDate: "May 10", daysRemaining: 46 },
-  { id: "8", name: "Halcyon Audio", segment: "Enterprise · Consumer Electronics", owner: "Mike R.", phase: 4, status: "on-track", progress: 78, startDate: "Nov 20", targetDate: "Apr 2", daysRemaining: 8 },
+  { id: "1", name: "Greystone Properties", segment: "Enterprise PM", owner: "Sarah K.", phase: 3, status: "on-track", progress: 58, startDate: "Jan 15", targetDate: "Apr 20", daysRemaining: 26 },
+  { id: "2", name: "UrbanNest Rentals", segment: "Mid-Market PM", owner: "Mike R.", phase: 4, status: "at-risk", progress: 72, startDate: "Feb 1", targetDate: "Apr 5", daysRemaining: 11 },
+  { id: "3", name: "Pinnacle Real Estate", segment: "Enterprise PM", owner: "Lisa M.", phase: 1, status: "on-track", progress: 18, startDate: "Mar 10", targetDate: "Jun 30", daysRemaining: 97 },
+  { id: "4", name: "QuickLease Co", segment: "SMB Landlord", owner: "James W.", phase: 5, status: "on-track", progress: 90, startDate: "Dec 5", targetDate: "Mar 28", daysRemaining: 3 },
+  { id: "5", name: "Maple Ridge Mgmt", segment: "Enterprise PM", owner: "Ana P.", phase: 2, status: "delayed", progress: 35, startDate: "Feb 15", targetDate: "May 30", daysRemaining: 66 },
+  { id: "6", name: "SunBelt Apartments", segment: "Mid-Market PM", owner: "Tom B.", phase: 0, status: "not-started", progress: 5, startDate: "Mar 22", targetDate: "Jun 15", daysRemaining: 82 },
+  { id: "7", name: "Harbor View Realty", segment: "Enterprise PM", owner: "Sarah K.", phase: 3, status: "on-track", progress: 55, startDate: "Jan 28", targetDate: "May 10", daysRemaining: 46 },
+  { id: "8", name: "ClearRent Financial", segment: "Enterprise PM", owner: "Mike R.", phase: 4, status: "on-track", progress: 78, startDate: "Nov 20", targetDate: "Apr 2", daysRemaining: 8 },
 ];
 
 type ViewMode = "list" | "kanban";
@@ -132,9 +132,9 @@ export default function ActiveProjects() {
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
           <div className="flex items-start justify-between">
             <div>
-              <h1 className="text-2xl font-semibold">Active Brand Onboardings</h1>
+              <h1 className="text-2xl font-semibold">Active Onboardings</h1>
               <p className="text-sm text-muted-foreground mt-1">
-                Track all merchant launches across the 6-phase global commerce lifecycle.
+                Track all property manager onboardings across the 6-phase lifecycle.
               </p>
             </div>
             <div className="flex items-center bg-muted rounded-lg p-0.5">
@@ -167,7 +167,7 @@ export default function ActiveProjects() {
                 filter === s ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-muted/80"
               }`}
             >
-              {s === "All" ? "All Brands" : s.replace("-", " ").replace(/\b\w/g, l => l.toUpperCase())}
+              {s === "All" ? "All Accounts" : s.replace("-", " ").replace(/\b\w/g, l => l.toUpperCase())}
             </button>
           ))}
         </div>
@@ -245,7 +245,7 @@ export default function ActiveProjects() {
                             ))
                           ) : (
                             <div className="flex items-center justify-center h-[120px] rounded-lg border border-dashed text-xs text-muted-foreground">
-                              No brands
+                              No accounts
                             </div>
                           )}
                         </DroppableColumn>

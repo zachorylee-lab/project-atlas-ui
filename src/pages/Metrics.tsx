@@ -28,14 +28,14 @@ const timeToValue = [
   { month: "Dec", days: 18 },
   { month: "Jan", days: 15 },
   { month: "Feb", days: 14 },
-  { month: "Mar", days: 9 },
+  { month: "Mar", days: 12 },
 ];
 
 const kpis = [
-  { label: "Brand Satisfaction (CSAT)", value: "4.7/5", target: "4.5/5", progress: 94 },
-  { label: "On-Time Launch", value: "89%", target: "90%", progress: 89 },
-  { label: "Duties Accuracy", value: "99.2%", target: "98%", progress: 100 },
-  { label: "Avg. Time to First Intl. Order", value: "9 days", target: "12 days", progress: 100 },
+  { label: "PM Satisfaction", value: "4.7/5", target: "4.5/5", progress: 94 },
+  { label: "On-Time Go-Live", value: "87%", target: "90%", progress: 87 },
+  { label: "First-Payment Success", value: "96%", target: "95%", progress: 100 },
+  { label: "Avg. Time to First Rent", value: "12 days", target: "14 days", progress: 100 },
 ];
 
 export default function Metrics() {
@@ -45,7 +45,7 @@ export default function Metrics() {
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-2xl font-semibold">Metrics & Reporting</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Key performance indicators across all brand onboardings — from handoff through international launch and hypercare.
+            Key performance indicators across all property manager onboardings.
           </p>
         </motion.div>
 
@@ -66,7 +66,7 @@ export default function Metrics() {
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-base font-semibold">Monthly Brand Launches</CardTitle>
+                <CardTitle className="text-base font-semibold">Monthly Onboarding Completions</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="h-64">
@@ -87,7 +87,7 @@ export default function Metrics() {
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-base font-semibold">Time to First International Order</CardTitle>
+                <CardTitle className="text-base font-semibold">Time to First Rent Collection</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="h-64">
@@ -108,7 +108,7 @@ export default function Metrics() {
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
             <Card className="lg:col-span-2">
               <CardHeader className="pb-2">
-                <CardTitle className="text-base font-semibold">Brands by Phase</CardTitle>
+                <CardTitle className="text-base font-semibold">Accounts by Phase</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="h-64 flex items-center justify-center">
