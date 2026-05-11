@@ -515,6 +515,100 @@ const slides: Slide[] = [
     ),
   },
   {
+    id: "change-management",
+    render: () => (
+      <SlideFrame tag="Change Management" title="Adoption Strategy — Communication, Training & Metrics">
+        <div className="grid grid-cols-3 gap-5 h-full">
+          {/* Communication Plan */}
+          <div className="rounded-lg border p-4 flex flex-col" style={{ borderColor: C.border, background: `${C.teal}05` }}>
+            <div className="flex items-center gap-2 mb-3">
+              <div className="h-7 w-7 rounded-md flex items-center justify-center text-xs font-bold" style={{ background: C.teal, color: C.white }}>1</div>
+              <h3 className="text-sm font-bold" style={{ color: C.navy }}>Communication Plan</h3>
+            </div>
+            <div className="space-y-2.5 text-xs">
+              {[
+                { when: "T-30 days", aud: "PM Leadership", channel: "Exec briefing + FAQ", msg: "Vision, ROI targets, timeline" },
+                { when: "T-21 days", aud: "Property Staff", channel: "Town hall + Slack", msg: "What's changing, role impact" },
+                { when: "T-14 days", aud: "Tenants", channel: "Email + in-app banner", msg: "New portal, autopay benefits" },
+                { when: "T-7 days", aud: "All Stakeholders", channel: "Go-live countdown", msg: "Support channels, cutover plan" },
+                { when: "T+30 days", aud: "All Users", channel: "Adoption pulse survey", msg: "Feedback loop, wins, fixes" },
+              ].map((c) => (
+                <div key={c.when} className="border-l-2 pl-2.5 py-1" style={{ borderColor: C.teal }}>
+                  <div className="flex justify-between items-baseline gap-2">
+                    <span className="font-bold text-[11px]" style={{ color: C.teal }}>{c.when}</span>
+                    <span className="text-[10px] font-semibold" style={{ color: C.navy }}>{c.aud}</span>
+                  </div>
+                  <div className="text-[10px] font-medium mt-0.5" style={{ color: C.navy }}>{c.channel}</div>
+                  <div className="text-[10px]" style={{ color: C.slate }}>{c.msg}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Training Schedule */}
+          <div className="rounded-lg border p-4 flex flex-col" style={{ borderColor: C.border, background: `${C.gold}05` }}>
+            <div className="flex items-center gap-2 mb-3">
+              <div className="h-7 w-7 rounded-md flex items-center justify-center text-xs font-bold" style={{ background: C.gold, color: C.white }}>2</div>
+              <h3 className="text-sm font-bold" style={{ color: C.navy }}>Training Schedule</h3>
+            </div>
+            <div className="space-y-2 text-xs">
+              {[
+                { week: "Week 1", title: "Admin Foundations", who: "PM Ops + IT", fmt: "Live workshop · 4 hrs" },
+                { week: "Week 2", title: "Rent Collection Workflows", who: "Property Managers", fmt: "Hands-on lab · 2 hrs" },
+                { week: "Week 3", title: "Accounting & Reconciliation", who: "Finance Team", fmt: "Live workshop · 3 hrs" },
+                { week: "Week 4", title: "Maintenance & Tenant Support", who: "Site Staff", fmt: "Self-paced · 90 min" },
+                { week: "Week 5", title: "Reporting & Dashboards", who: "Leadership", fmt: "Office hours · 1 hr" },
+                { week: "Ongoing", title: "Champion Network", who: "Power Users", fmt: "Bi-weekly cohort" },
+              ].map((t) => (
+                <div key={t.week} className="rounded border p-2" style={{ borderColor: C.border, background: C.white }}>
+                  <div className="flex justify-between items-baseline">
+                    <span className="font-bold text-[11px]" style={{ color: C.gold }}>{t.week}</span>
+                    <span className="text-[10px]" style={{ color: C.slate }}>{t.fmt}</span>
+                  </div>
+                  <div className="text-[11px] font-semibold mt-0.5" style={{ color: C.navy }}>{t.title}</div>
+                  <div className="text-[10px]" style={{ color: C.slate }}>{t.who}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Adoption Metrics */}
+          <div className="rounded-lg border p-4 flex flex-col" style={{ borderColor: C.border, background: `${C.navy}05` }}>
+            <div className="flex items-center gap-2 mb-3">
+              <div className="h-7 w-7 rounded-md flex items-center justify-center text-xs font-bold" style={{ background: C.navy, color: C.white }}>3</div>
+              <h3 className="text-sm font-bold" style={{ color: C.navy }}>Adoption Metrics</h3>
+            </div>
+            <div className="space-y-3 text-xs">
+              {[
+                { metric: "Tenant Autopay Enrollment", target: "65%", current: "42%", pct: 65 },
+                { metric: "PM Daily Active Users", target: "90%", current: "78%", pct: 87 },
+                { metric: "Training Completion Rate", target: "100%", current: "84%", pct: 84 },
+                { metric: "Support Ticket Volume", target: "<20/wk", current: "27/wk", pct: 70 },
+                { metric: "User Satisfaction (CSAT)", target: "4.5/5", current: "4.2/5", pct: 84 },
+                { metric: "Time-to-Proficiency", target: "<14 days", current: "16 days", pct: 75 },
+              ].map((m) => (
+                <div key={m.metric}>
+                  <div className="flex justify-between items-baseline mb-1">
+                    <span className="text-[11px] font-semibold" style={{ color: C.navy }}>{m.metric}</span>
+                    <span className="text-[10px]" style={{ color: C.slate }}>
+                      <span className="font-bold" style={{ color: C.teal }}>{m.current}</span> / {m.target}
+                    </span>
+                  </div>
+                  <div className="h-1.5 rounded-full overflow-hidden" style={{ background: C.border }}>
+                    <div className="h-full rounded-full" style={{ width: `${m.pct}%`, background: m.pct >= 85 ? C.teal : m.pct >= 70 ? C.gold : "hsl(0 72% 51%)" }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-auto pt-3 text-[10px] italic" style={{ color: C.slate }}>
+              Reviewed bi-weekly with Steering Committee
+            </div>
+          </div>
+        </div>
+      </SlideFrame>
+    ),
+  },
+  {
     id: "next-steps",
     render: () => (
       <div className="flex h-full flex-col" style={{ background: C.navy }}>
