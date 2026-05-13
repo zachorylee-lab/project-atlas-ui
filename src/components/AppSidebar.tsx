@@ -36,6 +36,7 @@ const navItems = [
   { title: "Integrations", url: "/integrations", icon: Plug },
   { title: "Sales Handoff", url: "/handoff", icon: ArrowRightLeft },
   { title: "Executive Reporting", url: "/deck", icon: Presentation },
+  { title: "Director View", url: "/deck-director", icon: Briefcase },
 ];
 
 export function AppSidebar() {
