@@ -395,7 +395,8 @@ export default function Integrations() {
             <h1 className="text-2xl font-bold text-foreground">Integrations</h1>
           </div>
           <p className="text-sm text-muted-foreground">
-            Connect RentFlow to the tools your property managers already use. Best practices, data requirements, and setup guides for every integration.
+            Connect Sage Intacct to the systems your finance team relies on — CRM, AP automation, payroll, banking, tax, and BI. Best practices, data requirements, and setup guides for every integration.
+
           </p>
         </div>
 
