@@ -57,10 +57,11 @@ export default function Playbook() {
     <DashboardLayout>
       <div className="space-y-8 max-w-4xl">
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-2xl font-semibold">Onboarding Playbook</h1>
+          <h1 className="text-2xl font-semibold">Sage Intacct Implementation Playbook</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            A standardized 6-phase framework for repeatable, scalable property manager onboardings.
+            A standardized 6-phase framework for repeatable, audit-ready Sage Intacct deployments across single and multi-entity finance teams.
           </p>
+
         </motion.div>
 
         <div className="flex items-center gap-0 overflow-x-auto pb-2">
@@ -80,10 +81,11 @@ export default function Playbook() {
               </div>
             );
           })}
-          <h1 className="text-2xl font-semibold">Sage Intacct Implementation Playbook</h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            A standardized 6-phase framework for repeatable, audit-ready Sage Intacct deployments across single and multi-entity finance teams.
-          </p>
+        </div>
+
+        <Accordion type="multiple" defaultValue={["handoff"]} className="space-y-3">
+          {PHASES.map((phase, i) => {
+            const Icon = phaseIcons[phase.icon];
 
             const details = phaseDetails[phase.id];
             return (
