@@ -14,120 +14,120 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-type ModuleId = "rent-collection" | "tenant-screening" | "property-accounting" | "maintenance";
+type ModuleId = "financial-close" | "multi-entity" | "ap-automation" | "ai-insights";
 
 type WorkflowTask = { label: string; done: boolean };
 type MigrationItem = { source: string; target: string; records: string; status: "pending" | "in-progress" | "complete" | "failed" };
 type ConfigStep = { label: string; description: string; done: boolean };
 
 const modulesMeta: Record<ModuleId, { label: string; icon: React.ElementType; color: string; description: string }> = {
-  "rent-collection": { label: "Rent Collection", icon: CreditCard, color: "text-blue-500", description: "Payment processing, ACH transfers, autopay, and late fee automation" },
-  "tenant-screening": { label: "Tenant Screening", icon: Users, color: "text-emerald-500", description: "Credit checks, background verification, income validation, and approval workflows" },
-  "property-accounting": { label: "Property Accounting", icon: DollarSign, color: "text-violet-500", description: "Revenue tracking, expense management, owner distributions, and financial reporting" },
-  maintenance: { label: "Maintenance", icon: Home, color: "text-amber-500", description: "Work order management, vendor coordination, and preventive maintenance scheduling" },
+  "financial-close": { label: "Financial Close", icon: CheckCircle2, color: "text-blue-500", description: "Close checklist, journal entries, reconciliations, and consolidated reporting" },
+  "multi-entity": { label: "Multi-Entity Accounting", icon: Home, color: "text-emerald-500", description: "Inter-entity transactions, consolidations, eliminations, and multi-currency" },
+  "ap-automation": { label: "AP Automation", icon: CreditCard, color: "text-violet-500", description: "Invoice capture, approval workflows, payment runs, and vendor management" },
+  "ai-insights": { label: "AI Insights & Reporting", icon: DollarSign, color: "text-amber-500", description: "Anomaly detection, AI-powered dashboards, and CFO/Board reporting" },
 };
 
 const implementationChecklists: Record<ModuleId, WorkflowTask[]> = {
-  "rent-collection": [
-    { label: "Configure payment gateway (Stripe/ACH)", done: false },
-    { label: "Set up property-level bank accounts", done: false },
-    { label: "Define rent due dates and grace periods", done: false },
-    { label: "Configure late fee rules per lease type", done: false },
-    { label: "Set up autopay enrollment workflows", done: false },
-    { label: "Enable tenant payment portal", done: false },
-    { label: "Configure payment receipt notifications", done: false },
-    { label: "Test end-to-end payment flow", done: false },
+  "financial-close": [
+    { label: "Configure close checklist and task owners", done: false },
+    { label: "Define journal entry approval thresholds", done: false },
+    { label: "Set up bank reconciliation match rules", done: false },
+    { label: "Configure recurring & allocation journals", done: false },
+    { label: "Enable period lock & soft/hard close controls", done: false },
+    { label: "Build financial statement templates (P&L, BS, CF)", done: false },
+    { label: "Configure variance & flux analysis reports", done: false },
+    { label: "Run end-to-end month-end close in sandbox", done: false },
   ],
-  "tenant-screening": [
-    { label: "Connect credit bureau APIs (Experian/TransUnion)", done: false },
-    { label: "Configure screening criteria thresholds", done: false },
-    { label: "Set up background check workflow", done: false },
-    { label: "Define income verification rules (3× rent)", done: false },
-    { label: "Configure approval/denial notification templates", done: false },
-    { label: "Set up co-signer and guarantor flows", done: false },
-    { label: "Test screening application pipeline", done: false },
-    { label: "Enable applicant self-service portal", done: false },
+  "multi-entity": [
+    { label: "Define legal entity hierarchy & ownership", done: false },
+    { label: "Configure inter-entity transaction rules", done: false },
+    { label: "Set up multi-currency & FX revaluation", done: false },
+    { label: "Build consolidation & elimination rules", done: false },
+    { label: "Configure minority interest & equity pickup", done: false },
+    { label: "Set up reporting books (GAAP, IFRS, Tax)", done: false },
+    { label: "Test full consolidation cycle", done: false },
+    { label: "Enable entity-level security & access", done: false },
   ],
-  "property-accounting": [
-    { label: "Map chart of accounts to RentFlow schema", done: false },
-    { label: "Configure owner distribution schedules", done: false },
-    { label: "Set up expense categorization rules", done: false },
-    { label: "Import historical financial data", done: false },
-    { label: "Configure monthly financial statement generation", done: false },
-    { label: "Set up 1099 reporting for owners", done: false },
-    { label: "Enable bank reconciliation automation", done: false },
-    { label: "Test month-end close process", done: false },
+  "ap-automation": [
+    { label: "Connect Bill.com / Sage AP Automation", done: false },
+    { label: "Configure OCR & invoice capture rules", done: false },
+    { label: "Build approval matrix by amount & dimension", done: false },
+    { label: "Set up 3-way match (PO, receipt, invoice)", done: false },
+    { label: "Configure payment runs (ACH, check, vCard)", done: false },
+    { label: "Set up 1099 tracking and vendor compliance", done: false },
+    { label: "Test end-to-end invoice-to-pay flow", done: false },
+    { label: "Enable vendor self-service portal", done: false },
   ],
-  maintenance: [
-    { label: "Configure work order categories and priorities", done: false },
-    { label: "Set up vendor directory and assignments", done: false },
-    { label: "Define SLA thresholds by priority level", done: false },
-    { label: "Configure tenant maintenance request portal", done: false },
-    { label: "Set up preventive maintenance schedules", done: false },
-    { label: "Enable photo/video attachment for work orders", done: false },
-    { label: "Configure vendor invoice approval workflow", done: false },
-    { label: "Test work order lifecycle end-to-end", done: false },
-    { label: "Set up maintenance cost tracking per unit", done: false },
+  "ai-insights": [
+    { label: "Enable Intelligent GL anomaly detection", done: false },
+    { label: "Tune anomaly thresholds per account category", done: false },
+    { label: "Configure AI-assisted bank reconciliation", done: false },
+    { label: "Build CFO dashboard with key KPIs", done: false },
+    { label: "Build Board reporting pack template", done: false },
+    { label: "Configure scheduled report distribution", done: false },
+    { label: "Set up budget vs. actual variance alerts", done: false },
+    { label: "Train finance team on Insight Console", done: false },
   ],
 };
 
 const migrationData: Record<ModuleId, MigrationItem[]> = {
-  "rent-collection": [
-    { source: "Legacy PM Software", target: "Lease Records", records: "~2,400 leases", status: "pending" },
-    { source: "Bank Statements", target: "Payment History", records: "12 months", status: "pending" },
-    { source: "Spreadsheets", target: "Tenant Balances", records: "All units", status: "pending" },
-    { source: "Old Payment Portal", target: "Autopay Enrollments", records: "~800 tenants", status: "pending" },
+  "financial-close": [
+    { source: "Legacy ERP", target: "Chart of Accounts", records: "~450 accounts", status: "pending" },
+    { source: "Excel Templates", target: "Close Checklist Tasks", records: "~120 tasks", status: "pending" },
+    { source: "Bank Statements", target: "Reconciliation History", records: "12 months", status: "pending" },
+    { source: "Legacy GL", target: "Opening Trial Balances", records: "All entities", status: "pending" },
   ],
-  "tenant-screening": [
-    { source: "Application Files", target: "Screening Templates", records: "~15 templates", status: "pending" },
-    { source: "PM Records", target: "Tenant Profiles", records: "~2,400 tenants", status: "pending" },
-    { source: "Credit Reports", target: "Historical Screens", records: "6 months", status: "pending" },
-    { source: "Approval Records", target: "Decision History", records: "~500 decisions", status: "pending" },
+  "multi-entity": [
+    { source: "Legacy Consolidation Tool", target: "Entity Hierarchy", records: "38 entities", status: "pending" },
+    { source: "FX System", target: "Historical FX Rates", records: "24 months", status: "pending" },
+    { source: "Excel Eliminations", target: "Elimination Rules", records: "~85 rules", status: "pending" },
+    { source: "Legacy GL", target: "Inter-Entity Balances", records: "All open items", status: "pending" },
   ],
-  "property-accounting": [
-    { source: "QuickBooks/Xero", target: "Chart of Accounts", records: "~120 accounts", status: "pending" },
-    { source: "Bank Records", target: "Transaction History", records: "12 months", status: "pending" },
-    { source: "Owner Statements", target: "Distribution History", records: "All owners", status: "pending" },
-    { source: "Expense Records", target: "Vendor Payments", records: "12 months", status: "pending" },
+  "ap-automation": [
+    { source: "Legacy AP System", target: "Vendor Master", records: "~1,800 vendors", status: "pending" },
+    { source: "Approval Matrix", target: "AP Workflow Rules", records: "~45 rules", status: "pending" },
+    { source: "Open AP Aging", target: "Outstanding Bills", records: "~620 invoices", status: "pending" },
+    { source: "1099 Records", target: "Vendor Tax Profiles", records: "Prior 2 years", status: "pending" },
   ],
-  maintenance: [
-    { source: "Work Order System", target: "Open Work Orders", records: "~85 orders", status: "pending" },
-    { source: "Vendor Contacts", target: "Vendor Directory", records: "~40 vendors", status: "pending" },
-    { source: "Maintenance Logs", target: "Service History", records: "24 months", status: "pending" },
-    { source: "Inspection Reports", target: "Property Conditions", records: "All units", status: "pending" },
+  "ai-insights": [
+    { source: "Legacy BI", target: "Report Templates", records: "~60 reports", status: "pending" },
+    { source: "Budget Files", target: "Annual Budget", records: "All entities", status: "pending" },
+    { source: "Excel KPIs", target: "Dashboard Definitions", records: "~25 KPIs", status: "pending" },
+    { source: "Historical GL", target: "AI Training Data", records: "36 months", status: "pending" },
   ],
 };
 
 const configSteps: Record<ModuleId, ConfigStep[]> = {
-  "rent-collection": [
-    { label: "Payment Gateway", description: "Connect Stripe or ACH provider and configure merchant accounts per property", done: false },
-    { label: "Rent Schedules", description: "Set due dates, grace periods, and pro-ration rules per lease type", done: false },
-    { label: "Late Fees", description: "Configure flat or percentage-based late fees with grace period thresholds", done: false },
-    { label: "Autopay Rules", description: "Set up recurring payment options and enrollment/cancellation flows", done: false },
-    { label: "Notifications", description: "Configure rent due reminders, payment confirmations, and late notices", done: false },
+  "financial-close": [
+    { label: "Close Calendar", description: "Define close days, owners, dependencies, and reminder schedule", done: false },
+    { label: "Journal Workflows", description: "Configure JE templates, approval thresholds, and recurring entries", done: false },
+    { label: "Reconciliations", description: "Set up bank, GL, and inter-entity reconciliation rules with auto-match", done: false },
+    { label: "Period Controls", description: "Configure soft/hard close, period locks, and reopen permissions", done: false },
+    { label: "Financial Reports", description: "Build P&L, balance sheet, cash flow, and variance report templates", done: false },
   ],
-  "tenant-screening": [
-    { label: "Screening Criteria", description: "Define minimum credit score, income ratio, and background check requirements", done: false },
-    { label: "Application Flow", description: "Configure multi-step application with document upload and fee collection", done: false },
-    { label: "Bureau Connections", description: "Set up API connections to credit bureaus and background check providers", done: false },
-    { label: "Approval Workflow", description: "Define approval, conditional approval, and denial criteria and routing", done: false },
-    { label: "Adverse Action", description: "Configure compliant adverse action notice templates per jurisdiction", done: false },
+  "multi-entity": [
+    { label: "Entity Structure", description: "Model legal entities, ownership %, and reporting hierarchy", done: false },
+    { label: "Inter-Entity Rules", description: "Configure due-to/due-from accounts and automated postings", done: false },
+    { label: "Multi-Currency", description: "Set base, transaction, and reporting currencies; configure FX feeds", done: false },
+    { label: "Consolidation Rules", description: "Define eliminations, minority interest, and translation methods", done: false },
+    { label: "Reporting Books", description: "Configure GAAP, IFRS, Tax, and Management reporting books", done: false },
   ],
-  "property-accounting": [
-    { label: "Chart of Accounts", description: "Map property income, expenses, and trust accounts to standard categories", done: false },
-    { label: "Owner Distributions", description: "Configure distribution schedules, reserve holdbacks, and payment methods", done: false },
-    { label: "Expense Rules", description: "Set up automatic categorization, approval workflows, and budget alerts", done: false },
-    { label: "Financial Reports", description: "Configure P&L, balance sheet, and rent roll report templates", done: false },
-    { label: "Bank Reconciliation", description: "Connect bank feeds and configure automated reconciliation matching rules", done: false },
+  "ap-automation": [
+    { label: "Invoice Capture", description: "Configure OCR, email-in addresses, and vendor invoice templates", done: false },
+    { label: "Approval Matrix", description: "Define approvers by amount, department, entity, and project", done: false },
+    { label: "3-Way Match", description: "Enable PO, receipt, and invoice matching with tolerance rules", done: false },
+    { label: "Payment Runs", description: "Configure ACH, check, and virtual card payment methods and schedules", done: false },
+    { label: "Vendor Compliance", description: "Set up W-9 collection, 1099 tracking, and OFAC screening", done: false },
   ],
-  maintenance: [
-    { label: "Work Order Types", description: "Define categories (plumbing, electrical, HVAC, etc.) and priority levels", done: false },
-    { label: "Vendor Assignment", description: "Configure automatic vendor routing based on trade, location, and availability", done: false },
-    { label: "SLA Thresholds", description: "Set response and resolution time targets by priority (emergency, urgent, routine)", done: false },
-    { label: "Tenant Portal", description: "Enable self-service maintenance requests with photo uploads and status tracking", done: false },
-    { label: "Preventive Maintenance", description: "Schedule recurring inspections, filter changes, and seasonal maintenance tasks", done: false },
+  "ai-insights": [
+    { label: "Anomaly Detection", description: "Enable AI scoring on GL postings and tune thresholds per account", done: false },
+    { label: "KPI Library", description: "Define days-to-close, automation rate, DSO, DPO, and cash KPIs", done: false },
+    { label: "CFO Dashboard", description: "Build CFO and Controller dashboards with drill-down to transactions", done: false },
+    { label: "Board Pack", description: "Configure quarterly Board report template and distribution list", done: false },
+    { label: "Alerts & Workflows", description: "Set up exception alerts, variance triggers, and approval reminders", done: false },
   ],
 };
+
 
 const statusStyles: Record<string, { label: string; classes: string }> = {
   pending: { label: "Pending", classes: "bg-muted text-muted-foreground" },
@@ -139,7 +139,8 @@ const statusStyles: Record<string, { label: string; classes: string }> = {
 const fadeUp = { initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.3 } };
 
 export default function DataWorkflows() {
-  const [activeModule, setActiveModule] = useState<ModuleId>("rent-collection");
+  const [activeModule, setActiveModule] = useState<ModuleId>("financial-close");
+
   const [checklistStates, setChecklistStates] = useState<Record<string, boolean[]>>({});
   const [migrationStates, setMigrationStates] = useState<Record<string, MigrationItem[]>>({});
   const [configStates, setConfigStates] = useState<Record<string, boolean[]>>({});
@@ -187,7 +188,8 @@ export default function DataWorkflows() {
           <div>
             <h1 className="text-2xl font-bold tracking-tight">Data Workflows</h1>
             <p className="text-sm text-muted-foreground mt-1">
-              Configure, migrate, and validate data for each RentFlow module
+              Configure, migrate, and validate data for each Sage Intacct module
+
             </p>
           </div>
           <Badge variant="outline" className="text-xs gap-1.5 px-3 py-1.5">
@@ -321,7 +323,8 @@ export default function DataWorkflows() {
                   <div className="grid grid-cols-[1fr_auto_1fr_auto_auto] gap-0 text-[11px] font-medium text-muted-foreground bg-muted/50 px-4 py-2.5">
                     <span>Source System</span>
                     <span />
-                    <span>Target in RentFlow</span>
+                    <span>Target in Sage Intacct</span>
+
                     <span className="text-center">Records</span>
                     <span className="text-center">Status</span>
                   </div>
