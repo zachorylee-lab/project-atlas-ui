@@ -18,39 +18,39 @@ import { motion } from "framer-motion";
 const phaseIcons: Record<string, React.ElementType> = {
   ArrowRightLeft, Rocket, Hammer, FlaskConical, Zap, HeartPulse,
 };
-
 const phaseDetails: Record<string, { tasks: string[]; deliverables: string[]; stakeholders: string[] }> = {
   handoff: {
-    tasks: ["Review sales notes & property portfolio details", "Validate property manager requirements", "Assign onboarding specialist", "Schedule internal alignment call", "Create account in RentFlow"],
-    deliverables: ["Handoff document", "Property portfolio summary", "Account setup checklist"],
-    stakeholders: ["Sales AE", "Solutions Engineer", "Onboarding Specialist", "CS Lead"],
+    tasks: ["Review signed order form & entity scope", "Validate multi-entity structure & consolidations needs", "Assign implementation consultant & solutions architect", "Schedule internal alignment with Sales & SE", "Provision Sage Intacct production & sandbox tenants"],
+    deliverables: ["Sales-to-Services handoff doc", "Entity & dimensions inventory", "Module activation checklist", "Statement of Work confirmation"],
+    stakeholders: ["Sales AE", "Solutions Engineer", "Implementation Consultant", "Customer Success Manager"],
   },
   kickoff: {
-    tasks: ["Conduct internal kickoff", "Host property manager kickoff call", "Confirm timeline & milestones", "Set up communication channels", "Define success metrics (rent collection rate, time-to-first-payment)"],
-    deliverables: ["Onboarding plan", "RACI matrix", "Communication plan", "Success criteria doc"],
-    stakeholders: ["Onboarding Specialist", "Property Manager", "Finance Lead", "Technical Lead"],
+    tasks: ["Conduct internal kickoff with delivery team", "Host CFO/Controller kickoff & charter review", "Confirm close-cycle target & go-live date", "Set up shared workspace and weekly cadence", "Define success metrics (days-to-close, automation %, audit readiness)"],
+    deliverables: ["Implementation plan & timeline", "RACI matrix", "Risk & issue log", "Discovery workbook"],
+    stakeholders: ["Implementation Consultant", "CFO / Controller", "Finance Operations Lead", "IT / Systems Owner"],
   },
   build: {
-    tasks: ["Configure rent collection workflows", "Set up payment gateway integration", "Import property & tenant data", "Build custom lease templates", "Create tenant portal branding"],
-    deliverables: ["Configuration document", "Payment integration specs", "Data migration report", "Tenant portal mockups"],
-    stakeholders: ["Technical Lead", "Solutions Architect", "Property Manager IT", "Data Engineer"],
+    tasks: ["Configure chart of accounts, dimensions & entities", "Build inter-entity & consolidation rules", "Migrate trial balances, vendors, customers & open AR/AP", "Configure AP automation, approvals & bank feeds", "Activate AI anomaly detection & close checklist"],
+    deliverables: ["Configured COA & dimension structure", "Data migration reconciliation report", "Integration specifications", "Reporting & dashboard pack"],
+    stakeholders: ["Solutions Architect", "Data Migration Lead", "Customer Controller", "Integration Engineer"],
   },
   testing: {
-    tasks: ["Create test payment scenarios", "Execute UAT with sample tenants", "Test ACH/card payment flows", "Security & compliance review", "Obtain sign-off"],
-    deliverables: ["Test plan", "UAT results", "Payment reconciliation report", "Sign-off document"],
-    stakeholders: ["QA Lead", "Property Manager Team", "Compliance Team", "Onboarding Specialist"],
+    tasks: ["Execute UAT for record-to-report cycle", "Validate multi-entity consolidations & eliminations", "Test AP/AR workflows, approvals & bank reconciliation", "SOC 1 / audit-trail & security review", "Obtain Controller and CFO sign-off"],
+    deliverables: ["UAT test scripts & results", "Reconciliation sign-off pack", "Security & roles matrix", "Go/No-Go decision document"],
+    stakeholders: ["QA Lead", "Customer Finance Team", "Internal Audit", "Implementation Consultant"],
   },
   golive: {
-    tasks: ["Final tenant data sync", "Activate payment processing", "Enable tenant portal access", "Send tenant welcome communications", "Activate support escalation path"],
-    deliverables: ["Go-live checklist", "Tenant communication templates", "Monitoring dashboard", "Support guide"],
-    stakeholders: ["Onboarding Specialist", "DevOps", "Property Manager", "Support Team"],
+    tasks: ["Final cutover of opening balances", "Activate live AP, AR & bank integrations", "Enable user access & SSO", "Send cutover comms to finance & approvers", "Open hypercare support channel"],
+    deliverables: ["Go-live runbook", "Cutover reconciliation", "User access matrix", "Day-1 monitoring dashboard"],
+    stakeholders: ["Implementation Consultant", "Customer Controller", "IT Operations", "Sage Support"],
   },
   hypercare: {
-    tasks: ["Daily payment monitoring", "Rapid issue resolution", "Gather property manager feedback", "Optimize rent collection timing", "Transition to BAU support"],
-    deliverables: ["Issue log", "Collection optimization report", "BAU transition plan", "Account health score"],
-    stakeholders: ["CS Manager", "Support Lead", "Property Manager", "Product Team"],
+    tasks: ["Daily close-cycle monitoring & exception triage", "Run first full month-end close with customer", "Tune AI automation & approval thresholds", "Gather CSAT & QBR inputs", "Transition to Customer Success / BAU"],
+    deliverables: ["First close performance report", "Optimization recommendations", "BAU transition document", "Customer health scorecard"],
+    stakeholders: ["Customer Success Manager", "Support Lead", "Customer Controller", "Product Specialist"],
   },
 };
+
 
 export default function Playbook() {
   return (
@@ -80,11 +80,11 @@ export default function Playbook() {
               </div>
             );
           })}
-        </div>
+          <h1 className="text-2xl font-semibold">Sage Intacct Implementation Playbook</h1>
+          <p className="text-sm text-muted-foreground mt-1">
+            A standardized 6-phase framework for repeatable, audit-ready Sage Intacct deployments across single and multi-entity finance teams.
+          </p>
 
-        <Accordion type="multiple" defaultValue={["handoff"]} className="space-y-3">
-          {PHASES.map((phase, i) => {
-            const Icon = phaseIcons[phase.icon];
             const details = phaseDetails[phase.id];
             return (
               <motion.div key={phase.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>

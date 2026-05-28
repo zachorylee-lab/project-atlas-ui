@@ -1,54 +1,53 @@
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { CheckCircle2, Clock, AlertCircle, User, DollarSign, Building2 } from "lucide-react";
 import { motion } from "framer-motion";
 
 const handoffs = [
   {
-    customer: "Summit Property Group",
+    customer: "Higginbotham Insurance",
     ae: "Chris D.",
-    deal: "$185K ARR",
-    segment: "Enterprise PM",
-    readiness: 92,
+    deal: "$485K ARR",
+    segment: "Multi-Entity · 38 entities",
+    readiness: 94,
     status: "ready" as const,
     submitted: "Mar 22, 2026",
     items: { complete: 11, total: 12 },
-    notes: "450-unit portfolio. Requires custom ACH routing for multiple bank accounts per property.",
+    notes: "Multi-entity consolidations across 38 insurance brokerages. Requires inter-entity AR/AP and Salesforce CPQ integration.",
   },
   {
-    customer: "HomeBase Rentals",
+    customer: "Asana Rebel GmbH",
     ae: "Amy L.",
-    deal: "$72K ARR",
-    segment: "Mid-Market PM",
+    deal: "$162K ARR",
+    segment: "Growth SaaS · Multi-currency",
     readiness: 67,
     status: "incomplete" as const,
     submitted: "Mar 20, 2026",
     items: { complete: 8, total: 12 },
-    notes: "Missing tenant data export from legacy system and banking setup details.",
+    notes: "Missing EUR/USD historical FX rates and Stripe revenue feed mapping. SaaS contracts module pending scope confirmation.",
   },
   {
-    customer: "Pacific Coast Realty",
+    customer: "ProService Hawaii",
     ae: "Mark T.",
-    deal: "$320K ARR",
-    segment: "Enterprise PM",
+    deal: "$310K ARR",
+    segment: "Professional Services · 6 entities",
     readiness: 100,
     status: "ready" as const,
     submitted: "Mar 18, 2026",
     items: { complete: 12, total: 12 },
-    notes: "Fast-track requested. 1,200 units across 8 properties. Multiple payment gateway integrations needed.",
+    notes: "Fast-track requested. Replacing legacy NetSuite. Project accounting, T&E, and ADP integration in scope.",
   },
   {
-    customer: "EasyRent LLC",
+    customer: "Lyric Opera of Chicago",
     ae: "Jen S.",
-    deal: "$45K ARR",
-    segment: "SMB Landlord",
+    deal: "$95K ARR",
+    segment: "Nonprofit · Fund accounting",
     readiness: 42,
     status: "blocked" as const,
     submitted: "Mar 15, 2026",
     items: { complete: 5, total: 12 },
-    notes: "SOW not signed. Awaiting legal review from property owner.",
+    notes: "Order form pending Board legal review. Grants and restricted-fund dimensions to be finalized.",
   },
 ];
 
@@ -59,18 +58,18 @@ const statusStyles = {
 };
 
 const checklist = [
-  "SOW / Contract signed",
-  "Property portfolio data collected",
-  "Tenant records exported from legacy system",
-  "Banking & ACH details provided",
-  "Executive sponsor identified",
-  "Rent collection goals defined",
-  "Timeline expectations aligned",
-  "Internal kickoff scheduled",
-  "Property manager kickoff scheduled",
-  "Onboarding charter drafted",
-  "Communication plan set",
-  "Risk assessment completed",
+  "Order form / contract signed",
+  "Entity structure & currencies documented",
+  "Trial balances exported from legacy ERP",
+  "Chart of accounts & dimensions defined",
+  "Executive sponsor (CFO/Controller) identified",
+  "Close-cycle and automation targets defined",
+  "Go-live date aligned to fiscal calendar",
+  "Internal Sage kickoff scheduled",
+  "Customer kickoff scheduled",
+  "Implementation charter drafted",
+  "Integration list confirmed (Salesforce, ADP, banks)",
+  "Risk & compliance assessment completed",
 ];
 
 export default function SalesHandoff() {
@@ -78,16 +77,16 @@ export default function SalesHandoff() {
     <DashboardLayout>
       <div className="space-y-6 max-w-6xl">
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-2xl font-semibold">Sales → Onboarding Handoff</h1>
+          <h1 className="text-2xl font-semibold">Customer Onboarding · Sales Handoff</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Manage the transition from closed deals to active property manager onboardings. Ensure completeness before kickoff.
+            Manage the transition from closed Sage Intacct deals to active implementations. All items must be complete before kickoff.
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
             { label: "Pending Handoffs", value: "4", sub: "2 ready, 1 incomplete, 1 blocked" },
-            { label: "Avg. Readiness", value: "75%", sub: "Target: 90% before kickoff" },
+            { label: "Avg. Readiness", value: "76%", sub: "Target: 90% before kickoff" },
             { label: "Avg. Handoff Time", value: "3.2 days", sub: "From submission to acceptance" },
           ].map((s, i) => (
             <motion.div key={s.label} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
