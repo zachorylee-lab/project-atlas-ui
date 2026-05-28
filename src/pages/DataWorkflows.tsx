@@ -139,7 +139,8 @@ const statusStyles: Record<string, { label: string; classes: string }> = {
 const fadeUp = { initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.3 } };
 
 export default function DataWorkflows() {
-  const [activeModule, setActiveModule] = useState<ModuleId>("rent-collection");
+  const [activeModule, setActiveModule] = useState<ModuleId>("financial-close");
+
   const [checklistStates, setChecklistStates] = useState<Record<string, boolean[]>>({});
   const [migrationStates, setMigrationStates] = useState<Record<string, MigrationItem[]>>({});
   const [configStates, setConfigStates] = useState<Record<string, boolean[]>>({});
@@ -187,7 +188,8 @@ export default function DataWorkflows() {
           <div>
             <h1 className="text-2xl font-bold tracking-tight">Data Workflows</h1>
             <p className="text-sm text-muted-foreground mt-1">
-              Configure, migrate, and validate data for each RentFlow module
+              Configure, migrate, and validate data for each Sage Intacct module
+
             </p>
           </div>
           <Badge variant="outline" className="text-xs gap-1.5 px-3 py-1.5">
@@ -321,7 +323,8 @@ export default function DataWorkflows() {
                   <div className="grid grid-cols-[1fr_auto_1fr_auto_auto] gap-0 text-[11px] font-medium text-muted-foreground bg-muted/50 px-4 py-2.5">
                     <span>Source System</span>
                     <span />
-                    <span>Target in RentFlow</span>
+                    <span>Target in Sage Intacct</span>
+
                     <span className="text-center">Records</span>
                     <span className="text-center">Status</span>
                   </div>
