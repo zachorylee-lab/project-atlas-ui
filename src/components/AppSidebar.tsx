@@ -26,8 +26,6 @@ import {
 } from "@/components/ui/sidebar";
 
 const navItems = [
-  { title: "Dashboard", url: "/", icon: LayoutDashboard },
-const navItems = [
   { title: "Finance Dashboard", url: "/", icon: LayoutDashboard },
   { title: "Insights & KPIs", url: "/metrics", icon: BarChart3 },
   { title: "Close Cycles", url: "/projects", icon: Kanban },
@@ -38,6 +36,8 @@ const navItems = [
   { title: "Customer Onboarding", url: "/handoff", icon: ArrowRightLeft },
   { title: "Board Reporting", url: "/deck", icon: Presentation },
 ];
+
+export function AppSidebar() {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
   const location = useLocation();
@@ -47,9 +47,6 @@ const navItems = [
       <SidebarHeader className="p-4">
         <div className="flex items-center gap-3">
           <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary">
-            <span className="text-sm font-bold text-primary-foreground">R</span>
-          </div>
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary">
             <span className="text-sm font-bold text-primary-foreground">S</span>
           </div>
           {!collapsed && (
@@ -58,6 +55,10 @@ const navItems = [
               <span className="text-[10px] uppercase tracking-widest text-sidebar-foreground/60">Finance Software</span>
             </div>
           )}
+        </div>
+      </SidebarHeader>
+
+      <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel className="text-sidebar-foreground/40 text-[10px] uppercase tracking-wider">
             Navigation
