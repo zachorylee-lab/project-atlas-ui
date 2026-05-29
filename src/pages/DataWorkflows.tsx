@@ -16,6 +16,10 @@ import { useState } from "react";
 
 type ModuleId = "financial-close" | "multi-entity" | "ap-automation" | "ai-insights";
 
+type WorkflowTask = { label: string; done: boolean };
+type MigrationItem = { source: string; target: string; records: string; status: "pending" | "in-progress" | "complete" | "failed" };
+type ConfigStep = { label: string; description: string; done: boolean };
+
 const modulesMeta: Record<ModuleId, { label: string; icon: React.ElementType; color: string; description: string }> = {
   "financial-close": { label: "Surcharging Engine", icon: CheckCircle2, color: "text-amber-500", description: "BIN rules, brand caps, payer disclosures, and surcharge audit trail" },
   "multi-entity": { label: "Multi-Rail Payments", icon: Home, color: "text-blue-500", description: "Cards, ACH, wires, FX and alt-pay orchestration across processors" },
