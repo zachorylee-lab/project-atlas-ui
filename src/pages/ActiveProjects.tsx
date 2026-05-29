@@ -37,14 +37,14 @@ type Project = {
 };
 
 const initialProjects: Project[] = [
-  { id: "1", name: "Greystone Properties", segment: "Enterprise PM", owner: "Sarah K.", phase: 3, status: "on-track", progress: 58, startDate: "Jan 15", targetDate: "Apr 20", daysRemaining: 26 },
-  { id: "2", name: "UrbanNest Rentals", segment: "Mid-Market PM", owner: "Mike R.", phase: 4, status: "at-risk", progress: 72, startDate: "Feb 1", targetDate: "Apr 5", daysRemaining: 11 },
-  { id: "3", name: "Pinnacle Real Estate", segment: "Enterprise PM", owner: "Lisa M.", phase: 1, status: "on-track", progress: 18, startDate: "Mar 10", targetDate: "Jun 30", daysRemaining: 97 },
-  { id: "4", name: "QuickLease Co", segment: "SMB Landlord", owner: "James W.", phase: 5, status: "on-track", progress: 90, startDate: "Dec 5", targetDate: "Mar 28", daysRemaining: 3 },
-  { id: "5", name: "Maple Ridge Mgmt", segment: "Enterprise PM", owner: "Ana P.", phase: 2, status: "delayed", progress: 35, startDate: "Feb 15", targetDate: "May 30", daysRemaining: 66 },
-  { id: "6", name: "SunBelt Apartments", segment: "Mid-Market PM", owner: "Tom B.", phase: 0, status: "not-started", progress: 5, startDate: "Mar 22", targetDate: "Jun 15", daysRemaining: 82 },
-  { id: "7", name: "Harbor View Realty", segment: "Enterprise PM", owner: "Sarah K.", phase: 3, status: "on-track", progress: 55, startDate: "Jan 28", targetDate: "May 10", daysRemaining: 46 },
-  { id: "8", name: "ClearRent Financial", segment: "Enterprise PM", owner: "Mike R.", phase: 4, status: "on-track", progress: 78, startDate: "Nov 20", targetDate: "Apr 2", daysRemaining: 8 },
+  { id: "1", name: "Progress Residential", segment: "SFR · Surcharging", owner: "E. Cicero", phase: 5, status: "on-track", progress: 92, startDate: "Jan 15", targetDate: "Apr 20", daysRemaining: 26 },
+  { id: "2", name: "Atlas Travel & Technology", segment: "Travel · Multi-rail + BaaS", owner: "A. Piggott", phase: 4, status: "on-track", progress: 78, startDate: "Feb 1", targetDate: "Apr 5", daysRemaining: 11 },
+  { id: "3", name: "Lyric Marketplace", segment: "Marketplace · Rainforest", owner: "L. Martin", phase: 1, status: "on-track", progress: 18, startDate: "Mar 10", targetDate: "Jun 30", daysRemaining: 97 },
+  { id: "4", name: "Business Infusions", segment: "ISV · Surcharging", owner: "S. Pickard", phase: 5, status: "on-track", progress: 95, startDate: "Dec 5", targetDate: "Mar 28", daysRemaining: 3 },
+  { id: "5", name: "NovaSubs Platform", segment: "SaaS · Stripe Billing", owner: "A. Pereira", phase: 3, status: "at-risk", progress: 48, startDate: "Feb 15", targetDate: "May 30", daysRemaining: 66 },
+  { id: "6", name: "Vela Wellness", segment: "DTC · Airwallex FX", owner: "T. Bauer", phase: 0, status: "not-started", progress: 5, startDate: "Mar 22", targetDate: "Jun 15", daysRemaining: 82 },
+  { id: "7", name: "Harbor Marine Holdings", segment: "B2B · Tipalti payouts", owner: "S. Khan", phase: 3, status: "on-track", progress: 55, startDate: "Jan 28", targetDate: "May 10", daysRemaining: 46 },
+  { id: "8", name: "ClearLease Capital", segment: "Fintech · OFX + ACH", owner: "M. Rivera", phase: 4, status: "on-track", progress: 78, startDate: "Nov 20", targetDate: "Apr 2", daysRemaining: 8 },
 ];
 
 type ViewMode = "list" | "kanban";
