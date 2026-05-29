@@ -21,10 +21,10 @@ type MigrationItem = { source: string; target: string; records: string; status: 
 type ConfigStep = { label: string; description: string; done: boolean };
 
 const modulesMeta: Record<ModuleId, { label: string; icon: React.ElementType; color: string; description: string }> = {
-  "financial-close": { label: "Financial Close", icon: CheckCircle2, color: "text-blue-500", description: "Close checklist, journal entries, reconciliations, and consolidated reporting" },
-  "multi-entity": { label: "Multi-Entity Accounting", icon: Home, color: "text-emerald-500", description: "Inter-entity transactions, consolidations, eliminations, and multi-currency" },
-  "ap-automation": { label: "AP Automation", icon: CreditCard, color: "text-violet-500", description: "Invoice capture, approval workflows, payment runs, and vendor management" },
-  "ai-insights": { label: "AI Insights & Reporting", icon: DollarSign, color: "text-amber-500", description: "Anomaly detection, AI-powered dashboards, and CFO/Board reporting" },
+  "financial-close": { label: "Surcharging Engine", icon: CheckCircle2, color: "text-amber-500", description: "BIN rules, brand caps, payer disclosures, and surcharge audit trail" },
+  "multi-entity": { label: "Multi-Rail Payments", icon: Home, color: "text-blue-500", description: "Cards, ACH, wires, FX and alt-pay orchestration across processors" },
+  "ap-automation": { label: "AP Payouts & Tipalti", icon: CreditCard, color: "text-emerald-500", description: "Mass payouts, supplier onboarding, tax forms and approval workflows" },
+  "ai-insights": { label: "Recovery Insights & Reporting", icon: DollarSign, color: "text-violet-500", description: "Auth rate, decline analysis, surcharge $ recovered and chargeback monitoring" },
 };
 
 const implementationChecklists: Record<ModuleId, WorkflowTask[]> = {
@@ -186,10 +186,9 @@ export default function DataWorkflows() {
       <motion.div {...fadeUp}>
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">Data Workflows</h1>
+            <h1 className="text-2xl font-bold tracking-tight">Payment Workflows</h1>
             <p className="text-sm text-muted-foreground mt-1">
-              Configure, migrate, and validate data for each Sage Intacct module
-
+              Configure, migrate and validate each module of the Yeeld payments stack
             </p>
           </div>
           <Badge variant="outline" className="text-xs gap-1.5 px-3 py-1.5">

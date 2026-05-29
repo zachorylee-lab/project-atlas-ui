@@ -13,29 +13,29 @@ const phaseDistribution = [
   { name: "Hypercare", count: 2, color: "hsl(340, 65%, 50%)" },
 ];
 
-const monthlyCompletions = [
-  { month: "Oct", completed: 5 },
-  { month: "Nov", completed: 7 },
-  { month: "Dec", completed: 4 },
-  { month: "Jan", completed: 8 },
-  { month: "Feb", completed: 6 },
-  { month: "Mar", completed: 9 },
+const monthlyRecovery = [
+  { month: "Oct", recovered: 1.6 },
+  { month: "Nov", recovered: 1.9 },
+  { month: "Dec", recovered: 2.1 },
+  { month: "Jan", recovered: 2.4 },
+  { month: "Feb", recovered: 2.7 },
+  { month: "Mar", recovered: 3.1 },
 ];
 
-const timeToValue = [
-  { month: "Oct", days: 22 },
-  { month: "Nov", days: 19 },
-  { month: "Dec", days: 18 },
-  { month: "Jan", days: 15 },
-  { month: "Feb", days: 14 },
-  { month: "Mar", days: 12 },
+const authRateTrend = [
+  { month: "Oct", rate: 91.2 },
+  { month: "Nov", rate: 92.1 },
+  { month: "Dec", rate: 92.6 },
+  { month: "Jan", rate: 93.4 },
+  { month: "Feb", rate: 94.1 },
+  { month: "Mar", rate: 94.8 },
 ];
 
 const kpis = [
-  { label: "PM Satisfaction", value: "4.7/5", target: "4.5/5", progress: 94 },
-  { label: "On-Time Go-Live", value: "87%", target: "90%", progress: 87 },
-  { label: "First-Payment Success", value: "96%", target: "95%", progress: 100 },
-  { label: "Avg. Time to First Rent", value: "12 days", target: "14 days", progress: 100 },
+  { label: "Merchant CSAT", value: "4.8/5", target: "4.5/5", progress: 96 },
+  { label: "On-Time Launch", value: "92%", target: "90%", progress: 100 },
+  { label: "Surcharge Compliance", value: "99.4%", target: "99%", progress: 100 },
+  { label: "Avg. Time to Live", value: "11 wks", target: "14 wks", progress: 100 },
 ];
 
 export default function Metrics() {
@@ -43,9 +43,9 @@ export default function Metrics() {
     <DashboardLayout>
       <div className="space-y-6 max-w-7xl">
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-2xl font-semibold">Metrics & Reporting</h1>
+          <h1 className="text-2xl font-semibold">Recovery & KPIs</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Key performance indicators across all property manager onboardings.
+            Portfolio-wide payment performance: surcharge recovery, auth rate, compliance and merchant satisfaction.
           </p>
         </motion.div>
 
@@ -66,17 +66,17 @@ export default function Metrics() {
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-base font-semibold">Monthly Onboarding Completions</CardTitle>
+                <CardTitle className="text-base font-semibold">Monthly Surcharge Recovery ($M)</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={monthlyCompletions}>
+                    <BarChart data={monthlyRecovery}>
                       <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                       <XAxis dataKey="month" tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
                       <YAxis tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
                       <Tooltip contentStyle={{ borderRadius: 8, border: "1px solid hsl(var(--border))", fontSize: 12 }} />
-                      <Bar dataKey="completed" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                      <Bar dataKey="recovered" fill="hsl(var(--accent))" radius={[4, 4, 0, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
@@ -87,17 +87,17 @@ export default function Metrics() {
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-base font-semibold">Time to First Rent Collection</CardTitle>
+                <CardTitle className="text-base font-semibold">Portfolio Auth Rate (%)</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={timeToValue}>
+                    <LineChart data={authRateTrend}>
                       <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                       <XAxis dataKey="month" tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
-                      <YAxis tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
+                      <YAxis domain={[88, 96]} tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
                       <Tooltip contentStyle={{ borderRadius: 8, border: "1px solid hsl(var(--border))", fontSize: 12 }} />
-                      <Line type="monotone" dataKey="days" stroke="hsl(var(--accent))" strokeWidth={2} dot={{ fill: "hsl(var(--accent))", r: 4 }} />
+                      <Line type="monotone" dataKey="rate" stroke="hsl(var(--primary))" strokeWidth={2} dot={{ fill: "hsl(var(--primary))", r: 4 }} />
                     </LineChart>
                   </ResponsiveContainer>
                 </div>
@@ -108,7 +108,7 @@ export default function Metrics() {
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
             <Card className="lg:col-span-2">
               <CardHeader className="pb-2">
-                <CardTitle className="text-base font-semibold">Accounts by Phase</CardTitle>
+                <CardTitle className="text-base font-semibold">Merchants by Implementation Phase</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="h-64 flex items-center justify-center">

@@ -18,50 +18,116 @@ import { motion } from "framer-motion";
 const phaseIcons: Record<string, React.ElementType> = {
   ArrowRightLeft, Rocket, Hammer, FlaskConical, Zap, HeartPulse,
 };
+
 const phaseDetails: Record<string, { tasks: string[]; deliverables: string[]; stakeholders: string[] }> = {
   handoff: {
-    tasks: ["Review signed order form & entity scope", "Validate multi-entity structure & consolidations needs", "Assign implementation consultant & solutions architect", "Schedule internal alignment with Sales & SE", "Provision Sage Intacct production & sandbox tenants"],
-    deliverables: ["Sales-to-Services handoff doc", "Entity & dimensions inventory", "Module activation checklist", "Statement of Work confirmation"],
-    stakeholders: ["Sales AE", "Solutions Engineer", "Implementation Consultant", "Customer Success Manager"],
+    tasks: [
+      "Review signed SOW, processor agreements & merchant scope",
+      "Validate target payment rails (cards, ACH, wires, FX)",
+      "Confirm surcharging eligibility by state/region & card brand rules",
+      "Assign Yeeld lead consultant, payments engineer & advisory partner",
+      "Provision processor sandboxes (Stripe, Rainforest, Airwallex, etc.)",
+    ],
+    deliverables: [
+      "Sales-to-delivery handoff brief",
+      "Payment stack inventory (gateway, processor, vault, orchestration)",
+      "Compliance pre-check (Visa/MC/AmEx surcharge rules, state laws)",
+      "Statement of Work confirmation",
+    ],
+    stakeholders: ["Yeeld AE", "Solutions Architect", "Payments Engineer", "Merchant CFO / Finance Ops"],
   },
   kickoff: {
-    tasks: ["Conduct internal kickoff with delivery team", "Host CFO/Controller kickoff & charter review", "Confirm close-cycle target & go-live date", "Set up shared workspace and weekly cadence", "Define success metrics (days-to-close, automation %, audit readiness)"],
-    deliverables: ["Implementation plan & timeline", "RACI matrix", "Risk & issue log", "Discovery workbook"],
-    stakeholders: ["Implementation Consultant", "CFO / Controller", "Finance Operations Lead", "IT / Systems Owner"],
+    tasks: [
+      "Conduct internal Yeeld delivery kickoff",
+      "Host merchant kickoff with Finance, Product, Engineering & Legal",
+      "Confirm KPI targets (recovery rate, decline rate, chargeback ratio)",
+      "Set go-live window aligned to billing & settlement cycles",
+      "Define compliance posture (PCI DSS, surcharge disclosures, Reg E/Z)",
+    ],
+    deliverables: [
+      "Implementation plan & milestone timeline",
+      "RACI across Yeeld, merchant, processor & ISV partners",
+      "Risk & compliance register",
+      "Discovery workbook (rails, geos, BIN coverage, fees)",
+    ],
+    stakeholders: ["Implementation Lead", "Merchant CFO / Controller", "VP Engineering", "Legal & Compliance"],
   },
   build: {
-    tasks: ["Configure chart of accounts, dimensions & entities", "Build inter-entity & consolidation rules", "Migrate trial balances, vendors, customers & open AR/AP", "Configure AP automation, approvals & bank feeds", "Activate AI anomaly detection & close checklist"],
-    deliverables: ["Configured COA & dimension structure", "Data migration reconciliation report", "Integration specifications", "Reporting & dashboard pack"],
-    stakeholders: ["Solutions Architect", "Data Migration Lead", "Customer Controller", "Integration Engineer"],
+    tasks: [
+      "Integrate surcharging engine with checkout & invoicing",
+      "Configure BIN-level rules, cap logic & dual-pricing disclosures",
+      "Wire processor connections (Stripe, Rainforest, Airwallex, OFX)",
+      "Implement Avalara for surcharge tax handling & nexus monitoring",
+      "Build Tipalti / AP automation for vendor payout flows where in scope",
+      "Implement webhooks, vault tokens, retries & idempotency",
+    ],
+    deliverables: [
+      "Configured surcharging rules engine",
+      "Processor integration specs & API contracts",
+      "Reconciliation & settlement data model",
+      "Merchant-facing reporting dashboard",
+    ],
+    stakeholders: ["Solutions Architect", "Yeeld Payments Engineers", "Merchant Eng / Product", "Processor Integration Manager"],
   },
   testing: {
-    tasks: ["Execute UAT for record-to-report cycle", "Validate multi-entity consolidations & eliminations", "Test AP/AR workflows, approvals & bank reconciliation", "SOC 1 / audit-trail & security review", "Obtain Controller and CFO sign-off"],
-    deliverables: ["UAT test scripts & results", "Reconciliation sign-off pack", "Security & roles matrix", "Go/No-Go decision document"],
-    stakeholders: ["QA Lead", "Customer Finance Team", "Internal Audit", "Implementation Consultant"],
+    tasks: [
+      "Run end-to-end card-present / card-not-present test matrix",
+      "Validate surcharge math, caps & disclosures across BINs",
+      "Simulate chargebacks, refunds, partial captures & reversals",
+      "Compliance review: PCI scope, disclosures, state-by-state legality",
+      "Pre-launch review with Yeeld advisory + merchant Legal",
+    ],
+    deliverables: [
+      "UAT test scripts & results",
+      "Surcharge compliance attestation",
+      "Reconciliation sign-off across processors",
+      "Go / No-Go decision document",
+    ],
+    stakeholders: ["QA Lead", "Merchant Finance & Legal", "Yeeld Advisory", "Processor Solutions"],
   },
   golive: {
-    tasks: ["Final cutover of opening balances", "Activate live AP, AR & bank integrations", "Enable user access & SSO", "Send cutover comms to finance & approvers", "Open hypercare support channel"],
-    deliverables: ["Go-live runbook", "Cutover reconciliation", "User access matrix", "Day-1 monitoring dashboard"],
-    stakeholders: ["Implementation Consultant", "Customer Controller", "IT Operations", "Sage Support"],
+    tasks: [
+      "Cutover from legacy gateway / acquirer",
+      "Enable production surcharging in waves by region or merchant ID",
+      "Turn on live processor routing & failover rules",
+      "Push merchant comms, payer-facing disclosures & FAQs",
+      "Open Yeeld hypercare channel (Slack + on-call rotation)",
+    ],
+    deliverables: [
+      "Go-live runbook & rollback plan",
+      "First-day settlement reconciliation",
+      "User & API access matrix",
+      "Day-1 monitoring dashboard (auth rate, decline, chargeback)",
+    ],
+    stakeholders: ["Yeeld Implementation Lead", "Merchant Eng & Ops", "Processor Support", "Merchant Customer Support"],
   },
   hypercare: {
-    tasks: ["Daily close-cycle monitoring & exception triage", "Run first full month-end close with customer", "Tune AI automation & approval thresholds", "Gather CSAT & QBR inputs", "Transition to Customer Success / BAU"],
-    deliverables: ["First close performance report", "Optimization recommendations", "BAU transition document", "Customer health scorecard"],
-    stakeholders: ["Customer Success Manager", "Support Lead", "Customer Controller", "Product Specialist"],
+    tasks: [
+      "Daily monitoring of auth rate, decline reasons & chargebacks",
+      "Tune surcharging rules & BIN exceptions based on real traffic",
+      "Run first full month-end settlement reconciliation with merchant",
+      "Capture CSAT, recovery metrics & advisory recommendations",
+      "Transition to ongoing Yeeld advisory / managed services",
+    ],
+    deliverables: [
+      "First-month recovery & performance report",
+      "Optimization recommendations (rails, routing, fees)",
+      "BAU & advisory transition document",
+      "Merchant health scorecard",
+    ],
+    stakeholders: ["Yeeld Advisory", "Merchant Finance Ops", "Processor Account Mgmt", "Yeeld Engineering on-call"],
   },
 };
-
 
 export default function Playbook() {
   return (
     <DashboardLayout>
       <div className="space-y-8 max-w-4xl">
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-2xl font-semibold">Sage Intacct Implementation Playbook</h1>
+          <h1 className="text-2xl font-semibold">Yeeld Implementation Playbook</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            A standardized 6-phase framework for repeatable, audit-ready Sage Intacct deployments across single and multi-entity finance teams.
+            A repeatable 6-phase framework for shipping compliant surcharging programs and complex payment systems — from sales handoff to ongoing advisory.
           </p>
-
         </motion.div>
 
         <div className="flex items-center gap-0 overflow-x-auto pb-2">
@@ -86,7 +152,6 @@ export default function Playbook() {
         <Accordion type="multiple" defaultValue={["handoff"]} className="space-y-3">
           {PHASES.map((phase, i) => {
             const Icon = phaseIcons[phase.icon];
-
             const details = phaseDetails[phase.id];
             return (
               <motion.div key={phase.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>

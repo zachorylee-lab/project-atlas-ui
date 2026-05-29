@@ -5,27 +5,27 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import {
   Users,
-  TrendingUp,
   Clock,
-  CheckCircle2,
   ArrowUpRight,
   AlertTriangle,
+  DollarSign,
+  ShieldCheck,
 } from "lucide-react";
 import { motion } from "framer-motion";
 
 const stats = [
-  { label: "Entities Managed", value: "147", change: "+12 this quarter", icon: Users, trend: "up" as const },
-  { label: "Avg. Close Cycle", value: "3.2 days", change: "-58% vs baseline", icon: Clock, trend: "up" as const },
-  { label: "AI Automation Rate", value: "91%", change: "+6% vs Q3", icon: CheckCircle2, trend: "up" as const },
-  { label: "Exceptions to Review", value: "7", change: "Needs attention", icon: AlertTriangle, trend: "down" as const },
+  { label: "Active Merchants", value: "112", change: "+9 this quarter", icon: Users, trend: "up" as const },
+  { label: "Fees Recovered (TTM)", value: "$24.6M", change: "+38% YoY", icon: DollarSign, trend: "up" as const },
+  { label: "Surcharge Compliance", value: "99.4%", change: "All 50 states + brand rules", icon: ShieldCheck, trend: "up" as const },
+  { label: "Disputes to Review", value: "11", change: "Needs attention", icon: AlertTriangle, trend: "down" as const },
 ];
 
 const activeProjects = [
-  { name: "Higginbotham Insurance", client: "Multi-entity · 38 entities", phase: 5, status: "on-track" as const, progress: 92, owner: "Sarah K." },
-  { name: "New York Yankees", client: "Sports & Entertainment", phase: 4, status: "on-track" as const, progress: 76, owner: "Mike R." },
-  { name: "Lyric Opera of Chicago", client: "Non-profit", phase: 1, status: "on-track" as const, progress: 18, owner: "Lisa M." },
-  { name: "ProService Hawaii", client: "Professional Services", phase: 5, status: "on-track" as const, progress: 90, owner: "James W." },
-  { name: "Asana Rebel GmbH", client: "SaaS · Multi-currency", phase: 3, status: "at-risk" as const, progress: 48, owner: "Ana P." },
+  { name: "Progress Residential", client: "Single-Family Rental · Surcharging", phase: 5, status: "on-track" as const, progress: 92, owner: "E. Cicero" },
+  { name: "Atlas Travel & Tech", client: "Travel · BaaS + Multi-rail", phase: 4, status: "on-track" as const, progress: 78, owner: "A. Piggott" },
+  { name: "Business Infusions", client: "ISV · Surcharging + ISV Acquiring", phase: 5, status: "on-track" as const, progress: 95, owner: "S. Pickard" },
+  { name: "Lyric Marketplace", client: "Marketplace · Rainforest acquiring", phase: 1, status: "on-track" as const, progress: 16, owner: "L. Martin" },
+  { name: "NovaSubs Platform", client: "SaaS · Stripe Billing + Tax", phase: 3, status: "at-risk" as const, progress: 48, owner: "A. Pereira" },
 ];
 
 const fadeUp = {
@@ -39,13 +39,12 @@ export default function Dashboard() {
     <DashboardLayout>
       <div className="space-y-8 max-w-7xl">
         <motion.div {...fadeUp}>
-          <h1 className="text-2xl font-semibold text-foreground">Finance Operations</h1>
+          <h1 className="text-2xl font-semibold text-foreground">Payments Operations</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Real-time visibility across entities, close cycles, and AI-automated workflows powered by Sage Intacct.
+            Real-time visibility across merchants, surcharging programs, and complex payment integrations delivered by Yeeld.
           </p>
         </motion.div>
 
-        {/* Stats Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {stats.map((stat, i) => (
             <motion.div key={stat.label} {...fadeUp} transition={{ delay: i * 0.05 }}>
@@ -63,7 +62,7 @@ export default function Dashboard() {
                       <span className="text-xs text-muted-foreground">{stat.change}</span>
                     </div>
                   </div>
-                  <div className="rounded-lg bg-primary/8 p-2.5">
+                  <div className="rounded-lg bg-accent/20 p-2.5">
                     <stat.icon className="h-5 w-5 text-primary" />
                   </div>
                 </div>
@@ -72,12 +71,11 @@ export default function Dashboard() {
           ))}
         </div>
 
-        {/* Projects Table */}
         <motion.div {...fadeUp} transition={{ delay: 0.2 }}>
           <Card>
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-base font-semibold">Active Implementations</CardTitle>
+                <CardTitle className="text-base font-semibold">Active Merchant Rollouts</CardTitle>
                 <a href="/projects" className="text-xs font-medium text-primary hover:underline">View all →</a>
               </div>
             </CardHeader>
@@ -102,24 +100,24 @@ export default function Dashboard() {
           </Card>
         </motion.div>
 
-        {/* Bottom Row */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <motion.div {...fadeUp} transition={{ delay: 0.3 }}>
             <Card className="h-full">
               <CardHeader className="pb-3">
-                <CardTitle className="text-base font-semibold">Close Cycle Velocity by Segment</CardTitle>
+                <CardTitle className="text-base font-semibold">Surcharge Recovery by Segment</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   {[
-                    { label: "Enterprise (>$500M rev)", avg: "4.5 days", target: "5 days", progress: 100 },
-                    { label: "Mid-Market", avg: "3.1 days", target: "4 days", progress: 100 },
-                    { label: "Growth SaaS", avg: "2.2 days", target: "3 days", progress: 100 },
+                    { label: "Property Management & SFR", recovered: "$11.2M", target: "$10M target", progress: 100 },
+                    { label: "Travel & Hospitality", recovered: "$6.8M", target: "$7M target", progress: 97 },
+                    { label: "B2B Software / ISVs", recovered: "$4.1M", target: "$5M target", progress: 82 },
+                    { label: "Marketplaces & Platforms", recovered: "$2.5M", target: "$3M target", progress: 83 },
                   ].map((seg) => (
                     <div key={seg.label} className="space-y-1.5">
                       <div className="flex justify-between text-sm">
                         <span className="font-medium">{seg.label}</span>
-                        <span className="text-muted-foreground">{seg.avg} <span className="text-xs">/ {seg.target} target</span></span>
+                        <span className="text-muted-foreground">{seg.recovered} <span className="text-xs">/ {seg.target}</span></span>
                       </div>
                       <Progress value={seg.progress} className="h-1.5" />
                     </div>
@@ -137,14 +135,14 @@ export default function Dashboard() {
               <CardContent>
                 <div className="space-y-3">
                   {[
-                    { text: "Higginbotham completed Q4 consolidation across 38 entities", time: "2h ago" },
-                    { text: "AI flagged 12 anomalies in Asana Rebel intercompany journals", time: "4h ago" },
-                    { text: "ProService Hawaii Go-Live scheduled for Mar 28", time: "6h ago" },
-                    { text: "Lyric Opera kickoff completed — multi-fund accounting enabled", time: "1d ago" },
-                    { text: "Yankees Q3 reporting package auto-generated and shared with CFO", time: "1d ago" },
+                    { text: "Progress Residential surcharging live across all rental portals — first month: $412K recovered", time: "2h ago" },
+                    { text: "Atlas Travel completed Airwallex multi-currency cutover (USD, EUR, GBP, AUD)", time: "5h ago" },
+                    { text: "Avalara nexus monitoring flagged 2 new states for surcharge compliance review", time: "7h ago" },
+                    { text: "Business Infusions ISV rev-share contract finalized with Rainforest", time: "1d ago" },
+                    { text: "NovaSubs Stripe Billing migration entered UAT — ASC 606 schedules validated", time: "1d ago" },
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-3">
-                      <div className="h-1.5 w-1.5 rounded-full bg-primary mt-2 shrink-0" />
+                      <div className="h-1.5 w-1.5 rounded-full bg-accent mt-2 shrink-0" />
                       <div className="flex-1 min-w-0">
                         <p className="text-sm">{item.text}</p>
                         <p className="text-xs text-muted-foreground">{item.time}</p>

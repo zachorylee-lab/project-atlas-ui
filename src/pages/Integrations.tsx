@@ -1,20 +1,15 @@
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import {
-  Plug, CheckCircle2, AlertTriangle, ArrowRight,
-  CreditCard, Users, Building2, Wrench,
-  Shield, FileText, Zap, Globe, Server,
-  ChevronRight, DollarSign, BarChart3, MessageSquare,
+  Plug, CheckCircle2, ArrowRight,
+  CreditCard, Building2, Shield, Globe, Banknote, RefreshCw,
+  DollarSign, Wallet, Code2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import {
-  Accordion, AccordionContent, AccordionItem, AccordionTrigger,
-} from "@/components/ui/accordion";
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription,
 } from "@/components/ui/dialog";
@@ -46,342 +41,243 @@ type IntegrationCategory = {
 
 const categories: IntegrationCategory[] = [
   {
-    id: "crm",
-    label: "CRM & Quote-to-Cash",
-    icon: Users,
-    color: "text-blue-500",
-    description: "CRM and CPQ platforms feeding orders, contracts, and revenue into Sage Intacct",
-    integrations: [
-      {
-        name: "Salesforce",
-        description: "Bi-directional Salesforce integration for accounts, opportunities, contracts, and invoices",
-        status: "available",
-        bestPractices: [
-          "Sync accounts and contacts as the single customer source of truth",
-          "Trigger Sage Intacct contract & invoice creation on Closed-Won",
-          "Push invoice status and payment data back to Salesforce for AE visibility",
-          "Use Salesforce CPQ for complex SaaS billing schedules",
-        ],
-        clientNeeds: [
-          "Salesforce Enterprise+ org with API access",
-          "Customer & opportunity field mapping",
-          "Product/SKU catalog alignment",
-          "Admin contact for sandbox & production deployment",
-        ],
-        dataFlows: ["Closed-Won opps → Sage contracts", "Customer master → Bi-directional sync", "Invoices & payments → Salesforce account view"],
-        setupSteps: ["Install Sage Intacct package", "Configure OAuth", "Map objects & fields", "Test in sandbox", "Deploy to production"],
-      },
-      {
-        name: "HubSpot",
-        description: "CRM sync for SMB and growth-stage customers using HubSpot",
-        status: "available",
-        bestPractices: [
-          "Sync companies & deals to drive automated invoicing",
-          "Use HubSpot deal stages to gate Sage Intacct contract creation",
-          "Push AR aging back to HubSpot for CS visibility",
-        ],
-        clientNeeds: [
-          "HubSpot Sales Hub Pro or Enterprise",
-          "Deal pipeline definitions",
-          "Mapping of HubSpot products to Sage items",
-        ],
-        dataFlows: ["Deals → Sage orders", "Companies → Customer master", "Invoice status → HubSpot timeline"],
-        setupSteps: ["Connect HubSpot API", "Map deal stages", "Configure product sync", "Test", "Go live"],
-      },
-    ],
-  },
-  {
-    id: "ap-automation",
-    label: "AP Automation & Spend",
+    id: "acquiring",
+    label: "Acquiring & Card Processing",
     icon: CreditCard,
-    color: "text-emerald-500",
-    description: "AP automation, expense management, and corporate card platforms",
-    integrations: [
-      {
-        name: "Bill.com",
-        description: "Native AP automation for invoice capture, approvals, and ACH payments",
-        status: "available",
-        bestPractices: [
-          "Route vendor invoices through Bill.com OCR for touchless AP",
-          "Mirror Sage Intacct approval matrix in Bill.com workflows",
-          "Sync paid bills nightly to Sage GL with full audit trail",
-        ],
-        clientNeeds: [
-          "Bill.com subscription with Sage Intacct sync enabled",
-          "Approver list with spend thresholds",
-          "Vendor master file and W-9s",
-          "Bank account funding setup",
-        ],
-        dataFlows: ["Vendor invoices → Bill.com → Sage AP", "Payments → Sage cash entries", "Vendor master → Bi-directional sync"],
-        setupSteps: ["Enable Sage Intacct sync app", "Map GL accounts & dimensions", "Configure approval policies", "Test invoice flow", "Go live"],
-      },
-      {
-        name: "Expensify",
-        description: "Employee expense reports and corporate card reconciliation",
-        status: "available",
-        bestPractices: [
-          "Map Expensify policies to Sage dimensions (department, project, location)",
-          "Auto-export approved reports to Sage AP nightly",
-          "Use SmartScan for receipt OCR to reduce manual coding",
-        ],
-        clientNeeds: [
-          "Expensify Control plan",
-          "Corporate card program details",
-          "Expense policy & approval rules",
-        ],
-        dataFlows: ["Expense reports → Sage AP", "Card transactions → GL coding", "Reimbursements → Cash management"],
-        setupSteps: ["Connect Expensify", "Map dimensions", "Configure auto-export", "Test", "Go live"],
-      },
-      {
-        name: "Ramp",
-        description: "Corporate cards and spend management with native Sage Intacct sync",
-        status: "available",
-        bestPractices: [
-          "Enforce coding at swipe to eliminate month-end clean-up",
-          "Use Ramp approval workflows for non-PO spend",
-          "Sync transactions to Sage Intacct in near-real-time",
-        ],
-        clientNeeds: [
-          "Ramp account with Sage Intacct integration enabled",
-          "Card program rollout plan",
-          "Spend policies & categories",
-        ],
-        dataFlows: ["Card transactions → Sage GL", "Bills → Sage AP", "Vendor sync → Bi-directional"],
-        setupSteps: ["Connect Ramp", "Map GL & dimensions", "Configure policies", "Test sync", "Go live"],
-      },
-    ],
-  },
-  {
-    id: "payroll-hcm",
-    label: "Payroll & HCM",
-    icon: Users,
     color: "text-violet-500",
-    description: "Payroll and HCM platforms posting labor cost to Sage Intacct",
-    integrations: [
-      {
-        name: "ADP Workforce Now",
-        description: "Payroll journal entries and labor distribution into Sage Intacct",
-        status: "available",
-        bestPractices: [
-          "Post payroll journals automatically each pay run",
-          "Map ADP earnings & deduction codes to Sage GL accounts",
-          "Use department & location dimensions for labor allocation",
-        ],
-        clientNeeds: [
-          "ADP Workforce Now with GL Interface enabled",
-          "Earnings & deduction code mapping",
-          "Department, location, and project dimension list",
-        ],
-        dataFlows: ["Payroll journals → Sage GL", "Labor allocations → Project accounting", "Tax & benefits → AP accruals"],
-        setupSteps: ["Enable ADP GL Interface", "Map codes to GL", "Test journal post", "Reconcile", "Go live"],
-      },
-      {
-        name: "Paylocity",
-        description: "Payroll posting and HR data sync for mid-market customers",
-        status: "available",
-        bestPractices: [
-          "Auto-post pay-period journals with full dimensional detail",
-          "Reconcile payroll liabilities monthly in Sage",
-          "Sync employee master to keep T&E approvers current",
-        ],
-        clientNeeds: [
-          "Paylocity Web Pay with GL integration",
-          "Account mapping spreadsheet",
-          "Approval hierarchy",
-        ],
-        dataFlows: ["Payroll → Sage GL", "Liabilities → Sage AP", "Employee master → T&E approvers"],
-        setupSteps: ["Connect Paylocity", "Map accounts", "Test post", "Reconcile", "Go live"],
-      },
-    ],
-  },
-  {
-    id: "banking",
-    label: "Banking & Cash",
-    icon: DollarSign,
-    color: "text-orange-500",
-    description: "Bank feeds, reconciliation, and treasury connectivity",
-    integrations: [
-      {
-        name: "Bank Feeds (Plaid / Direct)",
-        description: "Daily bank feeds for cash management and automated reconciliation",
-        status: "available",
-        bestPractices: [
-          "Connect every operating, payroll, and trust account",
-          "Enable AI-assisted match rules to auto-clear high-volume transactions",
-          "Reconcile daily, not monthly, to keep close cycles short",
-        ],
-        clientNeeds: [
-          "Bank credentials or direct connection approval",
-          "List of accounts and ownership",
-          "Reconciliation policies",
-        ],
-        dataFlows: ["Bank transactions → Sage cash management", "Match rules → Auto-reconciliation", "Exceptions → Controller review"],
-        setupSteps: ["Connect bank feeds", "Configure match rules", "Run parallel reconciliation", "Tune AI", "Go live"],
-      },
-      {
-        name: "Sage AP Automation Payments",
-        description: "Native ACH, check, and virtual card payments from Sage Intacct",
-        status: "available",
-        bestPractices: [
-          "Default to virtual card or ACH to reduce check costs and earn rebates",
-          "Use positive-pay file output for fraud protection",
-          "Schedule payment runs aligned to cash forecasts",
-        ],
-        clientNeeds: [
-          "Banking details and signer list",
-          "Payment policy and approval thresholds",
-          "Vendor remittance preferences",
-        ],
-        dataFlows: ["AP bills → Payment runs", "Payments → Bank reconciliation", "Remittance → Vendor notifications"],
-        setupSteps: ["Enable AP Automation", "Configure bank", "Set approvals", "Test pay run", "Go live"],
-      },
-    ],
-  },
-  {
-    id: "tax-compliance",
-    label: "Tax & Compliance",
-    icon: Shield,
-    color: "text-rose-500",
-    description: "Sales tax, VAT, and compliance automation",
-    integrations: [
-      {
-        name: "Avalara AvaTax",
-        description: "Real-time sales tax calculation, filing, and exemption certificate management",
-        status: "available",
-        bestPractices: [
-          "Calculate tax at invoice entry to avoid post-close adjustments",
-          "Sync exemption certificates centrally and re-validate annually",
-          "Use Avalara Returns for automated multi-state filing",
-        ],
-        clientNeeds: [
-          "Avalara account with AvaTax & Returns",
-          "List of nexus states and tax codes",
-          "Exemption certificate inventory",
-        ],
-        dataFlows: ["Invoice line items → Tax calc", "Tax liability → Sage GL", "Filings → Avalara Returns"],
-        setupSteps: ["Connect AvaTax", "Map tax codes", "Load exemptions", "Test calc", "Go live"],
-      },
-    ],
-  },
-  {
-    id: "data-bi",
-    label: "Data & Analytics",
-    icon: BarChart3,
-    color: "text-cyan-500",
-    description: "Data warehouse and BI platforms for FP&A and board reporting",
-    integrations: [
-      {
-        name: "Sage Intelligent Insights",
-        description: "Native AI-powered analytics, anomaly detection, and forecasting",
-        status: "available",
-        bestPractices: [
-          "Enable AI anomaly detection on AP, AR, and GL postings",
-          "Use outlier alerts to investigate before close",
-          "Share interactive dashboards with CFO & Board",
-        ],
-        clientNeeds: [
-          "Sage Intacct subscription with Intelligent GL enabled",
-          "KPI definitions and target thresholds",
-          "Dashboard distribution list",
-        ],
-        dataFlows: ["Transactions → AI scoring", "Anomalies → Alert queue", "Dashboards → CFO/Board"],
-        setupSteps: ["Enable Intelligent GL", "Configure KPIs", "Tune thresholds", "Publish dashboards", "Train users"],
-      },
-      {
-        name: "Snowflake / BI Warehouse",
-        description: "Export Sage Intacct data to Snowflake, Power BI, Tableau, or Looker",
-        status: "available",
-        bestPractices: [
-          "Nightly incremental load to warehouse for FP&A modeling",
-          "Preserve Sage dimensions for drill-down reporting",
-          "Govern access via warehouse roles, not Sage logins",
-        ],
-        clientNeeds: [
-          "Warehouse connection credentials",
-          "FP&A reporting requirements",
-          "Refresh schedule",
-        ],
-        dataFlows: ["GL & sub-ledgers → Warehouse", "Dimensions → BI models", "Reports → CFO dashboards"],
-        setupSteps: ["Connect warehouse", "Map data model", "Schedule loads", "Validate", "Go live"],
-      },
-    ],
-  },
-  {
-    id: "ecommerce-billing",
-    label: "Billing & Revenue",
-    icon: Zap,
-    color: "text-teal-500",
-    description: "Subscription billing and revenue recognition platforms",
+    description: "Card processors and acquirers Yeeld implements and supports surcharging on",
     integrations: [
       {
         name: "Stripe",
-        description: "Sync Stripe invoices, payments, and payouts to Sage Intacct",
+        description: "Full Stripe integration: Payments, Billing, Connect, Terminal and Tax — wired to Yeeld's surcharging engine",
         status: "available",
         bestPractices: [
-          "Auto-create Sage invoices from Stripe charges with proper dimensions",
-          "Reconcile Stripe payouts against bank deposits daily",
-          "Use Sage Contracts module for ASC 606 revenue recognition",
+          "Use Stripe Billing for recurring + Yeeld surcharge logic at invoice creation",
+          "Vault customers with Setup Intents for portable, reusable PMs",
+          "Pipe webhooks through retry + DLQ for reconciliation safety",
+          "Use Stripe Tax for sales-tax automation alongside surcharge math",
         ],
         clientNeeds: [
-          "Stripe account with API access",
-          "Product to GL account mapping",
-          "Revenue recognition policy",
+          "Stripe account with API access (restricted keys preferred)",
+          "Product / pricing catalog confirmed",
+          "Webhook endpoint + signing secret",
+          "Decision on charge model: direct, destination, or separate charges & transfers",
         ],
-        dataFlows: ["Stripe charges → Sage AR", "Payouts → Bank reconciliation", "Refunds → Sage credits"],
-        setupSteps: ["Connect Stripe API", "Map products", "Configure recognition", "Test", "Go live"],
+        dataFlows: ["Checkout / Invoice → Stripe PaymentIntent", "Webhooks → Yeeld reconciliation", "Payouts → Merchant bank"],
+        setupSteps: ["Provision Stripe sandbox", "Configure products & prices", "Wire surcharging engine", "End-to-end UAT", "Phased go-live"],
       },
       {
-        name: "Sage Intacct Contracts",
-        description: "Native SaaS contract billing and ASC 606 / IFRS 15 revenue recognition",
+        name: "Rainforest",
+        description: "Embedded payments and acquiring for software platforms — Yeeld's go-to partner for ISVs and marketplaces",
         status: "available",
         bestPractices: [
-          "Model performance obligations once and reuse across contracts",
-          "Automate deferred revenue and contract asset/liability schedules",
-          "Run revenue waterfall reports for Board & auditors",
+          "Use Rainforest sub-merchant onboarding (KYB) for fast SaaS payfac flows",
+          "Layer Yeeld surcharging on top of Rainforest's processing for compliant recovery",
+          "Leverage Rainforest's revenue share for ISV monetization",
         ],
         clientNeeds: [
-          "Contract templates and pricing models",
-          "Revenue recognition policy",
-          "Historical contract data",
+          "Rainforest partner agreement (via Yeeld referral)",
+          "ISV / platform onboarding flow design",
+          "Compliance & KYB requirements documented",
         ],
-        dataFlows: ["Contracts → Billing schedules", "Performance obligations → Revenue schedules", "Recognition → Sage GL"],
-        setupSteps: ["Activate Contracts module", "Define obligations", "Migrate contracts", "Test recognition", "Go live"],
+        dataFlows: ["Sub-merchant KYB → Rainforest", "Transactions → Rainforest acquiring", "Surcharge $ → Merchant settlement"],
+        setupSteps: ["Yeeld-Rainforest intro & contract", "API integration", "KYB & onboarding UX", "UAT", "Go-live"],
       },
     ],
   },
   {
-    id: "industry",
-    label: "Industry & Custom",
-    icon: Globe,
-    color: "text-indigo-500",
-    description: "Industry-specific platforms and custom API integrations",
+    id: "surcharging",
+    label: "Surcharging & Compliance",
+    icon: Shield,
+    color: "text-amber-500",
+    description: "Yeeld's surcharging infrastructure plus compliance partners",
     integrations: [
       {
-        name: "Custom API / Web Services",
-        description: "Build custom integrations using Sage Intacct's REST and XML APIs",
+        name: "Yeeld Surcharging Engine",
+        description: "Yeeld's proprietary surcharging platform — BIN-aware, cap-aware, brand-rule compliant, with full payer disclosures and audit trail",
+        status: "available",
+        bestPractices: [
+          "Always surcharge credit only — never debit or prepaid (Reg II compliance)",
+          "Apply lesser-of merchant cost or brand cap (currently 3% Visa, 4% MC)",
+          "Show clear disclosures at entry, checkout and on receipt",
+          "Re-validate BIN data quarterly and on every chargeback dispute",
+          "Log every surcharge with timestamp, BIN, cap reason for audit",
+        ],
+        clientNeeds: [
+          "Merchant cost analysis (effective rate by card brand)",
+          "States / regions in scope confirmed",
+          "Card brand registration (30-day notice) initiated",
+          "Legal review of payer-facing disclosures",
+        ],
+        dataFlows: ["Checkout → Yeeld rules engine → Surcharge decision", "Surcharge applied → Processor", "Audit log → Merchant reporting"],
+        setupSteps: ["Compliance discovery & state map", "Brand network notification", "Engine config & BIN load", "UAT + advisory review", "Phased rollout"],
+      },
+      {
+        name: "Avalara AvaTax",
+        description: "Sales-tax automation and nexus monitoring layered alongside surcharging",
+        status: "available",
+        bestPractices: [
+          "Calculate tax at invoice entry to avoid post-close adjustments",
+          "Use Avalara nexus monitoring to flag new state obligations",
+          "Treat surcharge as non-taxable line item where legally distinct",
+          "Sync exemption certificates centrally and re-validate annually",
+        ],
+        clientNeeds: [
+          "Avalara account with AvaTax + Returns",
+          "List of nexus states and product tax codes",
+          "Exemption certificate inventory",
+        ],
+        dataFlows: ["Invoice lines → AvaTax", "Tax + surcharge → Processor", "Returns → Avalara filings"],
+        setupSteps: ["Connect AvaTax", "Map tax codes", "Load exemptions", "Test calc", "Go-live"],
+      },
+    ],
+  },
+  {
+    id: "fx-banking",
+    label: "FX, Treasury & Global Payments",
+    icon: Globe,
+    color: "text-cyan-500",
+    description: "Cross-border payments, FX, and global account infrastructure",
+    integrations: [
+      {
+        name: "Airwallex",
+        description: "Multi-currency accounts, FX, and global payments — Yeeld's preferred BaaS / treasury partner",
+        status: "available",
+        bestPractices: [
+          "Open local-currency receiving accounts to avoid FX on inbound",
+          "Use Airwallex FX API for transparent mid-market conversion",
+          "Issue virtual cards for vendor / contractor spend with controls",
+          "Batch payouts to reduce per-transaction wire fees",
+        ],
+        clientNeeds: [
+          "Airwallex account (via Yeeld partner link)",
+          "Target currencies and payment corridors confirmed",
+          "KYC / compliance docs ready for entity onboarding",
+        ],
+        dataFlows: ["Customer pays in local FX → Airwallex collection", "FX conversion → Merchant base currency", "Payouts → Global suppliers"],
+        setupSteps: ["Yeeld-Airwallex intro", "Account opening & KYC", "API integration", "Currency UAT", "Go-live"],
+      },
+      {
+        name: "OFX",
+        description: "Enterprise-grade FX, hedging and international payments — used by Yeeld for high-volume merchants",
+        status: "available",
+        bestPractices: [
+          "Use forward contracts to lock FX for predictable settlements",
+          "Compare effective FX across OFX + Airwallex per corridor",
+          "Automate beneficiary payments via OFX API for high-value B2B",
+        ],
+        clientNeeds: [
+          "OFX corporate account (via Yeeld partner link)",
+          "Treasury / FX policy",
+          "Hedging requirements",
+        ],
+        dataFlows: ["Invoices → OFX FX booking", "Forward contracts → Settlement", "International payouts → Beneficiaries"],
+        setupSteps: ["Yeeld-OFX intro", "Corporate onboarding", "API integration", "Hedge policy review", "Go-live"],
+      },
+    ],
+  },
+  {
+    id: "payouts",
+    label: "AP Automation & Payouts",
+    icon: Wallet,
+    color: "text-emerald-500",
+    description: "Mass payouts and supplier payments for platforms and marketplaces",
+    integrations: [
+      {
+        name: "Tipalti",
+        description: "Global mass payouts, supplier onboarding, tax compliance and AP automation",
+        status: "available",
+        bestPractices: [
+          "Onboard suppliers via Tipalti self-service portal with W-9 / W-8 collection",
+          "Use Tipalti for 1099 / 1042 reporting automation",
+          "Pay across ACH, wire, PayPal and global ACH from one workflow",
+          "Sync supplier master + payment status back to merchant ERP",
+        ],
+        clientNeeds: [
+          "Tipalti account (via Yeeld partner link)",
+          "Supplier list with tax classification",
+          "Approval matrix and payment policies",
+        ],
+        dataFlows: ["Bills approved → Tipalti", "Tax forms → Tipalti collection", "Payouts → Suppliers globally"],
+        setupSteps: ["Yeeld-Tipalti intro", "Account setup", "Supplier migration", "Approval workflow config", "Go-live"],
+      },
+    ],
+  },
+  {
+    id: "engineering",
+    label: "Engineering & Advisory",
+    icon: Code2,
+    color: "text-blue-500",
+    description: "Yeeld's development services and trusted engineering partners",
+    integrations: [
+      {
+        name: "Yeeld Advisory & Dev Services",
+        description: "Yeeld's in-house payments engineers deliver code reviews, integrations, and end-to-end implementations",
+        status: "available",
+        bestPractices: [
+          "Engage Yeeld advisory pre-RFP to avoid costly architecture rework",
+          "Use Yeeld code reviews on every processor integration before go-live",
+          "Embed a Yeeld engineer for 90 days during high-stakes launches",
+        ],
+        clientNeeds: [
+          "Signed SOW with Yeeld",
+          "Access to merchant engineering team",
+          "Repo access for code reviews",
+        ],
+        dataFlows: ["Discovery → Architecture review", "Build → Pair programming + reviews", "Launch → On-call support"],
+        setupSteps: ["Discovery call", "SOW + advisory scope", "Engineer assignment", "Sprint cadence", "Hand-off to BAU"],
+      },
+      {
+        name: "Lemon.io",
+        description: "Vetted senior engineering talent on-demand for payments and platform builds (Yeeld partner)",
+        status: "available",
+        bestPractices: [
+          "Use Lemon.io to staff payment integrations Yeeld scopes but doesn't build",
+          "Pair Yeeld advisory with Lemon.io engineers for cost-effective delivery",
+          "Maintain code review gates with Yeeld even on Lemon.io builds",
+        ],
+        clientNeeds: [
+          "Engineering role spec",
+          "Tech stack & seniority requirements",
+          "Engagement length",
+        ],
+        dataFlows: ["Role spec → Lemon.io match", "Engineer onboarded → Merchant team", "Reviews → Yeeld advisory"],
+        setupSteps: ["Scoping call", "Lemon.io engineer match", "Onboarding", "Yeeld review cadence", "Delivery"],
+      },
+    ],
+  },
+  {
+    id: "custom",
+    label: "Custom & Orchestration",
+    icon: Plug,
+    color: "text-rose-500",
+    description: "Custom API integrations and payment orchestration",
+    integrations: [
+      {
+        name: "Custom Payment APIs",
+        description: "Yeeld engineers custom integrations against any processor, gateway, or banking API",
         status: "custom",
         bestPractices: [
-          "Use sandbox tenants for all integration development",
-          "Authenticate via OAuth and rotate credentials quarterly",
-          "Throttle calls and respect API rate limits",
-          "Log all transactions for audit and replay",
+          "Always use sandbox environments for integration development",
+          "Authenticate via OAuth or scoped API keys; rotate quarterly",
+          "Implement idempotency keys on every state-changing call",
+          "Throttle and respect rate limits; queue overflow",
+          "Log every transaction for audit and replay",
         ],
         clientNeeds: [
           "Integration design document",
-          "Developer access to source system",
+          "Developer access to source / target systems",
           "Security & compliance sign-off",
         ],
-        dataFlows: ["Source system → Sage Intacct objects", "Sage events → External webhooks", "Reconciliation → Audit log"],
-        setupSteps: ["Design integration", "Build in sandbox", "Security review", "UAT", "Go live"],
+        dataFlows: ["Source system → Yeeld middleware → Processor", "Webhooks → Reconciliation", "Audit log → Merchant reporting"],
+        setupSteps: ["Design integration", "Build in sandbox", "Security review", "UAT", "Go-live"],
       },
     ],
   },
 ];
 
-
 export default function Integrations() {
   const [selectedIntegration, setSelectedIntegration] = useState<Integration | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const totalIntegrations = categories.reduce((sum, c) => sum + c.integrations.length, 0);
   const availableCount = categories.reduce((sum, c) => sum + c.integrations.filter(i => i.status === "available").length, 0);
@@ -392,18 +288,17 @@ export default function Integrations() {
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2">
             <Plug className="h-5 w-5 text-primary" />
-            <h1 className="text-2xl font-bold text-foreground">Integrations</h1>
+            <h1 className="text-2xl font-bold text-foreground">Partner Integrations</h1>
           </div>
           <p className="text-sm text-muted-foreground">
-            Connect Sage Intacct to the systems your finance team relies on — CRM, AP automation, payroll, banking, tax, and BI. Best practices, data requirements, and setup guides for every integration.
-
+            Yeeld's curated stack of processors, FX & treasury, AP automation, compliance and engineering partners — with best practices and setup guides for every integration.
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <Card>
             <CardContent className="p-4 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent/20">
                 <Plug className="h-5 w-5 text-primary" />
               </div>
               <div>
@@ -426,247 +321,114 @@ export default function Integrations() {
           <Card>
             <CardContent className="p-4 flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-500/10">
-                <Globe className="h-5 w-5 text-amber-500" />
+                <Shield className="h-5 w-5 text-amber-500" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-foreground">{categories.length}</p>
-                <p className="text-xs text-muted-foreground">Categories</p>
+                <p className="text-xs text-muted-foreground">Integration Categories</p>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        <Tabs defaultValue="all" className="space-y-4">
-          <TabsList className="flex-wrap h-auto gap-1">
-            <TabsTrigger value="all" className="text-xs">All Categories</TabsTrigger>
-            <TabsTrigger value="best-practices" className="text-xs">Best Practices</TabsTrigger>
-            <TabsTrigger value="client-needs" className="text-xs">Client Requirements</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="all" className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {categories.map((category) => {
-                const Icon = category.icon;
-                return (
-                  <motion.div key={category.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
-                    <Card className="h-full hover:shadow-md transition-shadow">
-                      <CardHeader className="pb-3">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <Icon className={cn("h-5 w-5", category.color)} />
-                            <CardTitle className="text-base">{category.label}</CardTitle>
-                          </div>
+        <div className="space-y-6">
+          {categories.map((cat) => {
+            const CatIcon = cat.icon;
+            return (
+              <Card key={cat.id}>
+                <CardHeader className="pb-3">
+                  <div className="flex items-center gap-3">
+                    <div className={cn("flex h-10 w-10 items-center justify-center rounded-lg bg-muted", cat.color)}>
+                      <CatIcon className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-base">{cat.label}</CardTitle>
+                      <CardDescription className="text-xs">{cat.description}</CardDescription>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {cat.integrations.map((i) => (
+                      <button
+                        key={i.name}
+                        onClick={() => setSelectedIntegration(i)}
+                        className="text-left rounded-lg border p-4 hover:border-primary/40 hover:shadow-sm transition-all"
+                      >
+                        <div className="flex items-start justify-between gap-2 mb-1">
+                          <p className="text-sm font-semibold">{i.name}</p>
                           <Badge variant="secondary" className="text-[10px]">
-                            {category.integrations.length} {category.integrations.length === 1 ? "tool" : "tools"}
+                            {i.status === "available" ? "Ready" : i.status === "custom" ? "Custom" : "Soon"}
                           </Badge>
                         </div>
-                        <CardDescription className="text-xs">{category.description}</CardDescription>
-                      </CardHeader>
-                      <CardContent className="space-y-2">
-                        {category.integrations.map((integration) => (
-                          <button
-                            key={integration.name}
-                            onClick={() => { setSelectedIntegration(integration); setSelectedCategory(category.label); }}
-                            className="w-full flex items-center justify-between p-2.5 rounded-md border bg-muted/30 hover:bg-muted/60 transition-colors text-left group"
-                          >
-                            <div className="flex items-center gap-2">
-                              <span className="text-sm font-medium text-foreground">{integration.name}</span>
-                              <Badge
-                                variant="outline"
-                                className={cn("text-[9px] px-1.5", {
-                                  "border-emerald-500/30 text-emerald-600": integration.status === "available",
-                                  "border-amber-500/30 text-amber-600": integration.status === "coming-soon",
-                                  "border-blue-500/30 text-blue-600": integration.status === "custom",
-                                })}
-                              >
-                                {integration.status === "available" ? "Ready" : integration.status === "coming-soon" ? "Soon" : "Custom"}
-                              </Badge>
-                            </div>
-                            <ChevronRight className="h-3.5 w-3.5 text-muted-foreground group-hover:text-foreground transition-colors" />
-                          </button>
-                        ))}
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="best-practices" className="space-y-4">
-            <Accordion type="multiple" defaultValue={[categories[0].id]} className="space-y-3">
-              {categories.map((category) => {
-                const Icon = category.icon;
-                return (
-                  <AccordionItem key={category.id} value={category.id} className="border rounded-lg px-4">
-                    <AccordionTrigger className="hover:no-underline py-3">
-                      <div className="flex items-center gap-2">
-                        <Icon className={cn("h-4 w-4", category.color)} />
-                        <span className="font-semibold text-sm">{category.label}</span>
-                        <Badge variant="secondary" className="text-[10px] ml-2">{category.integrations.length}</Badge>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="space-y-3 pb-4">
-                      {category.integrations.map((integration) => (
-                        <Card key={integration.name} className="border-muted">
-                          <CardHeader className="py-3 px-4">
-                            <CardTitle className="text-sm flex items-center gap-2">
-                              <Shield className="h-3.5 w-3.5 text-primary" />
-                              {integration.name}
-                            </CardTitle>
-                          </CardHeader>
-                          <CardContent className="px-4 pb-3">
-                            <ul className="space-y-1.5">
-                              {integration.bestPractices.map((bp, i) => (
-                                <li key={i} className="flex items-start gap-2 text-xs text-muted-foreground">
-                                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 mt-0.5 shrink-0" />
-                                  <span>{bp}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </CardContent>
-                        </Card>
-                      ))}
-                    </AccordionContent>
-                  </AccordionItem>
-                );
-              })}
-            </Accordion>
-          </TabsContent>
-
-          <TabsContent value="client-needs" className="space-y-4">
-            <Accordion type="multiple" defaultValue={[categories[0].id]} className="space-y-3">
-              {categories.map((category) => {
-                const Icon = category.icon;
-                return (
-                  <AccordionItem key={category.id} value={category.id} className="border rounded-lg px-4">
-                    <AccordionTrigger className="hover:no-underline py-3">
-                      <div className="flex items-center gap-2">
-                        <Icon className={cn("h-4 w-4", category.color)} />
-                        <span className="font-semibold text-sm">{category.label}</span>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="space-y-3 pb-4">
-                      {category.integrations.map((integration) => (
-                        <Card key={integration.name} className="border-muted">
-                          <CardHeader className="py-3 px-4">
-                            <CardTitle className="text-sm flex items-center gap-2">
-                              <FileText className="h-3.5 w-3.5 text-primary" />
-                              {integration.name}
-                              <span className="text-xs font-normal text-muted-foreground">— What we need from clients</span>
-                            </CardTitle>
-                          </CardHeader>
-                          <CardContent className="px-4 pb-3">
-                            <ul className="space-y-1.5">
-                              {integration.clientNeeds.map((need, i) => (
-                                <li key={i} className="flex items-start gap-2 text-xs text-muted-foreground">
-                                  <AlertTriangle className="h-3.5 w-3.5 text-amber-500 mt-0.5 shrink-0" />
-                                  <span>{need}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </CardContent>
-                        </Card>
-                      ))}
-                    </AccordionContent>
-                  </AccordionItem>
-                );
-              })}
-            </Accordion>
-          </TabsContent>
-        </Tabs>
-
-        <Dialog open={!!selectedIntegration} onOpenChange={() => setSelectedIntegration(null)}>
-          <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
-            {selectedIntegration && (
-              <>
-                <DialogHeader>
-                  <div className="flex items-center gap-2">
-                    <DialogTitle className="text-lg">{selectedIntegration.name}</DialogTitle>
-                    <Badge
-                      variant="outline"
-                      className={cn("text-[10px]", {
-                        "border-emerald-500/30 text-emerald-600": selectedIntegration.status === "available",
-                        "border-blue-500/30 text-blue-600": selectedIntegration.status === "custom",
-                      })}
-                    >
-                      {selectedIntegration.status === "available" ? "Pre-built" : "Custom Build"}
-                    </Badge>
-                  </div>
-                  <DialogDescription>{selectedIntegration.description}</DialogDescription>
-                  {selectedCategory && (
-                    <Badge variant="secondary" className="w-fit text-[10px]">{selectedCategory}</Badge>
-                  )}
-                </DialogHeader>
-
-                <Separator />
-
-                <div className="space-y-2">
-                  <h4 className="text-sm font-semibold flex items-center gap-1.5">
-                    <Zap className="h-3.5 w-3.5 text-primary" /> Data Flows
-                  </h4>
-                  <div className="space-y-1.5">
-                    {selectedIntegration.dataFlows.map((flow, i) => (
-                      <div key={i} className="flex items-center gap-2 text-xs text-muted-foreground bg-muted/40 rounded-md px-3 py-2">
-                        <ArrowRight className="h-3 w-3 text-primary shrink-0" />
-                        <span>{flow}</span>
-                      </div>
+                        <p className="text-xs text-muted-foreground line-clamp-2">{i.description}</p>
+                        <div className="flex items-center gap-1 text-[11px] text-primary mt-2">
+                          View details <ArrowRight className="h-3 w-3" />
+                        </div>
+                      </button>
                     ))}
                   </div>
-                </div>
-
-                <Separator />
-
-                <div className="space-y-2">
-                  <h4 className="text-sm font-semibold flex items-center gap-1.5">
-                    <Server className="h-3.5 w-3.5 text-primary" /> Setup Steps
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedIntegration.setupSteps.map((step, i) => (
-                      <div key={i} className="flex items-center gap-1.5 text-xs bg-muted/40 rounded-full px-3 py-1.5">
-                        <span className="flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[9px] font-bold text-primary-foreground">{i + 1}</span>
-                        <span className="text-foreground">{step}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <Separator />
-
-                <div className="space-y-2">
-                  <h4 className="text-sm font-semibold flex items-center gap-1.5">
-                    <Shield className="h-3.5 w-3.5 text-primary" /> Best Practices
-                  </h4>
-                  <ul className="space-y-1.5">
-                    {selectedIntegration.bestPractices.map((bp, i) => (
-                      <li key={i} className="flex items-start gap-2 text-xs text-muted-foreground">
-                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 mt-0.5 shrink-0" />
-                        <span>{bp}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <Separator />
-
-                <div className="space-y-2">
-                  <h4 className="text-sm font-semibold flex items-center gap-1.5">
-                    <FileText className="h-3.5 w-3.5 text-primary" /> What We Need From Clients
-                  </h4>
-                  <ul className="space-y-1.5">
-                    {selectedIntegration.clientNeeds.map((need, i) => (
-                      <li key={i} className="flex items-start gap-2 text-xs text-muted-foreground">
-                        <AlertTriangle className="h-3.5 w-3.5 text-amber-500 mt-0.5 shrink-0" />
-                        <span>{need}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </>
-            )}
-          </DialogContent>
-        </Dialog>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
       </motion.div>
+
+      <Dialog open={!!selectedIntegration} onOpenChange={(open) => !open && setSelectedIntegration(null)}>
+        {selectedIntegration && (
+          <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>{selectedIntegration.name}</DialogTitle>
+              <DialogDescription>{selectedIntegration.description}</DialogDescription>
+            </DialogHeader>
+            <Separator />
+            <div className="space-y-5">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">Best Practices</p>
+                <ul className="space-y-1.5">
+                  {selectedIntegration.bestPractices.map((b) => (
+                    <li key={b} className="text-sm flex items-start gap-2">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 mt-0.5 shrink-0" />
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">What the Merchant Needs</p>
+                <ul className="space-y-1.5">
+                  {selectedIntegration.clientNeeds.map((c) => (
+                    <li key={c} className="text-sm flex items-start gap-2">
+                      <Building2 className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />
+                      {c}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">Data Flows</p>
+                <ul className="space-y-1.5">
+                  {selectedIntegration.dataFlows.map((d) => (
+                    <li key={d} className="text-sm flex items-start gap-2">
+                      <RefreshCw className="h-3.5 w-3.5 text-cyan-500 mt-0.5 shrink-0" />
+                      {d}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">Setup Steps</p>
+                <ol className="space-y-1.5 list-decimal list-inside">
+                  {selectedIntegration.setupSteps.map((s) => (
+                    <li key={s} className="text-sm">{s}</li>
+                  ))}
+                </ol>
+              </div>
+            </div>
+          </DialogContent>
+        )}
+      </Dialog>
     </DashboardLayout>
   );
 }
