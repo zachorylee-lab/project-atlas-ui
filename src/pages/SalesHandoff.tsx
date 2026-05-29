@@ -6,48 +6,48 @@ import { motion } from "framer-motion";
 
 const handoffs = [
   {
-    customer: "Higginbotham Insurance",
+    customer: "Progress Residential",
     ae: "Chris D.",
-    deal: "$485K ARR",
-    segment: "Multi-Entity · 38 entities",
+    deal: "$420K ARR · Advisory + Surcharging",
+    segment: "Single-Family Rental · 50-state surcharging",
     readiness: 94,
     status: "ready" as const,
     submitted: "Mar 22, 2026",
     items: { complete: 11, total: 12 },
-    notes: "Multi-entity consolidations across 38 insurance brokerages. Requires inter-entity AR/AP and Salesforce CPQ integration.",
+    notes: "Surcharging rollout across all rental portals. Stripe + Rainforest dual-processor, Avalara nexus monitoring, monthly $400K+ recovery target.",
   },
   {
-    customer: "Asana Rebel GmbH",
+    customer: "NovaSubs Platform",
     ae: "Amy L.",
-    deal: "$162K ARR",
-    segment: "Growth SaaS · Multi-currency",
+    deal: "$162K ARR · Dev Services",
+    segment: "Growth SaaS · Stripe Billing + Multi-currency",
     readiness: 67,
     status: "incomplete" as const,
     submitted: "Mar 20, 2026",
     items: { complete: 8, total: 12 },
-    notes: "Missing EUR/USD historical FX rates and Stripe revenue feed mapping. SaaS contracts module pending scope confirmation.",
+    notes: "Stripe Billing migration + Airwallex for EUR/GBP. Missing FX hedging policy and ASC 606 revenue recognition sign-off.",
   },
   {
-    customer: "ProService Hawaii",
+    customer: "Atlas Travel & Technology",
     ae: "Mark T.",
-    deal: "$310K ARR",
-    segment: "Professional Services · 6 entities",
+    deal: "$310K ARR · Advisory + Integration",
+    segment: "Travel · BaaS + Multi-rail",
     readiness: 100,
     status: "ready" as const,
     submitted: "Mar 18, 2026",
     items: { complete: 12, total: 12 },
-    notes: "Fast-track requested. Replacing legacy NetSuite. Project accounting, T&E, and ADP integration in scope.",
+    notes: "Year-long roadmap compressed to 3-month sprint. Airwallex multi-currency, Tipalti supplier payouts, OFX FX hedging.",
   },
   {
-    customer: "Lyric Opera of Chicago",
+    customer: "Lyric Marketplace",
     ae: "Jen S.",
-    deal: "$95K ARR",
-    segment: "Nonprofit · Fund accounting",
+    deal: "$95K ARR · Implementation",
+    segment: "Marketplace · Rainforest acquiring",
     readiness: 42,
     status: "blocked" as const,
     submitted: "Mar 15, 2026",
     items: { complete: 5, total: 12 },
-    notes: "Order form pending Board legal review. Grants and restricted-fund dimensions to be finalized.",
+    notes: "MSA pending legal review. Marketplace split-payment model and KYB workflow still in scoping.",
   },
 ];
 
@@ -58,17 +58,17 @@ const statusStyles = {
 };
 
 const checklist = [
-  "Order form / contract signed",
-  "Entity structure & currencies documented",
-  "Trial balances exported from legacy ERP",
-  "Chart of accounts & dimensions defined",
-  "Executive sponsor (CFO/Controller) identified",
-  "Close-cycle and automation targets defined",
-  "Go-live date aligned to fiscal calendar",
-  "Internal Sage kickoff scheduled",
-  "Customer kickoff scheduled",
-  "Implementation charter drafted",
-  "Integration list confirmed (Salesforce, ADP, banks)",
+  "Signed SOW / MSA in place",
+  "Target rails & regions documented",
+  "Surcharging eligibility validated (states + brand rules)",
+  "Processor relationships confirmed (Stripe, Rainforest, Airwallex, OFX)",
+  "Existing payment stack inventoried",
+  "PCI scope & tokenization approach defined",
+  "Executive sponsor (CFO / VP Eng) identified",
+  "Recovery & KPI targets defined",
+  "Go-live window aligned to billing cycle",
+  "Internal Yeeld kickoff scheduled",
+  "Merchant kickoff scheduled",
   "Risk & compliance assessment completed",
 ];
 
@@ -77,9 +77,9 @@ export default function SalesHandoff() {
     <DashboardLayout>
       <div className="space-y-6 max-w-6xl">
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-2xl font-semibold">Customer Onboarding · Sales Handoff</h1>
+          <h1 className="text-2xl font-semibold">Merchant Onboarding · Sales Handoff</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Manage the transition from closed Sage Intacct deals to active implementations. All items must be complete before kickoff.
+            Manage the transition from closed Yeeld deals to active payment implementations. All items must be complete before kickoff.
           </p>
         </motion.div>
 
@@ -147,7 +147,7 @@ export default function SalesHandoff() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-base font-semibold">Handoff Checklist Standard</CardTitle>
-              <p className="text-xs text-muted-foreground">All items must be completed before transitioning to Kickoff phase.</p>
+              <p className="text-xs text-muted-foreground">All items must be complete before transitioning to Kickoff phase.</p>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
