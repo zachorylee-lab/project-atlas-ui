@@ -33,6 +33,7 @@ const App = () => (
           <Route path="/handoff" element={<SalesHandoff />} />
           <Route path="/integrations" element={<Integrations />} />
           <Route path="/deck" element={<StrategicDeck />} />
+          <Route path="/stripe-assessment" element={<StripeAssessment />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
