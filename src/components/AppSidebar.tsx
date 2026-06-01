@@ -8,6 +8,7 @@ import {
   Database,
   Plug,
   Presentation,
+  ClipboardCheck,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
@@ -34,6 +35,7 @@ const navItems = [
   { title: "Partner Integrations", url: "/integrations", icon: Plug },
   { title: "Merchant Onboarding", url: "/handoff", icon: ArrowRightLeft },
   { title: "Advisory Deck", url: "/deck", icon: Presentation },
+  { title: "Stripe Assessment", url: "/stripe-assessment", icon: ClipboardCheck },
 ];
 
 export function AppSidebar() {
