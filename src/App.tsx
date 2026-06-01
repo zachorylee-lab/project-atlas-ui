@@ -13,6 +13,7 @@ import DataWorkflows from "./pages/DataWorkflows";
 import Integrations from "./pages/Integrations";
 import NotFound from "./pages/NotFound";
 import StrategicDeck from "./pages/StrategicDeck";
+import StripeAssessment from "./pages/StripeAssessment";
 
 const queryClient = new QueryClient();
 
