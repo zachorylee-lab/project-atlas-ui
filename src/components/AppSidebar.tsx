@@ -8,6 +8,7 @@ import {
   Database,
   Plug,
   Presentation,
+  ClipboardCheck,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
