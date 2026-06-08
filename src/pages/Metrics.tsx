@@ -5,37 +5,37 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { motion } from "framer-motion";
 
 const phaseDistribution = [
-  { name: "Handoff", count: 3, color: "hsl(199, 89%, 48%)" },
-  { name: "Kickoff", count: 4, color: "hsl(262, 52%, 55%)" },
-  { name: "Build", count: 8, color: "hsl(172, 66%, 40%)" },
-  { name: "Testing", count: 5, color: "hsl(38, 92%, 50%)" },
+  { name: "Handoff", count: 2, color: "hsl(199, 89%, 48%)" },
+  { name: "Kickoff", count: 3, color: "hsl(262, 52%, 55%)" },
+  { name: "Build", count: 6, color: "hsl(172, 66%, 40%)" },
+  { name: "Testing", count: 4, color: "hsl(38, 92%, 50%)" },
   { name: "Go-Live", count: 2, color: "hsl(152, 60%, 40%)" },
-  { name: "Hypercare", count: 2, color: "hsl(340, 65%, 50%)" },
+  { name: "Hypercare", count: 3, color: "hsl(340, 65%, 50%)" },
 ];
 
-const monthlyRecovery = [
-  { month: "Oct", recovered: 1.6 },
-  { month: "Nov", recovered: 1.9 },
-  { month: "Dec", recovered: 2.1 },
-  { month: "Jan", recovered: 2.4 },
-  { month: "Feb", recovered: 2.7 },
-  { month: "Mar", recovered: 3.1 },
+const utilizationTrend = [
+  { month: "Oct", utilization: 78 },
+  { month: "Nov", utilization: 81 },
+  { month: "Dec", utilization: 74 },
+  { month: "Jan", utilization: 83 },
+  { month: "Feb", utilization: 86 },
+  { month: "Mar", utilization: 84 },
 ];
 
-const authRateTrend = [
-  { month: "Oct", rate: 91.2 },
-  { month: "Nov", rate: 92.1 },
-  { month: "Dec", rate: 92.6 },
-  { month: "Jan", rate: 93.4 },
-  { month: "Feb", rate: 94.1 },
-  { month: "Mar", rate: 94.8 },
+const csatTrend = [
+  { month: "Oct", csat: 4.4 },
+  { month: "Nov", csat: 4.5 },
+  { month: "Dec", csat: 4.5 },
+  { month: "Jan", csat: 4.6 },
+  { month: "Feb", csat: 4.7 },
+  { month: "Mar", csat: 4.7 },
 ];
 
 const kpis = [
-  { label: "Merchant CSAT", value: "4.8/5", target: "4.5/5", progress: 96 },
-  { label: "On-Time Launch", value: "92%", target: "90%", progress: 100 },
-  { label: "Surcharge Compliance", value: "99.4%", target: "99%", progress: 100 },
-  { label: "Avg. Time to Live", value: "11 wks", target: "14 wks", progress: 100 },
+  { label: "Client CSAT", value: "4.7/5", target: "4.5/5", progress: 96 },
+  { label: "On-Time Go-Live", value: "92%", target: "90%", progress: 100 },
+  { label: "PS Utilization", value: "84%", target: "80%", progress: 100 },
+  { label: "Avg. Time to Live", value: "16 wks", target: "18 wks", progress: 100 },
 ];
 
 export default function Metrics() {
@@ -43,9 +43,9 @@ export default function Metrics() {
     <DashboardLayout>
       <div className="space-y-6 max-w-7xl">
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-2xl font-semibold">Recovery & KPIs</h1>
+          <h1 className="text-2xl font-semibold">Utilization & Client Health</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Portfolio-wide payment performance: surcharge recovery, auth rate, compliance and merchant satisfaction.
+            Professional Services KPIs: utilization, on-time delivery, client satisfaction, and implementation portfolio health.
           </p>
         </motion.div>
 
@@ -66,17 +66,17 @@ export default function Metrics() {
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-base font-semibold">Monthly Surcharge Recovery ($M)</CardTitle>
+                <CardTitle className="text-base font-semibold">PS Utilization (%)</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={monthlyRecovery}>
+                    <BarChart data={utilizationTrend}>
                       <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                       <XAxis dataKey="month" tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
-                      <YAxis tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
+                      <YAxis domain={[60, 100]} tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
                       <Tooltip contentStyle={{ borderRadius: 8, border: "1px solid hsl(var(--border))", fontSize: 12 }} />
-                      <Bar dataKey="recovered" fill="hsl(var(--accent))" radius={[4, 4, 0, 0]} />
+                      <Bar dataKey="utilization" fill="hsl(var(--accent))" radius={[4, 4, 0, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
@@ -87,17 +87,17 @@ export default function Metrics() {
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-base font-semibold">Portfolio Auth Rate (%)</CardTitle>
+                <CardTitle className="text-base font-semibold">Client CSAT Trend</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={authRateTrend}>
+                    <LineChart data={csatTrend}>
                       <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                       <XAxis dataKey="month" tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
-                      <YAxis domain={[88, 96]} tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
+                      <YAxis domain={[4.0, 5.0]} tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
                       <Tooltip contentStyle={{ borderRadius: 8, border: "1px solid hsl(var(--border))", fontSize: 12 }} />
-                      <Line type="monotone" dataKey="rate" stroke="hsl(var(--primary))" strokeWidth={2} dot={{ fill: "hsl(var(--primary))", r: 4 }} />
+                      <Line type="monotone" dataKey="csat" stroke="hsl(var(--primary))" strokeWidth={2} dot={{ fill: "hsl(var(--primary))", r: 4 }} />
                     </LineChart>
                   </ResponsiveContainer>
                 </div>
@@ -108,7 +108,7 @@ export default function Metrics() {
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
             <Card className="lg:col-span-2">
               <CardHeader className="pb-2">
-                <CardTitle className="text-base font-semibold">Merchants by Implementation Phase</CardTitle>
+                <CardTitle className="text-base font-semibold">Clients by Implementation Phase</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="h-64 flex items-center justify-center">

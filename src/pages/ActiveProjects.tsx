@@ -37,14 +37,14 @@ type Project = {
 };
 
 const initialProjects: Project[] = [
-  { id: "1", name: "Progress Residential", segment: "SFR · Surcharging", owner: "E. Cicero", phase: 5, status: "on-track", progress: 92, startDate: "Jan 15", targetDate: "Apr 20", daysRemaining: 26 },
-  { id: "2", name: "Atlas Travel & Technology", segment: "Travel · Multi-rail + BaaS", owner: "A. Piggott", phase: 4, status: "on-track", progress: 78, startDate: "Feb 1", targetDate: "Apr 5", daysRemaining: 11 },
-  { id: "3", name: "Lyric Marketplace", segment: "Marketplace · Rainforest", owner: "L. Martin", phase: 1, status: "on-track", progress: 18, startDate: "Mar 10", targetDate: "Jun 30", daysRemaining: 97 },
-  { id: "4", name: "Business Infusions", segment: "ISV · Surcharging", owner: "S. Pickard", phase: 5, status: "on-track", progress: 95, startDate: "Dec 5", targetDate: "Mar 28", daysRemaining: 3 },
-  { id: "5", name: "NovaSubs Platform", segment: "SaaS · Stripe Billing", owner: "A. Pereira", phase: 3, status: "at-risk", progress: 48, startDate: "Feb 15", targetDate: "May 30", daysRemaining: 66 },
-  { id: "6", name: "Vela Wellness", segment: "DTC · Airwallex FX", owner: "T. Bauer", phase: 0, status: "not-started", progress: 5, startDate: "Mar 22", targetDate: "Jun 15", daysRemaining: 82 },
-  { id: "7", name: "Harbor Marine Holdings", segment: "B2B · Tipalti payouts", owner: "S. Khan", phase: 3, status: "on-track", progress: 55, startDate: "Jan 28", targetDate: "May 10", daysRemaining: 46 },
-  { id: "8", name: "ClearLease Capital", segment: "Fintech · OFX + ACH", owner: "M. Rivera", phase: 4, status: "on-track", progress: 78, startDate: "Nov 20", targetDate: "Apr 2", daysRemaining: 8 },
+  { id: "1", name: "Higginbotham Insurance", segment: "1,800 EEs · Full Suite", owner: "E. Cicero", phase: 5, status: "on-track", progress: 92, startDate: "Jan 15", targetDate: "Apr 20", daysRemaining: 26 },
+  { id: "2", name: "Coastal Health Systems", segment: "4,200 EEs · HR + Payroll + Benefits", owner: "A. Piggott", phase: 4, status: "on-track", progress: 78, startDate: "Feb 1", targetDate: "Apr 5", daysRemaining: 11 },
+  { id: "3", name: "Northwind Logistics", segment: "2,600 EEs · Full Suite + Talent", owner: "L. Martin", phase: 1, status: "on-track", progress: 18, startDate: "Mar 10", targetDate: "Jul 1", daysRemaining: 97 },
+  { id: "4", name: "Meridian Manufacturing", segment: "950 EEs · Payroll + Time", owner: "S. Pickard", phase: 5, status: "on-track", progress: 95, startDate: "Dec 5", targetDate: "Mar 28", daysRemaining: 3 },
+  { id: "5", name: "Apex Property Mgmt", segment: "640 EEs · HR + Benefits", owner: "A. Pereira", phase: 3, status: "at-risk", progress: 48, startDate: "Feb 15", targetDate: "May 30", daysRemaining: 66 },
+  { id: "6", name: "Vela Wellness Co.", segment: "320 EEs · Full Suite", owner: "T. Bauer", phase: 0, status: "not-started", progress: 5, startDate: "Mar 22", targetDate: "Jun 15", daysRemaining: 82 },
+  { id: "7", name: "Harbor Marine Holdings", segment: "1,150 EEs · HR + Payroll", owner: "S. Khan", phase: 3, status: "on-track", progress: 55, startDate: "Jan 28", targetDate: "May 10", daysRemaining: 46 },
+  { id: "8", name: "ClearLease Capital", segment: "480 EEs · Full Suite + Talent", owner: "M. Rivera", phase: 4, status: "on-track", progress: 78, startDate: "Nov 20", targetDate: "Apr 2", daysRemaining: 8 },
 ];
 
 type ViewMode = "list" | "kanban";
@@ -132,9 +132,9 @@ export default function ActiveProjects() {
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
           <div className="flex items-start justify-between">
             <div>
-              <h1 className="text-2xl font-semibold">Active Onboardings</h1>
+              <h1 className="text-2xl font-semibold">Active Implementations</h1>
               <p className="text-sm text-muted-foreground mt-1">
-                Track all property manager onboardings across the 6-phase lifecycle.
+                Track Sage HCM client implementations across the 6-phase delivery framework.
               </p>
             </div>
             <div className="flex items-center bg-muted rounded-lg p-0.5">
@@ -167,7 +167,7 @@ export default function ActiveProjects() {
                 filter === s ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-muted/80"
               }`}
             >
-              {s === "All" ? "All Accounts" : s.replace("-", " ").replace(/\b\w/g, l => l.toUpperCase())}
+              {s === "All" ? "All Clients" : s.replace("-", " ").replace(/\b\w/g, l => l.toUpperCase())}
             </button>
           ))}
         </div>
@@ -245,7 +245,7 @@ export default function ActiveProjects() {
                             ))
                           ) : (
                             <div className="flex items-center justify-center h-[120px] rounded-lg border border-dashed text-xs text-muted-foreground">
-                              No accounts
+                              No clients
                             </div>
                           )}
                         </DroppableColumn>

@@ -13,7 +13,8 @@ import DataWorkflows from "./pages/DataWorkflows";
 import Integrations from "./pages/Integrations";
 import NotFound from "./pages/NotFound";
 import StrategicDeck from "./pages/StrategicDeck";
-import StripeAssessment from "./pages/StripeAssessment";
+import PMTasks from "./pages/PMTasks";
+import InterviewPrep from "./pages/InterviewPrep";
 
 const queryClient = new QueryClient();
 
@@ -33,7 +34,8 @@ const App = () => (
           <Route path="/handoff" element={<SalesHandoff />} />
           <Route path="/integrations" element={<Integrations />} />
           <Route path="/deck" element={<StrategicDeck />} />
-          <Route path="/stripe-assessment" element={<StripeAssessment />} />
+          <Route path="/pm-tasks" element={<PMTasks />} />
+          <Route path="/interview-prep" element={<InterviewPrep />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
