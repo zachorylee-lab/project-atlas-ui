@@ -6,48 +6,48 @@ import { motion } from "framer-motion";
 
 const handoffs = [
   {
-    customer: "Progress Residential",
+    customer: "Northwind Logistics",
     ae: "Chris D.",
-    deal: "$420K ARR · Advisory + Surcharging",
-    segment: "Single-Family Rental · 50-state surcharging",
+    deal: "$185K ARR · Full HCM Suite",
+    segment: "2,600 EEs · 12 FEINs · 6 states",
     readiness: 94,
     status: "ready" as const,
     submitted: "Mar 22, 2026",
     items: { complete: 11, total: 12 },
-    notes: "Surcharging rollout across all rental portals. Stripe + Rainforest dual-processor, Avalara nexus monitoring, monthly $400K+ recovery target.",
+    notes: "Migrating from ADP Workforce Now. Full suite + Talent. Carrier files for 4 health, dental, vision, 401(k). Targeting July 1 mid-year cutover.",
   },
   {
-    customer: "NovaSubs Platform",
+    customer: "Apex Property Management",
     ae: "Amy L.",
-    deal: "$162K ARR · Dev Services",
-    segment: "Growth SaaS · Stripe Billing + Multi-currency",
+    deal: "$72K ARR · HR + Benefits",
+    segment: "640 EEs · Open Enrollment in scope",
     readiness: 67,
     status: "incomplete" as const,
     submitted: "Mar 20, 2026",
     items: { complete: 8, total: 12 },
-    notes: "Stripe Billing migration + Airwallex for EUR/GBP. Missing FX hedging policy and ASC 606 revenue recognition sign-off.",
+    notes: "Need carrier list, EDI 834 specs, and confirmation of self-service rollout. Annual OE window forces aggressive build timeline.",
   },
   {
-    customer: "Atlas Travel & Technology",
+    customer: "Coastal Health Systems",
     ae: "Mark T.",
-    deal: "$310K ARR · Advisory + Integration",
-    segment: "Travel · BaaS + Multi-rail",
+    deal: "$310K ARR · Full HCM + Time & Attendance",
+    segment: "4,200 EEs · Multi-state · Union groups",
     readiness: 100,
     status: "ready" as const,
     submitted: "Mar 18, 2026",
     items: { complete: 12, total: 12 },
-    notes: "Year-long roadmap compressed to 3-month sprint. Airwallex multi-currency, Tipalti supplier payouts, OFX FX hedging.",
+    notes: "Strong sponsor (CHRO + CFO). Union rules and complex shift differentials. Existing Kronos T&A being retired.",
   },
   {
-    customer: "Lyric Marketplace",
+    customer: "Greentree Hospitality Group",
     ae: "Jen S.",
-    deal: "$95K ARR · Implementation",
-    segment: "Marketplace · Rainforest acquiring",
+    deal: "$95K ARR · Payroll + Benefits",
+    segment: "1,100 EEs · High turnover hospitality",
     readiness: 42,
     status: "blocked" as const,
     submitted: "Mar 15, 2026",
     items: { complete: 5, total: 12 },
-    notes: "MSA pending legal review. Marketplace split-payment model and KYB workflow still in scoping.",
+    notes: "MSA pending legal review. Executive sponsor changed mid-deal — re-confirming scope before kickoff.",
   },
 ];
 
@@ -59,17 +59,17 @@ const statusStyles = {
 
 const checklist = [
   "Signed SOW / MSA in place",
-  "Target rails & regions documented",
-  "Surcharging eligibility validated (states + brand rules)",
-  "Processor relationships confirmed (Stripe, Rainforest, Airwallex, OFX)",
-  "Existing payment stack inventoried",
-  "PCI scope & tokenization approach defined",
-  "Executive sponsor (CFO / VP Eng) identified",
-  "Recovery & KPI targets defined",
-  "Go-live window aligned to billing cycle",
-  "Internal Yeeld kickoff scheduled",
-  "Merchant kickoff scheduled",
-  "Risk & compliance assessment completed",
+  "Modules in scope confirmed (HR / Payroll / Benefits / Talent / Time)",
+  "Employee count, FEINs, pay groups documented",
+  "Carrier list & deduction codes captured",
+  "Existing HCM stack inventoried (ADP / UKG / Paycom / Workday)",
+  "GL chart of accounts & mapping approach defined",
+  "Executive sponsor (CHRO / CFO) identified",
+  "Success criteria & go-live date confirmed",
+  "Go-live aligned to pay period or plan-year boundary",
+  "Sage Project Manager and IM assigned",
+  "Client kickoff scheduled",
+  "Risk & change management plan drafted",
 ];
 
 export default function SalesHandoff() {
@@ -77,9 +77,9 @@ export default function SalesHandoff() {
     <DashboardLayout>
       <div className="space-y-6 max-w-6xl">
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-2xl font-semibold">Merchant Onboarding · Sales Handoff</h1>
+          <h1 className="text-2xl font-semibold">Client Onboarding · Sales to Delivery</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Manage the transition from closed Yeeld deals to active payment implementations. All items must be complete before kickoff.
+            Manage the transition from closed Sage HCM deals to active implementations. All items must be complete before kickoff.
           </p>
         </motion.div>
 

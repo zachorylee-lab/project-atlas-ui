@@ -22,100 +22,102 @@ const phaseIcons: Record<string, React.ElementType> = {
 const phaseDetails: Record<string, { tasks: string[]; deliverables: string[]; stakeholders: string[] }> = {
   handoff: {
     tasks: [
-      "Review signed SOW, processor agreements & merchant scope",
-      "Validate target payment rails (cards, ACH, wires, FX)",
-      "Confirm surcharging eligibility by state/region & card brand rules",
-      "Assign Yeeld lead consultant, payments engineer & advisory partner",
-      "Provision processor sandboxes (Stripe, Rainforest, Airwallex, etc.)",
+      "Review signed SOW, modules in scope (HR, Payroll, Benefits, Talent, Time)",
+      "Validate employee count, pay groups, FEINs, and entity structure",
+      "Confirm carrier list, deduction codes, and benefits plan year",
+      "Assign Project Manager, Implementation Manager, Config Specialist, QA",
+      "Provision Sage HCM sandbox tenant for client",
     ],
     deliverables: [
-      "Sales-to-delivery handoff brief",
-      "Payment stack inventory (gateway, processor, vault, orchestration)",
-      "Compliance pre-check (Visa/MC/AmEx surcharge rules, state laws)",
+      "Sales-to-Delivery handoff brief",
+      "Module scope confirmation",
+      "Sandbox tenant credentials",
       "Statement of Work confirmation",
     ],
-    stakeholders: ["Yeeld AE", "Solutions Architect", "Payments Engineer", "Merchant CFO / Finance Ops"],
+    stakeholders: ["Sage AE", "PS Director", "Project Manager", "Client CHRO / Payroll Director"],
   },
   kickoff: {
     tasks: [
-      "Conduct internal Yeeld delivery kickoff",
-      "Host merchant kickoff with Finance, Product, Engineering & Legal",
-      "Confirm KPI targets (recovery rate, decline rate, chargeback ratio)",
-      "Set go-live window aligned to billing & settlement cycles",
-      "Define compliance posture (PCI DSS, surcharge disclosures, Reg E/Z)",
+      "Host kickoff with HR, Payroll, Benefits, IT and Executive sponsor",
+      "Confirm go-live target tied to a pay period or plan year boundary",
+      "Walk through Sage Project Delivery Framework and RACI",
+      "Set weekly status cadence and steering committee schedule",
+      "Define success criteria: time-to-live, parallel payroll variance, CSAT",
     ],
     deliverables: [
-      "Implementation plan & milestone timeline",
-      "RACI across Yeeld, merchant, processor & ISV partners",
-      "Risk & compliance register",
-      "Discovery workbook (rails, geos, BIN coverage, fees)",
+      "Project charter & timeline (MS Project / Smartsheet)",
+      "RACI across Sage and client teams",
+      "Risk & assumption register",
+      "Discovery workbook (orgs, pay groups, deduction codes, carriers)",
     ],
-    stakeholders: ["Implementation Lead", "Merchant CFO / Controller", "VP Engineering", "Legal & Compliance"],
+    stakeholders: ["Project Manager", "Client CHRO / Payroll Director", "VP HR Ops", "IT Sponsor"],
   },
   build: {
     tasks: [
-      "Integrate surcharging engine with checkout & invoicing",
-      "Configure BIN-level rules, cap logic & dual-pricing disclosures",
-      "Wire processor connections (Stripe, Rainforest, Airwallex, OFX)",
-      "Implement Avalara for surcharge tax handling & nexus monitoring",
-      "Build Tipalti / AP automation for vendor payout flows where in scope",
-      "Implement webhooks, vault tokens, retries & idempotency",
+      "Configure HR — orgs, jobs, positions, workflows, EE self-service",
+      "Configure Payroll — pay groups, earnings/deductions, taxes, GL mapping",
+      "Configure Benefits — plans, rates, eligibility, life events, OE flow",
+      "Configure Talent — performance, comp planning, succession",
+      "Configure Time & Attendance — schedules, accruals, rounding rules",
+      "Build EDI carrier files (834), 401(k), GL exports, SSO (SAML/SCIM)",
+      "Coordinate data migration from ADP/UKG/Paycom/legacy",
     ],
     deliverables: [
-      "Configured surcharging rules engine",
-      "Processor integration specs & API contracts",
-      "Reconciliation & settlement data model",
-      "Merchant-facing reporting dashboard",
+      "Configured tenant per module",
+      "Integration specs (carrier 834, GL, 401(k), SSO, custom APIs)",
+      "Data migration mapping documents",
+      "Configuration playback walkthrough with client",
     ],
-    stakeholders: ["Solutions Architect", "Yeeld Payments Engineers", "Merchant Eng / Product", "Processor Integration Manager"],
+    stakeholders: ["Project Manager", "Implementation Manager", "Configuration Specialists", "Client SMEs (HR/Payroll/Benefits)"],
   },
   testing: {
     tasks: [
-      "Run end-to-end card-present / card-not-present test matrix",
-      "Validate surcharge math, caps & disclosures across BINs",
-      "Simulate chargebacks, refunds, partial captures & reversals",
-      "Compliance review: PCI scope, disclosures, state-by-state legality",
-      "Pre-launch review with Yeeld advisory + merchant Legal",
+      "Lead UAT planning: scenarios per module + cross-module flows",
+      "Run two to three parallel payrolls; reconcile gross-to-net to the penny",
+      "Validate benefits deductions, employer match, and carrier files",
+      "Test life events, new hires, terminations, and tax filings",
+      "Conduct integration regression with GL, 401(k), carriers, SSO",
+      "Sign Go/No-Go decision with executive sponsor",
     ],
     deliverables: [
-      "UAT test scripts & results",
-      "Surcharge compliance attestation",
-      "Reconciliation sign-off across processors",
-      "Go / No-Go decision document",
+      "UAT test scripts & sign-off log",
+      "Parallel payroll reconciliation report",
+      "Defect log and resolution status",
+      "Go/No-Go decision document",
     ],
-    stakeholders: ["QA Lead", "Merchant Finance & Legal", "Yeeld Advisory", "Processor Solutions"],
+    stakeholders: ["Project Manager", "QA", "Client Payroll & HR SMEs", "Executive Sponsor"],
   },
   golive: {
     tasks: [
-      "Cutover from legacy gateway / acquirer",
-      "Enable production surcharging in waves by region or merchant ID",
-      "Turn on live processor routing & failover rules",
-      "Push merchant comms, payer-facing disclosures & FAQs",
-      "Open Yeeld hypercare channel (Slack + on-call rotation)",
+      "Execute cutover plan (final data load, sandbox→production promotion)",
+      "Run first live payroll with Sage PM and Payroll specialist on-call",
+      "Open command center / war room for go-live week",
+      "Send client comms: ESS login, manager training, support contacts",
+      "Daily executive standup; track P1/P2 issues to closure",
     ],
     deliverables: [
       "Go-live runbook & rollback plan",
-      "First-day settlement reconciliation",
-      "User & API access matrix",
-      "Day-1 monitoring dashboard (auth rate, decline, chargeback)",
+      "First live payroll reconciliation",
+      "User & permissions access matrix",
+      "Day-1 health dashboard",
     ],
-    stakeholders: ["Yeeld Implementation Lead", "Merchant Eng & Ops", "Processor Support", "Merchant Customer Support"],
+    stakeholders: ["Project Manager", "Client Payroll/HR Ops", "Sage Support", "Executive Sponsor"],
   },
   hypercare: {
     tasks: [
-      "Daily monitoring of auth rate, decline reasons & chargebacks",
-      "Tune surcharging rules & BIN exceptions based on real traffic",
-      "Run first full month-end settlement reconciliation with merchant",
-      "Capture CSAT, recovery metrics & advisory recommendations",
-      "Transition to ongoing Yeeld advisory / managed services",
+      "Run 30–60 day hypercare with daily then weekly check-ins",
+      "Stabilize first month-end, quarter-end and tax filings",
+      "Capture CSAT survey and identify expansion opportunities",
+      "Transition to Customer Success / ongoing support",
+      "Hold internal Sage retro: what to repeat, what to fix",
     ],
     deliverables: [
-      "First-month recovery & performance report",
-      "Optimization recommendations (rails, routing, fees)",
-      "BAU & advisory transition document",
-      "Merchant health scorecard",
+      "Hypercare exit report (incidents, resolution time)",
+      "CSAT scorecard",
+      "BAU transition document for Customer Success",
+      "Lessons-learned retro deck",
     ],
-    stakeholders: ["Yeeld Advisory", "Merchant Finance Ops", "Processor Account Mgmt", "Yeeld Engineering on-call"],
+    stakeholders: ["Project Manager", "Client Payroll Ops", "Sage Customer Success", "Sage Support"],
   },
 };
 
@@ -124,9 +126,9 @@ export default function Playbook() {
     <DashboardLayout>
       <div className="space-y-8 max-w-4xl">
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-2xl font-semibold">Yeeld Implementation Playbook</h1>
+          <h1 className="text-2xl font-semibold">Sage HCM Delivery Playbook</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            A repeatable 6-phase framework for shipping compliant surcharging programs and complex payment systems — from sales handoff to ongoing advisory.
+            The 6-phase Sage Project Delivery Framework used to implement HR, Payroll, Benefits, Talent, and Time & Attendance — from sales handoff through hypercare.
           </p>
         </motion.div>
 
@@ -172,7 +174,7 @@ export default function Playbook() {
                       <Card className="border-dashed">
                         <CardHeader className="pb-2 pt-4 px-4">
                           <CardTitle className="text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
-                            <CheckSquare className="h-3.5 w-3.5" /> Key Tasks
+                            <CheckSquare className="h-3.5 w-3.5" /> PM Tasks
                           </CardTitle>
                         </CardHeader>
                         <CardContent className="px-4 pb-4">

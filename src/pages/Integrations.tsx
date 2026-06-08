@@ -4,8 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import {
   Plug, CheckCircle2, ArrowRight,
-  CreditCard, Building2, Shield, Globe, Banknote, RefreshCw,
-  DollarSign, Wallet, Code2,
+  Heart, Shield, KeyRound, Calculator, Briefcase, Code2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -41,235 +40,224 @@ type IntegrationCategory = {
 
 const categories: IntegrationCategory[] = [
   {
-    id: "acquiring",
-    label: "Acquiring & Card Processing",
-    icon: CreditCard,
-    color: "text-violet-500",
-    description: "Card processors and acquirers Yeeld implements and supports surcharging on",
+    id: "benefits",
+    label: "Benefits Carriers (EDI 834)",
+    icon: Heart,
+    color: "text-rose-500",
+    description: "Health, dental, vision, FSA/HSA, and life carrier integrations using ANSI 834 enrollment files",
     integrations: [
       {
-        name: "Stripe",
-        description: "Full Stripe integration: Payments, Billing, Connect, Terminal and Tax — wired to Yeeld's surcharging engine",
+        name: "Blue Cross Blue Shield",
+        description: "Full 834 enrollment integration: full files for OE, change-only files for life events",
         status: "available",
         bestPractices: [
-          "Use Stripe Billing for recurring + Yeeld surcharge logic at invoice creation",
-          "Vault customers with Setup Intents for portable, reusable PMs",
-          "Pipe webhooks through retry + DLQ for reconciliation safety",
-          "Use Stripe Tax for sales-tax automation alongside surcharge math",
+          "Run a test 834 with carrier 4 weeks before plan year",
+          "Use change-only files outside OE to minimize errors",
+          "Reconcile membership counts every payroll cycle",
+          "Confirm carrier plan IDs and tiers before first production file",
         ],
         clientNeeds: [
-          "Stripe account with API access (restricted keys preferred)",
-          "Product / pricing catalog confirmed",
-          "Webhook endpoint + signing secret",
-          "Decision on charge model: direct, destination, or separate charges & transfers",
+          "Carrier EDI contact and SFTP credentials",
+          "Plan year effective dates",
+          "Group numbers and benefit plan IDs",
+          "List of life events that trigger change files",
         ],
-        dataFlows: ["Checkout / Invoice → Stripe PaymentIntent", "Webhooks → Yeeld reconciliation", "Payouts → Merchant bank"],
-        setupSteps: ["Provision Stripe sandbox", "Configure products & prices", "Wire surcharging engine", "End-to-end UAT", "Phased go-live"],
+        dataFlows: ["Sage HCM Benefits → 834 → Carrier", "Membership recon → Benefits team", "Discrepancy report → Sage PM"],
+        setupSteps: ["Engage carrier EDI team", "Generate test file", "Validate counts", "Run parallel", "Production cutover"],
       },
       {
-        name: "Rainforest",
-        description: "Embedded payments and acquiring for software platforms — Yeeld's go-to partner for ISVs and marketplaces",
+        name: "Aetna / Cigna / United",
+        description: "Standard 834 enrollment files; identical pattern across the top medical carriers",
         status: "available",
         bestPractices: [
-          "Use Rainforest sub-merchant onboarding (KYB) for fast SaaS payfac flows",
-          "Layer Yeeld surcharging on top of Rainforest's processing for compliant recovery",
-          "Leverage Rainforest's revenue share for ISV monetization",
+          "Treat each carrier as its own mini-project",
+          "Track open issues per carrier in the PM dashboard",
+          "Always schedule a recon meeting 1 week post-cutover",
         ],
         clientNeeds: [
-          "Rainforest partner agreement (via Yeeld referral)",
-          "ISV / platform onboarding flow design",
-          "Compliance & KYB requirements documented",
+          "Carrier-specific EDI contacts",
+          "Plan IDs and rate tables",
         ],
-        dataFlows: ["Sub-merchant KYB → Rainforest", "Transactions → Rainforest acquiring", "Surcharge $ → Merchant settlement"],
-        setupSteps: ["Yeeld-Rainforest intro & contract", "API integration", "KYB & onboarding UX", "UAT", "Go-live"],
+        dataFlows: ["Sage HCM → 834 → Each carrier", "Inbound discrepancy → Sage PM"],
+        setupSteps: ["Carrier intake", "Mapping", "Test file", "Recon", "Go-live"],
+      },
+      {
+        name: "Empower / Fidelity 401(k)",
+        description: "Contribution and indicative data files to the 401(k) recordkeeper",
+        status: "available",
+        bestPractices: [
+          "Send contributions every pay period; reconcile to penny",
+          "Confirm match formula and true-up logic in Sage HCM",
+          "Coordinate force-out and rehire scenarios with recordkeeper",
+        ],
+        clientNeeds: [
+          "Recordkeeper SFTP credentials",
+          "Plan rules (match, vesting, eligibility)",
+        ],
+        dataFlows: ["Payroll → 401(k) file → Recordkeeper", "ACH fund transfer → Plan trust"],
+        setupSteps: ["Plan discovery", "File format confirmation", "Test file", "Parallel send", "Go-live"],
       },
     ],
   },
   {
-    id: "surcharging",
-    label: "Surcharging & Compliance",
-    icon: Shield,
+    id: "payroll-tax",
+    label: "Payroll Tax & GL",
+    icon: Calculator,
     color: "text-amber-500",
-    description: "Yeeld's surcharging infrastructure plus compliance partners",
+    description: "Tax filing engines and GL exports to the client's accounting system",
     integrations: [
       {
-        name: "Yeeld Surcharging Engine",
-        description: "Yeeld's proprietary surcharging platform — BIN-aware, cap-aware, brand-rule compliant, with full payer disclosures and audit trail",
+        name: "MasterTax / Sage HCM Tax Service",
+        description: "Federal, state, and local payroll tax calculation, deposits, and filings",
         status: "available",
         bestPractices: [
-          "Always surcharge credit only — never debit or prepaid (Reg II compliance)",
-          "Apply lesser-of merchant cost or brand cap (currently 3% Visa, 4% MC)",
-          "Show clear disclosures at entry, checkout and on receipt",
-          "Re-validate BIN data quarterly and on every chargeback dispute",
-          "Log every surcharge with timestamp, BIN, cap reason for audit",
+          "Validate all SUTA rates and FEIN registrations before first live payroll",
+          "Confirm quarter-end and year-end calendars early",
+          "Run a Q-end dry run in sandbox before first live close",
         ],
         clientNeeds: [
-          "Merchant cost analysis (effective rate by card brand)",
-          "States / regions in scope confirmed",
-          "Card brand registration (30-day notice) initiated",
-          "Legal review of payer-facing disclosures",
+          "All active FEINs and state tax IDs",
+          "Current SUTA rates",
+          "Power of Attorney where Sage files on behalf",
         ],
-        dataFlows: ["Checkout → Yeeld rules engine → Surcharge decision", "Surcharge applied → Processor", "Audit log → Merchant reporting"],
-        setupSteps: ["Compliance discovery & state map", "Brand network notification", "Engine config & BIN load", "UAT + advisory review", "Phased rollout"],
+        dataFlows: ["Payroll → Tax engine → Tax authorities", "Quarterly filings → State / Federal"],
+        setupSteps: ["FEIN intake", "POA collection", "Rate verification", "Parallel quarter", "Go-live"],
       },
       {
-        name: "Avalara AvaTax",
-        description: "Sales-tax automation and nexus monitoring layered alongside surcharging",
+        name: "Sage Intacct / NetSuite / QuickBooks GL",
+        description: "GL export from Sage HCM payroll postings into the client's financial system",
         status: "available",
         bestPractices: [
-          "Calculate tax at invoice entry to avoid post-close adjustments",
-          "Use Avalara nexus monitoring to flag new state obligations",
-          "Treat surcharge as non-taxable line item where legally distinct",
-          "Sync exemption certificates centrally and re-validate annually",
+          "Confirm cost-center / department dimensions match GL",
+          "Reconcile first GL export line-by-line with client controller",
+          "Automate file delivery via SFTP or native connector",
         ],
         clientNeeds: [
-          "Avalara account with AvaTax + Returns",
-          "List of nexus states and product tax codes",
-          "Exemption certificate inventory",
+          "Chart of accounts (current and historic)",
+          "Department / cost center hierarchy",
+          "GL preferences (summary vs detail)",
         ],
-        dataFlows: ["Invoice lines → AvaTax", "Tax + surcharge → Processor", "Returns → Avalara filings"],
-        setupSteps: ["Connect AvaTax", "Map tax codes", "Load exemptions", "Test calc", "Go-live"],
+        dataFlows: ["Payroll close → GL file → ERP", "Recon report → Controller"],
+        setupSteps: ["COA discovery", "Mapping", "Test export", "Recon", "Go-live"],
       },
     ],
   },
   {
-    id: "fx-banking",
-    label: "FX, Treasury & Global Payments",
-    icon: Globe,
-    color: "text-cyan-500",
-    description: "Cross-border payments, FX, and global account infrastructure",
+    id: "talent-ats",
+    label: "Talent & ATS",
+    icon: Briefcase,
+    color: "text-violet-500",
+    description: "Applicant tracking, background check, and onboarding integrations",
     integrations: [
       {
-        name: "Airwallex",
-        description: "Multi-currency accounts, FX, and global payments — Yeeld's preferred BaaS / treasury partner",
+        name: "Greenhouse / iCIMS / Lever",
+        description: "Candidate hand-off from ATS into Sage HCM new-hire onboarding workflow",
         status: "available",
         bestPractices: [
-          "Open local-currency receiving accounts to avoid FX on inbound",
-          "Use Airwallex FX API for transparent mid-market conversion",
-          "Issue virtual cards for vendor / contractor spend with controls",
-          "Batch payouts to reduce per-transaction wire fees",
+          "Use REST API hand-off rather than CSV imports where possible",
+          "Map ATS source codes to Sage HCM source-of-hire field",
+          "Trigger background check at offer-accept stage",
         ],
         clientNeeds: [
-          "Airwallex account (via Yeeld partner link)",
-          "Target currencies and payment corridors confirmed",
-          "KYC / compliance docs ready for entity onboarding",
+          "ATS API credentials",
+          "Job / requisition mapping",
+          "Onboarding workflow design",
         ],
-        dataFlows: ["Customer pays in local FX → Airwallex collection", "FX conversion → Merchant base currency", "Payouts → Global suppliers"],
-        setupSteps: ["Yeeld-Airwallex intro", "Account opening & KYC", "API integration", "Currency UAT", "Go-live"],
+        dataFlows: ["ATS → Sage HCM new-hire stub → Onboarding tasks → Active EE"],
+        setupSteps: ["ATS connect", "Field mapping", "Test candidate", "Parallel onboarding", "Go-live"],
       },
       {
-        name: "OFX",
-        description: "Enterprise-grade FX, hedging and international payments — used by Yeeld for high-volume merchants",
+        name: "Checkr / Sterling Background",
+        description: "Background check ordering and adjudication tied to new-hire workflow",
         status: "available",
         bestPractices: [
-          "Use forward contracts to lock FX for predictable settlements",
-          "Compare effective FX across OFX + Airwallex per corridor",
-          "Automate beneficiary payments via OFX API for high-value B2B",
+          "Order at offer-accept, gate hire date on completion",
+          "Document adjudication rules (clear / engaged / consider)",
         ],
         clientNeeds: [
-          "OFX corporate account (via Yeeld partner link)",
-          "Treasury / FX policy",
-          "Hedging requirements",
+          "Background check vendor account",
+          "Adjudication policy by role / state",
         ],
-        dataFlows: ["Invoices → OFX FX booking", "Forward contracts → Settlement", "International payouts → Beneficiaries"],
-        setupSteps: ["Yeeld-OFX intro", "Corporate onboarding", "API integration", "Hedge policy review", "Go-live"],
+        dataFlows: ["Sage HCM → Background API → Result → Hire-ready flag"],
+        setupSteps: ["Vendor connect", "Workflow design", "Test case", "Go-live"],
       },
     ],
   },
   {
-    id: "payouts",
-    label: "AP Automation & Payouts",
-    icon: Wallet,
-    color: "text-emerald-500",
-    description: "Mass payouts and supplier payments for platforms and marketplaces",
-    integrations: [
-      {
-        name: "Tipalti",
-        description: "Global mass payouts, supplier onboarding, tax compliance and AP automation",
-        status: "available",
-        bestPractices: [
-          "Onboard suppliers via Tipalti self-service portal with W-9 / W-8 collection",
-          "Use Tipalti for 1099 / 1042 reporting automation",
-          "Pay across ACH, wire, PayPal and global ACH from one workflow",
-          "Sync supplier master + payment status back to merchant ERP",
-        ],
-        clientNeeds: [
-          "Tipalti account (via Yeeld partner link)",
-          "Supplier list with tax classification",
-          "Approval matrix and payment policies",
-        ],
-        dataFlows: ["Bills approved → Tipalti", "Tax forms → Tipalti collection", "Payouts → Suppliers globally"],
-        setupSteps: ["Yeeld-Tipalti intro", "Account setup", "Supplier migration", "Approval workflow config", "Go-live"],
-      },
-    ],
-  },
-  {
-    id: "engineering",
-    label: "Engineering & Advisory",
-    icon: Code2,
+    id: "sso-security",
+    label: "SSO & Identity",
+    icon: KeyRound,
     color: "text-blue-500",
-    description: "Yeeld's development services and trusted engineering partners",
+    description: "Single sign-on (SAML / OIDC), SCIM provisioning, and MFA",
     integrations: [
       {
-        name: "Yeeld Advisory & Dev Services",
-        description: "Yeeld's in-house payments engineers deliver code reviews, integrations, and end-to-end implementations",
+        name: "Okta / Azure AD / Google Workspace",
+        description: "SAML 2.0 SSO and SCIM provisioning for Sage HCM",
         status: "available",
         bestPractices: [
-          "Engage Yeeld advisory pre-RFP to avoid costly architecture rework",
-          "Use Yeeld code reviews on every processor integration before go-live",
-          "Embed a Yeeld engineer for 90 days during high-stakes launches",
+          "Use SAML for SSO and SCIM for de-provisioning on termination",
+          "Pilot with IT team and admins before broad rollout",
+          "Always retain emergency local-admin account",
         ],
         clientNeeds: [
-          "Signed SOW with Yeeld",
-          "Access to merchant engineering team",
-          "Repo access for code reviews",
+          "IdP admin access",
+          "Group / role mapping",
+          "Custom domain / vanity URL preference",
         ],
-        dataFlows: ["Discovery → Architecture review", "Build → Pair programming + reviews", "Launch → On-call support"],
-        setupSteps: ["Discovery call", "SOW + advisory scope", "Engineer assignment", "Sprint cadence", "Hand-off to BAU"],
+        dataFlows: ["IdP → Sage HCM via SAML/SCIM", "Termination → SCIM deactivate"],
+        setupSteps: ["IdP connect", "Group mapping", "Pilot users", "Broad rollout", "Decommission legacy auth"],
       },
+    ],
+  },
+  {
+    id: "time-attendance",
+    label: "Time & Attendance",
+    icon: Shield,
+    color: "text-emerald-500",
+    description: "Time clocks, scheduling, and legacy T&A migrations",
+    integrations: [
       {
-        name: "Lemon.io",
-        description: "Vetted senior engineering talent on-demand for payments and platform builds (Yeeld partner)",
+        name: "Kronos / UKG Time Migration",
+        description: "Migrate from Kronos / UKG T&A into Sage HCM Time & Attendance module",
         status: "available",
         bestPractices: [
-          "Use Lemon.io to staff payment integrations Yeeld scopes but doesn't build",
-          "Pair Yeeld advisory with Lemon.io engineers for cost-effective delivery",
-          "Maintain code review gates with Yeeld even on Lemon.io builds",
+          "Audit pay rules, shift differentials and rounding in legacy first",
+          "Run T&A parallel for at least 2 pay cycles",
+          "Validate accrual balances at cutover to the second",
         ],
         clientNeeds: [
-          "Engineering role spec",
-          "Tech stack & seniority requirements",
-          "Engagement length",
+          "Pay rule documentation",
+          "Schedule patterns and union work rules",
+          "Accrual balances at cutover",
         ],
-        dataFlows: ["Role spec → Lemon.io match", "Engineer onboarded → Merchant team", "Reviews → Yeeld advisory"],
-        setupSteps: ["Scoping call", "Lemon.io engineer match", "Onboarding", "Yeeld review cadence", "Delivery"],
+        dataFlows: ["Time clocks → Sage HCM Time → Payroll batch"],
+        setupSteps: ["Pay rule discovery", "Build in Sage", "T&A parallel", "Accrual cutover", "Go-live"],
       },
     ],
   },
   {
     id: "custom",
-    label: "Custom & Orchestration",
-    icon: Plug,
+    label: "Custom & APIs",
+    icon: Code2,
     color: "text-rose-500",
-    description: "Custom API integrations and payment orchestration",
+    description: "Custom REST/SOAP APIs, file-based exports, and Sage HCM extensibility",
     integrations: [
       {
-        name: "Custom Payment APIs",
-        description: "Yeeld engineers custom integrations against any processor, gateway, or banking API",
+        name: "Sage HCM REST API",
+        description: "Custom integrations against the Sage HCM REST API for client-specific extensions",
         status: "custom",
         bestPractices: [
-          "Always use sandbox environments for integration development",
-          "Authenticate via OAuth or scoped API keys; rotate quarterly",
-          "Implement idempotency keys on every state-changing call",
-          "Throttle and respect rate limits; queue overflow",
-          "Log every transaction for audit and replay",
+          "Use sandbox tenant for all development",
+          "Authenticate via OAuth client credentials; rotate quarterly",
+          "Respect rate limits; throttle and retry with backoff",
+          "Use webhooks where available instead of polling",
         ],
         clientNeeds: [
           "Integration design document",
-          "Developer access to source / target systems",
+          "Developer access to source/target systems",
           "Security & compliance sign-off",
         ],
-        dataFlows: ["Source system → Yeeld middleware → Processor", "Webhooks → Reconciliation", "Audit log → Merchant reporting"],
+        dataFlows: ["Source system → Sage HCM API → Sage HCM data"],
         setupSteps: ["Design integration", "Build in sandbox", "Security review", "UAT", "Go-live"],
       },
     ],
@@ -288,10 +276,10 @@ export default function Integrations() {
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2">
             <Plug className="h-5 w-5 text-primary" />
-            <h1 className="text-2xl font-bold text-foreground">Partner Integrations</h1>
+            <h1 className="text-2xl font-bold text-foreground">Sage HCM Integrations</h1>
           </div>
           <p className="text-sm text-muted-foreground">
-            Yeeld's curated stack of processors, FX & treasury, AP automation, compliance and engineering partners — with best practices and setup guides for every integration.
+            Standard Sage HCM integration patterns the PM coordinates across benefits carriers, payroll tax, GL, ATS, SSO and time & attendance vendors.
           </p>
         </div>
 
@@ -396,11 +384,11 @@ export default function Integrations() {
                 </ul>
               </div>
               <div>
-                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">What the Merchant Needs</p>
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">Client Needs</p>
                 <ul className="space-y-1.5">
                   {selectedIntegration.clientNeeds.map((c) => (
                     <li key={c} className="text-sm flex items-start gap-2">
-                      <Building2 className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />
+                      <span className="h-1 w-1 rounded-full bg-foreground/30 mt-2 shrink-0" />
                       {c}
                     </li>
                   ))}
@@ -410,8 +398,8 @@ export default function Integrations() {
                 <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">Data Flows</p>
                 <ul className="space-y-1.5">
                   {selectedIntegration.dataFlows.map((d) => (
-                    <li key={d} className="text-sm flex items-start gap-2">
-                      <RefreshCw className="h-3.5 w-3.5 text-cyan-500 mt-0.5 shrink-0" />
+                    <li key={d} className="text-sm flex items-start gap-2 font-mono text-xs">
+                      <ArrowRight className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />
                       {d}
                     </li>
                   ))}

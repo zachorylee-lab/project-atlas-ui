@@ -4,127 +4,150 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Separator } from "@/components/ui/separator";
 import {
-  CreditCard, Home, Users, DollarSign,
-  CheckCircle2, Clock, AlertTriangle, Database,
-  Upload, Settings, ChevronRight, ArrowRight,
+  Users, DollarSign, Heart, Award, Clock,
+  CheckCircle2, Database,
+  Upload, Settings,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-type ModuleId = "financial-close" | "multi-entity" | "ap-automation" | "ai-insights";
+type ModuleId = "hr" | "payroll" | "benefits" | "talent" | "time";
 
 type WorkflowTask = { label: string; done: boolean };
 type MigrationItem = { source: string; target: string; records: string; status: "pending" | "in-progress" | "complete" | "failed" };
 type ConfigStep = { label: string; description: string; done: boolean };
 
 const modulesMeta: Record<ModuleId, { label: string; icon: React.ElementType; color: string; description: string }> = {
-  "financial-close": { label: "Surcharging Engine", icon: CheckCircle2, color: "text-amber-500", description: "BIN rules, brand caps, payer disclosures, and surcharge audit trail" },
-  "multi-entity": { label: "Multi-Rail Payments", icon: Home, color: "text-blue-500", description: "Cards, ACH, wires, FX and alt-pay orchestration across processors" },
-  "ap-automation": { label: "AP Payouts & Tipalti", icon: CreditCard, color: "text-emerald-500", description: "Mass payouts, supplier onboarding, tax forms and approval workflows" },
-  "ai-insights": { label: "Recovery Insights & Reporting", icon: DollarSign, color: "text-violet-500", description: "Auth rate, decline analysis, surcharge $ recovered and chargeback monitoring" },
+  hr: { label: "HR Core", icon: Users, color: "text-blue-500", description: "Org structure, positions, workflows, employee self-service" },
+  payroll: { label: "Payroll", icon: DollarSign, color: "text-amber-500", description: "Pay groups, earnings & deductions, taxes, GL mapping" },
+  benefits: { label: "Benefits", icon: Heart, color: "text-rose-500", description: "Plans, rates, eligibility, life events, OE & EDI 834 carriers" },
+  talent: { label: "Talent", icon: Award, color: "text-violet-500", description: "Performance, comp planning, succession, learning" },
+  time: { label: "Time & Attendance", icon: Clock, color: "text-emerald-500", description: "Schedules, pay rules, accruals, time clocks, shift differentials" },
 };
 
 const implementationChecklists: Record<ModuleId, WorkflowTask[]> = {
-  "financial-close": [
-    { label: "Configure close checklist and task owners", done: false },
-    { label: "Define journal entry approval thresholds", done: false },
-    { label: "Set up bank reconciliation match rules", done: false },
-    { label: "Configure recurring & allocation journals", done: false },
-    { label: "Enable period lock & soft/hard close controls", done: false },
-    { label: "Build financial statement templates (P&L, BS, CF)", done: false },
-    { label: "Configure variance & flux analysis reports", done: false },
-    { label: "Run end-to-end month-end close in sandbox", done: false },
+  hr: [
+    { label: "Configure org structure, locations & legal entities", done: false },
+    { label: "Build job catalog and position management", done: false },
+    { label: "Configure new-hire, transfer, termination workflows", done: false },
+    { label: "Enable employee self-service (ESS)", done: false },
+    { label: "Configure manager self-service (MSS) approvals", done: false },
+    { label: "Set up document storage (I-9, W-4, custom)", done: false },
+    { label: "Configure role-based permissions and security", done: false },
+    { label: "End-to-end UAT for hire-to-retire flow", done: false },
   ],
-  "multi-entity": [
-    { label: "Define legal entity hierarchy & ownership", done: false },
-    { label: "Configure inter-entity transaction rules", done: false },
-    { label: "Set up multi-currency & FX revaluation", done: false },
-    { label: "Build consolidation & elimination rules", done: false },
-    { label: "Configure minority interest & equity pickup", done: false },
-    { label: "Set up reporting books (GAAP, IFRS, Tax)", done: false },
-    { label: "Test full consolidation cycle", done: false },
-    { label: "Enable entity-level security & access", done: false },
+  payroll: [
+    { label: "Configure pay groups, pay frequencies and FEINs", done: false },
+    { label: "Build earnings, deductions and tax codes", done: false },
+    { label: "Configure direct deposit and pay card", done: false },
+    { label: "Map GL accounts (department, cost center)", done: false },
+    { label: "Configure garnishments and child support", done: false },
+    { label: "Validate state tax registrations and SUTA rates", done: false },
+    { label: "Run two to three parallel payrolls vs. legacy", done: false },
+    { label: "Reconcile gross-to-net to the penny", done: false },
   ],
-  "ap-automation": [
-    { label: "Connect Bill.com / Sage AP Automation", done: false },
-    { label: "Configure OCR & invoice capture rules", done: false },
-    { label: "Build approval matrix by amount & dimension", done: false },
-    { label: "Set up 3-way match (PO, receipt, invoice)", done: false },
-    { label: "Configure payment runs (ACH, check, vCard)", done: false },
-    { label: "Set up 1099 tracking and vendor compliance", done: false },
-    { label: "Test end-to-end invoice-to-pay flow", done: false },
-    { label: "Enable vendor self-service portal", done: false },
+  benefits: [
+    { label: "Build benefit plans (medical, dental, vision, FSA/HSA)", done: false },
+    { label: "Configure rates, tiers and effective dates", done: false },
+    { label: "Define eligibility rules and waiting periods", done: false },
+    { label: "Build life-event qualifying changes workflow", done: false },
+    { label: "Design Open Enrollment experience", done: false },
+    { label: "Build EDI 834 files for each carrier", done: false },
+    { label: "Test 834 with each carrier (member count recon)", done: false },
+    { label: "Validate payroll deductions against benefit elections", done: false },
   ],
-  "ai-insights": [
-    { label: "Enable Intelligent GL anomaly detection", done: false },
-    { label: "Tune anomaly thresholds per account category", done: false },
-    { label: "Configure AI-assisted bank reconciliation", done: false },
-    { label: "Build CFO dashboard with key KPIs", done: false },
-    { label: "Build Board reporting pack template", done: false },
-    { label: "Configure scheduled report distribution", done: false },
-    { label: "Set up budget vs. actual variance alerts", done: false },
-    { label: "Train finance team on Insight Console", done: false },
+  talent: [
+    { label: "Configure performance review templates and cycle", done: false },
+    { label: "Build goal cascade and OKR templates", done: false },
+    { label: "Configure compensation planning and merit cycle", done: false },
+    { label: "Build succession planning org chart", done: false },
+    { label: "Configure learning courses and assignments", done: false },
+    { label: "Enable career profiles and internal mobility", done: false },
+    { label: "Train HRBPs on talent workflows", done: false },
+    { label: "UAT end-to-end performance cycle", done: false },
+  ],
+  time: [
+    { label: "Configure pay rules, overtime and shift differentials", done: false },
+    { label: "Build schedule templates and rotations", done: false },
+    { label: "Configure accruals (PTO, sick, FMLA)", done: false },
+    { label: "Connect time clocks / mobile punch", done: false },
+    { label: "Configure approval workflows for time edits", done: false },
+    { label: "Map time codes to payroll earnings", done: false },
+    { label: "Run T&A parallel for two pay cycles", done: false },
+    { label: "Validate accrual balances at cutover", done: false },
   ],
 };
 
 const migrationData: Record<ModuleId, MigrationItem[]> = {
-  "financial-close": [
-    { source: "Legacy ERP", target: "Chart of Accounts", records: "~450 accounts", status: "pending" },
-    { source: "Excel Templates", target: "Close Checklist Tasks", records: "~120 tasks", status: "pending" },
-    { source: "Bank Statements", target: "Reconciliation History", records: "12 months", status: "pending" },
-    { source: "Legacy GL", target: "Opening Trial Balances", records: "All entities", status: "pending" },
+  hr: [
+    { source: "Legacy HRIS", target: "Employee Master", records: "~1,800 EEs", status: "pending" },
+    { source: "Legacy HRIS", target: "Org / Position Data", records: "~240 positions", status: "pending" },
+    { source: "Document Vault", target: "I-9 / W-4 Documents", records: "~3,600 docs", status: "pending" },
+    { source: "HRIS", target: "History (5 yrs)", records: "Compensation + Job", status: "pending" },
   ],
-  "multi-entity": [
-    { source: "Legacy Consolidation Tool", target: "Entity Hierarchy", records: "38 entities", status: "pending" },
-    { source: "FX System", target: "Historical FX Rates", records: "24 months", status: "pending" },
-    { source: "Excel Eliminations", target: "Elimination Rules", records: "~85 rules", status: "pending" },
-    { source: "Legacy GL", target: "Inter-Entity Balances", records: "All open items", status: "pending" },
+  payroll: [
+    { source: "Legacy Payroll", target: "YTD Balances", records: "Current calendar year", status: "pending" },
+    { source: "Legacy Payroll", target: "Deduction Master", records: "Per EE", status: "pending" },
+    { source: "Legacy Payroll", target: "Direct Deposit", records: "~1,800 EEs", status: "pending" },
+    { source: "Legacy Payroll", target: "Garnishments", records: "~45 active", status: "pending" },
   ],
-  "ap-automation": [
-    { source: "Legacy AP System", target: "Vendor Master", records: "~1,800 vendors", status: "pending" },
-    { source: "Approval Matrix", target: "AP Workflow Rules", records: "~45 rules", status: "pending" },
-    { source: "Open AP Aging", target: "Outstanding Bills", records: "~620 invoices", status: "pending" },
-    { source: "1099 Records", target: "Vendor Tax Profiles", records: "Prior 2 years", status: "pending" },
+  benefits: [
+    { source: "Legacy Benefits", target: "Current Enrollments", records: "Per EE / plan", status: "pending" },
+    { source: "Carrier Files", target: "Beneficiaries / Dependents", records: "~2,400 records", status: "pending" },
+    { source: "FSA / HSA Vendor", target: "YTD Contributions", records: "Current year", status: "pending" },
+    { source: "401(k) Recordkeeper", target: "Deferral Elections", records: "~1,200 active", status: "pending" },
   ],
-  "ai-insights": [
-    { source: "Legacy BI", target: "Report Templates", records: "~60 reports", status: "pending" },
-    { source: "Budget Files", target: "Annual Budget", records: "All entities", status: "pending" },
-    { source: "Excel KPIs", target: "Dashboard Definitions", records: "~25 KPIs", status: "pending" },
-    { source: "Historical GL", target: "AI Training Data", records: "36 months", status: "pending" },
+  talent: [
+    { source: "Legacy Performance Tool", target: "Active Review Cycle", records: "In-flight", status: "pending" },
+    { source: "Comp Tool", target: "Historical Comp Decisions", records: "Prior 2 cycles", status: "pending" },
+    { source: "LMS", target: "Course Catalog & Completions", records: "~420 courses", status: "pending" },
+    { source: "Excel", target: "Succession Plans", records: "~90 critical roles", status: "pending" },
+  ],
+  time: [
+    { source: "Legacy T&A (Kronos/UKG)", target: "Open Time Cards", records: "Current pay period", status: "pending" },
+    { source: "Legacy T&A", target: "Accrual Balances", records: "Per EE", status: "pending" },
+    { source: "Schedule System", target: "Schedules", records: "~6 weeks forward", status: "pending" },
+    { source: "Pay Rules Doc", target: "Pay Rules Library", records: "~30 rules", status: "pending" },
   ],
 };
 
 const configSteps: Record<ModuleId, ConfigStep[]> = {
-  "financial-close": [
-    { label: "Close Calendar", description: "Define close days, owners, dependencies, and reminder schedule", done: false },
-    { label: "Journal Workflows", description: "Configure JE templates, approval thresholds, and recurring entries", done: false },
-    { label: "Reconciliations", description: "Set up bank, GL, and inter-entity reconciliation rules with auto-match", done: false },
-    { label: "Period Controls", description: "Configure soft/hard close, period locks, and reopen permissions", done: false },
-    { label: "Financial Reports", description: "Build P&L, balance sheet, cash flow, and variance report templates", done: false },
+  hr: [
+    { label: "Org & Position", description: "Define legal entities, locations, departments, jobs, positions", done: false },
+    { label: "Workflows", description: "Configure hire, transfer, termination, and change workflows", done: false },
+    { label: "Self-Service", description: "Enable ESS / MSS with branded launch page", done: false },
+    { label: "Document Management", description: "Configure I-9, W-4, and custom doc storage", done: false },
+    { label: "Security", description: "Build role-based access and field-level permissions", done: false },
   ],
-  "multi-entity": [
-    { label: "Entity Structure", description: "Model legal entities, ownership %, and reporting hierarchy", done: false },
-    { label: "Inter-Entity Rules", description: "Configure due-to/due-from accounts and automated postings", done: false },
-    { label: "Multi-Currency", description: "Set base, transaction, and reporting currencies; configure FX feeds", done: false },
-    { label: "Consolidation Rules", description: "Define eliminations, minority interest, and translation methods", done: false },
-    { label: "Reporting Books", description: "Configure GAAP, IFRS, Tax, and Management reporting books", done: false },
+  payroll: [
+    { label: "Pay Groups & Calendar", description: "Define pay groups, frequencies, periods, off-cycle rules", done: false },
+    { label: "Earnings & Deductions", description: "Configure all earning, deduction, and tax codes", done: false },
+    { label: "Tax Setup", description: "Validate FEINs, SUTA rates, state/local tax registrations", done: false },
+    { label: "GL Mapping", description: "Map payroll postings to client's chart of accounts", done: false },
+    { label: "Direct Deposit", description: "Configure DD splits, pre-notes, pay card option", done: false },
   ],
-  "ap-automation": [
-    { label: "Invoice Capture", description: "Configure OCR, email-in addresses, and vendor invoice templates", done: false },
-    { label: "Approval Matrix", description: "Define approvers by amount, department, entity, and project", done: false },
-    { label: "3-Way Match", description: "Enable PO, receipt, and invoice matching with tolerance rules", done: false },
-    { label: "Payment Runs", description: "Configure ACH, check, and virtual card payment methods and schedules", done: false },
-    { label: "Vendor Compliance", description: "Set up W-9 collection, 1099 tracking, and OFAC screening", done: false },
+  benefits: [
+    { label: "Plan Setup", description: "Build medical, dental, vision, FSA/HSA, life plans", done: false },
+    { label: "Rates & Tiers", description: "Load EE / EE+spouse / EE+child / family rates", done: false },
+    { label: "Eligibility Rules", description: "Define waiting periods and class-based eligibility", done: false },
+    { label: "Open Enrollment", description: "Build OE wizard and decision support", done: false },
+    { label: "EDI 834 Carriers", description: "Build carrier files and complete carrier testing", done: false },
   ],
-  "ai-insights": [
-    { label: "Anomaly Detection", description: "Enable AI scoring on GL postings and tune thresholds per account", done: false },
-    { label: "KPI Library", description: "Define days-to-close, automation rate, DSO, DPO, and cash KPIs", done: false },
-    { label: "CFO Dashboard", description: "Build CFO and Controller dashboards with drill-down to transactions", done: false },
-    { label: "Board Pack", description: "Configure quarterly Board report template and distribution list", done: false },
-    { label: "Alerts & Workflows", description: "Set up exception alerts, variance triggers, and approval reminders", done: false },
+  talent: [
+    { label: "Performance", description: "Configure review template, calibration, cycle dates", done: false },
+    { label: "Compensation", description: "Build merit matrix, budget loading, manager workspace", done: false },
+    { label: "Succession", description: "Configure 9-box and successor pools for critical roles", done: false },
+    { label: "Learning", description: "Set up course catalog, assignments, compliance tracking", done: false },
+    { label: "Career Mobility", description: "Enable career profile and internal job posting", done: false },
+  ],
+  time: [
+    { label: "Pay Rules", description: "Configure OT, double-time, shift differentials, blended rates", done: false },
+    { label: "Schedules", description: "Build schedule templates and union rotation patterns", done: false },
+    { label: "Accruals", description: "Configure PTO, sick, bereavement, FMLA accrual rules", done: false },
+    { label: "Time Clocks", description: "Connect physical clocks and mobile punch with geofence", done: false },
+    { label: "Approvals", description: "Configure manager approval workflows for time and exceptions", done: false },
   ],
 };
 
@@ -139,7 +162,7 @@ const statusStyles: Record<string, { label: string; classes: string }> = {
 const fadeUp = { initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.3 } };
 
 export default function DataWorkflows() {
-  const [activeModule, setActiveModule] = useState<ModuleId>("financial-close");
+  const [activeModule, setActiveModule] = useState<ModuleId>("hr");
 
   const [checklistStates, setChecklistStates] = useState<Record<string, boolean[]>>({});
   const [migrationStates, setMigrationStates] = useState<Record<string, MigrationItem[]>>({});
@@ -186,9 +209,9 @@ export default function DataWorkflows() {
       <motion.div {...fadeUp}>
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">Payment Workflows</h1>
+            <h1 className="text-2xl font-bold tracking-tight">Sage HCM Modules</h1>
             <p className="text-sm text-muted-foreground mt-1">
-              Configure, migrate and validate each module of the Yeeld payments stack
+              Configure, migrate and validate each module of the Sage HCM suite
             </p>
           </div>
           <Badge variant="outline" className="text-xs gap-1.5 px-3 py-1.5">
@@ -198,7 +221,7 @@ export default function DataWorkflows() {
       </motion.div>
 
       <motion.div {...fadeUp} transition={{ delay: 0.05 }}>
-        <div className="grid grid-cols-4 gap-3 mb-6">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
           {(Object.keys(modulesMeta) as ModuleId[]).map((id) => {
             const meta = modulesMeta[id];
             const Icon = meta.icon;
@@ -319,39 +342,31 @@ export default function DataWorkflows() {
               </CardHeader>
               <CardContent>
                 <div className="rounded-lg border overflow-hidden">
-                  <div className="grid grid-cols-[1fr_auto_1fr_auto_auto] gap-0 text-[11px] font-medium text-muted-foreground bg-muted/50 px-4 py-2.5">
+                  <div className="grid grid-cols-[1fr_1fr_auto_auto] gap-4 text-[11px] font-medium text-muted-foreground bg-muted/50 px-4 py-2.5">
                     <span>Source System</span>
-                    <span />
-                    <span>Target in Sage Intacct</span>
-
+                    <span>Target in Sage HCM</span>
                     <span className="text-center">Records</span>
                     <span className="text-center">Status</span>
                   </div>
-                  <Separator />
-                  {migrations.map((item, idx) => (
-                    <div
-                      key={idx}
-                      className="grid grid-cols-[1fr_auto_1fr_auto_auto] gap-0 items-center px-4 py-3 border-b last:border-b-0 hover:bg-muted/30 transition-colors"
-                    >
-                      <div className="flex items-center gap-2">
-                        <Database className="h-3.5 w-3.5 text-muted-foreground" />
-                        <span className="text-sm">{item.source}</span>
-                      </div>
-                      <ArrowRight className="h-3.5 w-3.5 text-muted-foreground mx-3" />
-                      <span className="text-sm font-medium">{item.target}</span>
-                      <span className="text-xs text-muted-foreground text-center min-w-[80px]">{item.records}</span>
-                      <button
-                        onClick={() => cycleMigrationStatus(idx)}
-                        className="min-w-[90px] flex justify-center"
-                      >
-                        <Badge className={cn("text-[10px] cursor-pointer transition-colors", statusStyles[item.status].classes)}>
-                          {statusStyles[item.status].label}
-                        </Badge>
-                      </button>
-                    </div>
-                  ))}
+                  <div className="divide-y">
+                    {migrations.map((m, idx) => {
+                      const status = statusStyles[m.status];
+                      return (
+                        <div key={idx} className="grid grid-cols-[1fr_1fr_auto_auto] gap-4 items-center px-4 py-3 text-sm">
+                          <span>{m.source}</span>
+                          <span className="font-medium">{m.target}</span>
+                          <span className="text-xs text-muted-foreground text-center">{m.records}</span>
+                          <button
+                            onClick={() => cycleMigrationStatus(idx)}
+                            className={cn("text-[10px] px-2 py-1 rounded-full font-medium transition-colors", status.classes)}
+                          >
+                            {status.label}
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
-                <p className="text-[11px] text-muted-foreground mt-3">Click a status badge to cycle through: Pending → In Progress → Complete → Failed</p>
               </CardContent>
             </Card>
           </motion.div>
@@ -361,48 +376,26 @@ export default function DataWorkflows() {
           <motion.div {...fadeUp}>
             <Card>
               <CardHeader className="pb-3">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-sm">{modulesMeta[activeModule].label} Configuration Steps</CardTitle>
-                  {configDone === config.length && config.length > 0 && (
-                    <Badge className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20 text-[10px]">
-                      <CheckCircle2 className="h-3 w-3 mr-1" /> Fully Configured
-                    </Badge>
-                  )}
-                </div>
+                <CardTitle className="text-sm">{modulesMeta[activeModule].label} Configuration Steps</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="h-1.5 w-full bg-muted rounded-full mb-4 overflow-hidden">
-                  <motion.div
-                    className="h-full bg-primary rounded-full"
-                    initial={{ width: 0 }}
-                    animate={{ width: `${config.length ? (configDone / config.length) * 100 : 0}%` }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </div>
-                <div className="space-y-2">
+                <div className="space-y-1">
                   {config.map((step, idx) => {
                     const checked = configChecked[idx];
                     return (
-                      <div
+                      <label
                         key={idx}
                         className={cn(
-                          "flex items-start gap-3 px-4 py-3 rounded-lg border transition-all cursor-pointer hover:bg-muted/30",
-                          checked ? "border-emerald-500/30 bg-emerald-500/5 opacity-75" : "border-border"
+                          "flex items-start gap-3 px-3 py-3 rounded-lg cursor-pointer transition-colors hover:bg-muted/50",
+                          checked && "opacity-60"
                         )}
-                        onClick={() => toggleConfig(idx)}
                       >
                         <Checkbox checked={checked} onCheckedChange={() => toggleConfig(idx)} className="mt-0.5" />
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2">
-                            <span className={cn("text-sm font-medium", checked && "line-through text-muted-foreground")}>
-                              {step.label}
-                            </span>
-                            <Badge variant="outline" className="text-[9px] px-1.5">Step {idx + 1}</Badge>
-                          </div>
+                        <div>
+                          <p className={cn("text-sm font-medium", checked && "line-through text-muted-foreground")}>{step.label}</p>
                           <p className="text-xs text-muted-foreground mt-0.5">{step.description}</p>
                         </div>
-                        <ChevronRight className="h-4 w-4 text-muted-foreground mt-0.5" />
-                      </div>
+                      </label>
                     );
                   })}
                 </div>
