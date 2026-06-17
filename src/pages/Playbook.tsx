@@ -3,15 +3,8 @@ import { PHASES } from "@/lib/phases";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import {
-  ArrowRightLeft,
-  Rocket,
-  Hammer,
-  FlaskConical,
-  Zap,
-  HeartPulse,
-  CheckSquare,
-  FileText,
-  Users,
+  ArrowRightLeft, Rocket, Hammer, FlaskConical, Zap, HeartPulse,
+  CheckSquare, FileText, Users,
 } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -22,102 +15,102 @@ const phaseIcons: Record<string, React.ElementType> = {
 const phaseDetails: Record<string, { tasks: string[]; deliverables: string[]; stakeholders: string[] }> = {
   handoff: {
     tasks: [
-      "Review signed SOW, modules in scope (HR, Payroll, Benefits, Talent, Time)",
-      "Validate employee count, pay groups, FEINs, and entity structure",
-      "Confirm carrier list, deduction codes, and benefits plan year",
-      "Assign Project Manager, Implementation Manager, Config Specialist, QA",
-      "Provision Sage HCM sandbox tenant for client",
+      "Review signed order form, channels purchased (Push, Email, SMS, IAM, Content Cards, WhatsApp)",
+      "Confirm SDK platforms in scope (iOS, Android, Web, React Native, Flutter)",
+      "Identify data source: Segment / mParticle / Snowflake CDI / direct REST",
+      "Confirm migration source (Iterable, MoEngage, SFMC, Responsys, Airship)",
+      "Provision Braze dashboard, workspaces and assign Delivery Manager, OSC, TAM, Onboarding Engineer",
     ],
     deliverables: [
       "Sales-to-Delivery handoff brief",
-      "Module scope confirmation",
-      "Sandbox tenant credentials",
+      "Channels & SDK scope confirmation",
+      "Braze workspace + sandbox credentials",
       "Statement of Work confirmation",
     ],
-    stakeholders: ["Sage AE", "PS Director", "Project Manager", "Client CHRO / Payroll Director"],
+    stakeholders: ["Braze AE", "Delivery Lead", "Delivery Manager", "Customer VP Lifecycle / CRM Director"],
   },
   kickoff: {
     tasks: [
-      "Host kickoff with HR, Payroll, Benefits, IT and Executive sponsor",
-      "Confirm go-live target tied to a pay period or plan year boundary",
-      "Walk through Sage Project Delivery Framework and RACI",
-      "Set weekly status cadence and steering committee schedule",
-      "Define success criteria: time-to-live, parallel payroll variance, CSAT",
+      "Host kickoff with Lifecycle, Data Eng, Mobile Eng, Web Eng, Privacy/Legal",
+      "Lock target Time to First Send and Time to First Production Canvas",
+      "Walk through the Braze Onboarding Methodology and shared RACI",
+      "Set weekly status cadence and executive steering committee",
+      "Define success criteria: TTFS, Canvas live, conversion lift, channel opt-in rate",
     ],
     deliverables: [
-      "Project charter & timeline (MS Project / Smartsheet)",
-      "RACI across Sage and client teams",
+      "Project charter & timeline (Smartsheet / Asana)",
+      "RACI across Braze and customer teams",
       "Risk & assumption register",
-      "Discovery workbook (orgs, pay groups, deduction codes, carriers)",
+      "Use-case discovery workbook (welcome, abandoned cart, churn, re-engagement, transactional)",
     ],
-    stakeholders: ["Project Manager", "Client CHRO / Payroll Director", "VP HR Ops", "IT Sponsor"],
+    stakeholders: ["Delivery Manager", "VP Lifecycle / CRM", "Data Eng Lead", "Mobile Eng Lead", "Privacy Counsel"],
   },
   build: {
     tasks: [
-      "Configure HR — orgs, jobs, positions, workflows, EE self-service",
-      "Configure Payroll — pay groups, earnings/deductions, taxes, GL mapping",
-      "Configure Benefits — plans, rates, eligibility, life events, OE flow",
-      "Configure Talent — performance, comp planning, succession",
-      "Configure Time & Attendance — schedules, accruals, rounding rules",
-      "Build EDI carrier files (834), 401(k), GL exports, SSO (SAML/SCIM)",
-      "Coordinate data migration from ADP/UKG/Paycom/legacy",
+      "Install Braze SDKs (iOS Swift, Android Kotlin, Web, React Native) with push certs/keys",
+      "Stand up data ingestion: Segment/mParticle source, Cloud Data Ingestion from Snowflake, or REST /users/track",
+      "Configure subscription groups, preference center, GDPR/CCPA flows",
+      "Set up channels: APNs/FCM push, sending domains + DKIM/SPF/DMARC for email, Twilio short codes for SMS",
+      "Build first Canvas journeys (welcome series, onboarding nudge, abandoned cart)",
+      "Configure BrazeAI: Sage AI Copilot, Intelligent Channel, Intelligent Timing, content generation",
+      "Build Currents / Cloud Data Sharing export to Snowflake/BigQuery for analytics",
     ],
     deliverables: [
-      "Configured tenant per module",
-      "Integration specs (carrier 834, GL, 401(k), SSO, custom APIs)",
-      "Data migration mapping documents",
-      "Configuration playback walkthrough with client",
+      "SDK install confirmed across all platforms (session + event tracking validated)",
+      "Data ingestion pipeline live with attribute + custom event mapping",
+      "Channel configuration documented (push certs, IP warming plan, sending domains)",
+      "First three Canvases built in staging with sign-off",
     ],
-    stakeholders: ["Project Manager", "Implementation Manager", "Configuration Specialists", "Client SMEs (HR/Payroll/Benefits)"],
+    stakeholders: ["Delivery Manager", "Onboarding Engineer", "Customer Mobile/Web Eng", "Customer Data Eng", "Customer Lifecycle Marketer"],
   },
   testing: {
     tasks: [
-      "Lead UAT planning: scenarios per module + cross-module flows",
-      "Run two to three parallel payrolls; reconcile gross-to-net to the penny",
-      "Validate benefits deductions, employer match, and carrier files",
-      "Test life events, new hires, terminations, and tax filings",
-      "Conduct integration regression with GL, 401(k), carriers, SSO",
+      "Lead UAT planning: per channel + per Canvas + per audience segment",
+      "Run test sends to internal seed lists across all channels",
+      "Validate event ingestion latency, attribute fidelity, and segment counts",
+      "Test Liquid personalization, Connected Content, and Catalogs",
+      "Execute deliverability seed test for email; warm IPs per the warming plan",
       "Sign Go/No-Go decision with executive sponsor",
     ],
     deliverables: [
       "UAT test scripts & sign-off log",
-      "Parallel payroll reconciliation report",
+      "Deliverability inbox-placement report",
       "Defect log and resolution status",
       "Go/No-Go decision document",
     ],
-    stakeholders: ["Project Manager", "QA", "Client Payroll & HR SMEs", "Executive Sponsor"],
+    stakeholders: ["Delivery Manager", "QA", "Customer Lifecycle + Eng leads", "Executive Sponsor"],
   },
   golive: {
     tasks: [
-      "Execute cutover plan (final data load, sandbox→production promotion)",
-      "Run first live payroll with Sage PM and Payroll specialist on-call",
-      "Open command center / war room for go-live week",
-      "Send client comms: ESS login, manager training, support contacts",
+      "Execute cutover: production SDK keys, production data sources, DNS authentication live",
+      "Send first production campaign with Delivery Manager + OE on-call",
+      "Open command center / Slack war room for launch week",
+      "Send customer comms: dashboard access, training links, support routing",
       "Daily executive standup; track P1/P2 issues to closure",
     ],
     deliverables: [
       "Go-live runbook & rollback plan",
-      "First live payroll reconciliation",
-      "User & permissions access matrix",
-      "Day-1 health dashboard",
+      "First production send health report",
+      "User & permissions matrix",
+      "Day-1 deliverability + engagement dashboard",
     ],
-    stakeholders: ["Project Manager", "Client Payroll/HR Ops", "Sage Support", "Executive Sponsor"],
+    stakeholders: ["Delivery Manager", "Customer Lifecycle Ops", "Braze Support", "Executive Sponsor"],
   },
   hypercare: {
     tasks: [
       "Run 30–60 day hypercare with daily then weekly check-ins",
-      "Stabilize first month-end, quarter-end and tax filings",
-      "Capture CSAT survey and identify expansion opportunities",
-      "Transition to Customer Success / ongoing support",
-      "Hold internal Sage retro: what to repeat, what to fix",
+      "Stabilize first major campaign cycle (holiday, plan-year, OE-style moment)",
+      "Capture CSAT survey and identify expansion opportunities (additional channels, BrazeAI add-ons)",
+      "Transition to Customer Success / Technical Account Manager",
+      "Hold internal Braze retro: what to repeat, what to fix",
     ],
     deliverables: [
-      "Hypercare exit report (incidents, resolution time)",
+      "Hypercare exit report (incidents, MTTR, deliverability)",
       "CSAT scorecard",
-      "BAU transition document for Customer Success",
+      "BAU transition document for CSM/TAM",
       "Lessons-learned retro deck",
     ],
-    stakeholders: ["Project Manager", "Client Payroll Ops", "Sage Customer Success", "Sage Support"],
+    stakeholders: ["Delivery Manager", "Customer Lifecycle Ops", "Braze CSM/TAM", "Braze Support"],
   },
 };
 
@@ -126,9 +119,9 @@ export default function Playbook() {
     <DashboardLayout>
       <div className="space-y-8 max-w-4xl">
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-2xl font-semibold">Sage HCM Delivery Playbook</h1>
+          <h1 className="text-2xl font-semibold">Braze Onboarding Playbook</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            The 6-phase Sage Project Delivery Framework used to implement HR, Payroll, Benefits, Talent, and Time & Attendance — from sales handoff through hypercare.
+            The 6-phase Braze Onboarding Methodology used to launch new customers across SDK integration, data ingestion, Canvas journeys, channels, and BrazeAI — from sales handoff through hypercare.
           </p>
         </motion.div>
 
@@ -174,7 +167,7 @@ export default function Playbook() {
                       <Card className="border-dashed">
                         <CardHeader className="pb-2 pt-4 px-4">
                           <CardTitle className="text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
-                            <CheckSquare className="h-3.5 w-3.5" /> PM Tasks
+                            <CheckSquare className="h-3.5 w-3.5" /> DM Tasks
                           </CardTitle>
                         </CardHeader>
                         <CardContent className="px-4 pb-4">

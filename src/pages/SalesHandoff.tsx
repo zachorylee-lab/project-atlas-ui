@@ -6,48 +6,48 @@ import { motion } from "framer-motion";
 
 const handoffs = [
   {
-    customer: "Northwind Logistics",
+    customer: "Canva Pro",
     ae: "Chris D.",
-    deal: "$185K ARR · Full HCM Suite",
-    segment: "2,600 EEs · 12 FEINs · 6 states",
+    deal: "$420K ARR · Email + Push + IAM + Content Cards + BrazeAI",
+    segment: "28M MAU · Trial→Paid conversion focus · Segment CDP",
     readiness: 94,
     status: "ready" as const,
     submitted: "Mar 22, 2026",
     items: { complete: 11, total: 12 },
-    notes: "Migrating from ADP Workforce Now. Full suite + Talent. Carrier files for 4 health, dental, vision, 401(k). Targeting July 1 mid-year cutover.",
+    notes: "Migrating from Iterable. Heavy lifecycle program: trial onboarding, paid upgrade, retention. Web + iOS + Android SDKs.",
   },
   {
-    customer: "Apex Property Management",
+    customer: "Apex Retail Group",
     ae: "Amy L.",
-    deal: "$72K ARR · HR + Benefits",
-    segment: "640 EEs · Open Enrollment in scope",
+    deal: "$180K ARR · Email + SMS + WhatsApp",
+    segment: "2.1M customers · Shopify · Holiday peak in scope",
     readiness: 67,
     status: "incomplete" as const,
     submitted: "Mar 20, 2026",
     items: { complete: 8, total: 12 },
-    notes: "Need carrier list, EDI 834 specs, and confirmation of self-service rollout. Annual OE window forces aggressive build timeline.",
+    notes: "Need WhatsApp Business Account approval, 10DLC registration, and consent capture confirmation. Peak season forces aggressive build timeline.",
   },
   {
-    customer: "Coastal Health Systems",
+    customer: "MetLife — Lifecycle",
     ae: "Mark T.",
-    deal: "$310K ARR · Full HCM + Time & Attendance",
-    segment: "4,200 EEs · Multi-state · Union groups",
+    deal: "$1.1M ARR · Full Suite + BrazeAI + Currents",
+    segment: "90M policyholders · Highly regulated · mParticle",
     readiness: 100,
     status: "ready" as const,
     submitted: "Mar 18, 2026",
     items: { complete: 12, total: 12 },
-    notes: "Strong sponsor (CHRO + CFO). Union rules and complex shift differentials. Existing Kronos T&A being retired.",
+    notes: "Strong sponsor (CMO + Chief Customer Officer). Compliance review cleared. Existing Salesforce Marketing Cloud being retired.",
   },
   {
-    customer: "Greentree Hospitality Group",
+    customer: "Greentree Hospitality",
     ae: "Jen S.",
-    deal: "$95K ARR · Payroll + Benefits",
-    segment: "1,100 EEs · High turnover hospitality",
+    deal: "$240K ARR · Email + Push + IAM",
+    segment: "4.6M loyalty members · Multi-brand",
     readiness: 42,
     status: "blocked" as const,
     submitted: "Mar 15, 2026",
     items: { complete: 5, total: 12 },
-    notes: "MSA pending legal review. Executive sponsor changed mid-deal — re-confirming scope before kickoff.",
+    notes: "MSA pending legal review. Executive sponsor changed mid-deal — re-confirming scope and use cases before kickoff.",
   },
 ];
 
@@ -58,17 +58,17 @@ const statusStyles = {
 };
 
 const checklist = [
-  "Signed SOW / MSA in place",
-  "Modules in scope confirmed (HR / Payroll / Benefits / Talent / Time)",
-  "Employee count, FEINs, pay groups documented",
-  "Carrier list & deduction codes captured",
-  "Existing HCM stack inventoried (ADP / UKG / Paycom / Workday)",
-  "GL chart of accounts & mapping approach defined",
-  "Executive sponsor (CHRO / CFO) identified",
-  "Success criteria & go-live date confirmed",
-  "Go-live aligned to pay period or plan-year boundary",
-  "Sage Project Manager and IM assigned",
-  "Client kickoff scheduled",
+  "Signed order form / MSA in place",
+  "Channels in scope confirmed (Push / Email / SMS / IAM / Content Cards / WhatsApp)",
+  "SDK platforms documented (iOS, Android, Web, React Native, Flutter)",
+  "Data source identified (Segment / mParticle / Snowflake CDI / REST)",
+  "Migration source documented (Iterable / MoEngage / SFMC / Responsys / Airship)",
+  "Use cases prioritized (welcome, abandoned cart, churn, transactional)",
+  "Executive sponsor (CMO / VP Lifecycle) identified",
+  "Success criteria & Time to First Send target confirmed",
+  "Privacy / Legal contact identified (GDPR/CCPA)",
+  "Braze Delivery Manager, OE, and TAM assigned",
+  "Customer kickoff scheduled",
   "Risk & change management plan drafted",
 ];
 
@@ -77,9 +77,9 @@ export default function SalesHandoff() {
     <DashboardLayout>
       <div className="space-y-6 max-w-6xl">
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-2xl font-semibold">Client Onboarding · Sales to Delivery</h1>
+          <h1 className="text-2xl font-semibold">Sales Handoff · Sales to Delivery</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Manage the transition from closed Sage HCM deals to active implementations. All items must be complete before kickoff.
+            Manage the transition from closed Braze deals to active customer onboardings. All items must be complete before kickoff.
           </p>
         </motion.div>
 

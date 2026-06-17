@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,45 +6,45 @@
 
 @layer base {
   :root {
-    --background: 150 20% 98%;
-    --foreground: 158 35% 10%;
+    --background: 260 20% 98%;
+    --foreground: 250 30% 10%;
 
     --card: 0 0% 100%;
-    --card-foreground: 158 35% 10%;
+    --card-foreground: 250 30% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 158 35% 10%;
+    --popover-foreground: 250 30% 10%;
 
-    /* Sage brand: deep forest green + bright lime accent */
-    --primary: 158 60% 18%;
-    --primary-foreground: 90 70% 90%;
+    /* Braze brand: vibrant magenta/pink primary with deep midnight accents */
+    --primary: 328 85% 55%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 150 15% 93%;
-    --secondary-foreground: 158 35% 12%;
+    --secondary: 260 25% 95%;
+    --secondary-foreground: 250 30% 14%;
 
-    --muted: 150 12% 95%;
-    --muted-foreground: 158 10% 40%;
+    --muted: 260 15% 95%;
+    --muted-foreground: 250 10% 42%;
 
-    --accent: 88 70% 50%;
-    --accent-foreground: 158 60% 14%;
+    --accent: 270 80% 60%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 150 12% 88%;
-    --input: 150 12% 88%;
-    --ring: 88 70% 50%;
+    --border: 260 15% 89%;
+    --input: 260 15% 89%;
+    --ring: 328 85% 55%;
 
-    --radius: 0.5rem;
+    --radius: 0.625rem;
 
-    --sidebar-background: 158 45% 10%;
-    --sidebar-foreground: 150 15% 82%;
-    --sidebar-primary: 88 70% 55%;
-    --sidebar-primary-foreground: 158 60% 14%;
-    --sidebar-accent: 158 40% 14%;
-    --sidebar-accent-foreground: 88 70% 60%;
-    --sidebar-border: 158 35% 16%;
-    --sidebar-ring: 88 70% 55%;
+    --sidebar-background: 252 40% 9%;
+    --sidebar-foreground: 260 15% 80%;
+    --sidebar-primary: 328 85% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 252 35% 14%;
+    --sidebar-accent-foreground: 328 90% 70%;
+    --sidebar-border: 252 30% 16%;
+    --sidebar-ring: 328 85% 60%;
 
     --success: 152 60% 40%;
     --success-foreground: 0 0% 100%;
@@ -54,43 +54,41 @@
     --info-foreground: 0 0% 100%;
 
     --phase-handoff: 199 89% 48%;
-    --phase-kickoff: 262 52% 55%;
-    --phase-build: 172 66% 40%;
+    --phase-kickoff: 262 70% 60%;
+    --phase-build: 328 85% 55%;
     --phase-testing: 38 92% 50%;
     --phase-golive: 152 60% 40%;
-    --phase-hypercare: 340 65% 50%;
+    --phase-hypercare: 280 65% 55%;
 
     --font-display: 'Inter', system-ui, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
   }
 
   .dark {
-    --background: 158 30% 6%;
-    --foreground: 150 20% 95%;
-    --card: 158 25% 9%;
-    --card-foreground: 150 20% 95%;
-    --popover: 158 25% 9%;
-    --popover-foreground: 150 20% 95%;
-    --primary: 88 70% 50%;
-    --primary-foreground: 158 60% 14%;
-    --secondary: 158 20% 16%;
-    --secondary-foreground: 150 20% 90%;
-    --muted: 158 20% 14%;
-    --muted-foreground: 150 14% 55%;
-    --accent: 172 66% 40%;
+    --background: 252 35% 7%;
+    --foreground: 260 20% 95%;
+    --card: 252 30% 10%;
+    --card-foreground: 260 20% 95%;
+    --popover: 252 30% 10%;
+    --popover-foreground: 260 20% 95%;
+    --primary: 328 85% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 252 25% 16%;
+    --secondary-foreground: 260 20% 90%;
+    --muted: 252 25% 14%;
+    --muted-foreground: 260 14% 60%;
+    --accent: 270 80% 60%;
     --accent-foreground: 0 0% 100%;
-    --destructive: 0 62% 30%;
+    --destructive: 0 62% 42%;
     --destructive-foreground: 0 0% 100%;
-    --border: 158 20% 18%;
-    --input: 158 20% 18%;
-    --ring: 88 70% 50%;
+    --border: 252 25% 18%;
+    --input: 252 25% 18%;
+    --ring: 328 85% 60%;
   }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
+  * { @apply border-border; }
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-display);

@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import {
   Plug, CheckCircle2, ArrowRight,
-  Heart, Shield, KeyRound, Calculator, Briefcase, Code2,
+  Database, Smartphone, Mail, BarChart3, ShoppingBag, KeyRound, Shield,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -13,18 +13,14 @@ import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription,
 } from "@/components/ui/dialog";
 
-const fadeUp = {
-  initial: { opacity: 0, y: 16 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.4 },
-};
+const fadeUp = { initial: { opacity: 0, y: 16 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.4 } };
 
 type Integration = {
   name: string;
   description: string;
   status: "available" | "coming-soon" | "custom";
   bestPractices: string[];
-  clientNeeds: string[];
+  customerNeeds: string[];
   dataFlows: string[];
   setupSteps: string[];
 };
@@ -40,225 +36,212 @@ type IntegrationCategory = {
 
 const categories: IntegrationCategory[] = [
   {
-    id: "benefits",
-    label: "Benefits Carriers (EDI 834)",
-    icon: Heart,
-    color: "text-rose-500",
-    description: "Health, dental, vision, FSA/HSA, and life carrier integrations using ANSI 834 enrollment files",
+    id: "cdp",
+    label: "CDPs & Data Ingestion",
+    icon: Database,
+    color: "text-fuchsia-500",
+    description: "Customer Data Platforms and warehouse-native ingestion that feed user profiles and events into Braze",
     integrations: [
       {
-        name: "Blue Cross Blue Shield",
-        description: "Full 834 enrollment integration: full files for OE, change-only files for life events",
+        name: "Segment",
+        description: "Standard CDP source: identify, track, group calls land in Braze as users, custom events, and attributes",
         status: "available",
         bestPractices: [
-          "Run a test 834 with carrier 4 weeks before plan year",
-          "Use change-only files outside OE to minimize errors",
-          "Reconcile membership counts every payroll cycle",
-          "Confirm carrier plan IDs and tiers before first production file",
+          "Use a server-side Segment source for trusted events; client-side for engagement",
+          "Map `userId` → Braze `external_id` and never use anonymous IDs as the primary identifier",
+          "Cap custom attributes; design a clean schema before turning on the destination",
+          "Stagger replay to avoid rate-limit spikes on first sync",
         ],
-        clientNeeds: [
-          "Carrier EDI contact and SFTP credentials",
-          "Plan year effective dates",
-          "Group numbers and benefit plan IDs",
-          "List of life events that trigger change files",
-        ],
-        dataFlows: ["Sage HCM Benefits → 834 → Carrier", "Membership recon → Benefits team", "Discrepancy report → Sage PM"],
-        setupSteps: ["Engage carrier EDI team", "Generate test file", "Validate counts", "Run parallel", "Production cutover"],
+        customerNeeds: ["Segment workspace admin", "Schema/tracking plan", "PII review for the destination"],
+        dataFlows: ["App/Web → Segment → Braze /users/track", "Segment audiences → Braze user attributes"],
+        setupSteps: ["Add Braze destination", "Map identify/track schema", "Replay historical events", "QA in staging", "Promote to production"],
       },
       {
-        name: "Aetna / Cigna / United",
-        description: "Standard 834 enrollment files; identical pattern across the top medical carriers",
+        name: "mParticle",
+        description: "Enterprise CDP with audience and identity resolution; common in retail, media, financial services",
         status: "available",
         bestPractices: [
-          "Treat each carrier as its own mini-project",
-          "Track open issues per carrier in the PM dashboard",
-          "Always schedule a recon meeting 1 week post-cutover",
+          "Use mParticle IDSync for deterministic identity resolution",
+          "Forward only the audiences the lifecycle team needs as Braze segments",
+          "Coordinate consent forwarding for GDPR/CCPA states",
         ],
-        clientNeeds: [
-          "Carrier-specific EDI contacts",
-          "Plan IDs and rate tables",
-        ],
-        dataFlows: ["Sage HCM → 834 → Each carrier", "Inbound discrepancy → Sage PM"],
-        setupSteps: ["Carrier intake", "Mapping", "Test file", "Recon", "Go-live"],
+        customerNeeds: ["mParticle workspace admin", "Identity strategy doc", "Audience taxonomy"],
+        dataFlows: ["SDKs → mParticle → Braze (events + audiences)", "mParticle Calculated Attributes → Braze attributes"],
+        setupSteps: ["Connect Braze output", "Map audiences", "Validate identity resolution", "Pilot send", "Cutover"],
       },
       {
-        name: "Empower / Fidelity 401(k)",
-        description: "Contribution and indicative data files to the 401(k) recordkeeper",
+        name: "Snowflake — Cloud Data Ingestion",
+        description: "Warehouse-native ingestion of user profiles and events directly from Snowflake (also Databricks, Redshift, BigQuery)",
         status: "available",
         bestPractices: [
-          "Send contributions every pay period; reconcile to penny",
-          "Confirm match formula and true-up logic in Sage HCM",
-          "Coordinate force-out and rehire scenarios with recordkeeper",
+          "Use CDI for batch backfill and nightly updates of attributes",
+          "Pair with Currents/Cloud Data Sharing for round-trip analytics",
+          "Define a staging table contract and version it with the data team",
         ],
-        clientNeeds: [
-          "Recordkeeper SFTP credentials",
-          "Plan rules (match, vesting, eligibility)",
-        ],
-        dataFlows: ["Payroll → 401(k) file → Recordkeeper", "ACH fund transfer → Plan trust"],
-        setupSteps: ["Plan discovery", "File format confirmation", "Test file", "Parallel send", "Go-live"],
+        customerNeeds: ["Snowflake account + RBAC role for Braze", "Source tables with `external_id`", "Refresh SLA"],
+        dataFlows: ["Snowflake table → CDI sync → Braze user attributes / events"],
+        setupSteps: ["Provision Snowflake role", "Define source tables", "Configure sync cadence", "QA counts vs. source", "Go-live"],
       },
     ],
   },
   {
-    id: "payroll-tax",
-    label: "Payroll Tax & GL",
-    icon: Calculator,
-    color: "text-amber-500",
-    description: "Tax filing engines and GL exports to the client's accounting system",
+    id: "channels",
+    label: "Channels & Messaging",
+    icon: Mail,
+    color: "text-pink-500",
+    description: "Email, SMS, WhatsApp, Push, In-App and Content Card delivery infrastructure",
     integrations: [
       {
-        name: "MasterTax / Sage HCM Tax Service",
-        description: "Federal, state, and local payroll tax calculation, deposits, and filings",
+        name: "APNs / FCM (Push)",
+        description: "Apple Push Notification service and Firebase Cloud Messaging for iOS & Android push",
         status: "available",
         bestPractices: [
-          "Validate all SUTA rates and FEIN registrations before first live payroll",
-          "Confirm quarter-end and year-end calendars early",
-          "Run a Q-end dry run in sandbox before first live close",
+          "Use APNs auth key (p8) over cert-based auth — no annual rotation",
+          "Configure FCM v1 API; legacy FCM is being deprecated",
+          "Always test on a real device per OS major version before launch",
+          "Plan push-prompt timing as a Canvas step, not at app open",
         ],
-        clientNeeds: [
-          "All active FEINs and state tax IDs",
-          "Current SUTA rates",
-          "Power of Attorney where Sage files on behalf",
-        ],
-        dataFlows: ["Payroll → Tax engine → Tax authorities", "Quarterly filings → State / Federal"],
-        setupSteps: ["FEIN intake", "POA collection", "Rate verification", "Parallel quarter", "Go-live"],
+        customerNeeds: ["Apple Developer admin", "Firebase project admin", "Mobile eng pairing for SDK install"],
+        dataFlows: ["Braze → APNs/FCM → Device", "Device push receipts → Braze analytics"],
+        setupSteps: ["Upload APNs key + FCM service account", "Install SDK", "Test on device", "Soft launch %", "Full rollout"],
       },
       {
-        name: "Sage Intacct / NetSuite / QuickBooks GL",
-        description: "GL export from Sage HCM payroll postings into the client's financial system",
+        name: "Email — sending domain & DKIM",
+        description: "Braze native email channel with custom sending domain, DKIM, SPF, DMARC, and IP warming",
         status: "available",
         bestPractices: [
-          "Confirm cost-center / department dimensions match GL",
-          "Reconcile first GL export line-by-line with client controller",
-          "Automate file delivery via SFTP or native connector",
+          "Use a dedicated subdomain (e.g. `mail.brand.com`) — never the root domain",
+          "Publish DMARC `p=quarantine` minimum before first send",
+          "Warm dedicated IPs over 4–6 weeks to engaged audiences first",
+          "Seed-test inbox placement (Gmail, Yahoo, Outlook) before every major campaign",
         ],
-        clientNeeds: [
-          "Chart of accounts (current and historic)",
-          "Department / cost center hierarchy",
-          "GL preferences (summary vs detail)",
+        customerNeeds: ["DNS admin for the sending domain", "Brand from-name + reply-to mailbox", "Suppression list from prior ESP"],
+        dataFlows: ["Braze → ESP → Inbox", "Bounces/opens/clicks → Braze profile"],
+        setupSteps: ["Authenticate domain", "Configure IPs", "Import suppressions", "Seed-test", "Warm + launch"],
+      },
+      {
+        name: "SMS & WhatsApp",
+        description: "Two-way SMS via short codes / long codes / 10DLC, and WhatsApp Business Platform messaging",
+        status: "available",
+        bestPractices: [
+          "Use 10DLC registration in the US for compliant A2P SMS",
+          "Build an opt-in/STOP keyword flow in Canvas — never message without explicit consent",
+          "For WhatsApp, get templates pre-approved by Meta before launch",
         ],
-        dataFlows: ["Payroll close → GL file → ERP", "Recon report → Controller"],
-        setupSteps: ["COA discovery", "Mapping", "Test export", "Recon", "Go-live"],
+        customerNeeds: ["10DLC brand + campaign approval", "WhatsApp Business Account", "Consent capture proof"],
+        dataFlows: ["Braze → Twilio/short-code aggregator → Carrier → Device"],
+        setupSteps: ["Register 10DLC", "Apply WA templates", "Build opt-in Canvas", "Pilot", "Scale"],
       },
     ],
   },
   {
-    id: "talent-ats",
-    label: "Talent & ATS",
-    icon: Briefcase,
+    id: "attribution",
+    label: "Mobile Attribution",
+    icon: BarChart3,
     color: "text-violet-500",
-    description: "Applicant tracking, background check, and onboarding integrations",
+    description: "MMP partners for deep linking, attribution, and uninstall tracking",
     integrations: [
       {
-        name: "Greenhouse / iCIMS / Lever",
-        description: "Candidate hand-off from ATS into Sage HCM new-hire onboarding workflow",
+        name: "AppsFlyer / Branch / Adjust / Kochava",
+        description: "Mobile measurement partners feeding install + attribution data into Braze for personalization and exclusion",
         status: "available",
         bestPractices: [
-          "Use REST API hand-off rather than CSV imports where possible",
-          "Map ATS source codes to Sage HCM source-of-hire field",
-          "Trigger background check at offer-accept stage",
+          "Send install + media-source attributes into Braze for audience suppression on paid media",
+          "Use deferred deep links from Branch/AppsFlyer in Push & Email CTAs",
+          "Avoid double-counting opens between MMP and Braze",
         ],
-        clientNeeds: [
-          "ATS API credentials",
-          "Job / requisition mapping",
-          "Onboarding workflow design",
-        ],
-        dataFlows: ["ATS → Sage HCM new-hire stub → Onboarding tasks → Active EE"],
-        setupSteps: ["ATS connect", "Field mapping", "Test candidate", "Parallel onboarding", "Go-live"],
-      },
-      {
-        name: "Checkr / Sterling Background",
-        description: "Background check ordering and adjudication tied to new-hire workflow",
-        status: "available",
-        bestPractices: [
-          "Order at offer-accept, gate hire date on completion",
-          "Document adjudication rules (clear / engaged / consider)",
-        ],
-        clientNeeds: [
-          "Background check vendor account",
-          "Adjudication policy by role / state",
-        ],
-        dataFlows: ["Sage HCM → Background API → Result → Hire-ready flag"],
-        setupSteps: ["Vendor connect", "Workflow design", "Test case", "Go-live"],
+        customerNeeds: ["MMP workspace admin", "iOS/Android app IDs", "Tracking link domains"],
+        dataFlows: ["Install → MMP → Braze custom attributes/events", "Braze CTA → MMP deep link → App route"],
+        setupSteps: ["Connect MMP", "Map attribution events", "Build deep link template", "QA install", "Production"],
       },
     ],
   },
   {
-    id: "sso-security",
-    label: "SSO & Identity",
+    id: "ecommerce",
+    label: "E-commerce & Catalogs",
+    icon: ShoppingBag,
+    color: "text-rose-500",
+    description: "Shopify, Salesforce Commerce, and Catalogs powering product personalization",
+    integrations: [
+      {
+        name: "Shopify",
+        description: "Native Shopify integration: customers, orders, abandoned checkouts into Braze for lifecycle journeys",
+        status: "available",
+        bestPractices: [
+          "Map Shopify `customer.id` → Braze `external_id`",
+          "Sync order events to drive purchase-based Canvas branching",
+          "Use Braze Catalogs to render live product cards in email and IAM",
+        ],
+        customerNeeds: ["Shopify admin", "Product catalog feed", "Order webhook permissions"],
+        dataFlows: ["Shopify → Braze (customers, orders, checkouts)", "Catalog feed → Braze Catalogs → Liquid render"],
+        setupSteps: ["Install app", "Map identifiers", "Sync catalog", "Build first lifecycle Canvas", "Launch"],
+      },
+    ],
+  },
+  {
+    id: "migration",
+    label: "Migrations from Legacy ESPs",
+    icon: ArrowRight,
+    color: "text-amber-500",
+    description: "Iterable, MoEngage, Salesforce Marketing Cloud, Responsys, Adobe Campaign, Airship — common Braze replacements",
+    integrations: [
+      {
+        name: "Iterable / MoEngage / SFMC / Responsys / Airship",
+        description: "Standard migration pattern: parallel send → channel cutover → legacy decommission",
+        status: "available",
+        bestPractices: [
+          "Inventory every active program in the legacy tool before quoting the migration",
+          "Migrate suppression lists day 1 — there is no scenario where you skip this",
+          "Rebuild journeys in Canvas rather than 1:1 lift-and-shift — it's faster and cleaner",
+          "Run parallel sends for one full lifecycle cycle (often 4–6 weeks) before cutover",
+        ],
+        customerNeeds: ["Read-only export from legacy system", "Suppression list", "Template + asset inventory"],
+        dataFlows: ["Legacy export → Braze (users + suppressions)", "Parallel sends → cutover → legacy off"],
+        setupSteps: ["Inventory", "Migrate suppressions", "Rebuild Canvases", "Parallel send", "Cutover + decommission"],
+      },
+    ],
+  },
+  {
+    id: "sso",
+    label: "SSO & Permissions",
     icon: KeyRound,
     color: "text-blue-500",
-    description: "Single sign-on (SAML / OIDC), SCIM provisioning, and MFA",
+    description: "SAML 2.0 SSO and SCIM provisioning for the Braze dashboard",
     integrations: [
       {
         name: "Okta / Azure AD / Google Workspace",
-        description: "SAML 2.0 SSO and SCIM provisioning for Sage HCM",
+        description: "SAML SSO + SCIM for Braze dashboard user provisioning and de-provisioning",
         status: "available",
         bestPractices: [
-          "Use SAML for SSO and SCIM for de-provisioning on termination",
-          "Pilot with IT team and admins before broad rollout",
-          "Always retain emergency local-admin account",
+          "Use SCIM for de-provisioning the moment a user leaves",
+          "Build groups that map to Braze permission roles (Admin, Manager, Campaign Creator, Read-Only)",
+          "Keep one emergency break-glass local admin",
         ],
-        clientNeeds: [
-          "IdP admin access",
-          "Group / role mapping",
-          "Custom domain / vanity URL preference",
-        ],
-        dataFlows: ["IdP → Sage HCM via SAML/SCIM", "Termination → SCIM deactivate"],
-        setupSteps: ["IdP connect", "Group mapping", "Pilot users", "Broad rollout", "Decommission legacy auth"],
+        customerNeeds: ["IdP admin", "Group/role mapping", "Custom dashboard subdomain (optional)"],
+        dataFlows: ["IdP → Braze via SAML/SCIM"],
+        setupSteps: ["Connect IdP", "Map groups", "Pilot users", "Full rollout", "Decommission local logins"],
       },
     ],
   },
   {
-    id: "time-attendance",
-    label: "Time & Attendance",
+    id: "currents",
+    label: "Currents & Cloud Data Sharing",
     icon: Shield,
     color: "text-emerald-500",
-    description: "Time clocks, scheduling, and legacy T&A migrations",
+    description: "Stream every Braze event back to the customer's data warehouse for analytics, BI, and ML",
     integrations: [
       {
-        name: "Kronos / UKG Time Migration",
-        description: "Migrate from Kronos / UKG T&A into Sage HCM Time & Attendance module",
+        name: "Currents / Cloud Data Sharing → Snowflake",
+        description: "Near-real-time export of message engagement, conversion, and user events to Snowflake/BigQuery/Redshift/S3",
         status: "available",
         bestPractices: [
-          "Audit pay rules, shift differentials and rounding in legacy first",
-          "Run T&A parallel for at least 2 pay cycles",
-          "Validate accrual balances at cutover to the second",
+          "Prefer Snowflake Cloud Data Sharing over Currents file-drop where available — lower latency, zero infra",
+          "Partition tables by event date for cost-efficient BI queries",
+          "Design a dbt model on top so the analytics team has a clean semantic layer",
         ],
-        clientNeeds: [
-          "Pay rule documentation",
-          "Schedule patterns and union work rules",
-          "Accrual balances at cutover",
-        ],
-        dataFlows: ["Time clocks → Sage HCM Time → Payroll batch"],
-        setupSteps: ["Pay rule discovery", "Build in Sage", "T&A parallel", "Accrual cutover", "Go-live"],
-      },
-    ],
-  },
-  {
-    id: "custom",
-    label: "Custom & APIs",
-    icon: Code2,
-    color: "text-rose-500",
-    description: "Custom REST/SOAP APIs, file-based exports, and Sage HCM extensibility",
-    integrations: [
-      {
-        name: "Sage HCM REST API",
-        description: "Custom integrations against the Sage HCM REST API for client-specific extensions",
-        status: "custom",
-        bestPractices: [
-          "Use sandbox tenant for all development",
-          "Authenticate via OAuth client credentials; rotate quarterly",
-          "Respect rate limits; throttle and retry with backoff",
-          "Use webhooks where available instead of polling",
-        ],
-        clientNeeds: [
-          "Integration design document",
-          "Developer access to source/target systems",
-          "Security & compliance sign-off",
-        ],
-        dataFlows: ["Source system → Sage HCM API → Sage HCM data"],
-        setupSteps: ["Design integration", "Build in sandbox", "Security review", "UAT", "Go-live"],
+        customerNeeds: ["Snowflake/BigQuery admin", "Storage cost budget", "BI/analytics owner"],
+        dataFlows: ["Braze events → Currents/CDS → Customer warehouse → BI"],
+        setupSteps: ["Choose destination", "Provision storage", "Stream events", "Validate counts", "Hand off to analytics"],
       },
     ],
   },
@@ -276,17 +259,17 @@ export default function Integrations() {
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2">
             <Plug className="h-5 w-5 text-primary" />
-            <h1 className="text-2xl font-bold text-foreground">Sage HCM Integrations</h1>
+            <h1 className="text-2xl font-bold text-foreground">Braze Integrations & Data</h1>
           </div>
           <p className="text-sm text-muted-foreground">
-            Standard Sage HCM integration patterns the PM coordinates across benefits carriers, payroll tax, GL, ATS, SSO and time & attendance vendors.
+            Standard Braze integration patterns the Delivery Manager coordinates: CDPs, channels, attribution, e-commerce, migrations, SSO, and warehouse export.
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <Card>
             <CardContent className="p-4 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent/20">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
                 <Plug className="h-5 w-5 text-primary" />
               </div>
               <div>
@@ -302,14 +285,14 @@ export default function Integrations() {
               </div>
               <div>
                 <p className="text-2xl font-bold text-foreground">{availableCount}</p>
-                <p className="text-xs text-muted-foreground">Pre-built & Ready</p>
+                <p className="text-xs text-muted-foreground">Native / Pre-built</p>
               </div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-500/10">
-                <Shield className="h-5 w-5 text-amber-500" />
+                <Smartphone className="h-5 w-5 text-amber-500" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-foreground">{categories.length}</p>
@@ -384,9 +367,9 @@ export default function Integrations() {
                 </ul>
               </div>
               <div>
-                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">Client Needs</p>
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">Customer Needs</p>
                 <ul className="space-y-1.5">
-                  {selectedIntegration.clientNeeds.map((c) => (
+                  {selectedIntegration.customerNeeds.map((c) => (
                     <li key={c} className="text-sm flex items-start gap-2">
                       <span className="h-1 w-1 rounded-full bg-foreground/30 mt-2 shrink-0" />
                       {c}

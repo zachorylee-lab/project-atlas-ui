@@ -22,78 +22,78 @@ type Template = {
 
 const templates: Template[] = [
   {
-    name: "HCM Discovery Workbook",
+    name: "Braze Discovery Workbook",
     category: "Handoff",
     phase: "handoff",
     downloads: 214,
     rating: 4.9,
     updated: "Mar 18, 2026",
-    description: "Captures client's org structure, FEINs, pay groups, modules in scope, carrier list, and integration dependencies before Sage kicks off.",
+    description: "Captures customer's channel mix, SDK platforms, data source (CDP / warehouse / REST), legacy ESP, and integration dependencies before onboarding kicks off.",
     tasks: [
-      { label: "Document org structure, locations & legal entities", done: false },
-      { label: "Inventory pay groups, pay frequency & FEINs", done: false },
-      { label: "List benefits carriers and 401(k) provider", done: false },
-      { label: "Capture deduction & earning codes from legacy system", done: false },
-      { label: "Document existing HCM (ADP / UKG / Paycom / Workday)", done: false },
-      { label: "Confirm GL chart of accounts & mapping approach", done: false },
-      { label: "Identify executive sponsor and module SMEs", done: false },
-      { label: "Sign off discovery scope with CHRO / CFO", done: false },
+      { label: "Document channels purchased (Push / Email / SMS / IAM / WhatsApp / Content Cards)", done: false },
+      { label: "Inventory SDK platforms (iOS, Android, Web, RN, Flutter)", done: false },
+      { label: "Identify primary data source (Segment / mParticle / CDI / REST)", done: false },
+      { label: "Document legacy ESP (Iterable / MoEngage / SFMC / Responsys / Airship)", done: false },
+      { label: "Capture launch use cases (welcome, abandoned, churn, transactional)", done: false },
+      { label: "Confirm Currents / Cloud Data Sharing destination", done: false },
+      { label: "Identify executive sponsor + Lifecycle/Data/Eng leads", done: false },
+      { label: "Sign off discovery scope with VP Lifecycle / CMO", done: false },
     ],
   },
   {
-    name: "Parallel Payroll Checklist",
+    name: "SDK Integration Test Plan",
     category: "Testing",
     phase: "testing",
     downloads: 268,
     rating: 4.9,
     updated: "Mar 22, 2026",
-    description: "Sage HCM parallel payroll procedure used to reconcile gross-to-net against the legacy system before go-live.",
+    description: "Validates Braze SDK install across iOS, Android, and Web — session, event, identity, and push delivery on real devices.",
     tasks: [
-      { label: "Load identical employee master & YTD balances", done: false },
-      { label: "Run payroll cycle in both Sage HCM and legacy", done: false },
-      { label: "Reconcile gross wages by EE", done: false },
-      { label: "Reconcile pre-tax / post-tax deductions", done: false },
-      { label: "Reconcile employer-side taxes (FICA, FUTA, SUTA)", done: false },
-      { label: "Reconcile net pay variance (<$0.01 per EE target)", done: false },
-      { label: "Document and resolve all variances", done: false },
-      { label: "Obtain client Payroll Director sign-off", done: false },
+      { label: "Sessions logged in dashboard live feed", done: false },
+      { label: "`changeUser` correctly assigns external_id on login", done: false },
+      { label: "Custom events fire with expected props", done: false },
+      { label: "Purchase events log with currency + value", done: false },
+      { label: "Push received on iOS device (foreground + background)", done: false },
+      { label: "Push received on Android device (FCM v1)", done: false },
+      { label: "IAM displays on target trigger event", done: false },
+      { label: "Content Cards render in app", done: false },
     ],
   },
   {
-    name: "Sage HCM Project Charter",
+    name: "Braze Project Charter",
     category: "Kickoff",
     phase: "kickoff",
     downloads: 124,
     rating: 4.7,
     updated: "Feb 28, 2026",
-    description: "Charter defining scope, modules, KPIs, governance, and escalation paths for a Sage HCM implementation.",
+    description: "Charter defining scope, channels, use cases, KPIs, governance, and escalation paths for a Braze onboarding.",
     tasks: [
-      { label: "Define business outcomes & success criteria", done: false },
-      { label: "Document in-scope modules (HR/Payroll/Benefits/Talent/Time)", done: false },
+      { label: "Define business outcomes & success KPIs (TTFS, conversion, retention)", done: false },
+      { label: "Document in-scope channels and SDKs", done: false },
       { label: "Identify executive sponsor & steering committee", done: false },
       { label: "Outline assumptions, constraints & dependencies", done: false },
-      { label: "Set budget, resource plan & cutover timeline", done: false },
+      { label: "Set budget, resource plan & launch timeline", done: false },
       { label: "Define risk register & escalation procedure", done: false },
-      { label: "Obtain client CHRO + CFO + IT sign-off", done: false },
+      { label: "Obtain CMO + VP Lifecycle + Eng sign-off", done: false },
     ],
   },
   {
-    name: "EDI 834 Carrier Integration Spec",
+    name: "Email Deliverability Runbook",
     category: "Build",
     phase: "build",
     downloads: 142,
     rating: 4.7,
     updated: "Mar 10, 2026",
-    description: "Template for configuring and testing 834 benefit enrollment files with health, dental, vision, FSA/HSA carriers.",
+    description: "Sending domain authentication (SPF / DKIM / DMARC), dedicated IP warming, and inbox-placement seed testing.",
     tasks: [
-      { label: "Confirm carrier list and EDI contacts", done: false },
-      { label: "Document plan codes, tiers, and effective dates", done: false },
-      { label: "Map Sage HCM benefit plans → carrier plan IDs", done: false },
-      { label: "Define file frequency (full vs. change-only)", done: false },
-      { label: "Validate test file with each carrier", done: false },
-      { label: "Reconcile membership counts post-load", done: false },
-      { label: "Sign off with client Benefits Manager", done: false },
-      { label: "Schedule production cutover with carrier", done: false },
+      { label: "Choose sending subdomain (e.g. mail.brand.com)", done: false },
+      { label: "Publish SPF include for Braze", done: false },
+      { label: "Publish DKIM CNAME records", done: false },
+      { label: "Publish DMARC `p=quarantine` minimum", done: false },
+      { label: "Build IP warming schedule (4–6 weeks)", done: false },
+      { label: "Import suppressions from legacy ESP", done: false },
+      { label: "Run inbox seed test (Gmail / Yahoo / Outlook)", done: false },
+      { label: "Document escalation contacts for postmaster issues", done: false },
     ],
   },
   {
@@ -103,15 +103,15 @@ const templates: Template[] = [
     downloads: 232,
     rating: 4.8,
     updated: "Mar 20, 2026",
-    description: "Standardized Sage handoff capturing client context, signed SOW, module scope, and key stakeholders.",
+    description: "Standardized Braze handoff capturing customer context, signed order form, channels in scope, and key stakeholders.",
     tasks: [
-      { label: "Fill in deal summary, ARR and signed modules", done: false },
-      { label: "Document client goals & success criteria", done: false },
-      { label: "List EE count, FEINs, pay groups, states", done: false },
-      { label: "Capture existing HCM / payroll system", done: false },
+      { label: "Fill in deal summary, ARR and channels purchased", done: false },
+      { label: "Document customer goals & success criteria", done: false },
+      { label: "List MAU/DAU, regions, regulated industries", done: false },
+      { label: "Capture legacy ESP being replaced", done: false },
       { label: "Note custom commitments & professional services hours", done: false },
-      { label: "Identify executive sponsor and PM", done: false },
-      { label: "Attach SOW and MSA", done: false },
+      { label: "Identify executive sponsor and DM", done: false },
+      { label: "Attach order form and MSA", done: false },
       { label: "Schedule internal handoff meeting", done: false },
     ],
   },
@@ -122,15 +122,15 @@ const templates: Template[] = [
     downloads: 138,
     rating: 4.8,
     updated: "Feb 20, 2026",
-    description: "Pre-launch readiness pack covering UAT results, parallel payroll reconciliation, integrations, and sign-offs.",
+    description: "Pre-launch readiness pack covering UAT results, deliverability, SDK validation, data ingestion, and sign-offs.",
     tasks: [
       { label: "Confirm UAT scenarios complete with sign-off", done: false },
-      { label: "Validate parallel payroll variance within tolerance", done: false },
-      { label: "Confirm EDI 834 carrier files validated in production", done: false },
-      { label: "Confirm GL export reconciles to penny", done: false },
+      { label: "Validate SDK session + events live on prod build", done: false },
+      { label: "Confirm data ingestion latency within SLA", done: false },
+      { label: "Confirm deliverability seed test passed", done: false },
       { label: "Review open defects (P1/P2) closed or accepted", done: false },
       { label: "Confirm rollback plan and cutover comms", done: false },
-      { label: "Obtain CHRO + CFO sign-off", done: false },
+      { label: "Obtain CMO + VP Lifecycle sign-off", done: false },
       { label: "Issue Go/No-Go decision", done: false },
     ],
   },
@@ -141,16 +141,16 @@ const templates: Template[] = [
     downloads: 156,
     rating: 4.9,
     updated: "Mar 15, 2026",
-    description: "Step-by-step cutover runbook for promoting Sage HCM from sandbox to production with command-center support.",
+    description: "Step-by-step cutover for promoting Braze from staging to production, sending first production campaign, and command-center support.",
     tasks: [
-      { label: "Freeze legacy HCM and lock data sources", done: false },
-      { label: "Load final master data & YTD balances", done: false },
-      { label: "Promote configuration from sandbox to production", done: false },
-      { label: "Run first live payroll with Sage on standby", done: false },
-      { label: "Activate carrier files, GL exports, SSO", done: false },
-      { label: "Open command center + daily exec standups", done: false },
-      { label: "Distribute ESS launch comms and manager training links", done: false },
-      { label: "Confirm first 24-hour incident triage queue staffed", done: false },
+      { label: "Freeze legacy ESP sends and audiences", done: false },
+      { label: "Promote production SDK keys to app stores", done: false },
+      { label: "Flip data source to production workspace", done: false },
+      { label: "Send first production campaign with DM + OE on-call", done: false },
+      { label: "Activate Currents / CDS to warehouse", done: false },
+      { label: "Open Slack war room + daily exec standups", done: false },
+      { label: "Distribute launch comms and training links", done: false },
+      { label: "Confirm 24-hour incident triage queue staffed", done: false },
     ],
   },
   {
@@ -160,15 +160,15 @@ const templates: Template[] = [
     downloads: 82,
     rating: 4.5,
     updated: "Jan 30, 2026",
-    description: "30–60 day post-launch report covering incident metrics, CSAT, open items, and BAU transition to Customer Success.",
+    description: "30–60 day post-launch report covering incident metrics, deliverability, conversion lift, CSAT, and BAU transition to CSM/TAM.",
     tasks: [
       { label: "Track P1/P2 incidents and resolution SLAs", done: false },
-      { label: "Confirm successful first month-end / quarter-end", done: false },
-      { label: "Confirm successful first tax filing cycle", done: false },
-      { label: "Capture client CSAT survey results", done: false },
+      { label: "Report deliverability and inbox placement", done: false },
+      { label: "Report conversion lift vs. legacy baseline", done: false },
+      { label: "Capture customer CSAT survey results", done: false },
       { label: "Document open items and ownership", done: false },
       { label: "Hold internal lessons-learned retro", done: false },
-      { label: "Build BAU + Customer Success transition doc", done: false },
+      { label: "Build BAU + CSM/TAM transition doc", done: false },
       { label: "Formally hand off to Customer Success", done: false },
     ],
   },
@@ -179,13 +179,13 @@ const templates: Template[] = [
     downloads: 104,
     rating: 4.4,
     updated: "Feb 14, 2026",
-    description: "Sage HCM change order template — documents scope deltas vs. signed SOW, impact, pricing and sign-off.",
+    description: "Braze change order template — documents scope deltas vs. signed order form, impact, pricing and sign-off.",
     tasks: [
       { label: "Capture the requested change and rationale", done: false },
-      { label: "Map change to original SOW scope", done: false },
+      { label: "Map change to original scope", done: false },
       { label: "Estimate effort (hours) and timeline impact", done: false },
-      { label: "Confirm pricing with Sage AE & PS Director", done: false },
-      { label: "Send change order to client for signature", done: false },
+      { label: "Confirm pricing with Braze AE & Delivery Lead", done: false },
+      { label: "Send change order to customer for signature", done: false },
       { label: "Update project plan and risk register", done: false },
       { label: "Log additional services revenue", done: false },
     ],
@@ -203,14 +203,12 @@ export default function Templates() {
   function getTaskStates(template: Template): boolean[] {
     return taskStates[template.name] ?? template.tasks.map(t => t.done);
   }
-
   function toggleTask(template: Template, taskIndex: number) {
     const current = getTaskStates(template);
     const updated = [...current];
     updated[taskIndex] = !updated[taskIndex];
     setTaskStates(prev => ({ ...prev, [template.name]: updated }));
   }
-
   function completedCount(template: Template): number {
     return getTaskStates(template).filter(Boolean).length;
   }
@@ -221,7 +219,7 @@ export default function Templates() {
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-2xl font-semibold">Templates & SOW Library</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Sage HCM Professional Services standard templates — discovery, parallel payroll, integration specs, cutover runbooks and hypercare reports.
+            Braze Customer Onboarding standard templates — discovery, SDK test plans, deliverability runbooks, cutover runbooks and hypercare reports.
           </p>
         </motion.div>
 
@@ -231,9 +229,7 @@ export default function Templates() {
               key={cat}
               onClick={() => setFilter(cat)}
               className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                filter === cat
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-muted text-muted-foreground hover:bg-muted/80"
+                filter === cat ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-muted/80"
               }`}
             >
               {cat}
@@ -247,13 +243,10 @@ export default function Templates() {
             const total = template.tasks.length;
             return (
               <motion.div key={template.name} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
-                <Card
-                  className="hover:shadow-md transition-shadow cursor-pointer group"
-                  onClick={() => setSelectedTemplate(template)}
-                >
+                <Card className="hover:shadow-md transition-shadow cursor-pointer group" onClick={() => setSelectedTemplate(template)}>
                   <CardHeader className="pb-2">
                     <div className="flex items-start justify-between">
-                      <div className="rounded-lg bg-primary/8 p-2">
+                      <div className="rounded-lg bg-primary/10 p-2">
                         <FileText className="h-5 w-5 text-primary" />
                       </div>
                       <Badge variant="secondary" className={`phase-badge phase-${template.phase} text-[10px]`}>
@@ -288,7 +281,7 @@ export default function Templates() {
           <DialogContent className="max-w-lg max-h-[85vh] overflow-y-auto">
             <DialogHeader>
               <div className="flex items-center gap-3 mb-1">
-                <div className="rounded-lg bg-primary/8 p-2">
+                <div className="rounded-lg bg-primary/10 p-2">
                   <FileText className="h-5 w-5 text-primary" />
                 </div>
                 <div>
@@ -299,17 +292,8 @@ export default function Templates() {
                 </div>
               </div>
             </DialogHeader>
-
             <p className="text-sm text-muted-foreground">{selectedTemplate.description}</p>
-
-            <div className="flex items-center gap-4 text-xs text-muted-foreground">
-              <span className="flex items-center gap-1"><Download className="h-3 w-3" />{selectedTemplate.downloads} downloads</span>
-              <span className="flex items-center gap-1"><Star className="h-3 w-3" />{selectedTemplate.rating} rating</span>
-              <span className="flex items-center gap-1"><Clock className="h-3 w-3" />Updated {selectedTemplate.updated}</span>
-            </div>
-
             <Separator />
-
             <div>
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-sm font-semibold flex items-center gap-2">
@@ -320,7 +304,6 @@ export default function Templates() {
                   {completedCount(selectedTemplate)}/{selectedTemplate.tasks.length} complete
                 </span>
               </div>
-
               <div className="h-1.5 w-full bg-muted rounded-full mb-4 overflow-hidden">
                 <motion.div
                   className="h-full bg-primary rounded-full"
@@ -329,21 +312,12 @@ export default function Templates() {
                   transition={{ duration: 0.3 }}
                 />
               </div>
-
               <div className="space-y-1">
                 {selectedTemplate.tasks.map((task, idx) => {
                   const checked = getTaskStates(selectedTemplate)[idx];
                   return (
-                    <label
-                      key={idx}
-                      className={`flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-colors hover:bg-muted/50 ${
-                        checked ? "opacity-60" : ""
-                      }`}
-                    >
-                      <Checkbox
-                        checked={checked}
-                        onCheckedChange={() => toggleTask(selectedTemplate, idx)}
-                      />
+                    <label key={idx} className={`flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-colors hover:bg-muted/50 ${checked ? "opacity-60" : ""}`}>
+                      <Checkbox checked={checked} onCheckedChange={() => toggleTask(selectedTemplate, idx)} />
                       <span className={`text-sm ${checked ? "line-through text-muted-foreground" : ""}`}>
                         {task.label}
                       </span>
