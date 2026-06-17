@@ -14,18 +14,18 @@ import {
 import { motion } from "framer-motion";
 
 const stats = [
-  { label: "Active Implementations", value: "14", change: "+3 this quarter", icon: Briefcase, trend: "up" as const },
-  { label: "PS Utilization", value: "84%", change: "Target: 80%", icon: Users, trend: "up" as const },
-  { label: "On-Time Go-Lives", value: "92%", change: "TTM rolling avg", icon: Clock, trend: "up" as const },
-  { label: "Client CSAT", value: "4.7/5", change: "Post go-live survey", icon: Smile, trend: "up" as const },
+  { label: "Active Onboardings", value: "12", change: "+4 this quarter", icon: Briefcase, trend: "up" as const },
+  { label: "Time to First Send", value: "18 days", change: "Target: 21 days", icon: Clock, trend: "up" as const },
+  { label: "On-Time Go-Lives", value: "91%", change: "TTM rolling avg", icon: Clock, trend: "up" as const },
+  { label: "Customer CSAT", value: "4.7/5", change: "Post-launch survey", icon: Smile, trend: "up" as const },
 ];
 
 const activeProjects = [
-  { name: "Higginbotham Insurance", client: "1,800 EEs · Full HCM Suite", phase: 5, status: "on-track" as const, progress: 92, owner: "E. Cicero" },
-  { name: "Coastal Health Systems", client: "4,200 EEs · HR + Payroll + Benefits", phase: 4, status: "on-track" as const, progress: 76, owner: "A. Piggott" },
-  { name: "Meridian Manufacturing", client: "950 EEs · Payroll + Time & Attendance", phase: 5, status: "on-track" as const, progress: 95, owner: "S. Pickard" },
-  { name: "Northwind Logistics", client: "2,600 EEs · Full Suite + Talent", phase: 1, status: "on-track" as const, progress: 16, owner: "L. Martin" },
-  { name: "Apex Property Mgmt", client: "640 EEs · HR + Benefits Open Enrollment", phase: 3, status: "at-risk" as const, progress: 48, owner: "A. Pereira" },
+  { name: "Wyndham Hotels", client: "Loyalty re-engagement · Push + Email + IAM", phase: 5, status: "on-track" as const, progress: 93, owner: "E. Cicero" },
+  { name: "MetLife", client: "Lifecycle journeys · Email + SMS · mParticle", phase: 4, status: "on-track" as const, progress: 78, owner: "A. Piggott" },
+  { name: "Delivery Hero", client: "Order recovery Canvas · Push + WhatsApp", phase: 5, status: "on-track" as const, progress: 95, owner: "S. Pickard" },
+  { name: "Canva Pro", client: "Trial→Paid conversion · Email + IAM · Segment", phase: 1, status: "on-track" as const, progress: 18, owner: "L. Martin" },
+  { name: "Max Streaming", client: "Churn save Canvas · Push + Email · Iterable migration", phase: 3, status: "at-risk" as const, progress: 47, owner: "A. Pereira" },
 ];
 
 const fadeUp = {
@@ -39,9 +39,9 @@ export default function Dashboard() {
     <DashboardLayout>
       <div className="space-y-8 max-w-7xl">
         <motion.div {...fadeUp}>
-          <h1 className="text-2xl font-semibold text-foreground">Professional Services Dashboard</h1>
+          <h1 className="text-2xl font-semibold text-foreground">Customer Onboarding Dashboard</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Portfolio view across Sage HCM client implementations — HR, Payroll, Benefits, Talent, and Time & Attendance.
+            Portfolio view across Braze customer implementations — SDK integration, data ingestion, Canvas journeys, channels, and BrazeAI.
           </p>
         </motion.div>
 
@@ -62,7 +62,7 @@ export default function Dashboard() {
                       <span className="text-xs text-muted-foreground">{stat.change}</span>
                     </div>
                   </div>
-                  <div className="rounded-lg bg-accent/20 p-2.5">
+                  <div className="rounded-lg bg-primary/10 p-2.5">
                     <stat.icon className="h-5 w-5 text-primary" />
                   </div>
                 </div>
@@ -75,7 +75,7 @@ export default function Dashboard() {
           <Card>
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-base font-semibold">My Active Implementations</CardTitle>
+                <CardTitle className="text-base font-semibold">My Active Onboardings</CardTitle>
                 <a href="/projects" className="text-xs font-medium text-primary hover:underline">View all →</a>
               </div>
             </CardHeader>
@@ -85,7 +85,7 @@ export default function Dashboard() {
                   <div key={project.name} className="flex items-center gap-4 py-3.5 first:pt-0 last:pb-0">
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium truncate">{project.name}</p>
-                      <p className="text-xs text-muted-foreground">{project.client} · PM: {project.owner}</p>
+                      <p className="text-xs text-muted-foreground">{project.client} · DM: {project.owner}</p>
                     </div>
                     <PhaseIndicator currentPhase={project.phase} compact />
                     <div className="w-24 hidden sm:block">
@@ -109,10 +109,10 @@ export default function Dashboard() {
               <CardContent>
                 <div className="space-y-4">
                   {[
-                    { label: "Higginbotham Insurance", recovered: "412 hrs", target: "480 hrs budget", progress: 86 },
-                    { label: "Coastal Health Systems", recovered: "680 hrs", target: "720 hrs budget", progress: 94 },
-                    { label: "Meridian Manufacturing", recovered: "298 hrs", target: "320 hrs budget", progress: 93 },
-                    { label: "Apex Property Mgmt — at risk", recovered: "240 hrs", target: "220 hrs budget", progress: 109 },
+                    { label: "Wyndham Hotels", recovered: "412 hrs", target: "480 hrs budget", progress: 86 },
+                    { label: "MetLife", recovered: "680 hrs", target: "720 hrs budget", progress: 94 },
+                    { label: "Delivery Hero", recovered: "298 hrs", target: "320 hrs budget", progress: 93 },
+                    { label: "Max Streaming — at risk", recovered: "240 hrs", target: "220 hrs budget", progress: 109 },
                   ].map((seg) => (
                     <div key={seg.label} className="space-y-1.5">
                       <div className="flex justify-between text-sm">
@@ -130,19 +130,19 @@ export default function Dashboard() {
           <motion.div {...fadeUp} transition={{ delay: 0.35 }}>
             <Card className="h-full">
               <CardHeader className="pb-3">
-                <CardTitle className="text-base font-semibold">This Week's PM Activity</CardTitle>
+                <CardTitle className="text-base font-semibold">This Week's Delivery Activity</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
                   {[
-                    { text: "Higginbotham — parallel payroll #2 reconciled to the penny; signed Go/No-Go", time: "1h ago" },
-                    { text: "Coastal Health — benefits carrier file (EDI 834) UAT cleared with all 6 carriers", time: "4h ago" },
-                    { text: "Apex Property — change order logged for added Time & Attendance scope", time: "Yesterday" },
-                    { text: "Northwind Logistics — kickoff scheduled with CHRO, CFO and IT director", time: "Yesterday" },
-                    { text: "Meridian — hypercare exit review passed; transitioned to Customer Success", time: "2d ago" },
+                    { text: "Wyndham — first production Canvas (welcome series) shipped; opt-in rate 38%", time: "1h ago" },
+                    { text: "MetLife — mParticle audience sync validated; 24M user profiles ingested", time: "4h ago" },
+                    { text: "Max — change order logged for Iterable→Braze content migration scope", time: "Yesterday" },
+                    { text: "Canva — kickoff scheduled with VP Lifecycle, Data, and Mobile Eng leads", time: "Yesterday" },
+                    { text: "Delivery Hero — hypercare exit; transitioned to Customer Success Manager", time: "2d ago" },
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-3">
-                      <div className="h-1.5 w-1.5 rounded-full bg-accent mt-2 shrink-0" />
+                      <div className="h-1.5 w-1.5 rounded-full bg-primary mt-2 shrink-0" />
                       <div className="flex-1 min-w-0">
                         <p className="text-sm">{item.text}</p>
                         <p className="text-xs text-muted-foreground">{item.time}</p>

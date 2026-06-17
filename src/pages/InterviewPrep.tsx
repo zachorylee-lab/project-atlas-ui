@@ -12,79 +12,83 @@ const sections: { title: string; icon: React.ElementType; color: string; intro: 
     title: "About You & Role Fit",
     icon: Briefcase,
     color: "text-primary",
-    intro: "Foundational questions about background and why Sage HCM.",
+    intro: "Foundational questions about background and why Braze.",
     qas: [
       {
-        q: "Walk me through your background and why Sage HCM.",
-        a: `I'm a project manager with 2+ years leading SaaS implementations — most recently in HCM and payroll. I'm drawn to Sage HCM because of the breadth of the suite (HR, Payroll, Benefits, Talent, Time) and because Sage's customer base sits in the mid-market sweet spot where a strong PM can make the difference between a struggling rollout and a reference client. I want to bring rigorous project delivery and clear executive communication to your Professional Services team.`,
+        q: "Walk me through your background and why Braze.",
+        a: `I'm a delivery manager with experience leading SaaS implementations — most recently in MarTech and customer engagement. I'm drawn to Braze because of the breadth of the platform (cross-channel messaging, Canvas Flow orchestration, BrazeAI decisioning) and because your customers — Wyndham, MetLife, Delivery Hero, Canva — sit at a scale where a strong delivery manager makes the difference between a six-month stall and a fast, clean launch. I want to bring rigorous delivery discipline and clear executive communication to your Customer Onboarding team.`,
       },
       {
-        q: "Why a hybrid role / 3 days onsite in Atlanta or Austin?",
-        a: `I'm fully comfortable with the hybrid model. Client-facing PM work benefits from in-person collaboration with implementation managers, configuration specialists, QA and developers — especially during kickoffs, parallel payroll review, and go-live planning. I'd treat onsite days as the time for whiteboarding, war rooms, and stakeholder alignment, and reserve remote days for deep work like project plan upkeep, status reporting, and client async work.`,
+        q: "What does a Delivery Manager actually own at a platform like Braze?",
+        a: `Three things. First, the plan — scope, timeline, RACI, risk, change orders, status. Second, the cross-functional orchestration — pulling in Onboarding Engineers, Solutions Consultants, Technical Account Managers, and the customer's lifecycle / data / mobile teams at the right moments. Third, the outcome — Time to First Send, Time to First Canvas, deliverability, and customer CSAT. The OE writes the SDK install; the DM owns whether the launch happens on time and the customer is happy.`,
       },
       {
         q: "Tell me about a successful implementation you've led.",
-        a: `(Use STAR.) At my last role I led a payroll + benefits implementation for a ~1,500 EE client moving off ADP. Situation: aggressive 14-week timeline tied to plan-year start. Task: own end-to-end delivery, coordinate config, QA, integrations, and client SMEs. Action: built a phased plan in Smartsheet, ran weekly status with execs, drove three parallel payrolls, and managed two EDI 834 carriers in parallel. Result: launched on time with $0.00 variance on parallel #3, CSAT 4.8/5, and the client referred two new logos in the next quarter.`,
+        a: `(Use STAR.) Situation: a retailer with 6M customers moving off Iterable in 12 weeks tied to peak season. Task: own end-to-end delivery — SDK reinstall on iOS/Android/Web, Segment data migration, 18 Canvas rebuild, IP warming. Action: phased plan in Smartsheet, weekly executive status, parallel sends for 4 weeks, deliverability seed tests before every cutover step. Result: launched 5 days early, deliverability above 98%, +14% conversion vs. legacy baseline, CSAT 4.9. The customer became a Forrester case study.`,
       },
       {
-        q: "What's your PMP / Agile background?",
-        a: `I work fluently in both. Implementations are inherently waterfall at the phase level (Handoff → Kickoff → Build → Test → Go-Live → Hypercare) because of dependencies like parallel payroll and carrier cutovers. Within Build and Test I run two-week sprints with config specialists and QA, with a standup, demo, and retro cadence. I'm pursuing PMP and already use PMBOK frameworks for risk, scope, and change management.`,
+        q: "Why hybrid / are you comfortable with onsite NYC time?",
+        a: `Fully comfortable. Onboarding work benefits from in-person collaboration — kickoffs, war rooms during go-live week, whiteboarding Canvas architecture with the customer's lifecycle and engineering teams. I'd treat onsite days as the time for cross-functional alignment and reserve remote days for status, plan maintenance, and async customer work.`,
       },
     ],
   },
   {
-    title: "HCM, Payroll & Benefits Domain",
+    title: "Braze Platform & MarTech Domain",
     icon: Sparkles,
     color: "text-accent-foreground",
-    intro: "Sage will test that you actually understand HR/Payroll/Benefits/Talent/Time mechanics.",
+    intro: "Braze will test whether you understand SDKs, Canvas, channels, data ingestion, and BrazeAI.",
     qas: [
       {
-        q: "Walk me through how you'd run a parallel payroll.",
-        a: `Goal: prove Sage HCM matches the legacy system gross-to-net before go-live. Steps: (1) load identical EE master + YTD balances in Sage and legacy; (2) run the same pay period in both; (3) reconcile gross wages by EE, then pre-tax deductions, then post-tax, then employer taxes (FICA/FUTA/SUTA), and finally net pay; (4) my target is < $0.01 variance per EE on parallel #3; (5) document every variance, root-cause, and remediate (often a tax setup or a deduction code mapping issue); (6) gain client Payroll Director sign-off before Go/No-Go.`,
+        q: "Walk me through a Braze SDK install from a DM perspective.",
+        a: `I scope and sequence — I don't write the code, the customer's mobile/web engineers do. From a DM lens: (1) confirm platforms in scope (iOS, Android, Web, React Native, Flutter); (2) confirm push setup — APNs auth key on iOS, FCM v1 service account on Android; (3) get an Onboarding Engineer paired with the customer's engineering lead; (4) validate sessions, custom events, purchases, and changeUser in the dashboard live feed before we declare it done; (5) push a real device test across an OS major version matrix. The single biggest mistake is calling SDK done without device testing.`,
       },
       {
-        q: "What's an EDI 834 and what risks come with it?",
-        a: `834 is the ANSI standard for benefit enrollment files between an employer/HCM and a carrier (medical, dental, vision, life, etc.). Risks: (a) carrier-specific quirks in plan IDs or tier codes cause silent rejections; (b) full-file vs. change-only files can re-enroll or terminate the wrong members; (c) OE timing — files sent too late cause Jan 1 ID-card delays. Mitigation: test with each carrier ~4 weeks before plan year, reconcile member counts every cycle, and treat each carrier as its own mini-project.`,
+        q: "What's a Canvas and how do you sequence its build during onboarding?",
+        a: `Canvas is Braze's journey orchestration — a multi-step, multi-channel flow with branching, delays, audience filters, conversion events, and Intelligent Channel / Intelligent Timing decisioning. During onboarding I sequence: (1) one foundational lifecycle Canvas first — usually welcome series — to prove end-to-end; (2) one revenue Canvas — abandoned cart or trial→paid; (3) one retention Canvas — re-engagement or churn save; (4) transactional via API-triggered Canvas. Always with frequency capping and a global control group from day one.`,
       },
       {
-        q: "A client wants to go live mid-quarter — what's your reaction?",
-        a: `I push back politely and propose a date tied to a pay-period or plan-year boundary. Going live mid-quarter complicates tax filings, GL postings, and YTD balances. If the client insists, I document the additional risk in the project plan, secure executive sign-off acknowledging the trade-offs, and over-resource hypercare for the first close.`,
+        q: "Compare Segment, mParticle, Snowflake CDI, and direct REST for ingestion.",
+        a: `Segment is the fastest start — turn on the destination, map your tracking plan, replay history. mParticle is what enterprises with serious identity-resolution needs use, especially regulated industries. Snowflake Cloud Data Ingestion (and Cloud Data Sharing for the round trip) is warehouse-native — best when the customer's source of truth already lives in the warehouse. Direct REST /users/track is the escape hatch when none of the above fit. A good DM asks "where does the data actually live and who owns it" before picking — not the other way around.`,
       },
       {
-        q: "How do you handle a client who wants every legacy quirk replicated?",
-        a: `I use "show me how it's used today, and let's design how it should work tomorrow." I confirm scope against the SOW, then split requests into (1) standard Sage HCM configuration, (2) acceptable customization within product, (3) change-order territory. If it's #3, I issue a formal change order with effort, cost, and timeline impact rather than absorbing scope creep silently.`,
+        q: "Walk me through an email deliverability launch.",
+        a: `Authenticate the sending subdomain (never the root) with SPF, DKIM, and DMARC — DMARC at least p=quarantine. Import suppressions from the legacy ESP day one — no exceptions. Build a 4–6 week IP warming plan that sends to your most engaged audience first and ramps volume gradually. Seed-test inbox placement at Gmail, Yahoo, and Outlook before each warming step. Have a postmaster escalation contact list ready before launch, not during the first incident.`,
       },
       {
-        q: "Which Sage HCM module is hardest to implement and why?",
-        a: `Honestly, Time & Attendance — because it sits between payroll, scheduling, and union/state work rules. A single rounding or shift-differential mistake compounds across thousands of timecards into payroll variances. I always plan for two T&A parallel cycles before cutover, audit pay rules with the client's HR & payroll managers, and validate accrual balances to the second at go-live.`,
+        q: "A customer wants to lift-and-shift 40 Iterable workflows. What do you say?",
+        a: `Politely push back. Lift-and-shift carries every legacy quirk into Braze, doubles the rebuild time, and forfeits Canvas's branching and AI features. I propose: audit all 40, group by use case, rebuild the top 8–10 in Canvas with modern patterns, sunset 30–50% as duplicates or low-value, and document a Phase 2 backlog for the rest. The customer always launches faster and engagement is higher. If they insist on 1:1, I issue a change order and document the trade-offs in the risk register.`,
+      },
+      {
+        q: "What's BrazeAI and how do you sell it during onboarding?",
+        a: `BrazeAI is the suite of AI features: Sage AI Copilot (generative copy + audience), Intelligent Channel (per-user channel selection), Intelligent Timing (per-user send time), and predictive features in Canvas. I introduce them in phases — Intelligent Timing on the welcome Canvas first because it's low-risk and shows immediate lift; Sage AI for copy variants in the build phase; Intelligent Channel after the customer has at least two channels live. Selling AI before they've earned their first send is a credibility loss.`,
       },
     ],
   },
   {
-    title: "Project Management Craft",
+    title: "Delivery Management Craft",
     icon: Users,
     color: "text-blue-500",
-    intro: "Process, planning, status reporting, RACI, change orders, and SOW management.",
+    intro: "Process, planning, status, RACI, change orders, and SOW management.",
     qas: [
       {
-        q: "How do you run weekly status with clients?",
-        a: `Three-part structure: (1) RAG status by workstream (HR / Payroll / Benefits / Integrations / Test) with a one-line "why"; (2) milestones hit this week / next week and any slips; (3) risks, decisions needed, and asks of the client. I send a written executive summary 24 hours before the call so the meeting is decisions-only. I keep the project plan in Smartsheet or MS Project and a dashboard in our PM tool that I share live.`,
+        q: "How do you run weekly status with customers?",
+        a: `Three-part structure: (1) RAG by workstream (SDK / Data / Canvas / Channels / Test) with a one-line "why"; (2) milestones hit this week / next week and any slips; (3) risks, decisions needed, and asks of the customer. I send a written exec summary 24 hours before the call so the meeting is decisions-only. I keep the plan in Smartsheet and a Looker/Mode dashboard the customer trusts.`,
       },
       {
         q: "Describe a project that went off the rails and how you recovered.",
-        a: `STAR. Situation: benefits build was 3 weeks behind because the client's broker hadn't finalized rates. Task: protect the OE go-live. Action: I called a steering committee, presented two paths (slip 2 weeks vs. de-scope optional voluntary plans), got an exec decision in 48 hours, re-baselined the plan and communicated the new critical path. Result: launched OE on time with the voluntary plans deferred to a 30-day post-launch micro-project. The escalation actually strengthened the executive relationship because we surfaced the trade-off early instead of slipping silently.`,
+        a: `STAR. Situation: mobile SDK install was 4 weeks behind because the customer's iOS engineer left. Task: protect a holiday launch. Action: I escalated to the customer's VP Engineering with two options (slip 3 weeks vs. surge a Braze Professional Services iOS engineer for 2 sprints at COBRA pricing). They picked the surge. I issued the change order in 48 hours, re-baselined the plan, and re-set executive expectations. Result: launched 5 days late instead of 4 weeks late, and the trust we built by surfacing options early led to an upsell the next quarter.`,
       },
       {
         q: "How do you manage scope creep / change orders?",
-        a: `Three rules: (1) every request gets logged in a change log, even tiny ones; (2) anything off-SOW gets a formal change order with effort, dollars, and timeline impact within 5 business days; (3) I never start work on out-of-scope items without a countersigned CO. This protects margin, utilization targets, and the client relationship — because surprises later are worse than friction now.`,
+        a: `Three rules: (1) every request gets logged in a change log, even tiny ones; (2) anything outside the signed order form gets a formal change order with effort, dollars, and timeline impact within 5 business days; (3) I never start work on out-of-scope items without a countersigned CO. This protects margin, utilization targets, and the customer relationship — because surprises later are worse than friction now.`,
       },
       {
-        q: "How do you keep utilization high while still doing excellent client work?",
-        a: `I run a 3-tier model: (1) deep client work on 2-3 active implementations; (2) "office hours" on 1-2 hypercare clients; (3) admin / templates / continuous improvement work to fill gaps. I time-block in the calendar so utilization shows up consistently in the 80-85% range, and I flag bench time to my director before it shows up on the utilization report.`,
+        q: "How do you build a RACI on a Braze onboarding?",
+        a: `Rows: Discovery, SDK install, Data ingestion, Identity resolution, Subscription/consent, Channel setup (per channel), Canvas build (per Canvas), Deliverability, UAT, Go-Live, Hypercare. Columns: Braze DM, OE, SC, TAM; Customer VP Lifecycle, Lifecycle Manager, Data Eng, Mobile Eng, Web Eng, Privacy. Every cell gets one R and one A. Reviewed in week 1, updated when people change. It's the single best prevention for "I thought you had it" failures.`,
       },
       {
-        q: "How do you build a RACI?",
-        a: `I list workstreams down the rows (Discovery, HR Config, Payroll Config, Benefits, Carrier Files, GL, SSO, UAT, Go-Live, Hypercare) and stakeholders across the columns (Sage PM, IM, Config, QA, Dev, Client CHRO, Payroll Mgr, Benefits Mgr, IT, Exec Sponsor). Every cell gets exactly one R and one A. I review with the client in week 1 and update whenever roles change. It's the single best document for preventing "I thought you had it" failures.`,
+        q: "How do you keep utilization high while doing excellent customer work?",
+        a: `I run a 3-tier model: (1) deep work on 2–3 active onboardings; (2) office hours on 1–2 hypercare customers; (3) admin / templates / continuous improvement to fill gaps. I time-block the calendar so utilization sits consistently in the 80–85% range, and I flag bench time to my Delivery Lead before it shows up on the report.`,
       },
     ],
   },
@@ -95,16 +99,16 @@ const sections: { title: string; icon: React.ElementType; color: string; intro: 
     intro: "Executive presence, escalation, and difficult conversations.",
     qas: [
       {
-        q: "How would you handle a client executive who's lost confidence in the project?",
-        a: `Listen first — book a 1:1, no slides, just an open question: "What specifically has changed for you?" Then validate, summarize the concerns back, and within 48 hours come back with a concrete recovery plan (new critical path, names, dates, and what I need from them). Re-establish trust by over-communicating for the next two weeks: daily summary email, named owners, visible burn-down on the agreed actions. Confidence is rebuilt through delivery, not slides.`,
+        q: "How would you handle a customer executive who's lost confidence?",
+        a: `Listen first — book a 1:1, no slides, one open question: "What specifically has changed for you?" Validate, mirror the concerns back, then come back inside 48 hours with a concrete recovery plan — new critical path, named owners, dates, and what I need from them. Over-communicate for the next two weeks: daily summary email, visible burn-down. Confidence is rebuilt through delivery, not slides.`,
       },
       {
         q: "How do you escalate without burning the relationship?",
-        a: `I use the "no surprises" principle. I escalate early and quietly — first to the client project sponsor with a clear "here's what I need to keep us on track," then to my Sage PS Director if blocked. I always present 2-3 options, not just the problem. The relationship survives because I'm bringing them solutions, not dumping risk on them.`,
+        a: `"No surprises" principle. Escalate early and quietly — first to the customer project sponsor with a clear "here's what I need to keep us on track," then to my Braze Delivery Lead if blocked. I always present 2–3 options, never just the problem. The relationship survives because I bring solutions, not panic.`,
       },
       {
-        q: "A client SME consistently misses deadlines. What do you do?",
-        a: `(1) Privately re-baseline expectations — confirm they have the bandwidth and authority. (2) If it continues, escalate to the executive sponsor with the impact ("Their delays put OE go-live at risk by 3 weeks") and propose options — add resources, defer scope, or re-sequence. (3) Document everything in the risk register so when timeline shifts, there's no surprise. It's not about blaming — it's about protecting the project.`,
+        q: "A customer SME consistently misses deadlines. What do you do?",
+        a: `(1) Privately re-baseline expectations — confirm they have bandwidth and authority. (2) If it continues, escalate to the executive sponsor with the impact ("Their delays put launch at risk by 3 weeks") and propose options — add resources, defer scope, or re-sequence. (3) Document everything in the risk register. It's not about blaming — it's about protecting the launch.`,
       },
     ],
   },
@@ -116,15 +120,15 @@ const sections: { title: string; icon: React.ElementType; color: string; intro: 
     qas: [
       {
         q: "What PM tools have you used and which do you prefer?",
-        a: `I've used Smartsheet, MS Project, Asana, Monday, and Jira. For HCM implementations I prefer Smartsheet because clients can co-edit and execs love the dashboards. I use Jira for any in-sprint dev or integration work and a shared Confluence or SharePoint for documentation. The tool matters less than the discipline: a single source of truth, weekly updates, and a dashboard the client and execs trust.`,
+        a: `Smartsheet, MS Project, Asana, Monday, and Jira. For customer onboardings I prefer Smartsheet because customers can co-edit and execs love the dashboards. I use Jira for in-sprint engineering work, Confluence/SharePoint for documentation, and Slack Connect channels for day-to-day customer comms. Tool matters less than discipline: single source of truth, weekly updates, dashboard the customer trusts.`,
       },
       {
         q: "How comfortable are you coordinating API or file-based integrations?",
-        a: `Very. I don't write code, but I scope, sequence, and broker decisions. I know what to ask — auth method, payload, frequency, error handling, retry logic, who watches the inbox when a file fails at 2am. I treat each integration as a mini-project with a spec, test plan, sign-off, and a named owner on both sides. I lean on my Implementation Manager and developer for technical decisions but keep the schedule and risk in my lane.`,
+        a: `Very. I don't write code, but I scope, sequence, and broker decisions. I know what to ask — auth method, payload, frequency, error handling, retry logic, who watches the queue when ingestion fails at 2am. I treat each integration as a mini-project with a spec, test plan, sign-off, and a named owner on both sides. I lean on the Onboarding Engineer for the technical depth but keep schedule and risk in my lane.`,
       },
       {
-        q: "How do you stay current on quarterly Sage HCM releases?",
-        a: `I'd subscribe to release notes the day I start, attend every PS enablement session, and join product office hours. I'd also build a "what's new" segment into my client status calls — clients love hearing about new capabilities and it positions me as a trusted advisor, not just a task tracker. New features are also natural change-order conversations.`,
+        q: "How do you stay current on Braze's quarterly product releases?",
+        a: `I'd subscribe to release notes day one, attend every PS enablement, and join product office hours. I'd build a "what's new in Braze" segment into customer status calls — customers love hearing about new capabilities and it positions me as a trusted advisor, not a task tracker. New features are also natural change-order conversations and CSM upsell hooks.`,
       },
     ],
   },
@@ -136,23 +140,23 @@ const sections: { title: string; icon: React.ElementType; color: string; intro: 
     qas: [
       {
         q: "Tell me about a time you disagreed with your manager.",
-        a: `On a previous project my PS Director wanted to ship a known reconciliation bug to hit go-live. I disagreed because the client was a finance buyer who'd catch it on the first close. I escalated respectfully with data — projected ticket volume, CSAT risk, and a 5-day fix plan. We delayed 4 days, fixed it, launched clean. The director thanked me later; the lesson was that escalation done with data and options is leadership, not insubordination.`,
+        a: `On a previous launch my Delivery Lead wanted to ship a known deliverability bug to hit go-live. I disagreed because the customer was a regulated financial services brand and the first complaint would damage IP reputation across the shared pool for the rest of the quarter. I escalated with data — projected complaint rate, IP reputation impact, and a 5-day fix plan. We delayed 4 days, fixed it, launched clean. The lesson: escalation with data and options is leadership, not insubordination.`,
       },
       {
-        q: "How do you juggle 3-5 concurrent clients?",
-        a: `Calendar discipline. Every client gets a fixed weekly cadence (status call, internal team standup, executive checkpoint). I batch admin work (status decks, change orders) into 2-3 daily blocks. P1 issues get pulled out of the schedule immediately, but my system absorbs them because everything else is on rails. The number-one rule: every client should feel like they're my only client during their hour.`,
+        q: "How do you juggle 3–5 concurrent customers?",
+        a: `Calendar discipline. Every customer gets a fixed weekly cadence (status call, internal team standup, executive checkpoint). I batch admin work (status decks, change orders) into 2–3 daily blocks. P1 issues get pulled out of the schedule immediately, but my system absorbs them because everything else is on rails. The rule: every customer should feel like they're my only customer during their hour.`,
       },
       {
         q: "What's your biggest weakness?",
-        a: `Earlier in my career I over-committed because I wanted to be the "yes" PM. It hurt me on margins and burned out my team. I've fixed it by treating "no, here's the change order" or "yes, but here's the trade-off" as the right answer. Now I track my own commitments weekly and check them against capacity before I say yes to anything new.`,
+        a: `Earlier in my career I over-committed because I wanted to be the "yes" PM. It hurt margin and burned out my team. I've fixed it by treating "no, here's the change order" or "yes, but here's the trade-off" as the right answer. Now I track my own commitments weekly and check them against capacity before saying yes.`,
       },
       {
         q: "Why should we hire you over another candidate?",
-        a: `Three reasons: (1) HCM domain — I already speak the language of pay groups, deduction codes, 834s, and parallel payroll, so I'm productive in week 1; (2) discipline — I run a clean RACI, weekly status, and change-order process that protects margin and CSAT; (3) executive presence — I can sit in front of a CHRO or CFO and turn a tough status into a constructive conversation. I'd be a low-risk hire who can carry a full book of clients within 60 days.`,
+        a: `Three reasons: (1) MarTech domain — I already speak SDKs, Canvas, deliverability, CDPs, Liquid, and Connected Content, so I'm productive in week one; (2) discipline — I run a clean RACI, weekly status, and change-order process that protects margin and CSAT; (3) executive presence — I can sit in front of a CMO or VP Lifecycle and turn a tough status into a constructive conversation. Low-risk hire who can carry a full book of customers inside 60 days.`,
       },
       {
         q: "What questions do you have for us?",
-        a: `Good ones to ask back: (1) What does the average book of clients look like for a PM here — count, modules, size? (2) How does Sage measure PM success — utilization, CSAT, on-time go-live? (3) How does the PM partner with the Implementation Manager day-to-day? (4) What's the biggest delivery challenge the PS team is trying to solve right now? (5) What does a successful first 90 days look like in this role?`,
+        a: `Good ones to ask back: (1) What does the average book of customers look like for a DM here — count, ARR, complexity? (2) How does Braze measure DM success — Time to First Send, CSAT, on-time launch, utilization? (3) How does the DM partner with the Onboarding Engineer, Solutions Consultant, and TAM day-to-day? (4) What's the biggest delivery challenge the Customer Onboarding team is solving for in 2026 — Iterable migrations, BrazeAI adoption, something else? (5) What does a successful first 90 days look like in this role?`,
       },
     ],
   },
@@ -165,10 +169,10 @@ export default function InterviewPrep() {
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
           <div className="flex items-center gap-2">
             <MessageSquare className="h-5 w-5 text-primary" />
-            <h1 className="text-2xl font-semibold">Interview Prep — Sage HCM Project Manager</h1>
+            <h1 className="text-2xl font-semibold">Interview Prep — Braze Delivery Manager</h1>
           </div>
           <p className="text-sm text-muted-foreground mt-1">
-            Common interview questions and ready-to-use answers tailored to the Sage HCM Project Manager role across HR, Payroll, Benefits, Talent, and Time & Attendance.
+            Common interview questions and ready-to-use answers tailored to the Braze Delivery Manager role across SDKs, Canvas, channels, data, and BrazeAI.
           </p>
         </motion.div>
 
@@ -176,9 +180,9 @@ export default function InterviewPrep() {
           <CardContent className="p-5 space-y-2">
             <p className="text-sm font-semibold">How to use this page</p>
             <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
-              <li>Each section maps to a likely interview block: fit, domain, PM craft, stakeholders, tools, and behavioral.</li>
+              <li>Each section maps to a likely interview block: fit, platform/domain, delivery craft, stakeholders, tools, and behavioral.</li>
               <li>Answers use the STAR framework where relevant (Situation, Task, Action, Result).</li>
-              <li>Personalize the metrics and client names with your own examples before the interview.</li>
+              <li>Personalize the metrics and customer names with your own examples before the interview.</li>
               <li>Don't memorize — internalize the structure so you sound natural.</li>
             </ul>
           </CardContent>
@@ -187,12 +191,7 @@ export default function InterviewPrep() {
         {sections.map((section, sIdx) => {
           const Icon = section.icon;
           return (
-            <motion.div
-              key={section.title}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: sIdx * 0.04 }}
-            >
+            <motion.div key={section.title} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: sIdx * 0.04 }}>
               <Card>
                 <CardHeader className="pb-3">
                   <div className="flex items-center gap-3">
@@ -232,15 +231,8 @@ export default function InterviewPrep() {
             <CardTitle className="text-base">Closing the interview</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
-            <p>
-              <strong className="text-foreground">Confirm interest:</strong> "Based on what we've discussed, I'm even more excited about this role. The combination of mid-market HCM clients, the breadth of the suite, and the structure of your PS team is exactly where I want to be."
-            </p>
-            <p>
-              <strong className="text-foreground">Ask about next steps:</strong> "What does the rest of your interview process look like, and what's a realistic timeline for a decision?"
-            </p>
-            <p>
-              <strong className="text-foreground">Follow up:</strong> Send a thank-you email within 24 hours with one specific detail from the conversation and a short note on how you'd tackle a challenge they mentioned.
-            </p>
+            <p>End strong: "I'm genuinely excited about this role. The mix of MarTech depth, customer-facing delivery, and the chance to launch brands like the ones in Braze's portfolio is exactly the work I want to do. What are the next steps, and is there anything you'd like me to clarify or expand on before we wrap?"</p>
+            <p>Then follow up within 24 hours with a personalized thank-you email referencing one specific thing the interviewer said.</p>
           </CardContent>
         </Card>
       </div>

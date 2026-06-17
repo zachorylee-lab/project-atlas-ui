@@ -6,20 +6,20 @@ import { motion } from "framer-motion";
 
 const phaseDistribution = [
   { name: "Handoff", count: 2, color: "hsl(199, 89%, 48%)" },
-  { name: "Kickoff", count: 3, color: "hsl(262, 52%, 55%)" },
-  { name: "Build", count: 6, color: "hsl(172, 66%, 40%)" },
+  { name: "Kickoff", count: 3, color: "hsl(262, 70%, 60%)" },
+  { name: "Build", count: 5, color: "hsl(328, 85%, 55%)" },
   { name: "Testing", count: 4, color: "hsl(38, 92%, 50%)" },
   { name: "Go-Live", count: 2, color: "hsl(152, 60%, 40%)" },
-  { name: "Hypercare", count: 3, color: "hsl(340, 65%, 50%)" },
+  { name: "Hypercare", count: 3, color: "hsl(280, 65%, 55%)" },
 ];
 
-const utilizationTrend = [
-  { month: "Oct", utilization: 78 },
-  { month: "Nov", utilization: 81 },
-  { month: "Dec", utilization: 74 },
-  { month: "Jan", utilization: 83 },
-  { month: "Feb", utilization: 86 },
-  { month: "Mar", utilization: 84 },
+const ttfsTrend = [
+  { month: "Oct", days: 24 },
+  { month: "Nov", days: 22 },
+  { month: "Dec", days: 21 },
+  { month: "Jan", days: 19 },
+  { month: "Feb", days: 18 },
+  { month: "Mar", days: 18 },
 ];
 
 const csatTrend = [
@@ -32,10 +32,10 @@ const csatTrend = [
 ];
 
 const kpis = [
-  { label: "Client CSAT", value: "4.7/5", target: "4.5/5", progress: 96 },
-  { label: "On-Time Go-Live", value: "92%", target: "90%", progress: 100 },
-  { label: "PS Utilization", value: "84%", target: "80%", progress: 100 },
-  { label: "Avg. Time to Live", value: "16 wks", target: "18 wks", progress: 100 },
+  { label: "Customer CSAT", value: "4.7/5", target: "4.5/5", progress: 96 },
+  { label: "On-Time Go-Live", value: "91%", target: "90%", progress: 100 },
+  { label: "Time to First Send", value: "18 days", target: "21 days", progress: 100 },
+  { label: "Time to First Canvas", value: "32 days", target: "35 days", progress: 100 },
 ];
 
 export default function Metrics() {
@@ -43,9 +43,9 @@ export default function Metrics() {
     <DashboardLayout>
       <div className="space-y-6 max-w-7xl">
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-2xl font-semibold">Utilization & Client Health</h1>
+          <h1 className="text-2xl font-semibold">Portfolio Health</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Professional Services KPIs: utilization, on-time delivery, client satisfaction, and implementation portfolio health.
+            Braze Customer Onboarding KPIs: time-to-value, on-time delivery, customer satisfaction, and portfolio phase health.
           </p>
         </motion.div>
 
@@ -66,17 +66,17 @@ export default function Metrics() {
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-base font-semibold">PS Utilization (%)</CardTitle>
+                <CardTitle className="text-base font-semibold">Time to First Send (days)</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={utilizationTrend}>
+                    <BarChart data={ttfsTrend}>
                       <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                       <XAxis dataKey="month" tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
-                      <YAxis domain={[60, 100]} tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
+                      <YAxis domain={[0, 30]} tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
                       <Tooltip contentStyle={{ borderRadius: 8, border: "1px solid hsl(var(--border))", fontSize: 12 }} />
-                      <Bar dataKey="utilization" fill="hsl(var(--accent))" radius={[4, 4, 0, 0]} />
+                      <Bar dataKey="days" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
@@ -87,7 +87,7 @@ export default function Metrics() {
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-base font-semibold">Client CSAT Trend</CardTitle>
+                <CardTitle className="text-base font-semibold">Customer CSAT Trend</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="h-64">
@@ -97,7 +97,7 @@ export default function Metrics() {
                       <XAxis dataKey="month" tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
                       <YAxis domain={[4.0, 5.0]} tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
                       <Tooltip contentStyle={{ borderRadius: 8, border: "1px solid hsl(var(--border))", fontSize: 12 }} />
-                      <Line type="monotone" dataKey="csat" stroke="hsl(var(--primary))" strokeWidth={2} dot={{ fill: "hsl(var(--primary))", r: 4 }} />
+                      <Line type="monotone" dataKey="csat" stroke="hsl(var(--accent))" strokeWidth={2} dot={{ fill: "hsl(var(--accent))", r: 4 }} />
                     </LineChart>
                   </ResponsiveContainer>
                 </div>
@@ -108,7 +108,7 @@ export default function Metrics() {
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
             <Card className="lg:col-span-2">
               <CardHeader className="pb-2">
-                <CardTitle className="text-base font-semibold">Clients by Implementation Phase</CardTitle>
+                <CardTitle className="text-base font-semibold">Customers by Onboarding Phase</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="h-64 flex items-center justify-center">

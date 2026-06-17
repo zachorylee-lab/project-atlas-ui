@@ -10,41 +10,27 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
-  DndContext,
-  DragOverlay,
-  closestCorners,
-  PointerSensor,
-  useSensor,
-  useSensors,
-  type DragStartEvent,
-  type DragEndEvent,
+  DndContext, DragOverlay, closestCorners, PointerSensor,
+  useSensor, useSensors, type DragStartEvent, type DragEndEvent,
 } from "@dnd-kit/core";
-import { useDroppable } from "@dnd-kit/core";
-import { useDraggable } from "@dnd-kit/core";
+import { useDroppable, useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 
 type Project = {
-  id: string;
-  name: string;
-  segment: string;
-  owner: string;
-  phase: number;
-  status: "on-track" | "at-risk" | "delayed" | "not-started";
-  progress: number;
-  startDate: string;
-  targetDate: string;
-  daysRemaining: number;
+  id: string; name: string; segment: string; owner: string;
+  phase: number; status: "on-track" | "at-risk" | "delayed" | "not-started";
+  progress: number; startDate: string; targetDate: string; daysRemaining: number;
 };
 
 const initialProjects: Project[] = [
-  { id: "1", name: "Higginbotham Insurance", segment: "1,800 EEs · Full Suite", owner: "E. Cicero", phase: 5, status: "on-track", progress: 92, startDate: "Jan 15", targetDate: "Apr 20", daysRemaining: 26 },
-  { id: "2", name: "Coastal Health Systems", segment: "4,200 EEs · HR + Payroll + Benefits", owner: "A. Piggott", phase: 4, status: "on-track", progress: 78, startDate: "Feb 1", targetDate: "Apr 5", daysRemaining: 11 },
-  { id: "3", name: "Northwind Logistics", segment: "2,600 EEs · Full Suite + Talent", owner: "L. Martin", phase: 1, status: "on-track", progress: 18, startDate: "Mar 10", targetDate: "Jul 1", daysRemaining: 97 },
-  { id: "4", name: "Meridian Manufacturing", segment: "950 EEs · Payroll + Time", owner: "S. Pickard", phase: 5, status: "on-track", progress: 95, startDate: "Dec 5", targetDate: "Mar 28", daysRemaining: 3 },
-  { id: "5", name: "Apex Property Mgmt", segment: "640 EEs · HR + Benefits", owner: "A. Pereira", phase: 3, status: "at-risk", progress: 48, startDate: "Feb 15", targetDate: "May 30", daysRemaining: 66 },
-  { id: "6", name: "Vela Wellness Co.", segment: "320 EEs · Full Suite", owner: "T. Bauer", phase: 0, status: "not-started", progress: 5, startDate: "Mar 22", targetDate: "Jun 15", daysRemaining: 82 },
-  { id: "7", name: "Harbor Marine Holdings", segment: "1,150 EEs · HR + Payroll", owner: "S. Khan", phase: 3, status: "on-track", progress: 55, startDate: "Jan 28", targetDate: "May 10", daysRemaining: 46 },
-  { id: "8", name: "ClearLease Capital", segment: "480 EEs · Full Suite + Talent", owner: "M. Rivera", phase: 4, status: "on-track", progress: 78, startDate: "Nov 20", targetDate: "Apr 2", daysRemaining: 8 },
+  { id: "1", name: "Wyndham Hotels", segment: "Loyalty · Push + Email + IAM · Segment", owner: "E. Cicero", phase: 5, status: "on-track", progress: 93, startDate: "Jan 15", targetDate: "Apr 20", daysRemaining: 26 },
+  { id: "2", name: "MetLife", segment: "90M users · Email + SMS · mParticle", owner: "A. Piggott", phase: 4, status: "on-track", progress: 78, startDate: "Feb 1", targetDate: "Apr 5", daysRemaining: 11 },
+  { id: "3", name: "Canva Pro", segment: "28M MAU · Trial→Paid · Iterable migration", owner: "L. Martin", phase: 1, status: "on-track", progress: 18, startDate: "Mar 10", targetDate: "Jul 1", daysRemaining: 97 },
+  { id: "4", name: "Delivery Hero", segment: "Order recovery · Push + WhatsApp", owner: "S. Pickard", phase: 5, status: "on-track", progress: 95, startDate: "Dec 5", targetDate: "Mar 28", daysRemaining: 3 },
+  { id: "5", name: "Max Streaming", segment: "Churn save · Push + Email · Iterable migration", owner: "A. Pereira", phase: 3, status: "at-risk", progress: 47, startDate: "Feb 15", targetDate: "May 30", daysRemaining: 66 },
+  { id: "6", name: "Elf Beauty", segment: "Shopify · Email + SMS + IAM", owner: "T. Bauer", phase: 0, status: "not-started", progress: 5, startDate: "Mar 22", targetDate: "Jun 15", daysRemaining: 82 },
+  { id: "7", name: "Atlas Travel", segment: "Booking journey · Push + Email · Snowflake CDI", owner: "S. Khan", phase: 3, status: "on-track", progress: 55, startDate: "Jan 28", targetDate: "May 10", daysRemaining: 46 },
+  { id: "8", name: "NorthBank Mobile", segment: "Transactional + Lifecycle · Email + Push", owner: "M. Rivera", phase: 4, status: "on-track", progress: 78, startDate: "Nov 20", targetDate: "Apr 2", daysRemaining: 8 },
 ];
 
 type ViewMode = "list" | "kanban";
@@ -92,7 +78,6 @@ function DroppableColumn({ phaseIndex, children }: { phaseIndex: number; childre
 function DraggableCard({ project, onClick }: { project: Project; onClick?: () => void }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id: project.id });
   const style = transform ? { transform: CSS.Translate.toString(transform), opacity: isDragging ? 0.4 : 1 } : undefined;
-
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners} className="cursor-grab active:cursor-grabbing"
       onClick={(e) => { if (!transform) onClick?.(); }}>
@@ -112,10 +97,7 @@ export default function ActiveProjects() {
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
   const activeProject = projects.find(p => p.id === activeId) ?? null;
 
-  function handleDragStart(event: DragStartEvent) {
-    setActiveId(String(event.active.id));
-  }
-
+  function handleDragStart(event: DragStartEvent) { setActiveId(String(event.active.id)); }
   function handleDragEnd(event: DragEndEvent) {
     setActiveId(null);
     const { active, over } = event;
@@ -132,26 +114,16 @@ export default function ActiveProjects() {
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
           <div className="flex items-start justify-between">
             <div>
-              <h1 className="text-2xl font-semibold">Active Implementations</h1>
+              <h1 className="text-2xl font-semibold">Active Onboardings</h1>
               <p className="text-sm text-muted-foreground mt-1">
-                Track Sage HCM client implementations across the 6-phase delivery framework.
+                Track Braze customer onboardings across the 6-phase delivery framework.
               </p>
             </div>
             <div className="flex items-center bg-muted rounded-lg p-0.5">
-              <button
-                onClick={() => setView("list")}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
-                  view === "list" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
+              <button onClick={() => setView("list")} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${view === "list" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
                 <List className="h-3.5 w-3.5" /> List
               </button>
-              <button
-                onClick={() => setView("kanban")}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
-                  view === "kanban" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
+              <button onClick={() => setView("kanban")} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${view === "kanban" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
                 <Columns3 className="h-3.5 w-3.5" /> Board
               </button>
             </div>
@@ -160,14 +132,8 @@ export default function ActiveProjects() {
 
         <div className="flex flex-wrap gap-2">
           {statusFilters.map((s) => (
-            <button
-              key={s}
-              onClick={() => setFilter(s)}
-              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                filter === s ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-muted/80"
-              }`}
-            >
-              {s === "All" ? "All Clients" : s.replace("-", " ").replace(/\b\w/g, l => l.toUpperCase())}
+            <button key={s} onClick={() => setFilter(s)} className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${filter === s ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-muted/80"}`}>
+              {s === "All" ? "All Customers" : s.replace("-", " ").replace(/\b\w/g, l => l.toUpperCase())}
             </button>
           ))}
         </div>
@@ -221,13 +187,7 @@ export default function ActiveProjects() {
                 {PHASES.map((phase, phaseIndex) => {
                   const phaseProjects = filtered.filter(p => p.phase === phaseIndex);
                   return (
-                    <motion.div
-                      key={phase.id}
-                      className="w-[280px] shrink-0"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: phaseIndex * 0.05 }}
-                    >
+                    <motion.div key={phase.id} className="w-[280px] shrink-0" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: phaseIndex * 0.05 }}>
                       <div className="rounded-xl bg-muted/50 border p-3">
                         <div className="flex items-center justify-between mb-3 px-1">
                           <div className="flex items-center gap-2">
@@ -245,7 +205,7 @@ export default function ActiveProjects() {
                             ))
                           ) : (
                             <div className="flex items-center justify-center h-[120px] rounded-lg border border-dashed text-xs text-muted-foreground">
-                              No clients
+                              No customers
                             </div>
                           )}
                         </DroppableColumn>
@@ -266,11 +226,7 @@ export default function ActiveProjects() {
           </DndContext>
         )}
       </div>
-      <ProjectDetailDialog
-        project={selectedProject}
-        open={!!selectedProject}
-        onOpenChange={(open) => !open && setSelectedProject(null)}
-      />
+      <ProjectDetailDialog project={selectedProject} open={!!selectedProject} onOpenChange={(open) => !open && setSelectedProject(null)} />
     </DashboardLayout>
   );
 }

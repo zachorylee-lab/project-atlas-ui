@@ -5,152 +5,150 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
-  Users, DollarSign, Heart, Award, Clock,
-  CheckCircle2, Database,
-  Upload, Settings,
+  Smartphone, Database, GitBranch, Mail, Sparkles,
+  CheckCircle2, Upload, Settings,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-type ModuleId = "hr" | "payroll" | "benefits" | "talent" | "time";
+type ModuleId = "sdk" | "data" | "canvas" | "channels" | "ai";
 
 type WorkflowTask = { label: string; done: boolean };
 type MigrationItem = { source: string; target: string; records: string; status: "pending" | "in-progress" | "complete" | "failed" };
 type ConfigStep = { label: string; description: string; done: boolean };
 
 const modulesMeta: Record<ModuleId, { label: string; icon: React.ElementType; color: string; description: string }> = {
-  hr: { label: "HR Core", icon: Users, color: "text-blue-500", description: "Org structure, positions, workflows, employee self-service" },
-  payroll: { label: "Payroll", icon: DollarSign, color: "text-amber-500", description: "Pay groups, earnings & deductions, taxes, GL mapping" },
-  benefits: { label: "Benefits", icon: Heart, color: "text-rose-500", description: "Plans, rates, eligibility, life events, OE & EDI 834 carriers" },
-  talent: { label: "Talent", icon: Award, color: "text-violet-500", description: "Performance, comp planning, succession, learning" },
-  time: { label: "Time & Attendance", icon: Clock, color: "text-emerald-500", description: "Schedules, pay rules, accruals, time clocks, shift differentials" },
+  sdk: { label: "SDK Integration", icon: Smartphone, color: "text-pink-500", description: "iOS, Android, Web, React Native, Flutter SDK install & session/event tracking" },
+  data: { label: "Data Ingestion", icon: Database, color: "text-fuchsia-500", description: "Segment, mParticle, Snowflake CDI, and REST /users/track pipelines" },
+  canvas: { label: "Canvas Journeys", icon: GitBranch, color: "text-violet-500", description: "Lifecycle journey orchestration: welcome, abandoned, churn, transactional" },
+  channels: { label: "Channels Setup", icon: Mail, color: "text-rose-500", description: "Push (APNs/FCM), Email (DKIM/SPF/DMARC), SMS (10DLC), WhatsApp, IAM, Content Cards" },
+  ai: { label: "BrazeAI & Personalization", icon: Sparkles, color: "text-amber-500", description: "Sage AI Copilot, Intelligent Channel, Intelligent Timing, Liquid, Connected Content, Catalogs" },
 };
 
 const implementationChecklists: Record<ModuleId, WorkflowTask[]> = {
-  hr: [
-    { label: "Configure org structure, locations & legal entities", done: false },
-    { label: "Build job catalog and position management", done: false },
-    { label: "Configure new-hire, transfer, termination workflows", done: false },
-    { label: "Enable employee self-service (ESS)", done: false },
-    { label: "Configure manager self-service (MSS) approvals", done: false },
-    { label: "Set up document storage (I-9, W-4, custom)", done: false },
-    { label: "Configure role-based permissions and security", done: false },
-    { label: "End-to-end UAT for hire-to-retire flow", done: false },
+  sdk: [
+    { label: "Install iOS SDK (Swift Package Manager / CocoaPods)", done: false },
+    { label: "Install Android SDK (Gradle)", done: false },
+    { label: "Install Web SDK (npm or CDN snippet)", done: false },
+    { label: "Configure push (APNs auth key, FCM v1 service account)", done: false },
+    { label: "Validate session start / end events in test app", done: false },
+    { label: "Implement `changeUser` on login with stable `external_id`", done: false },
+    { label: "Implement custom events + purchases on key flows", done: false },
+    { label: "Verify SDK in staging dashboard live feed", done: false },
   ],
-  payroll: [
-    { label: "Configure pay groups, pay frequencies and FEINs", done: false },
-    { label: "Build earnings, deductions and tax codes", done: false },
-    { label: "Configure direct deposit and pay card", done: false },
-    { label: "Map GL accounts (department, cost center)", done: false },
-    { label: "Configure garnishments and child support", done: false },
-    { label: "Validate state tax registrations and SUTA rates", done: false },
-    { label: "Run two to three parallel payrolls vs. legacy", done: false },
-    { label: "Reconcile gross-to-net to the penny", done: false },
+  data: [
+    { label: "Identify primary data source (Segment / mParticle / CDI / REST)", done: false },
+    { label: "Design custom attribute + custom event schema", done: false },
+    { label: "Map `userId` → `external_id` across sources", done: false },
+    { label: "Configure consent forwarding (GDPR, CCPA, CDPA)", done: false },
+    { label: "Backfill historical user profiles", done: false },
+    { label: "Validate event ingestion latency < 1 min p95", done: false },
+    { label: "Reconcile DAU/MAU counts vs. source of truth", done: false },
+    { label: "Stand up Currents / CDS export to warehouse", done: false },
   ],
-  benefits: [
-    { label: "Build benefit plans (medical, dental, vision, FSA/HSA)", done: false },
-    { label: "Configure rates, tiers and effective dates", done: false },
-    { label: "Define eligibility rules and waiting periods", done: false },
-    { label: "Build life-event qualifying changes workflow", done: false },
-    { label: "Design Open Enrollment experience", done: false },
-    { label: "Build EDI 834 files for each carrier", done: false },
-    { label: "Test 834 with each carrier (member count recon)", done: false },
-    { label: "Validate payroll deductions against benefit elections", done: false },
+  canvas: [
+    { label: "Document lifecycle stages and target use cases", done: false },
+    { label: "Build welcome series Canvas (3–5 steps)", done: false },
+    { label: "Build abandoned cart / abandoned browse Canvas", done: false },
+    { label: "Build re-engagement / churn save Canvas", done: false },
+    { label: "Build transactional Canvas (order confirm, shipping)", done: false },
+    { label: "Configure conversion events on every Canvas", done: false },
+    { label: "Set frequency capping and global control group", done: false },
+    { label: "QA Canvas branching with seed users", done: false },
   ],
-  talent: [
-    { label: "Configure performance review templates and cycle", done: false },
-    { label: "Build goal cascade and OKR templates", done: false },
-    { label: "Configure compensation planning and merit cycle", done: false },
-    { label: "Build succession planning org chart", done: false },
-    { label: "Configure learning courses and assignments", done: false },
-    { label: "Enable career profiles and internal mobility", done: false },
-    { label: "Train HRBPs on talent workflows", done: false },
-    { label: "UAT end-to-end performance cycle", done: false },
+  channels: [
+    { label: "Upload APNs auth key + FCM service account", done: false },
+    { label: "Authenticate sending domain (SPF / DKIM / DMARC)", done: false },
+    { label: "Build IP warming plan (4–6 weeks)", done: false },
+    { label: "Register 10DLC brand + campaigns for SMS", done: false },
+    { label: "Submit WhatsApp Business templates for approval", done: false },
+    { label: "Configure subscription groups + preference center", done: false },
+    { label: "Build IAM template library aligned to brand", done: false },
+    { label: "Run inbox-placement seed test (Gmail/Yahoo/Outlook)", done: false },
   ],
-  time: [
-    { label: "Configure pay rules, overtime and shift differentials", done: false },
-    { label: "Build schedule templates and rotations", done: false },
-    { label: "Configure accruals (PTO, sick, FMLA)", done: false },
-    { label: "Connect time clocks / mobile punch", done: false },
-    { label: "Configure approval workflows for time edits", done: false },
-    { label: "Map time codes to payroll earnings", done: false },
-    { label: "Run T&A parallel for two pay cycles", done: false },
-    { label: "Validate accrual balances at cutover", done: false },
+  ai: [
+    { label: "Enable Sage AI Copilot for the workspace", done: false },
+    { label: "Turn on Intelligent Channel for cross-channel users", done: false },
+    { label: "Enable Intelligent Timing per Canvas step", done: false },
+    { label: "Set up Catalogs with product feed", done: false },
+    { label: "Build Liquid personalization library", done: false },
+    { label: "Configure Connected Content for live data calls", done: false },
+    { label: "Run A/B test on AI-generated copy vs. human", done: false },
+    { label: "Document AI guardrails with brand/legal", done: false },
   ],
 };
 
 const migrationData: Record<ModuleId, MigrationItem[]> = {
-  hr: [
-    { source: "Legacy HRIS", target: "Employee Master", records: "~1,800 EEs", status: "pending" },
-    { source: "Legacy HRIS", target: "Org / Position Data", records: "~240 positions", status: "pending" },
-    { source: "Document Vault", target: "I-9 / W-4 Documents", records: "~3,600 docs", status: "pending" },
-    { source: "HRIS", target: "History (5 yrs)", records: "Compensation + Job", status: "pending" },
+  sdk: [
+    { source: "Iterable SDK", target: "Braze SDK iOS", records: "~iOS app", status: "pending" },
+    { source: "Iterable SDK", target: "Braze SDK Android", records: "~Android app", status: "pending" },
+    { source: "Web tracker", target: "Braze Web SDK", records: "~Marketing site", status: "pending" },
+    { source: "Legacy events", target: "Custom events", records: "~30 event types", status: "pending" },
   ],
-  payroll: [
-    { source: "Legacy Payroll", target: "YTD Balances", records: "Current calendar year", status: "pending" },
-    { source: "Legacy Payroll", target: "Deduction Master", records: "Per EE", status: "pending" },
-    { source: "Legacy Payroll", target: "Direct Deposit", records: "~1,800 EEs", status: "pending" },
-    { source: "Legacy Payroll", target: "Garnishments", records: "~45 active", status: "pending" },
+  data: [
+    { source: "Iterable users", target: "Braze profiles", records: "~28M profiles", status: "pending" },
+    { source: "Suppression list", target: "Subscription groups", records: "~3.2M unsubs", status: "pending" },
+    { source: "Snowflake `dim_user`", target: "Custom attributes", records: "Nightly sync", status: "pending" },
+    { source: "Shopify orders", target: "Purchase events", records: "Last 24 months", status: "pending" },
   ],
-  benefits: [
-    { source: "Legacy Benefits", target: "Current Enrollments", records: "Per EE / plan", status: "pending" },
-    { source: "Carrier Files", target: "Beneficiaries / Dependents", records: "~2,400 records", status: "pending" },
-    { source: "FSA / HSA Vendor", target: "YTD Contributions", records: "Current year", status: "pending" },
-    { source: "401(k) Recordkeeper", target: "Deferral Elections", records: "~1,200 active", status: "pending" },
+  canvas: [
+    { source: "Iterable Workflows", target: "Braze Canvases", records: "~22 active programs", status: "pending" },
+    { source: "Email templates", target: "Braze email", records: "~180 templates", status: "pending" },
+    { source: "Push templates", target: "Braze push", records: "~45 templates", status: "pending" },
+    { source: "Triggers/events", target: "Canvas entry", records: "~30 event triggers", status: "pending" },
   ],
-  talent: [
-    { source: "Legacy Performance Tool", target: "Active Review Cycle", records: "In-flight", status: "pending" },
-    { source: "Comp Tool", target: "Historical Comp Decisions", records: "Prior 2 cycles", status: "pending" },
-    { source: "LMS", target: "Course Catalog & Completions", records: "~420 courses", status: "pending" },
-    { source: "Excel", target: "Succession Plans", records: "~90 critical roles", status: "pending" },
+  channels: [
+    { source: "Legacy ESP IP", target: "New dedicated IPs", records: "4 IPs · 6-wk warm", status: "pending" },
+    { source: "Legacy short code", target: "10DLC campaign", records: "1 campaign", status: "pending" },
+    { source: "Legacy push certs", target: "APNs auth key", records: "p8 key", status: "pending" },
+    { source: "Sender domains", target: "Authenticated subdomain", records: "mail.brand.com", status: "pending" },
   ],
-  time: [
-    { source: "Legacy T&A (Kronos/UKG)", target: "Open Time Cards", records: "Current pay period", status: "pending" },
-    { source: "Legacy T&A", target: "Accrual Balances", records: "Per EE", status: "pending" },
-    { source: "Schedule System", target: "Schedules", records: "~6 weeks forward", status: "pending" },
-    { source: "Pay Rules Doc", target: "Pay Rules Library", records: "~30 rules", status: "pending" },
+  ai: [
+    { source: "Manual copy library", target: "Sage AI Copilot prompts", records: "~50 prompts", status: "pending" },
+    { source: "Product feed", target: "Braze Catalogs", records: "~12K SKUs", status: "pending" },
+    { source: "Static send time", target: "Intelligent Timing", records: "All lifecycle Canvases", status: "pending" },
+    { source: "Single-channel sends", target: "Intelligent Channel", records: "Re-engagement Canvas", status: "pending" },
   ],
 };
 
 const configSteps: Record<ModuleId, ConfigStep[]> = {
-  hr: [
-    { label: "Org & Position", description: "Define legal entities, locations, departments, jobs, positions", done: false },
-    { label: "Workflows", description: "Configure hire, transfer, termination, and change workflows", done: false },
-    { label: "Self-Service", description: "Enable ESS / MSS with branded launch page", done: false },
-    { label: "Document Management", description: "Configure I-9, W-4, and custom doc storage", done: false },
-    { label: "Security", description: "Build role-based access and field-level permissions", done: false },
+  sdk: [
+    { label: "iOS Setup", description: "SPM install, AppDelegate hooks, push capability, App Group for rich push", done: false },
+    { label: "Android Setup", description: "Gradle dep, AndroidManifest, FCM service account, notification channels", done: false },
+    { label: "Web Setup", description: "npm or CDN snippet, service worker for web push, IAM container", done: false },
+    { label: "Identity", description: "`changeUser` on login, anonymous → identified merge logic", done: false },
+    { label: "Event Tracking", description: "Logged events, purchases, custom attributes per analytics plan", done: false },
   ],
-  payroll: [
-    { label: "Pay Groups & Calendar", description: "Define pay groups, frequencies, periods, off-cycle rules", done: false },
-    { label: "Earnings & Deductions", description: "Configure all earning, deduction, and tax codes", done: false },
-    { label: "Tax Setup", description: "Validate FEINs, SUTA rates, state/local tax registrations", done: false },
-    { label: "GL Mapping", description: "Map payroll postings to client's chart of accounts", done: false },
-    { label: "Direct Deposit", description: "Configure DD splits, pre-notes, pay card option", done: false },
+  data: [
+    { label: "Source Selection", description: "Decide Segment vs. mParticle vs. CDI vs. REST per use case", done: false },
+    { label: "Schema Design", description: "Custom attributes & event taxonomy aligned with analytics", done: false },
+    { label: "Identity Resolution", description: "external_id strategy across web, mobile, and offline systems", done: false },
+    { label: "Consent", description: "Forward GDPR/CCPA consent state to Braze subscription groups", done: false },
+    { label: "Warehouse Export", description: "Configure Currents or Cloud Data Sharing to Snowflake/BigQuery", done: false },
   ],
-  benefits: [
-    { label: "Plan Setup", description: "Build medical, dental, vision, FSA/HSA, life plans", done: false },
-    { label: "Rates & Tiers", description: "Load EE / EE+spouse / EE+child / family rates", done: false },
-    { label: "Eligibility Rules", description: "Define waiting periods and class-based eligibility", done: false },
-    { label: "Open Enrollment", description: "Build OE wizard and decision support", done: false },
-    { label: "EDI 834 Carriers", description: "Build carrier files and complete carrier testing", done: false },
+  canvas: [
+    { label: "Use-Case Map", description: "Prioritize 5–8 launch use cases and entry triggers", done: false },
+    { label: "Welcome / Onboarding", description: "Multi-step welcome with channel branching", done: false },
+    { label: "Abandoned / Browse", description: "Catalog-personalized recovery Canvas", done: false },
+    { label: "Re-engagement / Churn", description: "Predictive risk → win-back Canvas with Intelligent Channel", done: false },
+    { label: "Transactional", description: "Order confirm, shipping, password reset via API-triggered Canvas", done: false },
   ],
-  talent: [
-    { label: "Performance", description: "Configure review template, calibration, cycle dates", done: false },
-    { label: "Compensation", description: "Build merit matrix, budget loading, manager workspace", done: false },
-    { label: "Succession", description: "Configure 9-box and successor pools for critical roles", done: false },
-    { label: "Learning", description: "Set up course catalog, assignments, compliance tracking", done: false },
-    { label: "Career Mobility", description: "Enable career profile and internal job posting", done: false },
+  channels: [
+    { label: "Push Setup", description: "APNs + FCM, notification permission prompt strategy", done: false },
+    { label: "Email Authentication", description: "SPF, DKIM, DMARC; subdomain + IP warming plan", done: false },
+    { label: "SMS / WhatsApp", description: "10DLC registration, template approval, opt-in capture", done: false },
+    { label: "In-App + Content Cards", description: "Template library + targeting rules", done: false },
+    { label: "Subscription Center", description: "Granular subscription groups + preference center", done: false },
   ],
-  time: [
-    { label: "Pay Rules", description: "Configure OT, double-time, shift differentials, blended rates", done: false },
-    { label: "Schedules", description: "Build schedule templates and union rotation patterns", done: false },
-    { label: "Accruals", description: "Configure PTO, sick, bereavement, FMLA accrual rules", done: false },
-    { label: "Time Clocks", description: "Connect physical clocks and mobile punch with geofence", done: false },
-    { label: "Approvals", description: "Configure manager approval workflows for time and exceptions", done: false },
+  ai: [
+    { label: "Sage AI Copilot", description: "Enable workspace, define brand voice, train on top performers", done: false },
+    { label: "Intelligent Channel", description: "Enable on Canvases with 2+ channels per user", done: false },
+    { label: "Intelligent Timing", description: "Per-user optimal send time on lifecycle Canvases", done: false },
+    { label: "Catalogs", description: "Sync product feed, version it, render via Liquid", done: false },
+    { label: "Connected Content", description: "Secure outbound calls to customer APIs at send time", done: false },
   ],
 };
-
 
 const statusStyles: Record<string, { label: string; classes: string }> = {
   pending: { label: "Pending", classes: "bg-muted text-muted-foreground" },
@@ -162,8 +160,7 @@ const statusStyles: Record<string, { label: string; classes: string }> = {
 const fadeUp = { initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.3 } };
 
 export default function DataWorkflows() {
-  const [activeModule, setActiveModule] = useState<ModuleId>("hr");
-
+  const [activeModule, setActiveModule] = useState<ModuleId>("sdk");
   const [checklistStates, setChecklistStates] = useState<Record<string, boolean[]>>({});
   const [migrationStates, setMigrationStates] = useState<Record<string, MigrationItem[]>>({});
   const [configStates, setConfigStates] = useState<Record<string, boolean[]>>({});
@@ -187,7 +184,6 @@ export default function DataWorkflows() {
     updated[idx] = !updated[idx];
     setChecklistStates(prev => ({ ...prev, [activeModule]: updated }));
   }
-
   function cycleMigrationStatus(idx: number) {
     const order: MigrationItem["status"][] = ["pending", "in-progress", "complete", "failed"];
     const updated = [...migrations];
@@ -195,7 +191,6 @@ export default function DataWorkflows() {
     updated[idx] = { ...updated[idx], status: order[(currentIdx + 1) % order.length] };
     setMigrationStates(prev => ({ ...prev, [activeModule]: updated }));
   }
-
   function toggleConfig(idx: number) {
     const updated = [...configChecked];
     updated[idx] = !updated[idx];
@@ -209,9 +204,9 @@ export default function DataWorkflows() {
       <motion.div {...fadeUp}>
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">Sage HCM Modules</h1>
+            <h1 className="text-2xl font-bold tracking-tight">Braze Workstreams</h1>
             <p className="text-sm text-muted-foreground mt-1">
-              Configure, migrate and validate each module of the Sage HCM suite
+              Configure, migrate and validate each workstream of a Braze onboarding
             </p>
           </div>
           <Badge variant="outline" className="text-xs gap-1.5 px-3 py-1.5">
@@ -232,9 +227,7 @@ export default function DataWorkflows() {
                 onClick={() => setActiveModule(id)}
                 className={cn(
                   "rounded-xl border p-4 text-left transition-all hover:shadow-md",
-                  isActive
-                    ? "border-primary bg-primary/5 ring-2 ring-primary/20"
-                    : "border-border hover:border-primary/30"
+                  isActive ? "border-primary bg-primary/5 ring-2 ring-primary/20" : "border-border hover:border-primary/30"
                 )}
               >
                 <Icon className={cn("h-5 w-5 mb-2", meta.color)} />
@@ -253,7 +246,7 @@ export default function DataWorkflows() {
               <ModuleIcon className={cn("h-5 w-5", modulesMeta[activeModule].color)} />
               <div className="flex-1">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-semibold">{modulesMeta[activeModule].label} Module Progress</h3>
+                  <h3 className="text-sm font-semibold">{modulesMeta[activeModule].label} Progress</h3>
                   <span className="text-sm font-semibold">{overallProgress}%</span>
                 </div>
                 <Progress value={overallProgress} className="h-2 mt-2" />
@@ -283,7 +276,7 @@ export default function DataWorkflows() {
             <CheckCircle2 className="h-3.5 w-3.5" /> Implementation Checklist
           </TabsTrigger>
           <TabsTrigger value="migration" className="gap-1.5 text-xs">
-            <Upload className="h-3.5 w-3.5" /> Data Migration
+            <Upload className="h-3.5 w-3.5" /> Migration
           </TabsTrigger>
           <TabsTrigger value="config" className="gap-1.5 text-xs">
             <Settings className="h-3.5 w-3.5" /> Configuration
@@ -294,14 +287,7 @@ export default function DataWorkflows() {
           <motion.div {...fadeUp}>
             <Card>
               <CardHeader className="pb-3">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-sm">{modulesMeta[activeModule].label} Implementation Tasks</CardTitle>
-                  {checklistDone === checklist.length && checklist.length > 0 && (
-                    <Badge className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20 text-[10px]">
-                      <CheckCircle2 className="h-3 w-3 mr-1" /> All Complete
-                    </Badge>
-                  )}
-                </div>
+                <CardTitle className="text-sm">{modulesMeta[activeModule].label} Tasks</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="h-1.5 w-full bg-muted rounded-full mb-4 overflow-hidden">
@@ -316,13 +302,7 @@ export default function DataWorkflows() {
                   {checklist.map((task, idx) => {
                     const checked = checklistChecked[idx];
                     return (
-                      <label
-                        key={idx}
-                        className={cn(
-                          "flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-colors hover:bg-muted/50",
-                          checked && "opacity-60"
-                        )}
-                      >
+                      <label key={idx} className={cn("flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-colors hover:bg-muted/50", checked && "opacity-60")}>
                         <Checkbox checked={checked} onCheckedChange={() => toggleChecklist(idx)} />
                         <span className={cn("text-sm", checked && "line-through text-muted-foreground")}>{task.label}</span>
                       </label>
@@ -338,34 +318,24 @@ export default function DataWorkflows() {
           <motion.div {...fadeUp}>
             <Card>
               <CardHeader className="pb-3">
-                <CardTitle className="text-sm">{modulesMeta[activeModule].label} Data Migration</CardTitle>
+                <CardTitle className="text-sm">Data & Asset Migration</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="rounded-lg border overflow-hidden">
-                  <div className="grid grid-cols-[1fr_1fr_auto_auto] gap-4 text-[11px] font-medium text-muted-foreground bg-muted/50 px-4 py-2.5">
-                    <span>Source System</span>
-                    <span>Target in Sage HCM</span>
-                    <span className="text-center">Records</span>
-                    <span className="text-center">Status</span>
-                  </div>
-                  <div className="divide-y">
-                    {migrations.map((m, idx) => {
-                      const status = statusStyles[m.status];
-                      return (
-                        <div key={idx} className="grid grid-cols-[1fr_1fr_auto_auto] gap-4 items-center px-4 py-3 text-sm">
-                          <span>{m.source}</span>
-                          <span className="font-medium">{m.target}</span>
-                          <span className="text-xs text-muted-foreground text-center">{m.records}</span>
-                          <button
-                            onClick={() => cycleMigrationStatus(idx)}
-                            className={cn("text-[10px] px-2 py-1 rounded-full font-medium transition-colors", status.classes)}
-                          >
-                            {status.label}
-                          </button>
+                <div className="space-y-2">
+                  {migrations.map((m, idx) => {
+                    const style = statusStyles[m.status];
+                    return (
+                      <div key={idx} className="flex items-center justify-between rounded-lg border p-3">
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium">{m.source} → {m.target}</p>
+                          <p className="text-xs text-muted-foreground">{m.records}</p>
                         </div>
-                      );
-                    })}
-                  </div>
+                        <button onClick={() => cycleMigrationStatus(idx)} className={cn("text-[11px] font-medium px-2.5 py-1 rounded-full", style.classes)}>
+                          {style.label}
+                        </button>
+                      </div>
+                    );
+                  })}
                 </div>
               </CardContent>
             </Card>
@@ -376,24 +346,18 @@ export default function DataWorkflows() {
           <motion.div {...fadeUp}>
             <Card>
               <CardHeader className="pb-3">
-                <CardTitle className="text-sm">{modulesMeta[activeModule].label} Configuration Steps</CardTitle>
+                <CardTitle className="text-sm">Configuration Steps</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-1">
-                  {config.map((step, idx) => {
+                <div className="space-y-2">
+                  {config.map((s, idx) => {
                     const checked = configChecked[idx];
                     return (
-                      <label
-                        key={idx}
-                        className={cn(
-                          "flex items-start gap-3 px-3 py-3 rounded-lg cursor-pointer transition-colors hover:bg-muted/50",
-                          checked && "opacity-60"
-                        )}
-                      >
+                      <label key={idx} className={cn("flex items-start gap-3 px-3 py-3 rounded-lg cursor-pointer transition-colors hover:bg-muted/50 border", checked && "opacity-60")}>
                         <Checkbox checked={checked} onCheckedChange={() => toggleConfig(idx)} className="mt-0.5" />
-                        <div>
-                          <p className={cn("text-sm font-medium", checked && "line-through text-muted-foreground")}>{step.label}</p>
-                          <p className="text-xs text-muted-foreground mt-0.5">{step.description}</p>
+                        <div className="flex-1 min-w-0">
+                          <p className={cn("text-sm font-medium", checked && "line-through text-muted-foreground")}>{s.label}</p>
+                          <p className="text-xs text-muted-foreground">{s.description}</p>
                         </div>
                       </label>
                     );

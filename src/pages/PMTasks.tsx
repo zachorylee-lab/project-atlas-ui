@@ -25,27 +25,27 @@ type Task = {
 };
 
 const initialTasks: Task[] = [
-  // Northwind Logistics
-  { id: "t1", title: "Confirm 12 FEIN registrations & SUTA rates", client: "Northwind Logistics", owner: "Me", due: "Apr 12", priority: "P1", status: "doing" },
-  { id: "t2", title: "Kickoff meeting agenda + RACI", client: "Northwind Logistics", owner: "Me", due: "Apr 8", priority: "P2", status: "todo" },
-  { id: "t3", title: "Engage IT for SAML SSO discovery (Okta)", client: "Northwind Logistics", owner: "Implementation Mgr", due: "Apr 15", priority: "P2", status: "todo" },
+  // Canva Pro
+  { id: "t1", title: "Validate Segment → Braze event schema (28 custom events)", client: "Canva Pro", owner: "Me", due: "Apr 12", priority: "P1", status: "doing" },
+  { id: "t2", title: "Kickoff agenda + RACI with Lifecycle, Data, Mobile leads", client: "Canva Pro", owner: "Me", due: "Apr 8", priority: "P2", status: "todo" },
+  { id: "t3", title: "Engage Mobile Eng for iOS + Android SDK install", client: "Canva Pro", owner: "Onboarding Eng", due: "Apr 15", priority: "P2", status: "todo" },
 
-  // Coastal Health
-  { id: "t4", title: "Carrier 834 test files — all 6 carriers", client: "Coastal Health", owner: "Config Specialist", due: "Apr 5", priority: "P1", status: "doing" },
-  { id: "t5", title: "Run parallel payroll #2 — reconcile to penny", client: "Coastal Health", owner: "Me", due: "Apr 3", priority: "P1", status: "doing" },
-  { id: "t6", title: "Schedule Go/No-Go review with CHRO + CFO", client: "Coastal Health", owner: "Me", due: "Apr 10", priority: "P1", status: "todo" },
+  // MetLife
+  { id: "t4", title: "mParticle audience sync — validate identity resolution", client: "MetLife", owner: "Onboarding Eng", due: "Apr 5", priority: "P1", status: "doing" },
+  { id: "t5", title: "Email IP warming week 3 — review engagement gates", client: "MetLife", owner: "Me", due: "Apr 3", priority: "P1", status: "doing" },
+  { id: "t6", title: "Schedule Go/No-Go with CMO + Chief Customer Officer", client: "MetLife", owner: "Me", due: "Apr 10", priority: "P1", status: "todo" },
 
-  // Higginbotham
-  { id: "t7", title: "Hypercare exit report + CSAT survey", client: "Higginbotham Insurance", owner: "Me", due: "Apr 22", priority: "P2", status: "todo" },
-  { id: "t8", title: "Customer Success transition meeting", client: "Higginbotham Insurance", owner: "Me", due: "Apr 25", priority: "P3", status: "todo" },
+  // Wyndham
+  { id: "t7", title: "Hypercare exit report + CSAT survey", client: "Wyndham Hotels", owner: "Me", due: "Apr 22", priority: "P2", status: "todo" },
+  { id: "t8", title: "CSM transition meeting + BAU runbook", client: "Wyndham Hotels", owner: "Me", due: "Apr 25", priority: "P3", status: "todo" },
 
-  // Apex
-  { id: "t9", title: "Issue change order — added Time & Attendance scope", client: "Apex Property Mgmt", owner: "Me", due: "Apr 4", priority: "P1", status: "blocked" },
-  { id: "t10", title: "Risk register update — OE timeline at risk", client: "Apex Property Mgmt", owner: "Me", due: "Apr 6", priority: "P1", status: "doing" },
+  // Max
+  { id: "t9", title: "Issue change order — Iterable content migration scope", client: "Max Streaming", owner: "Me", due: "Apr 4", priority: "P1", status: "blocked" },
+  { id: "t10", title: "Risk register — launch date at risk; propose new plan", client: "Max Streaming", owner: "Me", due: "Apr 6", priority: "P1", status: "doing" },
 
   // Done
-  { id: "t11", title: "Submit weekly status report — all clients", client: "All Clients", owner: "Me", due: "Apr 1", priority: "P2", status: "done" },
-  { id: "t12", title: "Meridian Manufacturing — first live payroll", client: "Meridian Manufacturing", owner: "Me", due: "Mar 28", priority: "P1", status: "done" },
+  { id: "t11", title: "Submit weekly status report — all customers", client: "All Customers", owner: "Me", due: "Apr 1", priority: "P2", status: "done" },
+  { id: "t12", title: "Delivery Hero — first production Canvas live", client: "Delivery Hero", owner: "Me", due: "Mar 28", priority: "P1", status: "done" },
 ];
 
 const columns: { id: Status; label: string; color: string }[] = [
@@ -96,13 +96,7 @@ function DraggableTask({ task }: { task: Task }) {
 function DroppableColumn({ id, children }: { id: Status; children: React.ReactNode }) {
   const { setNodeRef, isOver } = useDroppable({ id });
   return (
-    <div
-      ref={setNodeRef}
-      className={cn(
-        "space-y-2 min-h-[200px] p-2 rounded-lg transition-colors",
-        isOver && "bg-primary/5 ring-2 ring-primary/20"
-      )}
-    >
+    <div ref={setNodeRef} className={cn("space-y-2 min-h-[200px] p-2 rounded-lg transition-colors", isOver && "bg-primary/5 ring-2 ring-primary/20")}>
       {children}
     </div>
   );
@@ -111,39 +105,29 @@ function DroppableColumn({ id, children }: { id: Status; children: React.ReactNo
 export default function PMTasks() {
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
   const [activeId, setActiveId] = useState<string | null>(null);
-
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
   const activeTask = tasks.find(t => t.id === activeId) ?? null;
 
-  function handleDragStart(e: DragStartEvent) {
-    setActiveId(String(e.active.id));
-  }
-
+  function handleDragStart(e: DragStartEvent) { setActiveId(String(e.active.id)); }
   function handleDragEnd(e: DragEndEvent) {
     setActiveId(null);
     const { active, over } = e;
     if (!over) return;
     const newStatus = String(over.id) as Status;
     if (!columns.find(c => c.id === newStatus)) return;
-    setTasks(prev =>
-      prev.map(t => (t.id === String(active.id) ? { ...t, status: newStatus } : t))
-    );
+    setTasks(prev => prev.map(t => (t.id === String(active.id) ? { ...t, status: newStatus } : t)));
   }
 
-  const counts = columns.map(c => ({
-    ...c,
-    count: tasks.filter(t => t.status === c.id).length,
-  }));
-
+  const counts = columns.map(c => ({ ...c, count: tasks.filter(t => t.status === c.id).length }));
   const p1Open = tasks.filter(t => t.priority === "P1" && t.status !== "done").length;
 
   return (
     <DashboardLayout>
       <div className="space-y-6 max-w-[1400px]">
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-2xl font-semibold">PM Task Board</h1>
+          <h1 className="text-2xl font-semibold">DM Task Board</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Daily project management board across every active Sage HCM client. Drag tasks to update status.
+            Daily delivery management board across every active Braze customer onboarding. Drag tasks to update status.
           </p>
         </motion.div>
 
@@ -179,9 +163,7 @@ export default function PMTasks() {
                       <ListChecks className="h-3.5 w-3.5" />
                       <h3 className="text-xs font-semibold uppercase tracking-wider">{col.label}</h3>
                     </div>
-                    <span className={cn("text-[10px] font-medium rounded-full px-2 py-0.5", col.color)}>
-                      {col.count}
-                    </span>
+                    <span className={cn("text-[10px] font-medium rounded-full px-2 py-0.5", col.color)}>{col.count}</span>
                   </div>
                   <DroppableColumn id={col.id}>
                     {colTasks.length > 0 ? (
