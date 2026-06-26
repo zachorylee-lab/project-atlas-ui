@@ -9,6 +9,46 @@ type QA = { q: string; a: string };
 
 const sections: { title: string; icon: React.ElementType; color: string; intro: string; qas: QA[] }[] = [
   {
+    title: "JD-Specific: Expert Services & The DM Mission",
+    icon: Sparkles,
+    color: "text-primary",
+    intro: "Questions drawn directly from the Braze Delivery Manager JD — Expert Services, fixed-length engagements, TA partnership, Time-to-Value, Decisioning Studio.",
+    qas: [
+      {
+        q: "How do you describe the Braze Delivery Manager role in your own words?",
+        a: `It's end-to-end ownership of fixed-length professional services inside Braze's Expert Services team. I project-manage a portfolio of new and existing customer implementations to accelerate Time-to-Value and protect ROI on their Braze investment. I sit on the Implementation Team next to a Technical Architect, and I orchestrate across AEs, CSMs, customer agencies, and the customer's lifecycle / data / engineering leaders to land launches on time and at quality. The TA owns the technical depth; I own the plan, the relationship, the risk, and the outcome.`,
+      },
+      {
+        q: "What's the difference between the Delivery Manager and the Technical Architect?",
+        a: `The TA is the technical authority — they design the data model, recommend SDK and ingestion patterns, and validate Canvas architecture. I'm accountable for the program: scope, plan, RACI, status, risks, change orders, stakeholder alignment, and CSAT. The JD also says DMs can "take ownership of technical workstreams when required" — so I lean in on things like sequencing the SDK install, brokering integration decisions, and running UAT, but I escalate deep platform calls to the TA. The pairing is the unit of delivery — neither of us succeeds alone.`,
+      },
+      {
+        q: "How do you drive fast Time-to-Value on a Braze onboarding?",
+        a: `Four moves. (1) In handoff and kickoff I lock the smallest valuable launch — usually one foundational Canvas (welcome) on one or two channels — and protect it from scope creep. (2) I parallelize SDK install, data ingestion, and channel auth from week one instead of running them serially. (3) I set Time to First Send and Time to First Canvas as the headline KPIs and report against them weekly. (4) I introduce BrazeAI features (Intelligent Timing, then Intelligent Channel) on the foundational Canvas so the customer sees measurable lift inside the engagement window, not 6 months later.`,
+      },
+      {
+        q: "How do you handle a customer's agency or third party during implementation?",
+        a: `I treat them as a named stakeholder in the RACI from day one — agency lead gets the same status emails, same Smartsheet access, same Slack Connect channel as the customer. I clarify in writing who owns what: usually the agency owns campaign content and Liquid, my TA owns platform configuration, the customer owns data and approvals. I escalate misalignment to the customer sponsor early — the customer signed the SOW with Braze, not with the agency, so the accountability line stays with them.`,
+      },
+      {
+        q: "What's Decisioning Studio and why does it matter for a DM?",
+        a: `Decisioning Studio is Braze's environment for orchestrating AI-driven, real-time decisions across the customer journey — channel, content, timing, and offer selection per user. The JD specifically calls out Decisioning Studio Technical Enablement for DMs, so they expect me to stay current on it. From a DM lens it matters because it's where advanced customers extract real ROI from BrazeAI, and it's a natural enablement workshop I'd deliver during Build or pre-Hypercare to set the customer up for self-service.`,
+      },
+      {
+        q: "How do you balance customer enablement with execution?",
+        a: `Enablement isn't a phase — I weave it through the engagement. Kickoff includes a platform tour, build phase pairs the customer's lifecycle marketer with the TA on the first two Canvases, testing phase is when I run the Decisioning Studio workshop, and hypercare includes office hours so they can ask "how do I…" questions on real work. By go-live the customer is already operating the platform with me looking over their shoulder, not the other way around. That's also how I keep utilization clean — I'm not the one clicking forever.`,
+      },
+      {
+        q: "How do you transition a customer to the CSM cleanly?",
+        a: `I document stakeholder roles and hierarchy in a detailed account record (decision-makers, day-to-day users, technical contacts, agency partners), summarize the program — what shipped, what's in the Phase 2 backlog, known risks, deliverability posture, BrazeAI maturity — and run a joint warm-handoff call with the CSM and customer sponsor. The CSM should walk into week one already knowing the politics, the open commitments, and the upsell hooks. The JD calls this out as a core DM responsibility, and it's how Braze keeps net retention high.`,
+      },
+      {
+        q: "How do you advocate customer feedback to Product?",
+        a: `I log feature requests against the use case that generated them — not as "customer wants X" but as "regulated financial services customer trying to do Y is blocked by Z." I bring patterns (not one-offs) to Braze's product team via the standard PM intake and to the AE for roadmap conversations. The JD names "advocating customer business use-cases to product development" explicitly, so I'd treat that as a weekly habit, not a quarterly one.`,
+      },
+    ],
+  },
+  {
     title: "About You & Role Fit",
     icon: Briefcase,
     color: "text-primary",
@@ -16,18 +56,18 @@ const sections: { title: string; icon: React.ElementType; color: string; intro: 
     qas: [
       {
         q: "Walk me through your background and why Braze.",
-        a: `I'm a delivery manager with experience leading SaaS implementations — most recently in MarTech and customer engagement. I'm drawn to Braze because of the breadth of the platform (cross-channel messaging, Canvas Flow orchestration, BrazeAI decisioning) and because your customers — Wyndham, MetLife, Delivery Hero, Canva — sit at a scale where a strong delivery manager makes the difference between a six-month stall and a fast, clean launch. I want to bring rigorous delivery discipline and clear executive communication to your Customer Onboarding team.`,
+        a: `I'm a delivery manager with experience leading SaaS implementations — most recently in MarTech and customer engagement. I'm drawn to Braze because of the breadth of the platform (cross-channel messaging, Canvas Flow orchestration, BrazeAI decisioning, Decisioning Studio) and because your customers — Wyndham, MetLife, Delivery Hero, Canva — sit at a scale where a strong delivery manager makes the difference between a six-month stall and a fast, clean launch. I want to bring rigorous Expert Services delivery discipline and clear executive communication to the Customer Onboarding team.`,
       },
       {
         q: "What does a Delivery Manager actually own at a platform like Braze?",
-        a: `Three things. First, the plan — scope, timeline, RACI, risk, change orders, status. Second, the cross-functional orchestration — pulling in Onboarding Engineers, Solutions Consultants, Technical Account Managers, and the customer's lifecycle / data / mobile teams at the right moments. Third, the outcome — Time to First Send, Time to First Canvas, deliverability, and customer CSAT. The OE writes the SDK install; the DM owns whether the launch happens on time and the customer is happy.`,
+        a: `Three things. First, the plan — scope, timeline, RACI, risk, change orders, status. Second, the cross-functional orchestration — pulling in the Technical Architect, Customer Success Manager, Account Executive, and the customer's lifecycle / data / mobile teams (plus agencies) at the right moments. Third, the outcome — Time to First Send, Time to First Canvas, on-time fixed-length delivery, and customer CSAT. The TA owns the technical design; the DM owns whether the launch happens on time and the customer is happy.`,
       },
       {
         q: "Tell me about a successful implementation you've led.",
-        a: `(Use STAR.) Situation: a retailer with 6M customers moving off Iterable in 12 weeks tied to peak season. Task: own end-to-end delivery — SDK reinstall on iOS/Android/Web, Segment data migration, 18 Canvas rebuild, IP warming. Action: phased plan in Smartsheet, weekly executive status, parallel sends for 4 weeks, deliverability seed tests before every cutover step. Result: launched 5 days early, deliverability above 98%, +14% conversion vs. legacy baseline, CSAT 4.9. The customer became a Forrester case study.`,
+        a: `(Use STAR.) Situation: a retailer with 6M customers moving off Iterable in 12 weeks tied to peak season. Task: own end-to-end delivery — SDK reinstall on iOS/Android/Web, Segment data migration, 18 Canvas rebuild, IP warming. Action: phased plan in Smartsheet, weekly executive status, parallel sends for 4 weeks, deliverability seed tests before every cutover step, TA paired with customer mobile lead for SDK. Result: launched 5 days early, deliverability above 98%, +14% conversion vs. legacy baseline, CSAT 4.9. The customer became a Forrester case study.`,
       },
       {
-        q: "Why hybrid / are you comfortable with onsite NYC time?",
+        q: "Why hybrid / are you comfortable with onsite NYC / Austin time?",
         a: `Fully comfortable. Onboarding work benefits from in-person collaboration — kickoffs, war rooms during go-live week, whiteboarding Canvas architecture with the customer's lifecycle and engineering teams. I'd treat onsite days as the time for cross-functional alignment and reserve remote days for status, plan maintenance, and async customer work.`,
       },
     ],
