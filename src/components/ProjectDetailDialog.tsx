@@ -184,6 +184,9 @@ export function ProjectDetailDialog({ project, open, onOpenChange }: ProjectDeta
   }
 
   const projectNotes = notes[key] ?? [];
+  const ttv = ttvOverrides[key] ?? defaultTTV(project.startDate, project.targetDate);
+  const ttvDone = ttv.filter((m) => m.status === "done").length;
+  const ttvPct = ttv.length ? Math.round((ttvDone / ttv.length) * 100) : 0;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
