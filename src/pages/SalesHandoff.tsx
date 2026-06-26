@@ -67,7 +67,7 @@ const checklist = [
   "Executive sponsor (CMO / VP Lifecycle) identified",
   "Success criteria & Time to First Send target confirmed",
   "Privacy / Legal contact identified (GDPR/CCPA)",
-  "Braze Delivery Manager, OE, and TAM assigned",
+  "Braze Delivery Manager, Technical Architect (TA), and CSM assigned",
   "Customer kickoff scheduled",
   "Risk & change management plan drafted",
 ];
