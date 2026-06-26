@@ -15,9 +15,9 @@ import { motion } from "framer-motion";
 
 const stats = [
   { label: "Active Onboardings", value: "12", change: "+4 this quarter", icon: Briefcase, trend: "up" as const },
-  { label: "Time to First Send", value: "18 days", change: "Target: 21 days", icon: Clock, trend: "up" as const },
-  { label: "On-Time Go-Lives", value: "91%", change: "TTM rolling avg", icon: Clock, trend: "up" as const },
-  { label: "Customer CSAT", value: "4.7/5", change: "Post-launch survey", icon: Smile, trend: "up" as const },
+  { label: "Time to First Send", value: "18 days", change: "Target: 21 days · TTV proxy", icon: Clock, trend: "up" as const },
+  { label: "On-Time Fixed-Length Delivery", value: "91%", change: "TTM rolling avg", icon: Clock, trend: "up" as const },
+  { label: "Customer CSAT", value: "4.7/5", change: "Post-launch · pre-CSM transition", icon: Smile, trend: "up" as const },
 ];
 
 const activeProjects = [
@@ -39,9 +39,9 @@ export default function Dashboard() {
     <DashboardLayout>
       <div className="space-y-8 max-w-7xl">
         <motion.div {...fadeUp}>
-          <h1 className="text-2xl font-semibold text-foreground">Customer Onboarding Dashboard</h1>
+          <h1 className="text-2xl font-semibold text-foreground">Expert Services · Delivery Dashboard</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Portfolio view across Braze customer implementations — SDK integration, data ingestion, Canvas journeys, channels, and BrazeAI.
+            Portfolio view across fixed-length Braze implementations — partnering with Technical Architects, CSMs, and AEs to drive Time-to-Value and ROI across SDKs, data, Canvas, channels, BrazeAI, and Decisioning Studio.
           </p>
         </motion.div>
 

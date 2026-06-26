@@ -19,15 +19,15 @@ const phaseDetails: Record<string, { tasks: string[]; deliverables: string[]; st
       "Confirm SDK platforms in scope (iOS, Android, Web, React Native, Flutter)",
       "Identify data source: Segment / mParticle / Snowflake CDI / direct REST",
       "Confirm migration source (Iterable, MoEngage, SFMC, Responsys, Airship)",
-      "Provision Braze dashboard, workspaces and assign Delivery Manager, OSC, TAM, Onboarding Engineer",
+      "Provision Braze dashboard + workspaces; assign Delivery Manager, Technical Architect (TA), CSM, and AE per the Expert Services pod model",
     ],
     deliverables: [
-      "Sales-to-Delivery handoff brief",
+      "Sales-to-Delivery handoff brief (fixed-length SOW scope locked)",
       "Channels & SDK scope confirmation",
       "Braze workspace + sandbox credentials",
-      "Statement of Work confirmation",
+      "Statement of Work + Time-to-Value targets confirmed",
     ],
-    stakeholders: ["Braze AE", "Delivery Lead", "Delivery Manager", "Customer VP Lifecycle / CRM Director"],
+    stakeholders: ["Braze AE", "Delivery Lead", "Delivery Manager", "Technical Architect", "CSM", "Customer VP Lifecycle / CRM Director"],
   },
   kickoff: {
     tasks: [
@@ -61,7 +61,7 @@ const phaseDetails: Record<string, { tasks: string[]; deliverables: string[]; st
       "Channel configuration documented (push certs, IP warming plan, sending domains)",
       "First three Canvases built in staging with sign-off",
     ],
-    stakeholders: ["Delivery Manager", "Onboarding Engineer", "Customer Mobile/Web Eng", "Customer Data Eng", "Customer Lifecycle Marketer"],
+    stakeholders: ["Delivery Manager", "Technical Architect", "Customer Mobile/Web Eng", "Customer Data Eng", "Customer Lifecycle Marketer", "Customer agencies / 3rd parties"],
   },
   testing: {
     tasks: [
@@ -83,7 +83,8 @@ const phaseDetails: Record<string, { tasks: string[]; deliverables: string[]; st
   golive: {
     tasks: [
       "Execute cutover: production SDK keys, production data sources, DNS authentication live",
-      "Send first production campaign with Delivery Manager + OE on-call",
+      "Send first production campaign with Delivery Manager + Technical Architect on-call",
+      "Deliver Decisioning Studio enablement workshop so customer can self-serve advanced logic post-launch",
       "Open command center / Slack war room for launch week",
       "Send customer comms: dashboard access, training links, support routing",
       "Daily executive standup; track P1/P2 issues to closure",
@@ -100,8 +101,9 @@ const phaseDetails: Record<string, { tasks: string[]; deliverables: string[]; st
     tasks: [
       "Run 30–60 day hypercare with daily then weekly check-ins",
       "Stabilize first major campaign cycle (holiday, plan-year, OE-style moment)",
-      "Capture CSAT survey and identify expansion opportunities (additional channels, BrazeAI add-ons)",
-      "Transition to Customer Success / Technical Account Manager",
+      "Capture CSAT survey and surface expansion use-cases to AE + CSM (additional channels, BrazeAI, Decisioning Studio)",
+      "Document stakeholder hierarchy and transition account to Customer Success Manager (CSM)",
+      "Feed customer use-case feedback to Product as advocacy input",
       "Hold internal Braze retro: what to repeat, what to fix",
     ],
     deliverables: [
