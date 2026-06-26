@@ -196,7 +196,7 @@ const sections: { title: string; icon: React.ElementType; color: string; intro: 
       },
       {
         q: "What questions do you have for us?",
-        a: `Good ones to ask back: (1) What does the average book of customers look like for a DM here — count, ARR, complexity? (2) How does Braze measure DM success — Time to First Send, CSAT, on-time launch, utilization? (3) How does the DM partner with the Technical Architect, Solutions Consultant, and TAM day-to-day? (4) What's the biggest delivery challenge the Customer Onboarding team is solving for in 2026 — Iterable migrations, BrazeAI adoption, something else? (5) What does a successful first 90 days look like in this role?`,
+        a: `Good ones to ask back: (1) What does the average book of customers look like for a DM here — count, ARR, complexity? (2) How does Braze measure DM success — Time to First Send, CSAT, on-time launch, utilization? (3) How does the DM partner with the Technical Architect, CSM, and AE day-to-day? (4) What's the biggest delivery challenge the Customer Onboarding team is solving for in 2026 — Iterable migrations, BrazeAI adoption, something else? (5) What does a successful first 90 days look like in this role?`,
       },
     ],
   },
