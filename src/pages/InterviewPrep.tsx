@@ -80,7 +80,7 @@ const sections: { title: string; icon: React.ElementType; color: string; intro: 
     qas: [
       {
         q: "Walk me through a Braze SDK install from a DM perspective.",
-        a: `I scope and sequence — I don't write the code, the customer's mobile/web engineers do. From a DM lens: (1) confirm platforms in scope (iOS, Android, Web, React Native, Flutter); (2) confirm push setup — APNs auth key on iOS, FCM v1 service account on Android; (3) get an Onboarding Engineer paired with the customer's engineering lead; (4) validate sessions, custom events, purchases, and changeUser in the dashboard live feed before we declare it done; (5) push a real device test across an OS major version matrix. The single biggest mistake is calling SDK done without device testing.`,
+        a: `I scope and sequence — I don't write the code, the customer's mobile/web engineers do. From a DM lens: (1) confirm platforms in scope (iOS, Android, Web, React Native, Flutter); (2) confirm push setup — APNs auth key on iOS, FCM v1 service account on Android; (3) get an Technical Architect paired with the customer's engineering lead; (4) validate sessions, custom events, purchases, and changeUser in the dashboard live feed before we declare it done; (5) push a real device test across an OS major version matrix. The single biggest mistake is calling SDK done without device testing.`,
       },
       {
         q: "What's a Canvas and how do you sequence its build during onboarding?",
@@ -124,7 +124,7 @@ const sections: { title: string; icon: React.ElementType; color: string; intro: 
       },
       {
         q: "How do you build a RACI on a Braze onboarding?",
-        a: `Rows: Discovery, SDK install, Data ingestion, Identity resolution, Subscription/consent, Channel setup (per channel), Canvas build (per Canvas), Deliverability, UAT, Go-Live, Hypercare. Columns: Braze DM, OE, SC, TAM; Customer VP Lifecycle, Lifecycle Manager, Data Eng, Mobile Eng, Web Eng, Privacy. Every cell gets one R and one A. Reviewed in week 1, updated when people change. It's the single best prevention for "I thought you had it" failures.`,
+        a: `Rows: Discovery, SDK install, Data ingestion, Identity resolution, Subscription/consent, Channel setup (per channel), Canvas build (per Canvas), Deliverability, UAT, Go-Live, Hypercare. Columns: Braze DM, TA, CSM, AE; Customer VP Lifecycle, Lifecycle Manager, Data Eng, Mobile Eng, Web Eng, Privacy. Every cell gets one R and one A. Reviewed in week 1, updated when people change. It's the single best prevention for "I thought you had it" failures.`,
       },
       {
         q: "How do you keep utilization high while doing excellent customer work?",
@@ -164,7 +164,7 @@ const sections: { title: string; icon: React.ElementType; color: string; intro: 
       },
       {
         q: "How comfortable are you coordinating API or file-based integrations?",
-        a: `Very. I don't write code, but I scope, sequence, and broker decisions. I know what to ask — auth method, payload, frequency, error handling, retry logic, who watches the queue when ingestion fails at 2am. I treat each integration as a mini-project with a spec, test plan, sign-off, and a named owner on both sides. I lean on the Onboarding Engineer for the technical depth but keep schedule and risk in my lane.`,
+        a: `Very. I don't write code, but I scope, sequence, and broker decisions. I know what to ask — auth method, payload, frequency, error handling, retry logic, who watches the queue when ingestion fails at 2am. I treat each integration as a mini-project with a spec, test plan, sign-off, and a named owner on both sides. I lean on the Technical Architect for the technical depth but keep schedule and risk in my lane.`,
       },
       {
         q: "How do you stay current on Braze's quarterly product releases?",
@@ -196,7 +196,7 @@ const sections: { title: string; icon: React.ElementType; color: string; intro: 
       },
       {
         q: "What questions do you have for us?",
-        a: `Good ones to ask back: (1) What does the average book of customers look like for a DM here — count, ARR, complexity? (2) How does Braze measure DM success — Time to First Send, CSAT, on-time launch, utilization? (3) How does the DM partner with the Onboarding Engineer, Solutions Consultant, and TAM day-to-day? (4) What's the biggest delivery challenge the Customer Onboarding team is solving for in 2026 — Iterable migrations, BrazeAI adoption, something else? (5) What does a successful first 90 days look like in this role?`,
+        a: `Good ones to ask back: (1) What does the average book of customers look like for a DM here — count, ARR, complexity? (2) How does Braze measure DM success — Time to First Send, CSAT, on-time launch, utilization? (3) How does the DM partner with the Technical Architect, Solutions Consultant, and TAM day-to-day? (4) What's the biggest delivery challenge the Customer Onboarding team is solving for in 2026 — Iterable migrations, BrazeAI adoption, something else? (5) What does a successful first 90 days look like in this role?`,
       },
     ],
   },
