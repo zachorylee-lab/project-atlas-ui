@@ -9,7 +9,8 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Building2, User, Calendar, ListChecks, MessageSquare,
-  CheckCircle2, Clock,
+  CheckCircle2, Clock, Target, Zap, Send, Workflow, Database, Handshake,
+  type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -98,6 +99,59 @@ const seedNotes: Record<string, Note[]> = {
   ],
 };
 
+type MilestoneStatus = "done" | "in-progress" | "upcoming" | "at-risk";
+type TTVMilestone = {
+  label: string;
+  owner: string;
+  date: string;
+  status: MilestoneStatus;
+  icon: LucideIcon;
+  note?: string;
+};
+
+const defaultTTV = (startDate: string, targetDate: string): TTVMilestone[] => [
+  { label: "Kickoff Complete", owner: "Delivery Manager", date: startDate, status: "done", icon: Handshake, note: "Charter signed, RACI distributed" },
+  { label: "SDK Integrated (Dev)", owner: "Technical Architect", date: "+2 wks", status: "done", icon: Zap, note: "iOS / Android / Web SDKs initialized" },
+  { label: "Data Pipeline Live", owner: "Onboarding Engineer", date: "+4 wks", status: "in-progress", icon: Database, note: "Segment / mParticle / CDI events flowing" },
+  { label: "First Production Send", owner: "Lifecycle Lead (Customer)", date: "+6 wks", status: "upcoming", icon: Send, note: "TTFS milestone — Email or Push" },
+  { label: "First Canvas Live", owner: "Strategy Consultant", date: "+8 wks", status: "upcoming", icon: Workflow, note: "TTFC milestone — multi-step journey" },
+  { label: "CSM Transition", owner: "Delivery Manager → CSM", date: targetDate, status: "upcoming", icon: Target, note: "Hypercare exit, success plan handoff" },
+];
+
+const ttvOverrides: Record<string, TTVMilestone[]> = {
+  "1": [
+    { label: "Kickoff Complete", owner: "E. Cicero (DM)", date: "Jan 18", status: "done", icon: Handshake, note: "Wyndham loyalty re-engagement charter signed" },
+    { label: "SDK Integrated", owner: "R. Patel (TA)", date: "Feb 2", status: "done", icon: Zap, note: "iOS + Android SDK v9 live, push tokens flowing" },
+    { label: "Segment CDP Wired", owner: "J. Liu (OE)", date: "Feb 18", status: "done", icon: Database, note: "Loyalty events streaming, identity resolution validated" },
+    { label: "First Production Send", owner: "Wyndham Lifecycle", date: "Mar 5", status: "done", icon: Send, note: "TTFS = 49 days; tier-up email, 38% open rate" },
+    { label: "First Canvas Live", owner: "L. Nguyen (Strategy)", date: "Mar 22", status: "in-progress", icon: Workflow, note: "Welcome → tier-up → win-back, 4-step journey in QA" },
+    { label: "CSM Transition", owner: "E. Cicero → K. Park", date: "Apr 20", status: "upcoming", icon: Target, note: "Hypercare exit + ROI readout scheduled" },
+  ],
+  "2": [
+    { label: "Kickoff Complete", owner: "A. Piggott (DM)", date: "Feb 4", status: "done", icon: Handshake, note: "MetLife exec sponsor aligned on 90M user scope" },
+    { label: "SDK Integrated", owner: "D. Cho (TA)", date: "Feb 20", status: "done", icon: Zap, note: "Web SDK live; native deferred to phase 2" },
+    { label: "mParticle Pipeline Live", owner: "S. Brooks (OE)", date: "Mar 8", status: "done", icon: Database, note: "24M profiles ingested, audience sync nightly" },
+    { label: "First Production Send", owner: "MetLife Lifecycle", date: "Mar 24", status: "in-progress", icon: Send, note: "Policy renewal email in final compliance review" },
+    { label: "First Canvas Live", owner: "M. Alvarez (Strategy)", date: "Apr 2", status: "upcoming", icon: Workflow, note: "Lifecycle journey — email + SMS branching" },
+    { label: "CSM Transition", owner: "A. Piggott → R. Singh", date: "Apr 5", status: "at-risk", icon: Target, note: "Tight window — depends on compliance sign-off" },
+  ],
+  "5": [
+    { label: "Kickoff Complete", owner: "A. Pereira (DM)", date: "Feb 18", status: "done", icon: Handshake },
+    { label: "SDK Integrated", owner: "T. Yamada (TA)", date: "Mar 4", status: "done", icon: Zap, note: "Roku + iOS + Android" },
+    { label: "Iterable→Braze Migration", owner: "P. Osei (OE)", date: "Mar 30", status: "at-risk", icon: Database, note: "Content library mapping behind by ~10 days" },
+    { label: "First Production Send", owner: "Max Lifecycle", date: "Apr 18", status: "at-risk", icon: Send, note: "TTFS slipped; mitigation plan in flight" },
+    { label: "First Canvas Live", owner: "G. Iyer (Strategy)", date: "May 10", status: "upcoming", icon: Workflow, note: "Churn save journey, push + email" },
+    { label: "CSM Transition", owner: "A. Pereira → H. Kim", date: "May 30", status: "upcoming", icon: Target },
+  ],
+};
+
+const statusStyles: Record<MilestoneStatus, { dot: string; badge: string; label: string }> = {
+  "done": { dot: "bg-success border-success", badge: "bg-success/10 text-success border-success/20", label: "Complete" },
+  "in-progress": { dot: "bg-primary border-primary ring-4 ring-primary/15", badge: "bg-primary/10 text-primary border-primary/20", label: "In Progress" },
+  "upcoming": { dot: "bg-muted border-muted-foreground/40", badge: "bg-muted text-muted-foreground border-border", label: "Upcoming" },
+  "at-risk": { dot: "bg-warning border-warning ring-4 ring-warning/15", badge: "bg-warning/10 text-warning border-warning/20", label: "At Risk" },
+};
+
 interface ProjectDetailDialogProps {
   project: ProjectForDetail | null;
   open: boolean;
@@ -130,6 +184,9 @@ export function ProjectDetailDialog({ project, open, onOpenChange }: ProjectDeta
   }
 
   const projectNotes = notes[key] ?? [];
+  const ttv = ttvOverrides[key] ?? defaultTTV(project.startDate, project.targetDate);
+  const ttvDone = ttv.filter((m) => m.status === "done").length;
+  const ttvPct = ttv.length ? Math.round((ttvDone / ttv.length) * 100) : 0;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -202,8 +259,11 @@ export function ProjectDetailDialog({ project, open, onOpenChange }: ProjectDeta
 
         <Separator />
 
-        <Tabs defaultValue="tasks" className="px-6 pb-6 pt-4">
-          <TabsList className="w-full grid grid-cols-2">
+        <Tabs defaultValue="ttv" className="px-6 pb-6 pt-4">
+          <TabsList className="w-full grid grid-cols-3">
+            <TabsTrigger value="ttv" className="flex items-center gap-1.5 text-xs">
+              <Target className="h-3.5 w-3.5" /> TTV ({ttvDone}/{ttv.length})
+            </TabsTrigger>
             <TabsTrigger value="tasks" className="flex items-center gap-1.5 text-xs">
               <ListChecks className="h-3.5 w-3.5" /> Tasks ({doneCount}/{tasks.length})
             </TabsTrigger>
@@ -211,6 +271,56 @@ export function ProjectDetailDialog({ project, open, onOpenChange }: ProjectDeta
               <MessageSquare className="h-3.5 w-3.5" /> Notes ({projectNotes.length})
             </TabsTrigger>
           </TabsList>
+
+          <TabsContent value="ttv" className="mt-4">
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <p className="text-xs font-semibold">Time-to-Value Timeline</p>
+                <p className="text-[11px] text-muted-foreground">Milestones from kickoff to CSM transition · {project.startDate} → {project.targetDate}</p>
+              </div>
+              <Badge variant="secondary" className="text-[10px]">{ttvPct}% complete</Badge>
+            </div>
+            <div className="h-1.5 w-full bg-muted rounded-full mb-5 overflow-hidden">
+              <motion.div className="h-full bg-primary rounded-full" initial={{ width: 0 }} animate={{ width: `${ttvPct}%` }} transition={{ duration: 0.4 }} />
+            </div>
+            <div className="relative pl-2">
+              <div className="absolute left-[19px] top-2 bottom-2 w-px bg-border" aria-hidden />
+              <ul className="space-y-4">
+                {ttv.map((m, i) => {
+                  const s = statusStyles[m.status];
+                  const Icon = m.icon;
+                  return (
+                    <motion.li
+                      key={i}
+                      initial={{ opacity: 0, x: -6 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.04 }}
+                      className="relative flex gap-3"
+                    >
+                      <div className={cn("relative z-10 h-9 w-9 shrink-0 rounded-full border-2 bg-background flex items-center justify-center", s.dot)}>
+                        {m.status === "done" ? (
+                          <CheckCircle2 className="h-4 w-4 text-success-foreground" />
+                        ) : (
+                          <Icon className={cn("h-4 w-4", m.status === "in-progress" ? "text-primary-foreground" : m.status === "at-risk" ? "text-warning-foreground" : "text-muted-foreground")} />
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0 rounded-lg border p-3 -mt-0.5">
+                        <div className="flex items-start justify-between gap-2 mb-1">
+                          <p className="text-sm font-medium leading-tight">{m.label}</p>
+                          <Badge variant="outline" className={cn("text-[10px] shrink-0", s.badge)}>{s.label}</Badge>
+                        </div>
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
+                          <span className="flex items-center gap-1"><User className="h-3 w-3" />{m.owner}</span>
+                          <span className="flex items-center gap-1"><Calendar className="h-3 w-3" />{m.date}</span>
+                        </div>
+                        {m.note && <p className="text-xs text-muted-foreground mt-1.5 leading-snug">{m.note}</p>}
+                      </div>
+                    </motion.li>
+                  );
+                })}
+              </ul>
+            </div>
+          </TabsContent>
 
           <TabsContent value="tasks" className="mt-4">
             <div className="flex items-center justify-between mb-3">
