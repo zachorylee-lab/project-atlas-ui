@@ -259,8 +259,11 @@ export function ProjectDetailDialog({ project, open, onOpenChange }: ProjectDeta
 
         <Separator />
 
-        <Tabs defaultValue="tasks" className="px-6 pb-6 pt-4">
-          <TabsList className="w-full grid grid-cols-2">
+        <Tabs defaultValue="ttv" className="px-6 pb-6 pt-4">
+          <TabsList className="w-full grid grid-cols-3">
+            <TabsTrigger value="ttv" className="flex items-center gap-1.5 text-xs">
+              <Target className="h-3.5 w-3.5" /> TTV ({ttvDone}/{ttv.length})
+            </TabsTrigger>
             <TabsTrigger value="tasks" className="flex items-center gap-1.5 text-xs">
               <ListChecks className="h-3.5 w-3.5" /> Tasks ({doneCount}/{tasks.length})
             </TabsTrigger>
@@ -268,6 +271,56 @@ export function ProjectDetailDialog({ project, open, onOpenChange }: ProjectDeta
               <MessageSquare className="h-3.5 w-3.5" /> Notes ({projectNotes.length})
             </TabsTrigger>
           </TabsList>
+
+          <TabsContent value="ttv" className="mt-4">
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <p className="text-xs font-semibold">Time-to-Value Timeline</p>
+                <p className="text-[11px] text-muted-foreground">Milestones from kickoff to CSM transition · {project.startDate} → {project.targetDate}</p>
+              </div>
+              <Badge variant="secondary" className="text-[10px]">{ttvPct}% complete</Badge>
+            </div>
+            <div className="h-1.5 w-full bg-muted rounded-full mb-5 overflow-hidden">
+              <motion.div className="h-full bg-primary rounded-full" initial={{ width: 0 }} animate={{ width: `${ttvPct}%` }} transition={{ duration: 0.4 }} />
+            </div>
+            <div className="relative pl-2">
+              <div className="absolute left-[19px] top-2 bottom-2 w-px bg-border" aria-hidden />
+              <ul className="space-y-4">
+                {ttv.map((m, i) => {
+                  const s = statusStyles[m.status];
+                  const Icon = m.icon;
+                  return (
+                    <motion.li
+                      key={i}
+                      initial={{ opacity: 0, x: -6 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.04 }}
+                      className="relative flex gap-3"
+                    >
+                      <div className={cn("relative z-10 h-9 w-9 shrink-0 rounded-full border-2 bg-background flex items-center justify-center", s.dot)}>
+                        {m.status === "done" ? (
+                          <CheckCircle2 className="h-4 w-4 text-success-foreground" />
+                        ) : (
+                          <Icon className={cn("h-4 w-4", m.status === "in-progress" ? "text-primary-foreground" : m.status === "at-risk" ? "text-warning-foreground" : "text-muted-foreground")} />
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0 rounded-lg border p-3 -mt-0.5">
+                        <div className="flex items-start justify-between gap-2 mb-1">
+                          <p className="text-sm font-medium leading-tight">{m.label}</p>
+                          <Badge variant="outline" className={cn("text-[10px] shrink-0", s.badge)}>{s.label}</Badge>
+                        </div>
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
+                          <span className="flex items-center gap-1"><User className="h-3 w-3" />{m.owner}</span>
+                          <span className="flex items-center gap-1"><Calendar className="h-3 w-3" />{m.date}</span>
+                        </div>
+                        {m.note && <p className="text-xs text-muted-foreground mt-1.5 leading-snug">{m.note}</p>}
+                      </div>
+                    </motion.li>
+                  );
+                })}
+              </ul>
+            </div>
+          </TabsContent>
 
           <TabsContent value="tasks" className="mt-4">
             <div className="flex items-center justify-between mb-3">
