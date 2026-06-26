@@ -9,7 +9,8 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Building2, User, Calendar, ListChecks, MessageSquare,
-  CheckCircle2, Clock,
+  CheckCircle2, Clock, Target, Zap, Send, Workflow, Database, Handshake,
+  type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
