@@ -99,6 +99,59 @@ const seedNotes: Record<string, Note[]> = {
   ],
 };
 
+type MilestoneStatus = "done" | "in-progress" | "upcoming" | "at-risk";
+type TTVMilestone = {
+  label: string;
+  owner: string;
+  date: string;
+  status: MilestoneStatus;
+  icon: LucideIcon;
+  note?: string;
+};
+
+const defaultTTV = (startDate: string, targetDate: string): TTVMilestone[] => [
+  { label: "Kickoff Complete", owner: "Delivery Manager", date: startDate, status: "done", icon: Handshake, note: "Charter signed, RACI distributed" },
+  { label: "SDK Integrated (Dev)", owner: "Technical Architect", date: "+2 wks", status: "done", icon: Zap, note: "iOS / Android / Web SDKs initialized" },
+  { label: "Data Pipeline Live", owner: "Onboarding Engineer", date: "+4 wks", status: "in-progress", icon: Database, note: "Segment / mParticle / CDI events flowing" },
+  { label: "First Production Send", owner: "Lifecycle Lead (Customer)", date: "+6 wks", status: "upcoming", icon: Send, note: "TTFS milestone — Email or Push" },
+  { label: "First Canvas Live", owner: "Strategy Consultant", date: "+8 wks", status: "upcoming", icon: Workflow, note: "TTFC milestone — multi-step journey" },
+  { label: "CSM Transition", owner: "Delivery Manager → CSM", date: targetDate, status: "upcoming", icon: Target, note: "Hypercare exit, success plan handoff" },
+];
+
+const ttvOverrides: Record<string, TTVMilestone[]> = {
+  "1": [
+    { label: "Kickoff Complete", owner: "E. Cicero (DM)", date: "Jan 18", status: "done", icon: Handshake, note: "Wyndham loyalty re-engagement charter signed" },
+    { label: "SDK Integrated", owner: "R. Patel (TA)", date: "Feb 2", status: "done", icon: Zap, note: "iOS + Android SDK v9 live, push tokens flowing" },
+    { label: "Segment CDP Wired", owner: "J. Liu (OE)", date: "Feb 18", status: "done", icon: Database, note: "Loyalty events streaming, identity resolution validated" },
+    { label: "First Production Send", owner: "Wyndham Lifecycle", date: "Mar 5", status: "done", icon: Send, note: "TTFS = 49 days; tier-up email, 38% open rate" },
+    { label: "First Canvas Live", owner: "L. Nguyen (Strategy)", date: "Mar 22", status: "in-progress", icon: Workflow, note: "Welcome → tier-up → win-back, 4-step journey in QA" },
+    { label: "CSM Transition", owner: "E. Cicero → K. Park", date: "Apr 20", status: "upcoming", icon: Target, note: "Hypercare exit + ROI readout scheduled" },
+  ],
+  "2": [
+    { label: "Kickoff Complete", owner: "A. Piggott (DM)", date: "Feb 4", status: "done", icon: Handshake, note: "MetLife exec sponsor aligned on 90M user scope" },
+    { label: "SDK Integrated", owner: "D. Cho (TA)", date: "Feb 20", status: "done", icon: Zap, note: "Web SDK live; native deferred to phase 2" },
+    { label: "mParticle Pipeline Live", owner: "S. Brooks (OE)", date: "Mar 8", status: "done", icon: Database, note: "24M profiles ingested, audience sync nightly" },
+    { label: "First Production Send", owner: "MetLife Lifecycle", date: "Mar 24", status: "in-progress", icon: Send, note: "Policy renewal email in final compliance review" },
+    { label: "First Canvas Live", owner: "M. Alvarez (Strategy)", date: "Apr 2", status: "upcoming", icon: Workflow, note: "Lifecycle journey — email + SMS branching" },
+    { label: "CSM Transition", owner: "A. Piggott → R. Singh", date: "Apr 5", status: "at-risk", icon: Target, note: "Tight window — depends on compliance sign-off" },
+  ],
+  "5": [
+    { label: "Kickoff Complete", owner: "A. Pereira (DM)", date: "Feb 18", status: "done", icon: Handshake },
+    { label: "SDK Integrated", owner: "T. Yamada (TA)", date: "Mar 4", status: "done", icon: Zap, note: "Roku + iOS + Android" },
+    { label: "Iterable→Braze Migration", owner: "P. Osei (OE)", date: "Mar 30", status: "at-risk", icon: Database, note: "Content library mapping behind by ~10 days" },
+    { label: "First Production Send", owner: "Max Lifecycle", date: "Apr 18", status: "at-risk", icon: Send, note: "TTFS slipped; mitigation plan in flight" },
+    { label: "First Canvas Live", owner: "G. Iyer (Strategy)", date: "May 10", status: "upcoming", icon: Workflow, note: "Churn save journey, push + email" },
+    { label: "CSM Transition", owner: "A. Pereira → H. Kim", date: "May 30", status: "upcoming", icon: Target },
+  ],
+};
+
+const statusStyles: Record<MilestoneStatus, { dot: string; badge: string; label: string }> = {
+  "done": { dot: "bg-success border-success", badge: "bg-success/10 text-success border-success/20", label: "Complete" },
+  "in-progress": { dot: "bg-primary border-primary ring-4 ring-primary/15", badge: "bg-primary/10 text-primary border-primary/20", label: "In Progress" },
+  "upcoming": { dot: "bg-muted border-muted-foreground/40", badge: "bg-muted text-muted-foreground border-border", label: "Upcoming" },
+  "at-risk": { dot: "bg-warning border-warning ring-4 ring-warning/15", badge: "bg-warning/10 text-warning border-warning/20", label: "At Risk" },
+};
+
 interface ProjectDetailDialogProps {
   project: ProjectForDetail | null;
   open: boolean;
