@@ -7,7 +7,6 @@ import {
   ArrowRightLeft,
   Database,
   Plug,
-  Presentation,
   ListChecks,
   MessageSquare,
 } from "lucide-react";
@@ -36,7 +35,6 @@ const navItems = [
   { title: "Workstreams", url: "/workflows", icon: Database },
   { title: "Integrations & Data", url: "/integrations", icon: Plug },
   { title: "Sales Handoff", url: "/handoff", icon: ArrowRightLeft },
-  { title: "Strategic Deck", url: "/deck", icon: Presentation },
   { title: "Interview Prep", url: "/interview-prep", icon: MessageSquare },
 ];
 

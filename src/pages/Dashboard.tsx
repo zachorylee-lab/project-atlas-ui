@@ -1,10 +1,11 @@
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { StatusBadge } from "@/components/StatusBadge";
 import { PhaseIndicator } from "@/components/PhaseIndicator";
+import { TTVNotifications } from "@/components/TTVNotifications";
+import { TTVMetrics } from "@/components/TTVMetrics";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import {
-  Users,
   Clock,
   ArrowUpRight,
   AlertTriangle,
@@ -100,34 +101,16 @@ export default function Dashboard() {
           </Card>
         </motion.div>
 
+        <motion.div {...fadeUp} transition={{ delay: 0.25 }}>
+          <TTVMetrics />
+        </motion.div>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <motion.div {...fadeUp} transition={{ delay: 0.3 }}>
-            <Card className="h-full">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-base font-semibold">Project Hours vs. Budget</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {[
-                    { label: "Wyndham Hotels", recovered: "412 hrs", target: "480 hrs budget", progress: 86 },
-                    { label: "MetLife", recovered: "680 hrs", target: "720 hrs budget", progress: 94 },
-                    { label: "Delivery Hero", recovered: "298 hrs", target: "320 hrs budget", progress: 93 },
-                    { label: "Max Streaming — at risk", recovered: "240 hrs", target: "220 hrs budget", progress: 109 },
-                  ].map((seg) => (
-                    <div key={seg.label} className="space-y-1.5">
-                      <div className="flex justify-between text-sm">
-                        <span className="font-medium">{seg.label}</span>
-                        <span className="text-muted-foreground">{seg.recovered} <span className="text-xs">/ {seg.target}</span></span>
-                      </div>
-                      <Progress value={Math.min(seg.progress, 100)} className="h-1.5" />
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+          <motion.div {...fadeUp} transition={{ delay: 0.28 }}>
+            <TTVNotifications />
           </motion.div>
 
-          <motion.div {...fadeUp} transition={{ delay: 0.35 }}>
+          <motion.div {...fadeUp} transition={{ delay: 0.32 }}>
             <Card className="h-full">
               <CardHeader className="pb-3">
                 <CardTitle className="text-base font-semibold">This Week's Delivery Activity</CardTitle>
@@ -154,7 +137,34 @@ export default function Dashboard() {
             </Card>
           </motion.div>
         </div>
+
+        <motion.div {...fadeUp} transition={{ delay: 0.38 }}>
+          <Card className="h-full">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-base font-semibold">Project Hours vs. Budget</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {[
+                  { label: "Wyndham Hotels", recovered: "412 hrs", target: "480 hrs budget", progress: 86 },
+                  { label: "MetLife", recovered: "680 hrs", target: "720 hrs budget", progress: 94 },
+                  { label: "Delivery Hero", recovered: "298 hrs", target: "320 hrs budget", progress: 93 },
+                  { label: "Max Streaming — at risk", recovered: "240 hrs", target: "220 hrs budget", progress: 109 },
+                ].map((seg) => (
+                  <div key={seg.label} className="space-y-1.5">
+                    <div className="flex justify-between text-sm">
+                      <span className="font-medium">{seg.label}</span>
+                      <span className="text-muted-foreground">{seg.recovered} <span className="text-xs">/ {seg.target}</span></span>
+                    </div>
+                    <Progress value={Math.min(seg.progress, 100)} className="h-1.5" />
+                  </div>
+                ))}
+              </div>
+          </CardContent>
+        </Card>
+        </motion.div>
       </div>
     </DashboardLayout>
   );
 }
+
