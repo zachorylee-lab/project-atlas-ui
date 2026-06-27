@@ -12,7 +12,7 @@ import SalesHandoff from "./pages/SalesHandoff";
 import DataWorkflows from "./pages/DataWorkflows";
 import Integrations from "./pages/Integrations";
 import NotFound from "./pages/NotFound";
-import StrategicDeck from "./pages/StrategicDeck";
+
 import PMTasks from "./pages/PMTasks";
 import InterviewPrep from "./pages/InterviewPrep";
 
@@ -33,7 +33,7 @@ const App = () => (
           <Route path="/workflows" element={<DataWorkflows />} />
           <Route path="/handoff" element={<SalesHandoff />} />
           <Route path="/integrations" element={<Integrations />} />
-          <Route path="/deck" element={<StrategicDeck />} />
+          
           <Route path="/pm-tasks" element={<PMTasks />} />
           <Route path="/interview-prep" element={<InterviewPrep />} />
           <Route path="*" element={<NotFound />} />
