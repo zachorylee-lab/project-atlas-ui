@@ -7,9 +7,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
   Building2, User, Calendar, ListChecks, MessageSquare,
-  CheckCircle2, Clock, Target, Zap, Send, Workflow, Database, Handshake,
+  CheckCircle2, Clock, Target, Zap, Send, Workflow, Database, Handshake, Link2, ChevronRight,
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -158,10 +163,43 @@ interface ProjectDetailDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
+function relatedIntegrations(label: string): { name: string; category: string }[] {
+  const l = label.toLowerCase();
+  if (l.includes("sdk")) return [
+    { name: "APNs (iOS Push)", category: "Channel" },
+    { name: "FCM (Android Push)", category: "Channel" },
+    { name: "Web SDK", category: "Channel" },
+  ];
+  if (l.includes("segment")) return [{ name: "Segment", category: "CDP" }, { name: "Identity Resolution", category: "Data" }];
+  if (l.includes("mparticle")) return [{ name: "mParticle", category: "CDP" }, { name: "Audience Sync", category: "Data" }];
+  if (l.includes("data pipeline") || l.includes("cdi")) return [
+    { name: "Segment", category: "CDP" },
+    { name: "mParticle", category: "CDP" },
+    { name: "Snowflake CDI", category: "Warehouse" },
+  ];
+  if (l.includes("migration") || l.includes("iterable")) return [
+    { name: "Iterable (source)", category: "Migration" },
+    { name: "Content Library Mapper", category: "Tooling" },
+  ];
+  if (l.includes("production send")) return [
+    { name: "SendGrid / SparkPost", category: "Email" },
+    { name: "APNs / FCM", category: "Push" },
+  ];
+  if (l.includes("canvas")) return [
+    { name: "Canvas Flow", category: "Orchestration" },
+    { name: "Decisioning Studio", category: "AI" },
+  ];
+  if (l.includes("csm")) return [{ name: "Currents", category: "Export" }, { name: "Success Plan", category: "CS" }];
+  if (l.includes("kickoff")) return [{ name: "SOW / RACI", category: "Governance" }];
+  return [{ name: "—", category: "General" }];
+}
+
 export function ProjectDetailDialog({ project, open, onOpenChange }: ProjectDetailDialogProps) {
   const [taskStates, setTaskStates] = useState<Record<string, boolean[]>>({});
   const [notes, setNotes] = useState<Record<string, Note[]>>(seedNotes);
   const [newNote, setNewNote] = useState("");
+  const [ttvByProject, setTtvByProject] = useState<Record<string, TTVMilestone[]>>({});
+  const [selectedMilestone, setSelectedMilestone] = useState<number | null>(null);
 
   if (!project) return null;
 
@@ -183,10 +221,17 @@ export function ProjectDetailDialog({ project, open, onOpenChange }: ProjectDeta
     setNewNote("");
   }
 
+  const ttv = ttvByProject[key] ?? ttvOverrides[key] ?? defaultTTV(project.startDate, project.targetDate);
   const projectNotes = notes[key] ?? [];
-  const ttv = ttvOverrides[key] ?? defaultTTV(project.startDate, project.targetDate);
   const ttvDone = ttv.filter((m) => m.status === "done").length;
   const ttvPct = ttv.length ? Math.round((ttvDone / ttv.length) * 100) : 0;
+
+  function updateMilestone(idx: number, patch: Partial<TTVMilestone>) {
+    const next = ttv.map((m, i) => (i === idx ? { ...m, ...patch } : m));
+    setTtvByProject((prev) => ({ ...prev, [key]: next }));
+  }
+
+  const activeMilestone = selectedMilestone !== null ? ttv[selectedMilestone] : null;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -304,17 +349,24 @@ export function ProjectDetailDialog({ project, open, onOpenChange }: ProjectDeta
                           <Icon className={cn("h-4 w-4", m.status === "in-progress" ? "text-primary-foreground" : m.status === "at-risk" ? "text-warning-foreground" : "text-muted-foreground")} />
                         )}
                       </div>
-                      <div className="flex-1 min-w-0 rounded-lg border p-3 -mt-0.5">
+                      <button
+                        type="button"
+                        onClick={() => setSelectedMilestone(i)}
+                        className="flex-1 min-w-0 text-left rounded-lg border p-3 -mt-0.5 hover:border-primary/50 hover:bg-muted/30 transition-colors group"
+                      >
                         <div className="flex items-start justify-between gap-2 mb-1">
-                          <p className="text-sm font-medium leading-tight">{m.label}</p>
+                          <p className="text-sm font-medium leading-tight flex items-center gap-1.5">
+                            {m.label}
+                            <ChevronRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </p>
                           <Badge variant="outline" className={cn("text-[10px] shrink-0", s.badge)}>{s.label}</Badge>
                         </div>
                         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
                           <span className="flex items-center gap-1"><User className="h-3 w-3" />{m.owner}</span>
                           <span className="flex items-center gap-1"><Calendar className="h-3 w-3" />{m.date}</span>
                         </div>
-                        {m.note && <p className="text-xs text-muted-foreground mt-1.5 leading-snug">{m.note}</p>}
-                      </div>
+                        {m.note && <p className="text-xs text-muted-foreground mt-1.5 leading-snug line-clamp-2">{m.note}</p>}
+                      </button>
                     </motion.li>
                   );
                 })}
@@ -371,6 +423,103 @@ export function ProjectDetailDialog({ project, open, onOpenChange }: ProjectDeta
           </TabsContent>
         </Tabs>
       </DialogContent>
+
+      <Sheet open={selectedMilestone !== null} onOpenChange={(o) => !o && setSelectedMilestone(null)}>
+        <SheetContent side="right" className="w-full sm:max-w-md overflow-y-auto">
+          {activeMilestone && selectedMilestone !== null && (() => {
+            const s = statusStyles[activeMilestone.status];
+            const Icon = activeMilestone.icon;
+            const integrations = relatedIntegrations(activeMilestone.label);
+            return (
+              <>
+                <SheetHeader className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className={cn("h-10 w-10 rounded-full border-2 bg-background flex items-center justify-center", s.dot)}>
+                      <Icon className="h-4 w-4" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <SheetTitle className="text-base leading-tight">{activeMilestone.label}</SheetTitle>
+                      <SheetDescription className="text-xs">
+                        {project.name} · Milestone {selectedMilestone + 1} of {ttv.length}
+                      </SheetDescription>
+                    </div>
+                    <Badge variant="outline" className={cn("text-[10px]", s.badge)}>{s.label}</Badge>
+                  </div>
+                </SheetHeader>
+
+                <div className="mt-6 space-y-5">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="space-y-1.5">
+                      <Label className="text-[11px] uppercase tracking-wide text-muted-foreground">Status</Label>
+                      <Select
+                        value={activeMilestone.status}
+                        onValueChange={(v) => updateMilestone(selectedMilestone, { status: v as MilestoneStatus })}
+                      >
+                        <SelectTrigger className="h-9 text-sm"><SelectValue /></SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="upcoming">Upcoming</SelectItem>
+                          <SelectItem value="in-progress">In Progress</SelectItem>
+                          <SelectItem value="at-risk">At Risk</SelectItem>
+                          <SelectItem value="done">Complete</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label className="text-[11px] uppercase tracking-wide text-muted-foreground">Target Date</Label>
+                      <Input
+                        value={activeMilestone.date}
+                        onChange={(e) => updateMilestone(selectedMilestone, { date: e.target.value })}
+                        placeholder="e.g. Mar 22"
+                        className="h-9 text-sm"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <Label className="text-[11px] uppercase tracking-wide text-muted-foreground">Owner</Label>
+                    <Input
+                      value={activeMilestone.owner}
+                      onChange={(e) => updateMilestone(selectedMilestone, { owner: e.target.value })}
+                      className="h-9 text-sm"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <Label className="text-[11px] uppercase tracking-wide text-muted-foreground">Notes</Label>
+                    <Textarea
+                      value={activeMilestone.note ?? ""}
+                      onChange={(e) => updateMilestone(selectedMilestone, { note: e.target.value })}
+                      placeholder="Status update, blockers, dependencies…"
+                      className="min-h-[100px] text-sm"
+                    />
+                  </div>
+
+                  <Separator />
+
+                  <div>
+                    <Label className="text-[11px] uppercase tracking-wide text-muted-foreground flex items-center gap-1.5 mb-2">
+                      <Link2 className="h-3 w-3" /> Related Integrations
+                    </Label>
+                    <ul className="space-y-1.5">
+                      {integrations.map((it, idx) => (
+                        <li key={idx} className="flex items-center justify-between rounded-md border px-3 py-2">
+                          <span className="text-sm font-medium">{it.name}</span>
+                          <Badge variant="secondary" className="text-[10px]">{it.category}</Badge>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="flex items-center justify-between pt-2">
+                    <p className="text-[11px] text-muted-foreground">Changes save automatically</p>
+                    <Button size="sm" variant="outline" onClick={() => setSelectedMilestone(null)}>Done</Button>
+                  </div>
+                </div>
+              </>
+            );
+          })()}
+        </SheetContent>
+      </Sheet>
     </Dialog>
   );
 }
