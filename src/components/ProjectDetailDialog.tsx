@@ -349,17 +349,24 @@ export function ProjectDetailDialog({ project, open, onOpenChange }: ProjectDeta
                           <Icon className={cn("h-4 w-4", m.status === "in-progress" ? "text-primary-foreground" : m.status === "at-risk" ? "text-warning-foreground" : "text-muted-foreground")} />
                         )}
                       </div>
-                      <div className="flex-1 min-w-0 rounded-lg border p-3 -mt-0.5">
+                      <button
+                        type="button"
+                        onClick={() => setSelectedMilestone(i)}
+                        className="flex-1 min-w-0 text-left rounded-lg border p-3 -mt-0.5 hover:border-primary/50 hover:bg-muted/30 transition-colors group"
+                      >
                         <div className="flex items-start justify-between gap-2 mb-1">
-                          <p className="text-sm font-medium leading-tight">{m.label}</p>
+                          <p className="text-sm font-medium leading-tight flex items-center gap-1.5">
+                            {m.label}
+                            <ChevronRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </p>
                           <Badge variant="outline" className={cn("text-[10px] shrink-0", s.badge)}>{s.label}</Badge>
                         </div>
                         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
                           <span className="flex items-center gap-1"><User className="h-3 w-3" />{m.owner}</span>
                           <span className="flex items-center gap-1"><Calendar className="h-3 w-3" />{m.date}</span>
                         </div>
-                        {m.note && <p className="text-xs text-muted-foreground mt-1.5 leading-snug">{m.note}</p>}
-                      </div>
+                        {m.note && <p className="text-xs text-muted-foreground mt-1.5 leading-snug line-clamp-2">{m.note}</p>}
+                      </button>
                     </motion.li>
                   );
                 })}
