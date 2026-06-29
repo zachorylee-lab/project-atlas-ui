@@ -423,6 +423,103 @@ export function ProjectDetailDialog({ project, open, onOpenChange }: ProjectDeta
           </TabsContent>
         </Tabs>
       </DialogContent>
+
+      <Sheet open={selectedMilestone !== null} onOpenChange={(o) => !o && setSelectedMilestone(null)}>
+        <SheetContent side="right" className="w-full sm:max-w-md overflow-y-auto">
+          {activeMilestone && selectedMilestone !== null && (() => {
+            const s = statusStyles[activeMilestone.status];
+            const Icon = activeMilestone.icon;
+            const integrations = relatedIntegrations(activeMilestone.label);
+            return (
+              <>
+                <SheetHeader className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className={cn("h-10 w-10 rounded-full border-2 bg-background flex items-center justify-center", s.dot)}>
+                      <Icon className="h-4 w-4" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <SheetTitle className="text-base leading-tight">{activeMilestone.label}</SheetTitle>
+                      <SheetDescription className="text-xs">
+                        {project.name} · Milestone {selectedMilestone + 1} of {ttv.length}
+                      </SheetDescription>
+                    </div>
+                    <Badge variant="outline" className={cn("text-[10px]", s.badge)}>{s.label}</Badge>
+                  </div>
+                </SheetHeader>
+
+                <div className="mt-6 space-y-5">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="space-y-1.5">
+                      <Label className="text-[11px] uppercase tracking-wide text-muted-foreground">Status</Label>
+                      <Select
+                        value={activeMilestone.status}
+                        onValueChange={(v) => updateMilestone(selectedMilestone, { status: v as MilestoneStatus })}
+                      >
+                        <SelectTrigger className="h-9 text-sm"><SelectValue /></SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="upcoming">Upcoming</SelectItem>
+                          <SelectItem value="in-progress">In Progress</SelectItem>
+                          <SelectItem value="at-risk">At Risk</SelectItem>
+                          <SelectItem value="done">Complete</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label className="text-[11px] uppercase tracking-wide text-muted-foreground">Target Date</Label>
+                      <Input
+                        value={activeMilestone.date}
+                        onChange={(e) => updateMilestone(selectedMilestone, { date: e.target.value })}
+                        placeholder="e.g. Mar 22"
+                        className="h-9 text-sm"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <Label className="text-[11px] uppercase tracking-wide text-muted-foreground">Owner</Label>
+                    <Input
+                      value={activeMilestone.owner}
+                      onChange={(e) => updateMilestone(selectedMilestone, { owner: e.target.value })}
+                      className="h-9 text-sm"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <Label className="text-[11px] uppercase tracking-wide text-muted-foreground">Notes</Label>
+                    <Textarea
+                      value={activeMilestone.note ?? ""}
+                      onChange={(e) => updateMilestone(selectedMilestone, { note: e.target.value })}
+                      placeholder="Status update, blockers, dependencies…"
+                      className="min-h-[100px] text-sm"
+                    />
+                  </div>
+
+                  <Separator />
+
+                  <div>
+                    <Label className="text-[11px] uppercase tracking-wide text-muted-foreground flex items-center gap-1.5 mb-2">
+                      <Link2 className="h-3 w-3" /> Related Integrations
+                    </Label>
+                    <ul className="space-y-1.5">
+                      {integrations.map((it, idx) => (
+                        <li key={idx} className="flex items-center justify-between rounded-md border px-3 py-2">
+                          <span className="text-sm font-medium">{it.name}</span>
+                          <Badge variant="secondary" className="text-[10px]">{it.category}</Badge>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="flex items-center justify-between pt-2">
+                    <p className="text-[11px] text-muted-foreground">Changes save automatically</p>
+                    <Button size="sm" variant="outline" onClick={() => setSelectedMilestone(null)}>Done</Button>
+                  </div>
+                </div>
+              </>
+            );
+          })()}
+        </SheetContent>
+      </Sheet>
     </Dialog>
   );
 }
