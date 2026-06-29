@@ -163,10 +163,43 @@ interface ProjectDetailDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
+function relatedIntegrations(label: string): { name: string; category: string }[] {
+  const l = label.toLowerCase();
+  if (l.includes("sdk")) return [
+    { name: "APNs (iOS Push)", category: "Channel" },
+    { name: "FCM (Android Push)", category: "Channel" },
+    { name: "Web SDK", category: "Channel" },
+  ];
+  if (l.includes("segment")) return [{ name: "Segment", category: "CDP" }, { name: "Identity Resolution", category: "Data" }];
+  if (l.includes("mparticle")) return [{ name: "mParticle", category: "CDP" }, { name: "Audience Sync", category: "Data" }];
+  if (l.includes("data pipeline") || l.includes("cdi")) return [
+    { name: "Segment", category: "CDP" },
+    { name: "mParticle", category: "CDP" },
+    { name: "Snowflake CDI", category: "Warehouse" },
+  ];
+  if (l.includes("migration") || l.includes("iterable")) return [
+    { name: "Iterable (source)", category: "Migration" },
+    { name: "Content Library Mapper", category: "Tooling" },
+  ];
+  if (l.includes("production send")) return [
+    { name: "SendGrid / SparkPost", category: "Email" },
+    { name: "APNs / FCM", category: "Push" },
+  ];
+  if (l.includes("canvas")) return [
+    { name: "Canvas Flow", category: "Orchestration" },
+    { name: "Decisioning Studio", category: "AI" },
+  ];
+  if (l.includes("csm")) return [{ name: "Currents", category: "Export" }, { name: "Success Plan", category: "CS" }];
+  if (l.includes("kickoff")) return [{ name: "SOW / RACI", category: "Governance" }];
+  return [{ name: "—", category: "General" }];
+}
+
 export function ProjectDetailDialog({ project, open, onOpenChange }: ProjectDetailDialogProps) {
   const [taskStates, setTaskStates] = useState<Record<string, boolean[]>>({});
   const [notes, setNotes] = useState<Record<string, Note[]>>(seedNotes);
   const [newNote, setNewNote] = useState("");
+  const [ttvByProject, setTtvByProject] = useState<Record<string, TTVMilestone[]>>({});
+  const [selectedMilestone, setSelectedMilestone] = useState<number | null>(null);
 
   if (!project) return null;
 
@@ -188,10 +221,17 @@ export function ProjectDetailDialog({ project, open, onOpenChange }: ProjectDeta
     setNewNote("");
   }
 
+  const ttv = ttvByProject[key] ?? ttvOverrides[key] ?? defaultTTV(project.startDate, project.targetDate);
   const projectNotes = notes[key] ?? [];
-  const ttv = ttvOverrides[key] ?? defaultTTV(project.startDate, project.targetDate);
   const ttvDone = ttv.filter((m) => m.status === "done").length;
   const ttvPct = ttv.length ? Math.round((ttvDone / ttv.length) * 100) : 0;
+
+  function updateMilestone(idx: number, patch: Partial<TTVMilestone>) {
+    const next = ttv.map((m, i) => (i === idx ? { ...m, ...patch } : m));
+    setTtvByProject((prev) => ({ ...prev, [key]: next }));
+  }
+
+  const activeMilestone = selectedMilestone !== null ? ttv[selectedMilestone] : null;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
