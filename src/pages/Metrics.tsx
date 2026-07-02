@@ -3,8 +3,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { TTVMetrics } from "@/components/TTVMetrics";
 import { TTVNotifications } from "@/components/TTVNotifications";
+import { ProductAdvocacy } from "@/components/ProductAdvocacy";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from "recharts";
 import { motion } from "framer-motion";
+import { CheckCircle2, Clock, AlertTriangle, UserCheck, BookOpen, Lightbulb } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const phaseDistribution = [
   { name: "Handoff", count: 2, color: "hsl(199, 89%, 48%)" },
