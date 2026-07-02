@@ -77,6 +77,70 @@ export default function Metrics() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+            <Card className="h-full">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base font-semibold flex items-center gap-2">
+                  <UserCheck className="h-4 w-4 text-primary" />
+                  CSM Transition Readiness
+                </CardTitle>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Documented stakeholder roles, CSAT, and enablement sign-off are the gates to a clean CSM handoff.
+                </p>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {[
+                    { customer: "Delivery Hero", dm: "S. Pickard", csm: "J. Vega", csat: 4.9, enabled: true, stakeholders: true, ready: true },
+                    { customer: "Wyndham Hotels", dm: "E. Cicero", csm: "K. Park", csat: 4.7, enabled: true, stakeholders: true, ready: false },
+                    { customer: "MetLife", dm: "A. Piggott", csm: "R. Singh", csat: 4.4, enabled: true, stakeholders: false, ready: false },
+                    { customer: "Max Streaming", dm: "A. Pereira", csm: "T. Lee", csat: 3.9, enabled: false, stakeholders: false, ready: false },
+                  ].map((row) => {
+                    const readiness = [row.csat >= 4.5, row.enabled, row.stakeholders].filter(Boolean).length;
+                    const pct = Math.round((readiness / 3) * 100);
+                    return (
+                      <div key={row.customer} className="rounded-lg border p-3">
+                        <div className="flex items-start justify-between gap-2">
+                          <div>
+                            <p className="text-sm font-medium">{row.customer}</p>
+                            <p className="text-[11px] text-muted-foreground">
+                              DM {row.dm} → CSM {row.csm}
+                            </p>
+                          </div>
+                          <span className={cn("inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-full", row.ready ? "bg-success/10 text-success" : "bg-muted text-muted-foreground")}>
+                            {row.ready ? <CheckCircle2 className="h-3 w-3" /> : <Clock className="h-3 w-3" />}
+                            {row.ready ? "Ready" : "Pending"}
+                          </span>
+                        </div>
+                        <div className="grid grid-cols-3 gap-2 mt-3">
+                          <div className={cn("text-center rounded-md py-1.5 border text-[10px]", row.csat >= 4.5 ? "bg-success/10 text-success border-success/30" : row.csat >= 4.0 ? "bg-warning/10 text-warning border-warning/30" : "bg-destructive/10 text-destructive border-destructive/30")}>
+                            CSAT {row.csat}
+                          </div>
+                          <div className={cn("text-center rounded-md py-1.5 border text-[10px]", row.enabled ? "bg-success/10 text-success border-success/30" : "bg-muted text-muted-foreground")}>
+                            Enabled
+                          </div>
+                          <div className={cn("text-center rounded-md py-1.5 border text-[10px]", row.stakeholders ? "bg-success/10 text-success border-success/30" : "bg-muted text-muted-foreground")}>
+                            Stakeholders
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2 mt-2">
+                          <Progress value={pct} className="h-1.5 flex-1" />
+                          <span className="text-xs font-medium text-muted-foreground">{pct}%</span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.22 }}>
+            <ProductAdvocacy />
+          </motion.div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
             <Card>
               <CardHeader className="pb-2">
                 <CardTitle className="text-base font-semibold">Time to First Send (days)</CardTitle>
