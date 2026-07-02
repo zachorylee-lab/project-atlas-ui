@@ -6,7 +6,7 @@ import { TTVNotifications } from "@/components/TTVNotifications";
 import { ProductAdvocacy } from "@/components/ProductAdvocacy";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from "recharts";
 import { motion } from "framer-motion";
-import { CheckCircle2, Clock, AlertTriangle, UserCheck, BookOpen, Lightbulb } from "lucide-react";
+import { CheckCircle2, Clock, UserCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const phaseDistribution = [
