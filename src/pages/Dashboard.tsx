@@ -139,6 +139,10 @@ export default function Dashboard() {
           </motion.div>
         </div>
 
+        <motion.div {...fadeUp} transition={{ delay: 0.35 }}>
+          <ProductAdvocacy />
+        </motion.div>
+
         <motion.div {...fadeUp} transition={{ delay: 0.38 }}>
           <Card className="h-full">
             <CardHeader className="pb-3">
