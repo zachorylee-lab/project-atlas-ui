@@ -173,6 +173,25 @@ const templates: Template[] = [
     ],
   },
   {
+    name: "Customer Enablement & Training Plan",
+    category: "Enablement",
+    phase: "golive",
+    downloads: 118,
+    rating: 4.8,
+    updated: "Mar 25, 2026",
+    description: "Structured customer enablement and knowledge-transfer plan — platform workshops, Decisioning Studio technical enablement, knowledge checks, and BAU handoff.",
+    tasks: [
+      { label: "Confirm customer training audience (Lifecycle, Data, Mobile, Creative)", done: false },
+      { label: "Schedule Decisioning Studio Technical Enablement workshop", done: false },
+      { label: "Deliver Canvas build-along sessions for first 3 journeys", done: false },
+      { label: "Run knowledge checks on segmentation, Liquid, and Canvas Flow", done: false },
+      { label: "Record enablement videos and upload to customer portal", done: false },
+      { label: "Stand up office hours during hypercare", done: false },
+      { label: "Create customer self-service readiness checklist", done: false },
+      { label: "Sign off enablement completion before CSM transition", done: false },
+    ],
+  },
+  {
     name: "Change Order / Scope Change Template",
     category: "Build",
     phase: "build",
@@ -192,7 +211,7 @@ const templates: Template[] = [
   },
 ];
 
-const categories = ["All", "Handoff", "Kickoff", "Build", "Testing", "Go-Live", "Hypercare"];
+const categories = ["All", "Handoff", "Kickoff", "Build", "Testing", "Go-Live", "Hypercare", "Enablement"];
 
 export default function Templates() {
   const [filter, setFilter] = useState("All");

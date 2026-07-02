@@ -23,7 +23,7 @@ export function TTVMetrics() {
           <Badge variant="outline" className="text-[10px] bg-primary/10 text-primary border-primary/30">Portfolio</Badge>
         </div>
         <p className="text-xs text-muted-foreground mt-1">
-          Pace of milestones from kickoff to CSM transition across active onboardings
+          Pace of milestones from kickoff to CSM transition. Customer CSAT ≥ 4.5 is the gateway to a successful handoff to Customer Success.
         </p>
       </CardHeader>
       <CardContent>

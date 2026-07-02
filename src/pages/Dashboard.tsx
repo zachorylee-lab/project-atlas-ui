@@ -3,6 +3,7 @@ import { StatusBadge } from "@/components/StatusBadge";
 import { PhaseIndicator } from "@/components/PhaseIndicator";
 import { TTVNotifications } from "@/components/TTVNotifications";
 import { TTVMetrics } from "@/components/TTVMetrics";
+import { ProductAdvocacy } from "@/components/ProductAdvocacy";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import {
@@ -137,6 +138,10 @@ export default function Dashboard() {
             </Card>
           </motion.div>
         </div>
+
+        <motion.div {...fadeUp} transition={{ delay: 0.35 }}>
+          <ProductAdvocacy />
+        </motion.div>
 
         <motion.div {...fadeUp} transition={{ delay: 0.38 }}>
           <Card className="h-full">
