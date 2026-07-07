@@ -6,48 +6,48 @@ import { motion } from "framer-motion";
 
 const handoffs = [
   {
-    customer: "Canva Pro",
+    customer: "Baker Tilly",
     ae: "Chris D.",
-    deal: "$420K ARR · Email + Push + IAM + Content Cards + BrazeAI",
-    segment: "28M MAU · Trial→Paid conversion focus · Segment CDP",
+    deal: "$620K ARR · Core RM + AI Auto-Scheduler + Forecasting + Reporting",
+    segment: "6,000 staff · Multi-region · Practice Engine + Workday",
     readiness: 94,
     status: "ready" as const,
     submitted: "Mar 22, 2026",
     items: { complete: 11, total: 12 },
-    notes: "Migrating from Iterable. Heavy lifecycle program: trial onboarding, paid upgrade, retention. Web + iOS + Android SDKs.",
+    notes: "Migrating from spreadsheets + ProStaff. Multi-region rollout starting with US audit, then advisory.",
   },
   {
-    customer: "Apex Retail Group",
+    customer: "Menzies",
     ae: "Amy L.",
-    deal: "$180K ARR · Email + SMS + WhatsApp",
-    segment: "2.1M customers · Shopify · Holiday peak in scope",
+    deal: "$210K ARR · Core RM + Forecasting",
+    segment: "600 staff · UK · CCH Axcess",
     readiness: 67,
     status: "incomplete" as const,
     submitted: "Mar 20, 2026",
     items: { complete: 8, total: 12 },
-    notes: "Need WhatsApp Business Account approval, 10DLC registration, and consent capture confirmation. Peak season forces aggressive build timeline.",
+    notes: "Need CCH Axcess API access confirmation and partner sign-off on service line hierarchy. Busy-season cutover forces aggressive build timeline.",
   },
   {
-    customer: "MetLife — Lifecycle",
+    customer: "Wolf & Company",
     ae: "Mark T.",
-    deal: "$1.1M ARR · Full Suite + BrazeAI + Currents",
-    segment: "90M policyholders · Highly regulated · mParticle",
+    deal: "$340K ARR · Full Suite + AI Auto-Scheduler + Analytics",
+    segment: "700 staff · Firm-wide centralization · CCH Axcess",
     readiness: 100,
     status: "ready" as const,
     submitted: "Mar 18, 2026",
     items: { complete: 12, total: 12 },
-    notes: "Strong sponsor (CMO + Chief Customer Officer). Compliance review cleared. Existing Salesforce Marketing Cloud being retired.",
+    notes: "Strong sponsor (COO + Head of Resource Management). Legacy spreadsheet-based process being retired.",
   },
   {
-    customer: "Greentree Hospitality",
+    customer: "MHA",
     ae: "Jen S.",
-    deal: "$240K ARR · Email + Push + IAM",
-    segment: "4.6M loyalty members · Multi-brand",
+    deal: "$280K ARR · Core RM + Forecasting",
+    segment: "1,400 staff · UK multi-office · Utilization consistency focus",
     readiness: 42,
     status: "blocked" as const,
     submitted: "Mar 15, 2026",
     items: { complete: 5, total: 12 },
-    notes: "MSA pending legal review. Executive sponsor changed mid-deal — re-confirming scope and use cases before kickoff.",
+    notes: "MSA pending legal review. Executive sponsor changed mid-deal — re-confirming scope and pilot service line before kickoff.",
   },
 ];
 
@@ -59,17 +59,17 @@ const statusStyles = {
 
 const checklist = [
   "Signed order form / MSA in place",
-  "Channels in scope confirmed (Push / Email / SMS / IAM / Content Cards / WhatsApp)",
-  "SDK platforms documented (iOS, Android, Web, React Native, Flutter)",
-  "Data source identified (Segment / mParticle / Snowflake CDI / REST)",
-  "Migration source documented (Iterable / MoEngage / SFMC / Responsys / Airship)",
-  "Use cases prioritized (welcome, abandoned cart, churn, transactional)",
-  "Executive sponsor (CMO / VP Lifecycle) identified",
-  "Success criteria & Time to First Send target confirmed",
-  "Privacy / Legal contact identified (GDPR/CCPA)",
-  "Braze Delivery Manager, Technical Architect (TA), and CSM assigned",
-  "Customer kickoff scheduled",
-  "Risk & change management plan drafted",
+  "Modules in scope confirmed (Core RM / AI Auto-Scheduler / Forecasting / Reporting)",
+  "Service lines documented (Audit, Tax, Advisory, Consulting)",
+  "HRIS identified (Workday / BambooHR / HiBob / SAP SuccessFactors)",
+  "Practice management identified (CCH Axcess / Practice Engine / Thomson Reuters)",
+  "Legacy resourcing tool documented (Retain / ProStaff / Deltek / spreadsheets)",
+  "Pilot service line and phased rollout plan confirmed",
+  "Executive sponsor (COO / Managing Partner / Head of RM) identified",
+  "Success criteria & Time to First Schedule target confirmed",
+  "Data / Privacy / IT contact identified (GDPR / SOC2 review)",
+  "Dayshape Senior Implementation Consultant, Solution Consultant, and CSM assigned",
+  "Firm kickoff scheduled",
 ];
 
 export default function SalesHandoff() {
@@ -79,7 +79,7 @@ export default function SalesHandoff() {
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-2xl font-semibold">Sales Handoff · Sales to Delivery</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Manage the transition from closed Braze deals to active customer onboardings. All items must be complete before kickoff.
+            Manage the transition from closed Dayshape deals to active firm implementations. All items must be complete before kickoff.
           </p>
         </motion.div>
 
@@ -147,7 +147,7 @@ export default function SalesHandoff() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-base font-semibold">Handoff Checklist Standard</CardTitle>
-              <p className="text-xs text-muted-foreground">All items must be complete before transitioning to Kickoff phase.</p>
+              <p className="text-xs text-muted-foreground">All items must be complete before transitioning to Discovery & Kickoff phase.</p>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">

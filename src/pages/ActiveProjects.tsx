@@ -23,14 +23,14 @@ type Project = {
 };
 
 const initialProjects: Project[] = [
-  { id: "1", name: "Wyndham Hotels", segment: "Loyalty · Push + Email + IAM · Segment", owner: "E. Cicero", phase: 5, status: "on-track", progress: 93, startDate: "Jan 15", targetDate: "Apr 20", daysRemaining: 26 },
-  { id: "2", name: "MetLife", segment: "90M users · Email + SMS · mParticle", owner: "A. Piggott", phase: 4, status: "on-track", progress: 78, startDate: "Feb 1", targetDate: "Apr 5", daysRemaining: 11 },
-  { id: "3", name: "Canva Pro", segment: "28M MAU · Trial→Paid · Iterable migration", owner: "L. Martin", phase: 1, status: "on-track", progress: 18, startDate: "Mar 10", targetDate: "Jul 1", daysRemaining: 97 },
-  { id: "4", name: "Delivery Hero", segment: "Order recovery · Push + WhatsApp", owner: "S. Pickard", phase: 5, status: "on-track", progress: 95, startDate: "Dec 5", targetDate: "Mar 28", daysRemaining: 3 },
-  { id: "5", name: "Max Streaming", segment: "Churn save · Push + Email · Iterable migration", owner: "A. Pereira", phase: 3, status: "at-risk", progress: 47, startDate: "Feb 15", targetDate: "May 30", daysRemaining: 66 },
-  { id: "6", name: "Elf Beauty", segment: "Shopify · Email + SMS + IAM", owner: "T. Bauer", phase: 0, status: "not-started", progress: 5, startDate: "Mar 22", targetDate: "Jun 15", daysRemaining: 82 },
-  { id: "7", name: "Atlas Travel", segment: "Booking journey · Push + Email · Snowflake CDI", owner: "S. Khan", phase: 3, status: "on-track", progress: 55, startDate: "Jan 28", targetDate: "May 10", daysRemaining: 46 },
-  { id: "8", name: "NorthBank Mobile", segment: "Transactional + Lifecycle · Email + Push", owner: "M. Rivera", phase: 4, status: "on-track", progress: 78, startDate: "Nov 20", targetDate: "Apr 2", daysRemaining: 8 },
+  { id: "1", name: "Plante Moran", segment: "3,600 staff · Firm-wide RM · Workday HCM", owner: "E. Cicero", phase: 5, status: "on-track", progress: 93, startDate: "Jan 15", targetDate: "Apr 20", daysRemaining: 26 },
+  { id: "2", name: "Wolf & Company", segment: "700 staff · CCH Axcess · Full firm centralization", owner: "A. Piggott", phase: 4, status: "on-track", progress: 78, startDate: "Feb 1", targetDate: "Apr 5", daysRemaining: 11 },
+  { id: "3", name: "Baker Tilly", segment: "6,000 staff · Multi-region · Practice Engine + Workday", owner: "L. Martin", phase: 1, status: "on-track", progress: 18, startDate: "Mar 10", targetDate: "Jul 1", daysRemaining: 97 },
+  { id: "4", name: "Bennett Thrasher", segment: "500 staff · Utilization + realization focus", owner: "S. Pickard", phase: 5, status: "on-track", progress: 95, startDate: "Dec 5", targetDate: "Mar 28", daysRemaining: 3 },
+  { id: "5", name: "Azets UK", segment: "6,500 staff · Retain → Dayshape · Sage Intacct", owner: "A. Pereira", phase: 3, status: "at-risk", progress: 47, startDate: "Feb 15", targetDate: "May 30", daysRemaining: 66 },
+  { id: "6", name: "MHA", segment: "1,400 staff · Firm-wide utilization consistency", owner: "T. Bauer", phase: 0, status: "not-started", progress: 5, startDate: "Mar 22", targetDate: "Jun 15", daysRemaining: 82 },
+  { id: "7", name: "Bishop Fleming", segment: "550 staff · Advisory expansion · Practice Engine", owner: "S. Khan", phase: 3, status: "on-track", progress: 55, startDate: "Jan 28", targetDate: "May 10", daysRemaining: 46 },
+  { id: "8", name: "Grant Thornton NL", segment: "1,900 staff · AI scheduling · Workday", owner: "M. Rivera", phase: 4, status: "on-track", progress: 78, startDate: "Nov 20", targetDate: "Apr 2", daysRemaining: 8 },
 ];
 
 type ViewMode = "list" | "kanban";
@@ -114,9 +114,9 @@ export default function ActiveProjects() {
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
           <div className="flex items-start justify-between">
             <div>
-              <h1 className="text-2xl font-semibold">Active Onboardings</h1>
+              <h1 className="text-2xl font-semibold">Active Implementations</h1>
               <p className="text-sm text-muted-foreground mt-1">
-                Track Braze customer onboardings across the 6-phase delivery framework.
+                Track Dayshape firm implementations across the 6-phase delivery framework.
               </p>
             </div>
             <div className="flex items-center bg-muted rounded-lg p-0.5">
@@ -133,7 +133,7 @@ export default function ActiveProjects() {
         <div className="flex flex-wrap gap-2">
           {statusFilters.map((s) => (
             <button key={s} onClick={() => setFilter(s)} className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${filter === s ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-muted/80"}`}>
-              {s === "All" ? "All Customers" : s.replace("-", " ").replace(/\b\w/g, l => l.toUpperCase())}
+              {s === "All" ? "All Firms" : s.replace("-", " ").replace(/\b\w/g, l => l.toUpperCase())}
             </button>
           ))}
         </div>
@@ -205,7 +205,7 @@ export default function ActiveProjects() {
                             ))
                           ) : (
                             <div className="flex items-center justify-center h-[120px] rounded-lg border border-dashed text-xs text-muted-foreground">
-                              No customers
+                              No firms
                             </div>
                           )}
                         </DroppableColumn>

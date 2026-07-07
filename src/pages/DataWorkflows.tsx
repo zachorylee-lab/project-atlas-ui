@@ -5,148 +5,148 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
-  Smartphone, Database, GitBranch, Mail, Sparkles,
+  Users, Database, CalendarClock, BarChart3, Sparkles,
   CheckCircle2, Upload, Settings,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-type ModuleId = "sdk" | "data" | "canvas" | "channels" | "ai";
+type ModuleId = "firm" | "integrations" | "engagements" | "scheduling" | "ai";
 
 type WorkflowTask = { label: string; done: boolean };
 type MigrationItem = { source: string; target: string; records: string; status: "pending" | "in-progress" | "complete" | "failed" };
 type ConfigStep = { label: string; description: string; done: boolean };
 
 const modulesMeta: Record<ModuleId, { label: string; icon: React.ElementType; color: string; description: string }> = {
-  sdk: { label: "SDK Integration", icon: Smartphone, color: "text-pink-500", description: "iOS, Android, Web, React Native, Flutter SDK install & session/event tracking" },
-  data: { label: "Data Ingestion", icon: Database, color: "text-fuchsia-500", description: "Segment, mParticle, Snowflake CDI, and REST /users/track pipelines" },
-  canvas: { label: "Canvas Journeys", icon: GitBranch, color: "text-violet-500", description: "Lifecycle journey orchestration: welcome, abandoned, churn, transactional" },
-  channels: { label: "Channels Setup", icon: Mail, color: "text-rose-500", description: "Push (APNs/FCM), Email (DKIM/SPF/DMARC), SMS (10DLC), WhatsApp, IAM, Content Cards" },
-  ai: { label: "BrazeAI & Personalization", icon: Sparkles, color: "text-amber-500", description: "Sage AI Copilot, Intelligent Channel, Intelligent Timing, Liquid, Connected Content, Catalogs" },
+  firm:         { label: "Firm Model",        icon: Users,        color: "text-orange-500",  description: "Offices, service lines, teams, roles, grades, skills, and staff hierarchy" },
+  integrations: { label: "Integrations",      icon: Database,     color: "text-pink-500",    description: "Workday / BambooHR HRIS, CCH Axcess / Practice Engine, calendar, and finance systems" },
+  engagements:  { label: "Engagements",       icon: CalendarClock, color: "text-violet-500", description: "Engagement templates, budgets, role/grade requirements, and booking rules" },
+  scheduling:   { label: "Scheduling & Forecast", icon: BarChart3, color: "text-rose-500",   description: "Firm-wide scheduling, forecast cycles, utilization dashboards, and reporting" },
+  ai:           { label: "AI Auto-Scheduler", icon: Sparkles,     color: "text-amber-500",   description: "Preference weightings, skill match, staff development, and scenario simulation" },
 };
 
 const implementationChecklists: Record<ModuleId, WorkflowTask[]> = {
-  sdk: [
-    { label: "Install iOS SDK (Swift Package Manager / CocoaPods)", done: false },
-    { label: "Install Android SDK (Gradle)", done: false },
-    { label: "Install Web SDK (npm or CDN snippet)", done: false },
-    { label: "Configure push (APNs auth key, FCM v1 service account)", done: false },
-    { label: "Validate session start / end events in test app", done: false },
-    { label: "Implement `changeUser` on login with stable `external_id`", done: false },
-    { label: "Implement custom events + purchases on key flows", done: false },
-    { label: "Verify SDK in staging dashboard live feed", done: false },
+  firm: [
+    { label: "Load offices, service lines, cost centers, and departments", done: false },
+    { label: "Define role and grade taxonomy (Partner → Analyst)", done: false },
+    { label: "Build competencies and skills library", done: false },
+    { label: "Configure absence and non-chargeable time categories", done: false },
+    { label: "Load staff population with grades, skills, and start dates", done: false },
+    { label: "Configure staff development preferences (aspirations, target hours)", done: false },
+    { label: "Define permission roles (Resource Manager, Partner, Staff, Admin)", done: false },
+    { label: "Sign off firm model with Head of RM and HR", done: false },
   ],
-  data: [
-    { label: "Identify primary data source (Segment / mParticle / CDI / REST)", done: false },
-    { label: "Design custom attribute + custom event schema", done: false },
-    { label: "Map `userId` → `external_id` across sources", done: false },
-    { label: "Configure consent forwarding (GDPR, CCPA, CDPA)", done: false },
-    { label: "Backfill historical user profiles", done: false },
-    { label: "Validate event ingestion latency < 1 min p95", done: false },
-    { label: "Reconcile DAU/MAU counts vs. source of truth", done: false },
-    { label: "Stand up Currents / CDS export to warehouse", done: false },
+  integrations: [
+    { label: "Identify integration systems (HRIS / practice mgmt / finance / calendar)", done: false },
+    { label: "Provision integration users and API credentials", done: false },
+    { label: "Configure HRIS person + org + absence sync", done: false },
+    { label: "Configure practice management engagement master sync", done: false },
+    { label: "Configure calendar (Outlook / Google) two-way sync", done: false },
+    { label: "Configure finance / ERP time actuals + rates sync", done: false },
+    { label: "Configure SSO (Okta / Azure AD / Google) + SCIM", done: false },
+    { label: "Validate end-to-end data quality < 1% error rate", done: false },
   ],
-  canvas: [
-    { label: "Document lifecycle stages and target use cases", done: false },
-    { label: "Build welcome series Canvas (3–5 steps)", done: false },
-    { label: "Build abandoned cart / abandoned browse Canvas", done: false },
-    { label: "Build re-engagement / churn save Canvas", done: false },
-    { label: "Build transactional Canvas (order confirm, shipping)", done: false },
-    { label: "Configure conversion events on every Canvas", done: false },
-    { label: "Set frequency capping and global control group", done: false },
-    { label: "QA Canvas branching with seed users", done: false },
+  engagements: [
+    { label: "Document engagement types by service line (Audit, Tax, Advisory)", done: false },
+    { label: "Build engagement templates with role/grade requirements", done: false },
+    { label: "Configure client hierarchy and partner ownership rules", done: false },
+    { label: "Define booking rules (min/max hours, conflict checks, overrides)", done: false },
+    { label: "Configure budget-vs-actual variance thresholds", done: false },
+    { label: "Set up approval workflows (RM → Partner)", done: false },
+    { label: "Migrate open engagements from legacy tool", done: false },
+    { label: "Reconcile engagement counts with practice management", done: false },
   ],
-  channels: [
-    { label: "Upload APNs auth key + FCM service account", done: false },
-    { label: "Authenticate sending domain (SPF / DKIM / DMARC)", done: false },
-    { label: "Build IP warming plan (4–6 weeks)", done: false },
-    { label: "Register 10DLC brand + campaigns for SMS", done: false },
-    { label: "Submit WhatsApp Business templates for approval", done: false },
-    { label: "Configure subscription groups + preference center", done: false },
-    { label: "Build IAM template library aligned to brand", done: false },
-    { label: "Run inbox-placement seed test (Gmail/Yahoo/Outlook)", done: false },
+  scheduling: [
+    { label: "Publish first pilot service line schedule", done: false },
+    { label: "Run first firm-wide weekly scheduling cycle", done: false },
+    { label: "Configure utilization dashboards by grade / office / service line", done: false },
+    { label: "Configure realization + budget variance dashboards", done: false },
+    { label: "Set up first forecast cycle (3, 6, 12 month horizons)", done: false },
+    { label: "Configure staff development metrics (variety, target hours)", done: false },
+    { label: "Configure Power BI / Tableau exports", done: false },
+    { label: "Sign off KPI definitions with COO + Head of RM", done: false },
   ],
   ai: [
-    { label: "Enable Sage AI Copilot for the workspace", done: false },
-    { label: "Turn on Intelligent Channel for cross-channel users", done: false },
-    { label: "Enable Intelligent Timing per Canvas step", done: false },
-    { label: "Set up Catalogs with product feed", done: false },
-    { label: "Build Liquid personalization library", done: false },
-    { label: "Configure Connected Content for live data calls", done: false },
-    { label: "Run A/B test on AI-generated copy vs. human", done: false },
-    { label: "Document AI guardrails with brand/legal", done: false },
+    { label: "Enable AI Auto-Scheduler in the tenant", done: false },
+    { label: "Configure preference weightings (utilization, skill match, development)", done: false },
+    { label: "Define do-not-book rules (partner overrides, client no-fly)", done: false },
+    { label: "Pilot on one service line for two weekly cycles", done: false },
+    { label: "Measure Auto-Scheduler acceptance rate (target > 70%)", done: false },
+    { label: "Tune weightings based on Resource Manager feedback", done: false },
+    { label: "Enable scenario simulation for busy-season planning", done: false },
+    { label: "Document AI guardrails with partner steering committee", done: false },
   ],
 };
 
 const migrationData: Record<ModuleId, MigrationItem[]> = {
-  sdk: [
-    { source: "Iterable SDK", target: "Braze SDK iOS", records: "~iOS app", status: "pending" },
-    { source: "Iterable SDK", target: "Braze SDK Android", records: "~Android app", status: "pending" },
-    { source: "Web tracker", target: "Braze Web SDK", records: "~Marketing site", status: "pending" },
-    { source: "Legacy events", target: "Custom events", records: "~30 event types", status: "pending" },
+  firm: [
+    { source: "Legacy org hierarchy", target: "Dayshape offices/teams", records: "~40 units", status: "pending" },
+    { source: "Spreadsheet role/grade list", target: "Dayshape taxonomy", records: "~24 grades", status: "pending" },
+    { source: "HR skills survey", target: "Dayshape skills library", records: "~120 skills", status: "pending" },
+    { source: "Workday people file", target: "Dayshape staff", records: "~6,000 staff", status: "pending" },
   ],
-  data: [
-    { source: "Iterable users", target: "Braze profiles", records: "~28M profiles", status: "pending" },
-    { source: "Suppression list", target: "Subscription groups", records: "~3.2M unsubs", status: "pending" },
-    { source: "Snowflake `dim_user`", target: "Custom attributes", records: "Nightly sync", status: "pending" },
-    { source: "Shopify orders", target: "Purchase events", records: "Last 24 months", status: "pending" },
+  integrations: [
+    { source: "Workday HCM", target: "Dayshape people + org", records: "6,000 records + JLM", status: "pending" },
+    { source: "CCH Axcess", target: "Dayshape engagement master", records: "~12,400 engagements", status: "pending" },
+    { source: "Outlook calendars", target: "Dayshape bookings sync", records: "Firm-wide", status: "pending" },
+    { source: "NetSuite time actuals", target: "Dayshape actuals", records: "Rolling 24 months", status: "pending" },
   ],
-  canvas: [
-    { source: "Iterable Workflows", target: "Braze Canvases", records: "~22 active programs", status: "pending" },
-    { source: "Email templates", target: "Braze email", records: "~180 templates", status: "pending" },
-    { source: "Push templates", target: "Braze push", records: "~45 templates", status: "pending" },
-    { source: "Triggers/events", target: "Canvas entry", records: "~30 event triggers", status: "pending" },
+  engagements: [
+    { source: "Legacy engagement types", target: "Dayshape templates", records: "~35 templates", status: "pending" },
+    { source: "Open engagements", target: "Dayshape engagements", records: "~4,800 open", status: "pending" },
+    { source: "Historical bookings", target: "Dayshape history", records: "Rolling 24 months", status: "pending" },
+    { source: "Client hierarchy", target: "Dayshape clients", records: "~9,200 clients", status: "pending" },
   ],
-  channels: [
-    { source: "Legacy ESP IP", target: "New dedicated IPs", records: "4 IPs · 6-wk warm", status: "pending" },
-    { source: "Legacy short code", target: "10DLC campaign", records: "1 campaign", status: "pending" },
-    { source: "Legacy push certs", target: "APNs auth key", records: "p8 key", status: "pending" },
-    { source: "Sender domains", target: "Authenticated subdomain", records: "mail.brand.com", status: "pending" },
+  scheduling: [
+    { source: "Legacy weekly schedule", target: "Dayshape schedule", records: "First live cycle", status: "pending" },
+    { source: "Legacy forecast spreadsheet", target: "Dayshape forecast", records: "3-year horizon", status: "pending" },
+    { source: "Excel utilization report", target: "Dayshape dashboard", records: "By grade + office", status: "pending" },
+    { source: "Static BI cube", target: "Power BI dataset", records: "Semantic layer", status: "pending" },
   ],
   ai: [
-    { source: "Manual copy library", target: "Sage AI Copilot prompts", records: "~50 prompts", status: "pending" },
-    { source: "Product feed", target: "Braze Catalogs", records: "~12K SKUs", status: "pending" },
-    { source: "Static send time", target: "Intelligent Timing", records: "All lifecycle Canvases", status: "pending" },
-    { source: "Single-channel sends", target: "Intelligent Channel", records: "Re-engagement Canvas", status: "pending" },
+    { source: "Manual RM preferences", target: "AI Auto-Scheduler config", records: "Pilot service line", status: "pending" },
+    { source: "Skill match rules", target: "Auto-Scheduler weightings", records: "~120 skills", status: "pending" },
+    { source: "Partner no-fly list", target: "Do-not-book rules", records: "~40 rules", status: "pending" },
+    { source: "Staff development targets", target: "Development weightings", records: "All grades", status: "pending" },
   ],
 };
 
 const configSteps: Record<ModuleId, ConfigStep[]> = {
-  sdk: [
-    { label: "iOS Setup", description: "SPM install, AppDelegate hooks, push capability, App Group for rich push", done: false },
-    { label: "Android Setup", description: "Gradle dep, AndroidManifest, FCM service account, notification channels", done: false },
-    { label: "Web Setup", description: "npm or CDN snippet, service worker for web push, IAM container", done: false },
-    { label: "Identity", description: "`changeUser` on login, anonymous → identified merge logic", done: false },
-    { label: "Event Tracking", description: "Logged events, purchases, custom attributes per analytics plan", done: false },
+  firm: [
+    { label: "Org Hierarchy", description: "Offices → service lines → teams; cost centers; regional groupings", done: false },
+    { label: "Roles & Grades", description: "Partner, Director, Senior Manager, Manager, Senior, Associate, Analyst", done: false },
+    { label: "Skills Taxonomy", description: "Technical, industry, language, and certification skills library", done: false },
+    { label: "Absences", description: "PTO, training, admin, secondment, parental leave categories", done: false },
+    { label: "Permissions", description: "Role-based access for RM, Partner, Staff, Admin, Finance", done: false },
   ],
-  data: [
-    { label: "Source Selection", description: "Decide Segment vs. mParticle vs. CDI vs. REST per use case", done: false },
-    { label: "Schema Design", description: "Custom attributes & event taxonomy aligned with analytics", done: false },
-    { label: "Identity Resolution", description: "external_id strategy across web, mobile, and offline systems", done: false },
-    { label: "Consent", description: "Forward GDPR/CCPA consent state to Braze subscription groups", done: false },
-    { label: "Warehouse Export", description: "Configure Currents or Cloud Data Sharing to Snowflake/BigQuery", done: false },
+  integrations: [
+    { label: "HRIS Sync", description: "Workday / BambooHR / HiBob person + org + absence", done: false },
+    { label: "Practice Management", description: "CCH Axcess / Practice Engine engagement master + actuals", done: false },
+    { label: "Calendar", description: "Outlook / Google two-way with meeting category filters", done: false },
+    { label: "Finance / ERP", description: "NetSuite / Sage Intacct / Deltek WIP + rates", done: false },
+    { label: "SSO", description: "SAML + SCIM with Okta / Azure AD / Google Workspace", done: false },
   ],
-  canvas: [
-    { label: "Use-Case Map", description: "Prioritize 5–8 launch use cases and entry triggers", done: false },
-    { label: "Welcome / Onboarding", description: "Multi-step welcome with channel branching", done: false },
-    { label: "Abandoned / Browse", description: "Catalog-personalized recovery Canvas", done: false },
-    { label: "Re-engagement / Churn", description: "Predictive risk → win-back Canvas with Intelligent Channel", done: false },
-    { label: "Transactional", description: "Order confirm, shipping, password reset via API-triggered Canvas", done: false },
+  engagements: [
+    { label: "Engagement Types", description: "Audit, Tax return, Advisory project, Consulting engagement templates", done: false },
+    { label: "Budgets", description: "Role/grade hour budgets per template; realization thresholds", done: false },
+    { label: "Booking Rules", description: "Min/max daily hours, conflict logic, override permissions", done: false },
+    { label: "Approvals", description: "Multi-step RM → Partner approval workflow", done: false },
+    { label: "Client Hierarchy", description: "Parent/child client structure and partner ownership", done: false },
   ],
-  channels: [
-    { label: "Push Setup", description: "APNs + FCM, notification permission prompt strategy", done: false },
-    { label: "Email Authentication", description: "SPF, DKIM, DMARC; subdomain + IP warming plan", done: false },
-    { label: "SMS / WhatsApp", description: "10DLC registration, template approval, opt-in capture", done: false },
-    { label: "In-App + Content Cards", description: "Template library + targeting rules", done: false },
-    { label: "Subscription Center", description: "Granular subscription groups + preference center", done: false },
+  scheduling: [
+    { label: "Weekly Schedule", description: "Firm-wide publish cadence and lock-down rules", done: false },
+    { label: "Forecast Cycles", description: "Rolling 3/6/12-month capacity forecast", done: false },
+    { label: "Utilization Dashboards", description: "By grade, office, service line, partner", done: false },
+    { label: "Realization Dashboards", description: "Budget vs actual, WIP write-off tracking", done: false },
+    { label: "Reporting Exports", description: "Power BI dataset, Tableau extract, Snowflake feed", done: false },
   ],
   ai: [
-    { label: "Sage AI Copilot", description: "Enable workspace, define brand voice, train on top performers", done: false },
-    { label: "Intelligent Channel", description: "Enable on Canvases with 2+ channels per user", done: false },
-    { label: "Intelligent Timing", description: "Per-user optimal send time on lifecycle Canvases", done: false },
-    { label: "Catalogs", description: "Sync product feed, version it, render via Liquid", done: false },
-    { label: "Connected Content", description: "Secure outbound calls to customer APIs at send time", done: false },
+    { label: "AI Auto-Scheduler", description: "Enable tenant-wide with a documented governance model", done: false },
+    { label: "Preference Weightings", description: "Balance utilization, skill match, staff development, partner preferences", done: false },
+    { label: "Do-Not-Book Rules", description: "Client no-fly, staff overrides, mandatory training blocks", done: false },
+    { label: "Scenario Simulation", description: "Model busy-season demand vs. capacity before committing", done: false },
+    { label: "Adoption Metrics", description: "Auto-schedule acceptance rate, override reasons, tuning cadence", done: false },
   ],
 };
 
@@ -160,7 +160,7 @@ const statusStyles: Record<string, { label: string; classes: string }> = {
 const fadeUp = { initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.3 } };
 
 export default function DataWorkflows() {
-  const [activeModule, setActiveModule] = useState<ModuleId>("sdk");
+  const [activeModule, setActiveModule] = useState<ModuleId>("firm");
   const [checklistStates, setChecklistStates] = useState<Record<string, boolean[]>>({});
   const [migrationStates, setMigrationStates] = useState<Record<string, MigrationItem[]>>({});
   const [configStates, setConfigStates] = useState<Record<string, boolean[]>>({});
@@ -204,9 +204,9 @@ export default function DataWorkflows() {
       <motion.div {...fadeUp}>
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">Braze Workstreams</h1>
+            <h1 className="text-2xl font-bold tracking-tight">Dayshape Workstreams</h1>
             <p className="text-sm text-muted-foreground mt-1">
-              Configure, migrate and validate each workstream of a Braze onboarding
+              Configure, migrate, and validate each workstream of a Dayshape firm implementation
             </p>
           </div>
           <Badge variant="outline" className="text-xs gap-1.5 px-3 py-1.5">
