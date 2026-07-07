@@ -10,24 +10,24 @@ import { motion } from "framer-motion";
 const initialAdvocacy = [
   {
     id: "1",
-    customer: "Canva Pro",
-    useCase: "Segment audience refresh intervals too slow for real-time lifecycle triggers",
-    outcome: "Pattern shared with Product; prioritized for Q2 roadmap as a CDI enhancement",
+    customer: "Baker Tilly",
+    useCase: "Workday HCM sync latency too slow for real-time resource re-allocation across regions",
+    outcome: "Pattern shared with Product; prioritized for Q2 roadmap as a Workday connector enhancement",
     impact: "roadmap",
     date: "Mar 12, 2026",
   },
   {
     id: "2",
-    customer: "MetLife",
-    useCase: "Compliance needs native email retention policy controls before enterprise rollout",
-    outcome: "Filed with Enterprise Product; tied to regulated financial services vertical expansion",
+    customer: "Wolf & Company",
+    useCase: "Audit engagement templates need budget-vs-actual variance thresholds tied to partner alerts",
+    outcome: "Filed with Product; tied to US mid-market accounting vertical expansion",
     impact: "feature-request",
     date: "Mar 18, 2026",
   },
   {
     id: "3",
-    customer: "Max Streaming",
-    useCase: "Iterable-to-Braze content migration tooling gaps causing 10-day delay",
+    customer: "Azets UK",
+    useCase: "Retain-to-Dayshape historical engagement mapping tool has gaps causing 10-day delay",
     outcome: "Escalated to Solutions Engineering; a reusable migration script was shipped to PS playbooks",
     impact: "bug-fix",
     date: "Mar 15, 2026",
@@ -81,7 +81,7 @@ export function ProductAdvocacy() {
           </Badge>
         </div>
         <p className="text-xs text-muted-foreground mt-1">
-          Customer business use-cases, tooling gaps, and feature requests raised with Product and Engineering.
+          Firm business use-cases, tooling gaps, and feature requests raised with Dayshape Product and Engineering.
         </p>
       </CardHeader>
       <CardContent>
@@ -114,42 +114,17 @@ export function ProductAdvocacy() {
 
         {showForm ? (
           <div className="mt-4 space-y-2">
-            <Input
-              placeholder="Customer or project name"
-              value={customer}
-              onChange={(e) => setCustomer(e.target.value)}
-              className="text-sm"
-            />
-            <Textarea
-              placeholder="Customer use-case or gap"
-              value={useCase}
-              onChange={(e) => setUseCase(e.target.value)}
-              className="text-sm min-h-[60px]"
-            />
-            <Textarea
-              placeholder="Outcome / who it was shared with"
-              value={outcome}
-              onChange={(e) => setOutcome(e.target.value)}
-              className="text-sm min-h-[60px]"
-            />
+            <Input placeholder="Firm or project name" value={customer} onChange={(e) => setCustomer(e.target.value)} className="text-sm" />
+            <Textarea placeholder="Customer use-case or gap" value={useCase} onChange={(e) => setUseCase(e.target.value)} className="text-sm min-h-[60px]" />
+            <Textarea placeholder="Outcome / who it was shared with" value={outcome} onChange={(e) => setOutcome(e.target.value)} className="text-sm min-h-[60px]" />
             <div className="flex items-center gap-2">
-              <select
-                value={impact}
-                onChange={(e) => setImpact(e.target.value as keyof typeof impactMeta)}
-                className="text-sm rounded-md border bg-background px-2 py-1.5"
-              >
+              <select value={impact} onChange={(e) => setImpact(e.target.value as keyof typeof impactMeta)} className="text-sm rounded-md border bg-background px-2 py-1.5">
                 {Object.entries(impactMeta).map(([key, meta]) => (
-                  <option key={key} value={key}>
-                    {meta.label}
-                  </option>
+                  <option key={key} value={key}>{meta.label}</option>
                 ))}
               </select>
-              <Button size="sm" onClick={addEntry} className="ml-auto">
-                Log feedback
-              </Button>
-              <Button size="sm" variant="ghost" onClick={() => setShowForm(false)}>
-                Cancel
-              </Button>
+              <Button size="sm" onClick={addEntry} className="ml-auto">Log feedback</Button>
+              <Button size="sm" variant="ghost" onClick={() => setShowForm(false)}>Cancel</Button>
             </div>
           </div>
         ) : (

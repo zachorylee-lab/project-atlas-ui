@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
   Building2, User, Calendar, ListChecks, MessageSquare,
-  CheckCircle2, Clock, Target, Zap, Send, Workflow, Database, Handshake, Link2, ChevronRight,
+  CheckCircle2, Clock, Target, Zap, CalendarCheck, LineChart, Database, Handshake, Link2, ChevronRight,
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -39,53 +39,53 @@ type PhaseTask = { label: string; done: boolean };
 const phaseTasks: Record<number, PhaseTask[]> = {
   0: [
     { label: "Receive signed SOW from sales", done: false },
-    { label: "Review property portfolio details and unit count", done: false },
-    { label: "Validate payment processing requirements", done: false },
-    { label: "Assign onboarding specialist", done: false },
+    { label: "Review firm size, service lines, and modules purchased", done: false },
+    { label: "Validate integration systems (HRIS, practice mgmt, finance)", done: false },
+    { label: "Assign Senior Implementation Consultant + Solution Consultant", done: false },
     { label: "Schedule internal alignment meeting", done: false },
   ],
   1: [
-    { label: "Send kickoff agenda to property manager", done: false },
-    { label: "Conduct kickoff meeting", done: false },
-    { label: "Confirm onboarding timeline and milestones", done: false },
+    { label: "Send kickoff agenda to Head of Resource Management", done: false },
+    { label: "Conduct kickoff with COO, Head of RM, HR, IT", done: false },
+    { label: "Confirm implementation timeline and milestones", done: false },
     { label: "Introduce team members and roles", done: false },
-    { label: "Define success criteria (collection rate, adoption targets)", done: false },
-    { label: "Distribute onboarding charter for sign-off", done: false },
+    { label: "Define success criteria (TTFS, adoption, utilization uplift)", done: false },
+    { label: "Distribute project charter for sign-off", done: false },
   ],
   2: [
-    { label: "Configure payment gateway and bank accounts", done: false },
-    { label: "Set up property portfolio in RentFlow", done: false },
-    { label: "Import tenant and lease data", done: false },
-    { label: "Build rent collection schedules and late fee rules", done: false },
-    { label: "Configure tenant portal branding", done: false },
-    { label: "Internal QA review of payment flows", done: false },
+    { label: "Configure firm hierarchy, offices, service lines, and cost centers", done: false },
+    { label: "Load roles, grades, and skills taxonomy", done: false },
+    { label: "Build engagement templates by service line", done: false },
+    { label: "Wire HRIS + practice management + calendar + finance integrations", done: false },
+    { label: "Migrate historical bookings and engagements", done: false },
+    { label: "Configure AI Auto-Scheduler preference weightings", done: false },
     { label: "Document configuration decisions", done: false },
   ],
   3: [
-    { label: "Prepare payment flow test plan", done: false },
-    { label: "Set up test environment with sample tenants", done: false },
-    { label: "Conduct ACH and card payment testing", done: false },
-    { label: "Test autopay enrollment and cancellation", done: false },
-    { label: "Log and triage payment discrepancies", done: false },
-    { label: "Retest resolved issues", done: false },
-    { label: "Obtain UAT sign-off from property manager", done: false },
+    { label: "Prepare UAT scenario test plan", done: false },
+    { label: "Set up parallel scheduling in sandbox", done: false },
+    { label: "Run first weekly scheduling cycle in Dayshape", done: false },
+    { label: "Deliver Resource Manager technical enablement workshop", done: false },
+    { label: "Deliver Partner / Service Line briefings", done: false },
+    { label: "Log and triage integration + booking defects", done: false },
+    { label: "Obtain UAT sign-off from Head of RM and COO", done: false },
   ],
   4: [
-    { label: "Finalize payment activation runbook", done: false },
-    { label: "Execute final tenant data sync", done: false },
-    { label: "Activate live payment processing", done: false },
-    { label: "Run post-activation smoke tests", done: false },
-    { label: "Send tenant welcome communications", done: false },
-    { label: "Notify property manager of go-live confirmation", done: false },
+    { label: "Finalize go-live runbook", done: false },
+    { label: "Execute final HRIS + practice management sync", done: false },
+    { label: "Publish first firm-wide schedule", done: false },
+    { label: "Run post-cutover smoke tests", done: false },
+    { label: "Send firm-wide launch communications", done: false },
+    { label: "Notify executive sponsor of go-live confirmation", done: false },
   ],
   5: [
-    { label: "Set up daily payment monitoring cadence", done: false },
-    { label: "Monitor collection rates and failure patterns", done: false },
-    { label: "Triage and resolve post-launch payment issues", done: false },
-    { label: "Conduct mid-hypercare review with property manager", done: false },
-    { label: "Gather property manager satisfaction feedback", done: false },
-    { label: "Prepare BAU transition documentation", done: false },
-    { label: "Hand off to support/CSM team", done: false },
+    { label: "Set up daily adoption + integration health monitoring", done: false },
+    { label: "Tune AI Auto-Scheduler based on Resource Manager overrides", done: false },
+    { label: "Triage and resolve post-launch issues", done: false },
+    { label: "Conduct mid-hypercare review with COO + Head of RM", done: false },
+    { label: "Gather firm CSAT and adoption metrics", done: false },
+    { label: "Prepare BAU handover documentation", done: false },
+    { label: "Hand over to Customer Success Manager", done: false },
   ],
 };
 
@@ -93,14 +93,14 @@ type Note = { text: string; timestamp: string; author: string };
 
 const seedNotes: Record<string, Note[]> = {
   "1": [
-    { text: "PM requested separate bank accounts for each property entity. Reviewing with payments team.", timestamp: "Mar 25, 2026", author: "Sarah K." },
-    { text: "Test environment provisioned with 50 sample tenants. Ready for UAT next week.", timestamp: "Mar 20, 2026", author: "DevOps" },
+    { text: "COO requested separate utilization dashboards for each region. Reviewing with reporting team.", timestamp: "Mar 25, 2026", author: "Sarah K." },
+    { text: "Sandbox tenant provisioned with pilot audit service line. Ready for UAT next week.", timestamp: "Mar 20, 2026", author: "IT" },
   ],
   "2": [
-    { text: "ACH processing delay with tenant's bank — may need to switch to same-day ACH.", timestamp: "Mar 28, 2026", author: "Mike R." },
+    { text: "CCH Axcess API rate limits tighter than expected — may need to switch to overnight batch for full history.", timestamp: "Mar 28, 2026", author: "Mike R." },
   ],
   "5": [
-    { text: "Property manager's accounting lead out on leave — financial reconciliation paused for 1 week.", timestamp: "Mar 18, 2026", author: "Ana P." },
+    { text: "Firm's HR data owner out on leave — Workday reconciliation paused for 1 week.", timestamp: "Mar 18, 2026", author: "Ana P." },
   ],
 };
 
@@ -115,46 +115,46 @@ type TTVMilestone = {
 };
 
 const defaultTTV = (startDate: string, targetDate: string): TTVMilestone[] => [
-  { label: "Kickoff Complete", owner: "Delivery Manager", date: startDate, status: "done", icon: Handshake, note: "Charter signed, RACI distributed" },
-  { label: "SDK Integrated (Dev)", owner: "Technical Architect", date: "+2 wks", status: "done", icon: Zap, note: "iOS / Android / Web SDKs initialized" },
-  { label: "Data Pipeline Live", owner: "Onboarding Engineer", date: "+4 wks", status: "in-progress", icon: Database, note: "Segment / mParticle / CDI events flowing" },
-  { label: "First Production Send", owner: "Lifecycle Lead (Customer)", date: "+6 wks", status: "upcoming", icon: Send, note: "TTFS milestone — Email or Push" },
-  { label: "First Canvas Live", owner: "Strategy Consultant", date: "+8 wks", status: "upcoming", icon: Workflow, note: "TTFC milestone — multi-step journey" },
-  { label: "CSM Transition", owner: "Delivery Manager → CSM", date: targetDate, status: "upcoming", icon: Target, note: "Hypercare exit, success plan handoff" },
+  { label: "Kickoff Complete", owner: "Senior Implementation Consultant", date: startDate, status: "done", icon: Handshake, note: "Charter signed, RACI distributed" },
+  { label: "Firm Model Configured", owner: "Solution Consultant", date: "+2 wks", status: "done", icon: Zap, note: "Offices, service lines, roles, grades, skills loaded" },
+  { label: "Integrations Live", owner: "Solution Consultant", date: "+4 wks", status: "in-progress", icon: Database, note: "HRIS + practice management + calendar wired and reconciled" },
+  { label: "First Firm-Wide Schedule Published", owner: "Head of Resource Management", date: "+6 wks", status: "upcoming", icon: CalendarCheck, note: "TTFS milestone — first live weekly schedule" },
+  { label: "First Forecast Cycle", owner: "Strategy Consultant", date: "+8 wks", status: "upcoming", icon: LineChart, note: "TTFF milestone — first 3-month capacity forecast" },
+  { label: "CSM Handover", owner: "Senior Implementation Consultant → CSM", date: targetDate, status: "upcoming", icon: Target, note: "Adoption exit, success plan handover" },
 ];
 
 const ttvOverrides: Record<string, TTVMilestone[]> = {
   "1": [
-    { label: "Kickoff Complete", owner: "E. Cicero (DM)", date: "Jan 18", status: "done", icon: Handshake, note: "Wyndham loyalty re-engagement charter signed" },
-    { label: "SDK Integrated", owner: "R. Patel (TA)", date: "Feb 2", status: "done", icon: Zap, note: "iOS + Android SDK v9 live, push tokens flowing" },
-    { label: "Segment CDP Wired", owner: "J. Liu (OE)", date: "Feb 18", status: "done", icon: Database, note: "Loyalty events streaming, identity resolution validated" },
-    { label: "First Production Send", owner: "Wyndham Lifecycle", date: "Mar 5", status: "done", icon: Send, note: "TTFS = 49 days; tier-up email, 38% open rate" },
-    { label: "First Canvas Live", owner: "L. Nguyen (Strategy)", date: "Mar 22", status: "in-progress", icon: Workflow, note: "Welcome → tier-up → win-back, 4-step journey in QA" },
-    { label: "CSM Transition", owner: "E. Cicero → K. Park", date: "Apr 20", status: "upcoming", icon: Target, note: "Hypercare exit + ROI readout scheduled" },
+    { label: "Kickoff Complete", owner: "E. Cicero (SIC)", date: "Jan 18", status: "done", icon: Handshake, note: "Plante Moran firm-wide RM charter signed" },
+    { label: "Firm Model Configured", owner: "R. Patel (SC)", date: "Feb 2", status: "done", icon: Zap, note: "3,600 staff, 9 offices, audit + tax + advisory hierarchy live" },
+    { label: "Workday HRIS Wired", owner: "J. Liu (Data)", date: "Feb 18", status: "done", icon: Database, note: "RaaS sync live; JLM propagation < 12h" },
+    { label: "First Firm-Wide Schedule Published", owner: "L. Nguyen (RM Lead)", date: "Mar 5", status: "done", icon: CalendarCheck, note: "TTFS = 49 days; audit service line, 78% Auto-Scheduler acceptance" },
+    { label: "First Forecast Cycle", owner: "Plante Moran Strategy", date: "Mar 22", status: "in-progress", icon: LineChart, note: "3-year busy-season forecast in partner review" },
+    { label: "CSM Handover", owner: "E. Cicero → K. Park", date: "Apr 20", status: "upcoming", icon: Target, note: "Adoption exit + ROI readout scheduled" },
   ],
   "2": [
-    { label: "Kickoff Complete", owner: "A. Piggott (DM)", date: "Feb 4", status: "done", icon: Handshake, note: "MetLife exec sponsor aligned on 90M user scope" },
-    { label: "SDK Integrated", owner: "D. Cho (TA)", date: "Feb 20", status: "done", icon: Zap, note: "Web SDK live; native deferred to phase 2" },
-    { label: "mParticle Pipeline Live", owner: "S. Brooks (OE)", date: "Mar 8", status: "done", icon: Database, note: "24M profiles ingested, audience sync nightly" },
-    { label: "First Production Send", owner: "MetLife Lifecycle", date: "Mar 24", status: "in-progress", icon: Send, note: "Policy renewal email in final compliance review" },
-    { label: "First Canvas Live", owner: "M. Alvarez (Strategy)", date: "Apr 2", status: "upcoming", icon: Workflow, note: "Lifecycle journey — email + SMS branching" },
-    { label: "CSM Transition", owner: "A. Piggott → R. Singh", date: "Apr 5", status: "at-risk", icon: Target, note: "Tight window — depends on compliance sign-off" },
+    { label: "Kickoff Complete", owner: "A. Piggott (SIC)", date: "Feb 4", status: "done", icon: Handshake, note: "Wolf & Company COO aligned on full firm centralization" },
+    { label: "Firm Model Configured", owner: "D. Cho (SC)", date: "Feb 20", status: "done", icon: Zap, note: "700 staff, 5 offices, audit + tax hierarchy live" },
+    { label: "CCH Axcess Wired", owner: "S. Brooks (Data)", date: "Mar 8", status: "done", icon: Database, note: "12,400 engagements ingested, nightly sync green" },
+    { label: "First Firm-Wide Schedule Published", owner: "Wolf RM Team", date: "Mar 24", status: "in-progress", icon: CalendarCheck, note: "First firm-wide schedule in final partner review" },
+    { label: "First Forecast Cycle", owner: "M. Alvarez (Strategy)", date: "Apr 2", status: "upcoming", icon: LineChart, note: "3-year capacity forecast — audit + tax" },
+    { label: "CSM Handover", owner: "A. Piggott → R. Singh", date: "Apr 5", status: "at-risk", icon: Target, note: "Tight window — depends on partner sign-off" },
   ],
   "5": [
-    { label: "Kickoff Complete", owner: "A. Pereira (DM)", date: "Feb 18", status: "done", icon: Handshake },
-    { label: "SDK Integrated", owner: "T. Yamada (TA)", date: "Mar 4", status: "done", icon: Zap, note: "Roku + iOS + Android" },
-    { label: "Iterable→Braze Migration", owner: "P. Osei (OE)", date: "Mar 30", status: "at-risk", icon: Database, note: "Content library mapping behind by ~10 days" },
-    { label: "First Production Send", owner: "Max Lifecycle", date: "Apr 18", status: "at-risk", icon: Send, note: "TTFS slipped; mitigation plan in flight" },
-    { label: "First Canvas Live", owner: "G. Iyer (Strategy)", date: "May 10", status: "upcoming", icon: Workflow, note: "Churn save journey, push + email" },
-    { label: "CSM Transition", owner: "A. Pereira → H. Kim", date: "May 30", status: "upcoming", icon: Target },
+    { label: "Kickoff Complete", owner: "A. Pereira (SIC)", date: "Feb 18", status: "done", icon: Handshake },
+    { label: "Firm Model Configured", owner: "T. Yamada (SC)", date: "Mar 4", status: "done", icon: Zap, note: "6,500 staff, 80 offices across UK regions" },
+    { label: "Retain → Dayshape Migration", owner: "P. Osei (Data)", date: "Mar 30", status: "at-risk", icon: Database, note: "Historical engagement mapping behind by ~10 days" },
+    { label: "First Firm-Wide Schedule Published", owner: "Azets Resourcing", date: "Apr 18", status: "at-risk", icon: CalendarCheck, note: "TTFS slipped; mitigation plan in flight" },
+    { label: "First Forecast Cycle", owner: "G. Iyer (Strategy)", date: "May 10", status: "upcoming", icon: LineChart, note: "3-year capacity forecast, regionalized" },
+    { label: "CSM Handover", owner: "A. Pereira → H. Kim", date: "May 30", status: "upcoming", icon: Target },
   ],
 };
 
 const statusStyles: Record<MilestoneStatus, { dot: string; badge: string; label: string }> = {
-  "done": { dot: "bg-success border-success", badge: "bg-success/10 text-success border-success/20", label: "Complete" },
-  "in-progress": { dot: "bg-primary border-primary ring-4 ring-primary/15", badge: "bg-primary/10 text-primary border-primary/20", label: "In Progress" },
-  "upcoming": { dot: "bg-muted border-muted-foreground/40", badge: "bg-muted text-muted-foreground border-border", label: "Upcoming" },
-  "at-risk": { dot: "bg-warning border-warning ring-4 ring-warning/15", badge: "bg-warning/10 text-warning border-warning/20", label: "At Risk" },
+  "done":         { dot: "bg-success border-success", badge: "bg-success/10 text-success border-success/20", label: "Complete" },
+  "in-progress":  { dot: "bg-primary border-primary ring-4 ring-primary/15", badge: "bg-primary/10 text-primary border-primary/20", label: "In Progress" },
+  "upcoming":     { dot: "bg-muted border-muted-foreground/40", badge: "bg-muted text-muted-foreground border-border", label: "Upcoming" },
+  "at-risk":      { dot: "bg-warning border-warning ring-4 ring-warning/15", badge: "bg-warning/10 text-warning border-warning/20", label: "At Risk" },
 };
 
 interface ProjectDetailDialogProps {
@@ -165,31 +165,35 @@ interface ProjectDetailDialogProps {
 
 function relatedIntegrations(label: string): { name: string; category: string }[] {
   const l = label.toLowerCase();
-  if (l.includes("sdk")) return [
-    { name: "APNs (iOS Push)", category: "Channel" },
-    { name: "FCM (Android Push)", category: "Channel" },
-    { name: "Web SDK", category: "Channel" },
+  if (l.includes("firm model") || l.includes("hierarchy")) return [
+    { name: "Offices / Service Lines", category: "Firm Model" },
+    { name: "Roles & Grades", category: "Firm Model" },
+    { name: "Skills Library", category: "Firm Model" },
   ];
-  if (l.includes("segment")) return [{ name: "Segment", category: "CDP" }, { name: "Identity Resolution", category: "Data" }];
-  if (l.includes("mparticle")) return [{ name: "mParticle", category: "CDP" }, { name: "Audience Sync", category: "Data" }];
-  if (l.includes("data pipeline") || l.includes("cdi")) return [
-    { name: "Segment", category: "CDP" },
-    { name: "mParticle", category: "CDP" },
-    { name: "Snowflake CDI", category: "Warehouse" },
+  if (l.includes("workday") || l.includes("hris")) return [{ name: "Workday RaaS", category: "HRIS" }, { name: "JLM Sync", category: "People Data" }];
+  if (l.includes("cch") || l.includes("practice engine") || l.includes("practice management")) return [
+    { name: "CCH Axcess", category: "Practice Management" },
+    { name: "Engagement Master", category: "Data" },
   ];
-  if (l.includes("migration") || l.includes("iterable")) return [
-    { name: "Iterable (source)", category: "Migration" },
-    { name: "Content Library Mapper", category: "Tooling" },
+  if (l.includes("integrations")) return [
+    { name: "Workday HCM", category: "HRIS" },
+    { name: "CCH Axcess / Practice Engine", category: "Practice Management" },
+    { name: "Outlook / Google Calendar", category: "Calendar" },
+    { name: "NetSuite / Sage Intacct", category: "Finance" },
   ];
-  if (l.includes("production send")) return [
-    { name: "SendGrid / SparkPost", category: "Email" },
-    { name: "APNs / FCM", category: "Push" },
+  if (l.includes("migration") || l.includes("retain")) return [
+    { name: "Retain (source)", category: "Migration" },
+    { name: "History Loader", category: "Tooling" },
   ];
-  if (l.includes("canvas")) return [
-    { name: "Canvas Flow", category: "Orchestration" },
-    { name: "Decisioning Studio", category: "AI" },
+  if (l.includes("schedule")) return [
+    { name: "AI Auto-Scheduler", category: "Scheduling" },
+    { name: "Booking Rules", category: "Configuration" },
   ];
-  if (l.includes("csm")) return [{ name: "Currents", category: "Export" }, { name: "Success Plan", category: "CS" }];
+  if (l.includes("forecast")) return [
+    { name: "Capacity Forecast", category: "Forecasting" },
+    { name: "Scenario Simulation", category: "Forecasting" },
+  ];
+  if (l.includes("csm")) return [{ name: "Reporting Export", category: "Export" }, { name: "Success Plan", category: "CS" }];
   if (l.includes("kickoff")) return [{ name: "SOW / RACI", category: "Governance" }];
   return [{ name: "—", category: "General" }];
 }
@@ -321,7 +325,7 @@ export function ProjectDetailDialog({ project, open, onOpenChange }: ProjectDeta
             <div className="flex items-center justify-between mb-3">
               <div>
                 <p className="text-xs font-semibold">Time-to-Value Timeline</p>
-                <p className="text-[11px] text-muted-foreground">Milestones from kickoff to CSM transition · {project.startDate} → {project.targetDate}</p>
+                <p className="text-[11px] text-muted-foreground">Milestones from kickoff to CSM handover · {project.startDate} → {project.targetDate}</p>
               </div>
               <Badge variant="secondary" className="text-[10px]">{ttvPct}% complete</Badge>
             </div>
@@ -401,7 +405,7 @@ export function ProjectDetailDialog({ project, open, onOpenChange }: ProjectDeta
 
           <TabsContent value="notes" className="mt-4">
             <div className="space-y-3 mb-4">
-              <Textarea placeholder="Add a note about this account…" value={newNote} onChange={(e) => setNewNote(e.target.value)} className="min-h-[80px] text-sm" onKeyDown={(e) => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) addNote(); }} />
+              <Textarea placeholder="Add a note about this firm…" value={newNote} onChange={(e) => setNewNote(e.target.value)} className="min-h-[80px] text-sm" onKeyDown={(e) => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) addNote(); }} />
               <button onClick={addNote} disabled={!newNote.trim()} className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-xs font-medium disabled:opacity-40 transition-opacity">Add Note</button>
             </div>
             <Separator className="mb-4" />

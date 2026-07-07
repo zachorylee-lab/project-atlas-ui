@@ -15,107 +15,113 @@ const phaseIcons: Record<string, React.ElementType> = {
 const phaseDetails: Record<string, { tasks: string[]; deliverables: string[]; stakeholders: string[] }> = {
   handoff: {
     tasks: [
-      "Review signed order form, channels purchased (Push, Email, SMS, IAM, Content Cards, WhatsApp)",
-      "Confirm SDK platforms in scope (iOS, Android, Web, React Native, Flutter)",
-      "Identify data source: Segment / mParticle / Snowflake CDI / direct REST",
-      "Confirm migration source (Iterable, MoEngage, SFMC, Responsys, Airship)",
-      "Provision Braze dashboard + workspaces; assign Delivery Manager, Technical Architect (TA), CSM, and AE per the Expert Services pod model",
+      "Review signed order form, licensed modules (Core RM, AI Auto-Scheduler, Forecasting, Reporting), and user count",
+      "Confirm service lines in scope (Audit, Tax, Advisory, Consulting) and geographies",
+      "Identify source systems: HRIS (Workday / BambooHR / HiBob), practice management (CCH Axcess / Practice Engine / Thomson Reuters), finance (NetSuite / Sage Intacct / Deltek)",
+      "Confirm legacy resourcing system being replaced (Retain, ProStaff, Deltek, spreadsheets, in-house)",
+      "Provision Dayshape tenant + sandbox; assign Senior Implementation Consultant, Solution Consultant, CSM, and AE",
     ],
     deliverables: [
-      "Sales-to-Delivery handoff brief (fixed-length SOW scope locked)",
-      "Channels & SDK scope confirmation",
-      "Braze workspace + sandbox credentials",
+      "Sales-to-Delivery handoff brief (fixed-scope SOW locked)",
+      "In-scope service lines + integrations confirmed",
+      "Dayshape sandbox tenant + admin credentials",
       "Statement of Work + Time-to-Value targets confirmed",
     ],
-    stakeholders: ["Braze AE", "Delivery Lead", "Delivery Manager", "Technical Architect", "CSM", "Customer VP Lifecycle / CRM Director"],
+    stakeholders: ["Dayshape AE", "Delivery Lead", "Senior Implementation Consultant", "Solution Consultant", "CSM", "Firm COO / Head of Resource Management / Partner-in-Charge"],
   },
   kickoff: {
     tasks: [
-      "Host kickoff with Lifecycle, Data Eng, Mobile Eng, Web Eng, Privacy/Legal",
-      "Lock target Time to First Send and Time to First Production Canvas",
-      "Walk through the Braze Onboarding Methodology and shared RACI",
+      "Host kickoff with Resource Management, HR, IT, Finance/Practice Ops, and the executive sponsor",
+      "Lock target Time to First Schedule and Time to First Forecast",
+      "Walk through the Dayshape Implementation Methodology and shared RACI",
+      "Discover current resourcing model: how staff are booked today, forecast horizon, WIP visibility, key pain points",
       "Set weekly status cadence and executive steering committee",
-      "Define success criteria: TTFS, Canvas live, conversion lift, channel opt-in rate",
+      "Define success criteria: TTFS, forecast accuracy, utilization, realization, adoption rate",
     ],
     deliverables: [
       "Project charter & timeline (Smartsheet / Asana)",
-      "RACI across Braze and customer teams",
+      "RACI across Dayshape and firm teams",
       "Risk & assumption register",
-      "Use-case discovery workbook (welcome, abandoned cart, churn, re-engagement, transactional)",
+      "Current-state resourcing discovery workbook (roles, grades, skills, engagement types, booking rules)",
     ],
-    stakeholders: ["Delivery Manager", "VP Lifecycle / CRM", "Data Eng Lead", "Mobile Eng Lead", "Privacy Counsel"],
+    stakeholders: ["Senior Implementation Consultant", "COO / Head of RM", "HR Business Partner", "IT Lead", "Practice Operations", "Partner Sponsor"],
   },
   build: {
     tasks: [
-      "Install Braze SDKs (iOS Swift, Android Kotlin, Web, React Native) with push certs/keys",
-      "Stand up data ingestion: Segment/mParticle source, Cloud Data Ingestion from Snowflake, or REST /users/track",
-      "Configure subscription groups, preference center, GDPR/CCPA flows",
-      "Set up channels: APNs/FCM push, sending domains + DKIM/SPF/DMARC for email, Twilio short codes for SMS",
-      "Build first Canvas journeys (welcome series, onboarding nudge, abandoned cart)",
-      "Configure BrazeAI: Sage AI Copilot, Intelligent Channel, Intelligent Timing, content generation",
-      "Build Currents / Cloud Data Sharing export to Snowflake/BigQuery for analytics",
+      "Configure firm hierarchy: offices, service lines, departments, teams, cost centers",
+      "Load roles, grades, competencies, and skills taxonomy",
+      "Set up engagement templates by service line (audit, tax return, advisory project) with role/grade budgets",
+      "Stand up integrations: Workday / HRIS person + org sync, Practice Engine / CCH Axcess engagement master data, calendar (Outlook/Google), finance/WIP sync",
+      "Migrate historical bookings and engagements from the legacy system for continuity",
+      "Configure booking rules, conflict checks, absence & non-chargeable time categories",
+      "Enable AI Auto-Scheduler and configure preference weightings (utilization, skill match, staff development)",
+      "Build Power BI / Tableau / Snowflake feeds for firm reporting",
     ],
     deliverables: [
-      "SDK install confirmed across all platforms (session + event tracking validated)",
-      "Data ingestion pipeline live with attribute + custom event mapping",
-      "Channel configuration documented (push certs, IP warming plan, sending domains)",
-      "First three Canvases built in staging with sign-off",
+      "Fully configured firm model in sandbox with sign-off",
+      "Integration pipelines live (HRIS + practice management + calendar + finance)",
+      "Engagement templates library ratified by service line leaders",
+      "Historical bookings loaded with reconciliation report",
+      "AI Auto-Scheduler tuning parameters documented",
     ],
-    stakeholders: ["Delivery Manager", "Technical Architect", "Customer Mobile/Web Eng", "Customer Data Eng", "Customer Lifecycle Marketer", "Customer agencies / 3rd parties"],
+    stakeholders: ["Senior Implementation Consultant", "Solution Consultant", "Firm IT / Integrations Lead", "HR Data Owner", "Practice Management Owner", "Service Line Champions"],
   },
   testing: {
     tasks: [
-      "Lead UAT planning: per channel + per Canvas + per audience segment",
-      "Run test sends to internal seed lists across all channels",
-      "Validate event ingestion latency, attribute fidelity, and segment counts",
-      "Test Liquid personalization, Connected Content, and Catalogs",
-      "Execute deliverability seed test for email; warm IPs per the warming plan",
+      "Lead UAT scenarios: schedule an audit engagement, re-forecast mid-quarter, handle a resignation, resolve a booking conflict, absence request → re-schedule",
+      "Run parallel scheduling for one full weekly cycle against the legacy tool",
+      "Validate integration data quality: person records, engagement master, time actuals",
+      "Deliver Resource Manager Technical Enablement workshop and knowledge checks",
+      "Deliver Partner / Service Line Leader briefings on approvals, forecasts, and dashboards",
+      "Pilot with 1–2 service lines before firm-wide cutover",
       "Sign Go/No-Go decision with executive sponsor",
     ],
     deliverables: [
       "UAT test scripts & sign-off log",
-      "Deliverability inbox-placement report",
-      "Defect log and resolution status",
+      "Parallel-run reconciliation report",
+      "Trained Resource Manager cohort with knowledge-check pass rates",
+      "Pilot service line adoption metrics",
       "Go/No-Go decision document",
     ],
-    stakeholders: ["Delivery Manager", "QA", "Customer Lifecycle + Eng leads", "Executive Sponsor"],
+    stakeholders: ["Senior Implementation Consultant", "QA", "Firm Resource Managers", "Service Line Leaders", "Executive Sponsor"],
   },
   golive: {
     tasks: [
-      "Execute cutover: production SDK keys, production data sources, DNS authentication live",
-      "Send first production campaign with Delivery Manager + Technical Architect on-call",
-      "Deliver Decisioning Studio Technical Enablement workshop so customer can self-serve advanced logic post-launch",
-      "Open command center / Slack war room for launch week",
-      "Send customer comms: dashboard access, training links, support routing",
+      "Execute cutover: production tenant, live HRIS/practice management sync, retire legacy tool",
+      "Publish first firm-wide schedule with Senior Implementation Consultant + Solution Consultant on-call",
+      "Deliver Advanced Scheduling & AI Auto-Scheduler Technical Enablement so Resource Managers self-serve",
+      "Open command center / Teams war room for launch week",
+      "Send firm-wide comms: tenant access, training links, support routing",
       "Daily executive standup; track P1/P2 issues to closure",
     ],
     deliverables: [
       "Go-live runbook & rollback plan",
-      "First production send health report",
-      "User & permissions matrix",
-      "Day-1 deliverability + engagement dashboard",
+      "First firm-wide schedule health report",
+      "User & permissions matrix (Resource Manager, Partner, Staff, Admin)",
+      "Day-1 utilization + booking dashboard",
       "Customer enablement sign-off (training + knowledge checks completed)",
     ],
-    stakeholders: ["Delivery Manager", "Customer Lifecycle Ops", "Braze Support", "Executive Sponsor"],
+    stakeholders: ["Senior Implementation Consultant", "Firm RM Team", "Dayshape Support", "Executive Sponsor"],
   },
   hypercare: {
     tasks: [
       "Run 30–60 day hypercare with daily then weekly check-ins",
-      "Stabilize first major campaign cycle (holiday, plan-year, OE-style moment)",
-      "Capture CSAT survey and surface expansion use-cases to AE + CSM (additional channels, BrazeAI, Decisioning Studio)",
-      "Document stakeholder hierarchy and transition account to Customer Success Manager (CSM)",
-      "Feed customer use-case feedback to Product as advocacy input",
+      "Stabilize first busy-season / peak-cycle scheduling event",
+      "Tune AI Auto-Scheduler acceptance rate; iterate on preference weightings",
+      "Capture CSAT + adoption metrics and surface expansion opportunities to AE + CSM (additional service lines, forecasting depth, advanced reporting)",
+      "Document firm stakeholder hierarchy and hand over to Customer Success Manager (CSM)",
+      "Feed firm use-case feedback to Product as advocacy input",
       "Hold enablement office hours and knowledge checks to confirm BAU readiness",
-      "Hold internal Braze retro: what to repeat, what to fix",
+      "Hold internal Dayshape retro: what to repeat, what to fix",
     ],
     deliverables: [
-      "Hypercare exit report (incidents, MTTR, deliverability)",
-      "CSAT scorecard",
-      "BAU transition document for CSM/TAM with stakeholder roles and hierarchy",
+      "Hypercare exit report (incidents, MTTR, utilization uplift, forecast accuracy)",
+      "CSAT + adoption scorecard",
+      "BAU handover document for CSM with stakeholder roles and hierarchy",
       "Lessons-learned retro deck",
-      "Customer self-service readiness assessment",
+      "Firm self-service readiness assessment",
     ],
-    stakeholders: ["Delivery Manager", "Customer Lifecycle Ops", "Braze CSM/TAM", "Braze Support"],
+    stakeholders: ["Senior Implementation Consultant", "Firm RM Team", "Dayshape CSM", "Dayshape Support"],
   },
 };
 
@@ -124,9 +130,9 @@ export default function Playbook() {
     <DashboardLayout>
       <div className="space-y-8 max-w-4xl">
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-2xl font-semibold">Braze Onboarding Playbook</h1>
+          <h1 className="text-2xl font-semibold">Dayshape Implementation Playbook</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            The 6-phase Braze Onboarding Methodology used to launch new customers across SDK integration, data ingestion, Canvas journeys, channels, and BrazeAI — from sales handoff through hypercare.
+            The 6-phase Dayshape Implementation Methodology used to launch new professional services firms — from sales handoff through adoption — covering configuration, integrations, data migration, training, AI Auto-Scheduler tuning, and firm-wide go-live.
           </p>
         </motion.div>
 
@@ -135,11 +141,11 @@ export default function Playbook() {
             const Icon = phaseIcons[phase.icon];
             return (
               <div key={phase.id} className="flex items-center">
-                <div className="flex flex-col items-center gap-1.5 min-w-[100px]">
+                <div className="flex flex-col items-center gap-1.5 min-w-[110px]">
                   <div className={`phase-badge ${phase.color} p-2 rounded-lg`}>
                     <Icon className="h-4 w-4" />
                   </div>
-                  <span className="text-[11px] font-medium">{phase.label}</span>
+                  <span className="text-[11px] font-medium text-center leading-tight">{phase.label}</span>
                 </div>
                 {i < PHASES.length - 1 && (
                   <div className="h-px w-8 bg-border shrink-0" />
@@ -172,7 +178,7 @@ export default function Playbook() {
                       <Card className="border-dashed">
                         <CardHeader className="pb-2 pt-4 px-4">
                           <CardTitle className="text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
-                            <CheckSquare className="h-3.5 w-3.5" /> DM Tasks
+                            <CheckSquare className="h-3.5 w-3.5" /> Consultant Tasks
                           </CardTitle>
                         </CardHeader>
                         <CardContent className="px-4 pb-4">

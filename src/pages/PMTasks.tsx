@@ -50,34 +50,34 @@ type Task = {
 const initialTasks: Task[] = [
   {
     id: "t1",
-    title: "Validate Segment → Braze event schema (28 custom events)",
-    client: "Canva Pro", owner: "Me", due: "Apr 12", priority: "P1", status: "doing",
-    description: "Confirm event taxonomy from Canva's Segment workspace maps cleanly to Braze custom attributes. Flag any PII fields that need hashing before forwarding.",
+    title: "Validate Workday → Dayshape person + org sync (6,000 staff)",
+    client: "Baker Tilly", owner: "Me", due: "Apr 12", priority: "P1", status: "doing",
+    description: "Confirm the Workday RaaS reports map cleanly into Dayshape people, offices, and grades. Flag any grade-mapping edge cases and confirm JLM propagation within 24h.",
     subtasks: [
-      { label: "Pull current Segment Tracking Plan from Canva data team", done: true },
-      { label: "Diff against Braze custom event spec (28 events)", done: true },
-      { label: "Identify PII (email, phone) — require hashing", done: false },
-      { label: "Confirm identity stitching key (canva_user_id)", done: false },
-      { label: "Sign-off from TA + Canva Data Lead", done: false },
+      { label: "Pull current Workday RaaS report specs from firm HR data team", done: true },
+      { label: "Diff against Dayshape grade taxonomy (24 grades)", done: true },
+      { label: "Identify contractor / secondee edge cases", done: false },
+      { label: "Confirm canonical person ID (employee_id)", done: false },
+      { label: "Sign-off from Solution Consultant + Baker Tilly HR Data Lead", done: false },
     ],
     links: [
-      { label: "Segment workspace", href: "#" },
-      { label: "Braze event spec doc", href: "#" },
+      { label: "Workday tenant", href: "#" },
+      { label: "Dayshape grade taxonomy doc", href: "#" },
     ],
     activity: [
-      { text: "Created task — pulled in from Canva kickoff notes", ts: "Apr 1" },
-      { text: "Synced with TA Roy P. on identity resolution approach", ts: "Apr 3" },
+      { text: "Created task — pulled in from Baker Tilly kickoff notes", ts: "Apr 1" },
+      { text: "Synced with Solution Consultant on canonical ID approach", ts: "Apr 3" },
     ],
   },
   {
     id: "t2",
-    title: "Kickoff agenda + RACI with Lifecycle, Data, Mobile leads",
-    client: "Canva Pro", owner: "Me", due: "Apr 8", priority: "P2", status: "todo",
-    description: "Draft kickoff agenda + RACI covering Lifecycle (Canva), Data Eng, Mobile Eng, Braze TA, and CSM. Confirm decision-makers per workstream.",
+    title: "Kickoff agenda + RACI with Resource Management, HR, IT leads",
+    client: "Baker Tilly", owner: "Me", due: "Apr 8", priority: "P2", status: "todo",
+    description: "Draft kickoff agenda + RACI covering Head of RM, HR data owner, IT, Solution Consultant, and CSM. Confirm decision-makers per workstream.",
     subtasks: [
       { label: "Draft 60-min kickoff agenda", done: false },
       { label: "Map RACI across 5 workstreams", done: false },
-      { label: "Confirm exec sponsor attendance", done: false },
+      { label: "Confirm exec sponsor (COO) attendance", done: false },
       { label: "Send pre-read 48h before", done: false },
     ],
     links: [{ label: "Kickoff template", href: "#" }],
@@ -85,55 +85,55 @@ const initialTasks: Task[] = [
   },
   {
     id: "t3",
-    title: "Engage Mobile Eng for iOS + Android SDK install",
-    client: "Canva Pro", owner: "Technical Architect", due: "Apr 15", priority: "P2", status: "todo",
-    description: "Get Canva's Mobile Eng team scoped for SDK install on iOS 17+ and Android 14. Confirm push provisioning (APNs cert + FCM key).",
+    title: "Engage IT for Azure AD SSO + SCIM provisioning",
+    client: "Baker Tilly", owner: "Solution Consultant", due: "Apr 15", priority: "P2", status: "todo",
+    description: "Get Baker Tilly's IT team scoped for SAML SSO and SCIM provisioning. Confirm group-to-role mapping (Resource Manager / Partner / Staff / Admin).",
     subtasks: [
-      { label: "Intro call with Mobile Eng lead", done: false },
-      { label: "Share Braze SDK install guide (iOS + Android)", done: false },
-      { label: "Collect APNs .p8 + FCM server key", done: false },
-      { label: "Schedule SDK code review", done: false },
+      { label: "Intro call with IT identity lead", done: false },
+      { label: "Share Dayshape SSO configuration guide", done: false },
+      { label: "Collect Azure AD tenant + app registration details", done: false },
+      { label: "Schedule pilot user rollout", done: false },
     ],
-    links: [{ label: "Braze SDK docs", href: "https://www.braze.com/docs/developer_guide/" }],
+    links: [{ label: "Dayshape SSO docs", href: "https://dayshape.com/resource-management-software" }],
     activity: [],
   },
   {
     id: "t4",
-    title: "mParticle audience sync — validate identity resolution",
-    client: "MetLife", owner: "Technical Architect", due: "Apr 5", priority: "P1", status: "doing",
-    description: "Verify mParticle → Braze audience forwarding lands on the correct user profile. 24M profile dataset, identity priority: customer_id > email > IDFA.",
+    title: "CCH Axcess engagement master — validate mapping",
+    client: "Wolf & Company", owner: "Solution Consultant", due: "Apr 5", priority: "P1", status: "doing",
+    description: "Verify CCH Axcess → Dayshape engagement master lands with correct client, partner, budget, and engagement type. 12,400 engagements in scope.",
     subtasks: [
-      { label: "Configure mParticle forwarder with Braze API key", done: true },
-      { label: "Set identity priority order", done: true },
-      { label: "Run reconciliation on 10k sample", done: false },
-      { label: "Validate audience membership in Braze segment", done: false },
+      { label: "Configure CCH Axcess API integration user", done: true },
+      { label: "Map engagement types to Dayshape templates", done: true },
+      { label: "Run reconciliation on 1,000 sample engagements", done: false },
+      { label: "Validate WIP tie-out with Finance", done: false },
     ],
-    links: [{ label: "mParticle config", href: "#" }],
+    links: [{ label: "CCH Axcess config", href: "#" }],
     activity: [
-      { text: "Forwarder enabled in mParticle staging", ts: "Apr 1" },
+      { text: "Integration user enabled in CCH sandbox", ts: "Apr 1" },
     ],
   },
   {
     id: "t5",
-    title: "Email IP warming week 3 — review engagement gates",
-    client: "MetLife", owner: "Me", due: "Apr 3", priority: "P1", status: "doing",
-    description: "Week 3 of 6 IP warming plan. Today: 500k volume cap, engagement-only sends to 90d openers. Review bounce + complaint rates before week 4 ramp.",
+    title: "Parallel scheduling — week 3 reconciliation",
+    client: "Wolf & Company", owner: "Me", due: "Apr 3", priority: "P1", status: "doing",
+    description: "Week 3 of parallel scheduling against legacy spreadsheets. Reconcile booking deltas > 5% and confirm booking rules behave for busy-season scenarios.",
     subtasks: [
-      { label: "Pull week 2 delivery report", done: true },
-      { label: "Confirm bounce rate < 2%", done: true },
-      { label: "Confirm complaint rate < 0.08%", done: false },
-      { label: "Approve week 4 volume bump to 1M", done: false },
+      { label: "Pull week 2 reconciliation report", done: true },
+      { label: "Confirm booking delta < 3%", done: true },
+      { label: "Investigate 2 partner override discrepancies", done: false },
+      { label: "Approve week 4 cutover to Dayshape as primary", done: false },
     ],
-    links: [{ label: "Warming plan", href: "#" }],
-    activity: [{ text: "Week 2 metrics look healthy — 0.04% complaints", ts: "Apr 1" }],
+    links: [{ label: "Parallel-run report", href: "#" }],
+    activity: [{ text: "Week 2 numbers look healthy — 2.1% delta", ts: "Apr 1" }],
   },
   {
     id: "t6",
-    title: "Schedule Go/No-Go with CMO + Chief Customer Officer",
-    client: "MetLife", owner: "Me", due: "Apr 10", priority: "P1", status: "todo",
-    description: "Lock 30-min Go/No-Go decision meeting with MetLife exec sponsors before first production send.",
+    title: "Schedule Go/No-Go with Managing Partner + COO",
+    client: "Wolf & Company", owner: "Me", due: "Apr 10", priority: "P1", status: "todo",
+    description: "Lock 30-min Go/No-Go decision meeting with Wolf exec sponsors before firm-wide schedule cutover.",
     subtasks: [
-      { label: "Send invite to CMO, CCO, CSM, TA", done: false },
+      { label: "Send invite to MP, COO, Head of RM, CSM, Solution Consultant", done: false },
       { label: "Prep 1-page Go/No-Go deck", done: false },
       { label: "Pre-brief CSM 24h before", done: false },
     ],
@@ -142,11 +142,12 @@ const initialTasks: Task[] = [
   },
   {
     id: "t7",
-    title: "Hypercare exit report + CSAT survey",
-    client: "Wyndham Hotels", owner: "Me", due: "Apr 22", priority: "P2", status: "todo",
-    description: "Wrap Wyndham hypercare with a written exit report covering KPIs hit, open risks, and a CSAT survey to the exec sponsor + working team.",
+    title: "Adoption exit report + CSAT survey",
+    client: "Plante Moran", owner: "Me", due: "Apr 22", priority: "P2", status: "todo",
+    description: "Wrap Plante Moran hypercare with a written exit report covering KPIs hit, open risks, adoption %, Auto-Scheduler acceptance, and a CSAT survey to the exec sponsor + working team.",
     subtasks: [
-      { label: "Compile TTFS / TTFC / on-time metrics", done: false },
+      { label: "Compile TTFS / TTFF / on-time metrics", done: false },
+      { label: "Compile Auto-Scheduler acceptance rate", done: false },
       { label: "Document open risks for CSM", done: false },
       { label: "Send CSAT survey (5 questions)", done: false },
       { label: "Schedule readout call", done: false },
@@ -156,55 +157,55 @@ const initialTasks: Task[] = [
   },
   {
     id: "t8",
-    title: "CSM transition meeting + BAU runbook",
-    client: "Wyndham Hotels", owner: "Me", due: "Apr 25", priority: "P3", status: "todo",
-    description: "Hand-off meeting with incoming CSM Karen P. Walk through BAU runbook, integration map, and known quirks.",
+    title: "CSM handover meeting + BAU runbook",
+    client: "Plante Moran", owner: "Me", due: "Apr 25", priority: "P3", status: "todo",
+    description: "Handover meeting with incoming CSM Karen P. Walk through BAU runbook, integration map, and known quirks.",
     subtasks: [
       { label: "Draft BAU runbook", done: false },
       { label: "Schedule 60-min walkthrough with CSM", done: false },
-      { label: "Introduce CSM to customer working team", done: false },
+      { label: "Introduce CSM to firm working team", done: false },
     ],
     links: [],
     activity: [],
   },
   {
     id: "t9",
-    title: "Issue change order — Iterable content migration scope",
-    client: "Max Streaming", owner: "Me", due: "Apr 4", priority: "P1", status: "blocked",
-    description: "Content library mapping ballooned from ~80 to ~140 templates. Need formal change order + customer sign-off before TA continues.",
+    title: "Issue change order — Retain historical migration scope",
+    client: "Azets UK", owner: "Me", due: "Apr 4", priority: "P1", status: "blocked",
+    description: "Historical engagement mapping ballooned from ~80 to ~140 engagement types. Need formal change order + firm sign-off before Solution Consultant continues.",
     subtasks: [
-      { label: "Estimate revised effort with TA", done: true },
+      { label: "Estimate revised effort with Solution Consultant", done: true },
       { label: "Draft change order", done: true },
-      { label: "Customer procurement sign-off", done: false },
+      { label: "Firm procurement sign-off", done: false },
       { label: "Update SOW + timeline", done: false },
     ],
     links: [{ label: "Original SOW", href: "#" }],
     activity: [
-      { text: "Blocked: waiting on Max procurement", ts: "Apr 2" },
+      { text: "Blocked: waiting on Azets procurement", ts: "Apr 2" },
     ],
   },
   {
     id: "t10",
     title: "Risk register — launch date at risk; propose new plan",
-    client: "Max Streaming", owner: "Me", due: "Apr 6", priority: "P1", status: "doing",
-    description: "TTFS slip likely. Update risk register with mitigation options: (a) reduce content scope, (b) push launch 2 weeks, (c) phased launch.",
+    client: "Azets UK", owner: "Me", due: "Apr 6", priority: "P1", status: "doing",
+    description: "TTFS slip likely. Update risk register with mitigation options: (a) reduce migration scope, (b) push launch 2 weeks, (c) phased launch by region.",
     subtasks: [
       { label: "Quantify slip impact (days + $ ARR risk)", done: true },
       { label: "Draft 3 mitigation options", done: false },
       { label: "Review with CSM + AE", done: false },
-      { label: "Present to customer steering committee", done: false },
+      { label: "Present to firm steering committee", done: false },
     ],
     links: [],
     activity: [],
   },
   {
     id: "t11",
-    title: "Submit weekly status report — all customers",
-    client: "All Customers", owner: "Me", due: "Apr 1", priority: "P2", status: "done",
-    description: "Standard weekly status report across all 6 active onboardings.",
+    title: "Submit weekly status report — all firms",
+    client: "All Firms", owner: "Me", due: "Apr 1", priority: "P2", status: "done",
+    description: "Standard weekly status report across all 6 active implementations.",
     subtasks: [
-      { label: "Compile per-customer status", done: true },
-      { label: "Flag risks to Director, Expert Services", done: true },
+      { label: "Compile per-firm status", done: true },
+      { label: "Flag risks to Director, Professional Services", done: true },
       { label: "Send to portfolio distro", done: true },
     ],
     links: [],
@@ -212,17 +213,17 @@ const initialTasks: Task[] = [
   },
   {
     id: "t12",
-    title: "Delivery Hero — first production Canvas live",
-    client: "Delivery Hero", owner: "Me", due: "Mar 28", priority: "P1", status: "done",
-    description: "Cart abandonment Canvas: push + email branching, 4-step. Achieved TTFC at day 41.",
+    title: "Bennett Thrasher — first firm-wide schedule published",
+    client: "Bennett Thrasher", owner: "Me", due: "Mar 28", priority: "P1", status: "done",
+    description: "First firm-wide weekly schedule published across audit + tax. Achieved Time to First Schedule at day 41.",
     subtasks: [
-      { label: "QA Canvas in test workspace", done: true },
-      { label: "Customer sign-off", done: true },
-      { label: "Launch with 10% audience", done: true },
-      { label: "Scale to 100% after 48h", done: true },
+      { label: "QA schedule in sandbox tenant", done: true },
+      { label: "Firm sign-off", done: true },
+      { label: "Publish schedule to first 100 staff", done: true },
+      { label: "Roll out to full firm after 48h", done: true },
     ],
     links: [],
-    activity: [{ text: "Launched Mar 28 — 14% CTR on push, 22% open on email", ts: "Mar 28" }],
+    activity: [{ text: "Published Mar 28 — 84% Auto-Scheduler acceptance rate", ts: "Mar 28" }],
   },
 ];
 
@@ -360,7 +361,6 @@ function TaskDetailDialog({
           </div>
         </DialogHeader>
 
-        {/* Quick actions */}
         <div className="flex flex-wrap gap-2 pt-1">
           {task.status !== "doing" && task.status !== "done" && (
             <Button size="sm" onClick={() => advance("doing")}>
@@ -381,7 +381,6 @@ function TaskDetailDialog({
 
         <Separator />
 
-        {/* Status / Priority / Owner */}
         <div className="grid grid-cols-3 gap-3">
           <div className="space-y-1.5">
             <Label className="text-[11px] uppercase tracking-wide text-muted-foreground">Status</Label>
@@ -409,17 +408,11 @@ function TaskDetailDialog({
           </div>
         </div>
 
-        {/* Description */}
         <div className="space-y-1.5">
           <Label className="text-[11px] uppercase tracking-wide text-muted-foreground">Description</Label>
-          <Textarea
-            value={task.description}
-            onChange={(e) => patch({ description: e.target.value })}
-            className="min-h-[70px] text-sm"
-          />
+          <Textarea value={task.description} onChange={(e) => patch({ description: e.target.value })} className="min-h-[70px] text-sm" />
         </div>
 
-        {/* Subtasks */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <Label className="text-[11px] uppercase tracking-wide text-muted-foreground flex items-center gap-1.5">
@@ -432,30 +425,18 @@ function TaskDetailDialog({
           </div>
           <div className="space-y-0.5">
             {task.subtasks.map((s, idx) => (
-              <label key={idx} className={cn(
-                "flex items-center gap-2.5 px-2 py-1.5 rounded-md cursor-pointer hover:bg-muted/50 transition-colors",
-                s.done && "opacity-60"
-              )}>
+              <label key={idx} className={cn("flex items-center gap-2.5 px-2 py-1.5 rounded-md cursor-pointer hover:bg-muted/50 transition-colors", s.done && "opacity-60")}>
                 <Checkbox checked={s.done} onCheckedChange={() => toggleSubtask(idx)} />
                 <span className={cn("text-sm", s.done && "line-through text-muted-foreground")}>{s.label}</span>
               </label>
             ))}
           </div>
           <div className="flex gap-2 pt-1">
-            <Input
-              value={newSubtask}
-              onChange={(e) => setNewSubtask(e.target.value)}
-              onKeyDown={(e) => { if (e.key === "Enter") addSubtask(); }}
-              placeholder="Add a subtask…"
-              className="h-8 text-sm"
-            />
-            <Button size="sm" variant="outline" onClick={addSubtask} disabled={!newSubtask.trim()}>
-              <Plus className="h-3.5 w-3.5" />
-            </Button>
+            <Input value={newSubtask} onChange={(e) => setNewSubtask(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") addSubtask(); }} placeholder="Add a subtask…" className="h-8 text-sm" />
+            <Button size="sm" variant="outline" onClick={addSubtask} disabled={!newSubtask.trim()}><Plus className="h-3.5 w-3.5" /></Button>
           </div>
         </div>
 
-        {/* Links */}
         {task.links.length > 0 && (
           <div className="space-y-1.5">
             <Label className="text-[11px] uppercase tracking-wide text-muted-foreground flex items-center gap-1.5">
@@ -463,26 +444,18 @@ function TaskDetailDialog({
             </Label>
             <div className="flex flex-wrap gap-2">
               {task.links.map((l, i) => (
-                <a key={i} href={l.href} className="text-xs px-2.5 py-1 rounded-md border hover:bg-muted/50 transition-colors">
-                  {l.label}
-                </a>
+                <a key={i} href={l.href} className="text-xs px-2.5 py-1 rounded-md border hover:bg-muted/50 transition-colors">{l.label}</a>
               ))}
             </div>
           </div>
         )}
 
-        {/* Activity */}
         <div className="space-y-2">
           <Label className="text-[11px] uppercase tracking-wide text-muted-foreground flex items-center gap-1.5">
             <MessageSquare className="h-3 w-3" /> Activity
           </Label>
           <div className="flex gap-2">
-            <Textarea
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-              placeholder="Log an update…"
-              className="min-h-[60px] text-sm"
-            />
+            <Textarea value={newComment} onChange={(e) => setNewComment(e.target.value)} placeholder="Log an update…" className="min-h-[60px] text-sm" />
             <Button size="sm" onClick={addComment} disabled={!newComment.trim()}>Post</Button>
           </div>
           {task.activity.length > 0 ? (
@@ -533,9 +506,9 @@ export default function PMTasks() {
     <DashboardLayout>
       <div className="space-y-6 max-w-[1400px]">
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-2xl font-semibold">DM Task Board</h1>
+          <h1 className="text-2xl font-semibold">Consultant Task Board</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Daily delivery management board across every active Braze customer onboarding. Click a task to open details, manage subtasks, log activity, or update status. Drag to move between columns.
+            Daily implementation board across every active Dayshape firm rollout. Click a task to open details, manage subtasks, log activity, or update status. Drag to move between columns.
           </p>
         </motion.div>
 
@@ -596,12 +569,7 @@ export default function PMTasks() {
         </DndContext>
       </div>
 
-      <TaskDetailDialog
-        task={openTask}
-        open={openTaskId !== null}
-        onOpenChange={(o) => !o && setOpenTaskId(null)}
-        onUpdate={updateTask}
-      />
+      <TaskDetailDialog task={openTask} open={openTaskId !== null} onOpenChange={(o) => !o && setOpenTaskId(null)} onUpdate={updateTask} />
     </DashboardLayout>
   );
 }

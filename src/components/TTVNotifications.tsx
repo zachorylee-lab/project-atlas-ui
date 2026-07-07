@@ -13,7 +13,6 @@ const statusMeta: Record<TTVStatus, { label: string; cls: string; icon: typeof B
 };
 
 export function TTVNotifications() {
-  // Show at-risk first, then nearest in-progress / upcoming within 21 days.
   const items = [...portfolioMilestones]
     .filter((m) => m.status !== "done" && m.daysOut <= 31)
     .sort((a, b) => {
@@ -30,14 +29,14 @@ export function TTVNotifications() {
         <div className="flex items-center justify-between">
           <CardTitle className="text-base font-semibold flex items-center gap-2">
             <Bell className="h-4 w-4 text-primary" />
-            TTV Timeline Notifications
+            Implementation Timeline Notifications
           </CardTitle>
           <Badge variant="outline" className="text-[10px] bg-warning/10 text-warning border-warning/30">
             {atRiskCount} at risk
           </Badge>
         </div>
         <p className="text-xs text-muted-foreground mt-1">
-          Upcoming and at-risk milestones across the active portfolio
+          Upcoming and at-risk milestones across the active Dayshape portfolio
         </p>
       </CardHeader>
       <CardContent>
@@ -61,10 +60,7 @@ export function TTVNotifications() {
                   m.status === "at-risk" && "border-warning/30 bg-warning/[0.03]"
                 )}
               >
-                <div className={cn(
-                  "h-7 w-7 shrink-0 rounded-full flex items-center justify-center border",
-                  meta.cls
-                )}>
+                <div className={cn("h-7 w-7 shrink-0 rounded-full flex items-center justify-center border", meta.cls)}>
                   <Icon className="h-3.5 w-3.5" />
                 </div>
                 <div className="flex-1 min-w-0">

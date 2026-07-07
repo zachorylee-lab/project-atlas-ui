@@ -11,11 +11,11 @@ import { cn } from "@/lib/utils";
 
 const phaseDistribution = [
   { name: "Handoff", count: 2, color: "hsl(199, 89%, 48%)" },
-  { name: "Kickoff", count: 3, color: "hsl(262, 70%, 60%)" },
-  { name: "Build", count: 5, color: "hsl(328, 85%, 55%)" },
-  { name: "Testing", count: 4, color: "hsl(38, 92%, 50%)" },
+  { name: "Discovery", count: 3, color: "hsl(262, 70%, 60%)" },
+  { name: "Configure", count: 5, color: "hsl(22, 88%, 52%)" },
+  { name: "Test & Train", count: 4, color: "hsl(38, 92%, 50%)" },
   { name: "Go-Live", count: 2, color: "hsl(152, 60%, 40%)" },
-  { name: "Hypercare", count: 3, color: "hsl(280, 65%, 55%)" },
+  { name: "Adoption", count: 3, color: "hsl(195, 78%, 38%)" },
 ];
 
 const ttfsTrend = [
@@ -39,8 +39,8 @@ const csatTrend = [
 const kpis = [
   { label: "Customer CSAT", value: "4.7/5", target: "4.5/5", progress: 96 },
   { label: "On-Time Go-Live", value: "91%", target: "90%", progress: 100 },
-  { label: "Time to First Send", value: "18 days", target: "21 days", progress: 100 },
-  { label: "Time to First Canvas", value: "32 days", target: "35 days", progress: 100 },
+  { label: "Time to First Schedule", value: "18 days", target: "21 days", progress: 100 },
+  { label: "Time to First Forecast", value: "32 days", target: "35 days", progress: 100 },
 ];
 
 export default function Metrics() {
@@ -50,7 +50,7 @@ export default function Metrics() {
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-2xl font-semibold">Portfolio Health</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Braze Customer Onboarding KPIs: time-to-value, on-time delivery, customer satisfaction, and portfolio phase health.
+            Dayshape Professional Services Onboarding KPIs: time-to-value, on-time delivery, adoption, customer satisfaction, and portfolio phase health.
           </p>
         </motion.div>
 
@@ -81,19 +81,19 @@ export default function Metrics() {
               <CardHeader className="pb-3">
                 <CardTitle className="text-base font-semibold flex items-center gap-2">
                   <UserCheck className="h-4 w-4 text-primary" />
-                  CSM Transition Readiness
+                  CSM Handover Readiness
                 </CardTitle>
                 <p className="text-xs text-muted-foreground mt-1">
-                  Documented stakeholder roles, CSAT, and enablement sign-off are the gates to a clean CSM handoff.
+                  Documented stakeholder roles, CSAT, RM adoption, and enablement sign-off are the gates to a clean CSM handover.
                 </p>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
                   {[
-                    { customer: "Delivery Hero", dm: "S. Pickard", csm: "J. Vega", csat: 4.9, enabled: true, stakeholders: true, ready: true },
-                    { customer: "Wyndham Hotels", dm: "E. Cicero", csm: "K. Park", csat: 4.7, enabled: true, stakeholders: true, ready: false },
-                    { customer: "MetLife", dm: "A. Piggott", csm: "R. Singh", csat: 4.4, enabled: true, stakeholders: false, ready: false },
-                    { customer: "Max Streaming", dm: "A. Pereira", csm: "T. Lee", csat: 3.9, enabled: false, stakeholders: false, ready: false },
+                    { customer: "Bennett Thrasher", dm: "S. Pickard", csm: "J. Vega", csat: 4.9, enabled: true, stakeholders: true, ready: true },
+                    { customer: "Plante Moran", dm: "E. Cicero", csm: "K. Park", csat: 4.7, enabled: true, stakeholders: true, ready: false },
+                    { customer: "Wolf & Company", dm: "A. Piggott", csm: "R. Singh", csat: 4.4, enabled: true, stakeholders: false, ready: false },
+                    { customer: "Azets UK", dm: "A. Pereira", csm: "T. Lee", csat: 3.9, enabled: false, stakeholders: false, ready: false },
                   ].map((row) => {
                     const readiness = [row.csat >= 4.5, row.enabled, row.stakeholders].filter(Boolean).length;
                     const pct = Math.round((readiness / 3) * 100);
@@ -103,7 +103,7 @@ export default function Metrics() {
                           <div>
                             <p className="text-sm font-medium">{row.customer}</p>
                             <p className="text-[11px] text-muted-foreground">
-                              DM {row.dm} → CSM {row.csm}
+                              SIC {row.dm} → CSM {row.csm}
                             </p>
                           </div>
                           <span className={cn("inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-full", row.ready ? "bg-success/10 text-success" : "bg-muted text-muted-foreground")}>
@@ -143,7 +143,7 @@ export default function Metrics() {
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-base font-semibold">Time to First Send (days)</CardTitle>
+                <CardTitle className="text-base font-semibold">Time to First Schedule (days)</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="h-64">
@@ -185,7 +185,7 @@ export default function Metrics() {
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
             <Card className="lg:col-span-2">
               <CardHeader className="pb-2">
-                <CardTitle className="text-base font-semibold">Customers by Onboarding Phase</CardTitle>
+                <CardTitle className="text-base font-semibold">Firms by Implementation Phase</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="h-64 flex items-center justify-center">
