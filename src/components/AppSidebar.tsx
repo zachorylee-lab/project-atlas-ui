@@ -9,6 +9,7 @@ import {
   Plug,
   ListChecks,
   MessageSquare,
+  Presentation,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
@@ -36,6 +37,7 @@ const navItems = [
   { title: "Integrations & Data", url: "/integrations", icon: Plug },
   { title: "Sales Handoff", url: "/handoff", icon: ArrowRightLeft },
   { title: "Interview Prep", url: "/interview-prep", icon: MessageSquare },
+  { title: "Demo Mode", url: "/demo", icon: Presentation },
 ];
 
 export function AppSidebar() {

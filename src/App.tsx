@@ -15,6 +15,7 @@ import NotFound from "./pages/NotFound";
 
 import PMTasks from "./pages/PMTasks";
 import InterviewPrep from "./pages/InterviewPrep";
+import DemoMode from "./pages/DemoMode";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +37,8 @@ const App = () => (
           
           <Route path="/pm-tasks" element={<PMTasks />} />
           <Route path="/interview-prep" element={<InterviewPrep />} />
+          <Route path="/demo" element={<DemoMode />} />
+          <Route path="/demo/:step" element={<DemoMode />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
