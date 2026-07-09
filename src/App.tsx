@@ -23,6 +23,7 @@ import TrainingLibrary from "./pages/TrainingLibrary";
 import AdoptionTracker from "./pages/AdoptionTracker";
 import ConfigurationWorkbook from "./pages/ConfigurationWorkbook";
 import UATTracker from "./pages/UATTracker";
+import KnowledgeBase from "./pages/KnowledgeBase";
 
 const queryClient = new QueryClient();
 
