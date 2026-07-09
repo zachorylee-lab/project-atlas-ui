@@ -12,6 +12,7 @@ import {
   Presentation,
   Grid3x3,
   ShieldAlert,
+  Settings2,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
