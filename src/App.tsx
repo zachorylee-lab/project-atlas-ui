@@ -16,6 +16,7 @@ import NotFound from "./pages/NotFound";
 import PMTasks from "./pages/PMTasks";
 import InterviewPrep from "./pages/InterviewPrep";
 import DemoMode from "./pages/DemoMode";
+import RACI from "./pages/RACI";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,7 @@ const App = () => (
           <Route path="/workflows" element={<DataWorkflows />} />
           <Route path="/handoff" element={<SalesHandoff />} />
           <Route path="/integrations" element={<Integrations />} />
+          <Route path="/raci" element={<RACI />} />
           
           <Route path="/pm-tasks" element={<PMTasks />} />
           <Route path="/interview-prep" element={<InterviewPrep />} />
