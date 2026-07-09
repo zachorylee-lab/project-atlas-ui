@@ -509,6 +509,40 @@ export default function TrainingLibrary() {
             })}
           </TabsContent>
         </Tabs>
+
+        <Dialog open={!!preview} onOpenChange={(o) => !o && setPreview(null)}>
+          <DialogContent className="max-w-4xl">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                {preview && (
+                  <Badge variant="outline" className={cn(sourceTint[preview.source])}>
+                    {preview.source}
+                  </Badge>
+                )}
+                {preview?.title}
+              </DialogTitle>
+            </DialogHeader>
+            {preview && (
+              <div className="space-y-3">
+                <div className="relative w-full overflow-hidden rounded-md border bg-muted" style={{ paddingTop: "56.25%" }}>
+                  <iframe
+                    src={toEmbedUrl(preview.url, preview.source) ?? preview.url}
+                    className="absolute inset-0 h-full w-full"
+                    allow="fullscreen; clipboard-write; encrypted-media"
+                    allowFullScreen
+                    title={preview.title}
+                  />
+                </div>
+                <div className="flex items-center justify-between text-xs text-muted-foreground">
+                  <span>{preview.module} · {preview.personas.join(", ")} · {preview.durationMin} min</span>
+                  <a href={preview.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">
+                    Open in {preview.source} <ExternalLink className="h-3 w-3" />
+                  </a>
+                </div>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
       </div>
     </DashboardLayout>
   );
