@@ -747,6 +747,7 @@ export default function KnowledgeBase() {
                 <div className="grid gap-3">
                   {items.map((a) => {
                     const Icon = a.icon;
+                    const pitch = clientPitches[a.url];
                     return (
                       <motion.div
                         key={a.url}
@@ -773,8 +774,12 @@ export default function KnowledgeBase() {
                                   </div>
                                 </div>
                               </div>
+                              {pitch && (
+                                <ClientPitchDialog area={a} pitch={pitch} />
+                              )}
                             </div>
                           </CardHeader>
+
                           <CardContent className="space-y-4">
                             <p className="text-sm leading-relaxed">{a.purpose}</p>
                             <div>
