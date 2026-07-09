@@ -12,6 +12,7 @@ import {
   Presentation,
   Grid3x3,
   ShieldAlert,
+  Settings2,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
@@ -60,6 +61,12 @@ const navGroups: { label: string; items: { title: string; url: string; icon: typ
     items: [
       { title: "Interview Prep", url: "/interview-prep", icon: MessageSquare },
       { title: "Demo Mode", url: "/demo", icon: Presentation },
+    ],
+  },
+  {
+    label: "Setup",
+    items: [
+      { title: "Integration Setup", url: "/integration-setup", icon: Settings2 },
     ],
   },
 ];
