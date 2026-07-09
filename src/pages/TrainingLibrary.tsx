@@ -448,11 +448,17 @@ export default function TrainingLibrary() {
                           </div>
                         </div>
                         <div className="flex gap-2">
-                          <Button asChild size="sm" className="flex-1">
-                            <a href={a.url} target="_blank" rel="noreferrer">
-                              <Play className="mr-1.5 h-3.5 w-3.5" /> Open
-                            </a>
-                          </Button>
+                          {toEmbedUrl(a.url, a.source) ? (
+                            <Button size="sm" className="flex-1" onClick={() => setPreview(a)}>
+                              <Play className="mr-1.5 h-3.5 w-3.5" /> Preview
+                            </Button>
+                          ) : (
+                            <Button asChild size="sm" className="flex-1">
+                              <a href={a.url} target="_blank" rel="noreferrer">
+                                <Play className="mr-1.5 h-3.5 w-3.5" /> Open
+                              </a>
+                            </Button>
+                          )}
                           <Button asChild size="sm" variant="outline">
                             <a href={a.url} target="_blank" rel="noreferrer">
                               <ExternalLink className="h-3.5 w-3.5" />
