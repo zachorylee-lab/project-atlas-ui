@@ -19,6 +19,8 @@ import DemoMode from "./pages/DemoMode";
 import RACI from "./pages/RACI";
 import RAIDLog from "./pages/RAIDLog";
 import IntegrationSetup from "./pages/IntegrationSetup";
+import TrainingLibrary from "./pages/TrainingLibrary";
+import AdoptionTracker from "./pages/AdoptionTracker";
 
 const queryClient = new QueryClient();
 
@@ -41,6 +43,9 @@ const App = () => (
           <Route path="/raid" element={<RAIDLog />} />
           <Route path="/integration-setup" element={<IntegrationSetup />} />
           
+          <Route path="/training-library" element={<TrainingLibrary />} />
+          <Route path="/adoption" element={<AdoptionTracker />} />
+
           <Route path="/pm-tasks" element={<PMTasks />} />
           <Route path="/interview-prep" element={<InterviewPrep />} />
           <Route path="/demo" element={<DemoMode />} />
