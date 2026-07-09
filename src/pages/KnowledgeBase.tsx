@@ -877,3 +877,83 @@ function MetaBlock({ label, items }: { label: string; items: string[] }) {
     </div>
   );
 }
+
+function ClientPitchDialog({ area, pitch }: { area: Area; pitch: ClientPitch }) {
+  const Icon = area.icon;
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline" size="sm" className="shrink-0">
+          <Users className="mr-1.5 h-3.5 w-3.5" />
+          Client view
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+        <DialogHeader>
+          <div className="flex items-center gap-2 text-[11px] uppercase tracking-widest text-muted-foreground">
+            <Icon className="h-3.5 w-3.5" />
+            {area.title} · Customer perspective
+          </div>
+          <DialogTitle className="text-xl leading-snug">{pitch.headline}</DialogTitle>
+          <DialogDescription className="flex items-center gap-1.5 pt-1">
+            <Target className="h-3.5 w-3.5" />
+            {pitch.audience}
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="mt-2 space-y-5">
+          <div>
+            <div className="text-[11px] uppercase tracking-wider text-muted-foreground mb-1.5">
+              Why it matters to you
+            </div>
+            <p className="text-sm leading-relaxed">{pitch.whyItMatters}</p>
+          </div>
+
+          <div>
+            <div className="text-[11px] uppercase tracking-wider text-muted-foreground mb-2">
+              Pains we hear from firms today
+            </div>
+            <div className="space-y-2">
+              {pitch.painsSolved.map((p, i) => (
+                <div
+                  key={i}
+                  className="flex gap-2 rounded-md border border-[hsl(30_95%_55%)]/20 bg-[hsl(30_95%_55%)]/5 p-3 text-sm italic"
+                >
+                  <Quote className="h-3.5 w-3.5 shrink-0 mt-0.5 text-[hsl(30_95%_55%)]" />
+                  <span>{p}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <div className="text-[11px] uppercase tracking-wider text-muted-foreground mb-2">
+              What you get
+            </div>
+            <ul className="space-y-1.5">
+              {pitch.outcomes.map((o, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm">
+                  <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5 text-[hsl(155_60%_45%)]" />
+                  <span>{o}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {pitch.quote && (
+            <div className="rounded-md border-l-4 border-primary bg-primary/5 p-4 text-sm italic">
+              {pitch.quote}
+            </div>
+          )}
+
+          <div className="flex justify-end pt-2">
+            <Button asChild size="sm">
+              <Link to={area.url}>Open {area.title} →</Link>
+            </Button>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
