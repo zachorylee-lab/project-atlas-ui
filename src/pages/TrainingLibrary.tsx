@@ -148,6 +148,33 @@ const sourceTint: Record<Source, string> = {
   Slide: "bg-muted text-muted-foreground border-border",
 };
 
+/**
+ * Convert a shared Loom/Scribe/Guidde URL into an embeddable iframe src.
+ * Returns null if the URL isn't from a known embeddable source.
+ */
+function toEmbedUrl(url: string, source: Source): string | null {
+  try {
+    const u = new URL(url);
+    if (source === "Loom" || u.hostname.includes("loom.com")) {
+      // https://www.loom.com/share/<id>  ->  https://www.loom.com/embed/<id>
+      const m = u.pathname.match(/\/(?:share|embed)\/([a-zA-Z0-9]+)/);
+      if (m) return `https://www.loom.com/embed/${m[1]}`;
+    }
+    if (source === "Scribe" || u.hostname.includes("scribehow.com")) {
+      // https://scribehow.com/shared/<slug>  ->  https://scribehow.com/embed/<slug>
+      const m = u.pathname.match(/\/(?:shared|embed)\/([^/?#]+)/);
+      if (m) return `https://scribehow.com/embed/${m[1]}`;
+    }
+    if (source === "Guidde" || u.hostname.includes("guidde.com")) {
+      if (u.pathname.includes("/embed/")) return url;
+      const m = u.pathname.match(/\/share\/([^/?#]+)/);
+      if (m) return `https://app.guidde.com/embed/${m[1]}`;
+    }
+  } catch {}
+  return null;
+}
+
+
 const STORE_KEY = "dayshape.training.library.v1";
 
 function load(): Asset[] {
