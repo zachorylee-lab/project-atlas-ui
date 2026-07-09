@@ -63,6 +63,12 @@ const navGroups: { label: string; items: { title: string; url: string; icon: typ
       { title: "Demo Mode", url: "/demo", icon: Presentation },
     ],
   },
+  {
+    label: "Setup",
+    items: [
+      { title: "Integration Setup", url: "/integration-setup", icon: Settings2 },
+    ],
+  },
 ];
 
 export function AppSidebar() {
