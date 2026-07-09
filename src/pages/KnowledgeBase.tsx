@@ -2,17 +2,22 @@ import { useMemo, useState } from "react";
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription,
+} from "@/components/ui/dialog";
 import {
   BookOpenCheck, Search, LayoutDashboard, BarChart3, ArrowRightLeft, BookOpen,
   Grid3x3, FolderOpen, Kanban, ListChecks, Database, ClipboardList, ClipboardCheck,
   Plug, ShieldAlert, GraduationCap, Activity, Settings2, MessageSquare, Presentation,
-  Building2, Sparkles,
+  Building2, Sparkles, Users, Target, CheckCircle2, Quote,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+
 
 type Area = {
   group: string;
