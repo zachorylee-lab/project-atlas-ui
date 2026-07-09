@@ -2,17 +2,22 @@ import { useMemo, useState } from "react";
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription,
+} from "@/components/ui/dialog";
 import {
   BookOpenCheck, Search, LayoutDashboard, BarChart3, ArrowRightLeft, BookOpen,
   Grid3x3, FolderOpen, Kanban, ListChecks, Database, ClipboardList, ClipboardCheck,
   Plug, ShieldAlert, GraduationCap, Activity, Settings2, MessageSquare, Presentation,
-  Building2, Sparkles,
+  Building2, Sparkles, Users, Target, CheckCircle2, Quote,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+
 
 type Area = {
   group: string;
@@ -412,6 +417,247 @@ const terms: Term[] = [
   { term: "Adoption curve", category: "Metrics & KPIs", short: "Actual adoption vs the target adoption trajectory across the weeks either side of Go-Live.", detail: "Under-curve triggers targeted training and comms; over-curve is celebrated in the SteerCo." },
 ];
 
+type ClientPitch = {
+  headline: string;
+  audience: string;
+  whyItMatters: string;
+  painsSolved: string[];
+  outcomes: string[];
+  quote?: string;
+};
+
+const clientPitches: Record<string, ClientPitch> = {
+  "/": {
+    headline: "One place to see whether your Dayshape roll-out is on track",
+    audience: "Executive sponsor · Programme owner",
+    whyItMatters:
+      "Instead of chasing status updates over email, you get a live view of your implementation alongside every other Dayshape customer's — with a defined RAG standard and next actions.",
+    painsSolved: [
+      "\"I never know if we're actually on track for go-live.\"",
+      "\"Status decks are two weeks out of date by the time we see them.\"",
+      "\"Different vendors, different formats — I can't compare.\"",
+    ],
+    outcomes: [
+      "A single dashboard shared with your SIC, sponsor, and CSM",
+      "Same status standard used across Dayshape's entire customer base",
+      "Escalations surface before they cost you the go-live date",
+    ],
+  },
+  "/metrics": {
+    headline: "See how your roll-out is performing vs peer benchmarks",
+    audience: "COO · Head of Resourcing",
+    whyItMatters:
+      "Dayshape has implemented hundreds of firms — you benefit from that benchmark data. Your Time to First Schedule, Time to First Forecast, and adoption curves are compared against firms of your size and complexity, not held to a made-up target.",
+    painsSolved: [
+      "\"How do I know if our implementation velocity is normal?\"",
+      "\"We spent millions and I can't prove the payback.\"",
+    ],
+    outcomes: [
+      "Benchmarked KPIs against comparable firms",
+      "Early warning when you're drifting off the peer curve",
+      "Evidence for your board that the programme is delivering",
+    ],
+  },
+  "/handoff": {
+    headline: "Nothing gets lost between the sales conversation and delivery",
+    audience: "Executive sponsor · Procurement",
+    whyItMatters:
+      "The commercial promises you were made in the sales cycle — modules, integrations, success criteria, sponsors — are all captured formally before your SIC lifts a finger. You are not going to hear \"that wasn't in scope\" three months in.",
+    painsSolved: [
+      "\"We bought X, we're getting Y.\"",
+      "\"The delivery team asked me the same discovery questions the sales team did.\"",
+    ],
+    outcomes: [
+      "Signed handoff record listing every commitment",
+      "Named exec sponsors, decision-makers, and end-user personas",
+      "Delivery starts with full context — no re-discovery tax",
+    ],
+  },
+  "/playbook": {
+    headline: "You get Dayshape's proven method, not a bespoke experiment",
+    audience: "Programme sponsor · Change lead",
+    whyItMatters:
+      "Every Dayshape implementation follows the same six-phase model with the same entry and exit criteria — refined across hundreds of firms. You are not the pilot for your SIC's personal approach.",
+    painsSolved: [
+      "\"Vendors always seem to invent the process as they go.\"",
+      "\"I don't know what 'good' looks like at each stage.\"",
+    ],
+    outcomes: [
+      "Predictable phase gates: Handoff → Kickoff → Build → Testing → Go-Live → Hypercare",
+      "Clear artefacts to expect at each stage",
+      "A method your PMO can audit",
+    ],
+  },
+  "/raci": {
+    headline: "Everyone knows who owns what — including your side",
+    audience: "Customer PM · Sponsor",
+    whyItMatters:
+      "The most common cause of implementation slippage is unclear ownership on the customer side. The RACI names people, not roles, and both organisations sign it before Build starts.",
+    painsSolved: [
+      "\"I thought IT was doing that.\"",
+      "\"Who decides on the rate card change — us or you?\"",
+    ],
+    outcomes: [
+      "Named owner for every deliverable",
+      "Documented escalation ladder to your exec sponsor",
+      "Faster decisions because the right person is in the room",
+    ],
+  },
+  "/templates": {
+    headline: "Reuse the artefacts that hundreds of firms have already validated",
+    audience: "Customer PM · Legal · Change lead",
+    whyItMatters:
+      "SOWs, kickoff decks, workshop agendas, cutover runbooks — all pre-built to Dayshape's current standard and legal-approved. You spend zero time on blank-page work.",
+    painsSolved: [
+      "\"We rebuilt every deck from scratch on the last programme.\"",
+      "\"Legal review of a new SOW took six weeks.\"",
+    ],
+    outcomes: [
+      "Faster start on every phase",
+      "Consistent, professional artefacts for your SteerCo",
+      "Legal-approved commercial documents ready to sign",
+    ],
+  },
+  "/projects": {
+    headline: "See your implementation next to every other Dayshape roll-out",
+    audience: "Executive sponsor",
+    whyItMatters:
+      "Transparent Kanban view of every live customer, including yours. You can see phase, health, and progress the same way Dayshape's leadership sees it — no filtered view.",
+    painsSolved: [
+      "\"I only get told about problems in the weekly call.\"",
+    ],
+    outcomes: [
+      "Continuous visibility of phase and health",
+      "One-click deep-link into Workbook, UAT, RAID, Adoption",
+    ],
+  },
+  "/workflows": {
+    headline: "Five parallel workstreams so we don't move at the pace of the slowest",
+    audience: "Customer PM · Workstream leads",
+    whyItMatters:
+      "Firm Model, Integrations, Engagement Mapping, Scheduling & Forecast tuning, and AI Auto-Scheduler optimisation run in parallel with their own owners, gates, and dependencies — so a slow integration doesn't block the whole programme.",
+    painsSolved: [
+      "\"The last vendor did everything sequentially and it took a year.\"",
+    ],
+    outcomes: [
+      "Parallel progress across five streams",
+      "Explicit dependencies mapped, not assumed",
+      "Compressed calendar time to go-live",
+    ],
+  },
+  "/configuration-workbook": {
+    headline: "Every design decision, in one signed document, before we build it",
+    audience: "Head of Resourcing · Practice leads · CIO",
+    whyItMatters:
+      "The Configuration Workbook is the single record of every decision about your firm model, grades, engagement templates, scheduling rules, integrations, and AI tuning. Your team approves it section by section. Nothing gets configured that you haven't signed off — and nothing gets forgotten.",
+    painsSolved: [
+      "\"We got to UAT and discovered they'd modelled the firm wrong.\"",
+      "\"Decisions were made in workshops that nobody wrote down.\"",
+      "\"Change requests appeared six months later because scope was fuzzy.\"",
+    ],
+    outcomes: [
+      "A firm-approved design document your PMO can audit",
+      "Traceability from every configured behaviour to the decision that authorised it",
+      "Sharp scope guardrails — change requests are visible, not sneaky",
+    ],
+    quote:
+      "\"The Workbook is what stopped us re-arguing decisions three months later. It's now the reference we use for every internal Dayshape question.\"",
+  },
+  "/uat": {
+    headline: "Evidence-based sign-off, not a leap of faith",
+    audience: "Customer test lead · Executive sponsor · Audit committee",
+    whyItMatters:
+      "Test scripts are scenario-based, by persona and workstream, with priority (Must / Should / Could) and pass/fail evidence. The Go-Live gate is a calculation — all Must scripts executed, no Sev-1 defects open, ≥ 90% pass rate — not a subjective judgement.",
+    painsSolved: [
+      "\"We signed off UAT and then everything broke on day one.\"",
+      "\"Our internal audit team wanted evidence we couldn't produce.\"",
+      "\"We didn't know what 'ready' meant.\"",
+    ],
+    outcomes: [
+      "A defensible test evidence pack for internal audit and regulators",
+      "Clear, objective Go-Live gates",
+      "Defects triaged by severity, with mitigations recorded",
+    ],
+  },
+  "/integrations": {
+    headline: "Every data flow live-monitored — no more silent failures",
+    audience: "CIO · Head of IT · Data owner",
+    whyItMatters:
+      "Workday, CCH, Salesforce, NetSuite, Snowflake, Outlook, and the rest are shown as live status cards with last successful run, row counts, and reconciliation deltas. If a nightly Workday feed drops, you and your SIC know before your resource managers do.",
+    painsSolved: [
+      "\"We only find out about broken integrations when the schedules look wrong.\"",
+      "\"Nobody knows who owns the Salesforce → engagement handoff.\"",
+    ],
+    outcomes: [
+      "Live health monitoring across every integration",
+      "Named ownership per integration (Dayshape / your IT / third party)",
+      "Reconciliation reports for finance and audit",
+    ],
+  },
+  "/raid": {
+    headline: "An auditable log of every risk, issue, and dependency — no surprises",
+    audience: "Programme sponsor · PMO · SteerCo",
+    whyItMatters:
+      "Risks, Assumptions, Issues, and Dependencies are logged with owner, mitigation, severity, and due date. Aging items are flagged. The RAID log is the spine of every SteerCo pack and the input to CSM handover.",
+    painsSolved: [
+      "\"We got surprised by risks that had been known for months.\"",
+      "\"Issues got raised in meetings but never assigned.\"",
+    ],
+    outcomes: [
+      "Live, auditable RAID visible to your PMO",
+      "Aging alerts on unresolved items",
+      "Direct feed into your SteerCo pack",
+    ],
+  },
+  "/training-library": {
+    headline: "Role-based training your people will actually complete",
+    audience: "Change lead · Training lead · L&D",
+    whyItMatters:
+      "Loom walk-throughs and Scribe step-by-step guides curated by persona (Admin, Scheduler, Partner, Consultant) and module. Embedded inline — no LMS login, no context switch, no 45-minute recorded webinars nobody watches.",
+    painsSolved: [
+      "\"We paid for training and nobody used it.\"",
+      "\"Partners refused to sit through hour-long videos.\"",
+      "\"New joiners have no consistent onboarding path.\"",
+    ],
+    outcomes: [
+      "Persona-specific learning paths",
+      "Bite-sized Loom + Scribe content people actually complete",
+      "Content re-usable for new joiners after go-live",
+    ],
+  },
+  "/adoption": {
+    headline: "Prove the platform is being used before you cut the SIC loose",
+    audience: "Executive sponsor · Head of Resourcing · CSM",
+    whyItMatters:
+      "Per-persona and per-module metrics — invited, trained, certified, weekly active — against a target curve. The CSM handover is gated on adoption evidence, not just calendar dates. You don't lose your SIC before your people are using the tool.",
+    painsSolved: [
+      "\"The vendor left and adoption fell off a cliff.\"",
+      "\"Partners never adopted the Forecast module — we're not getting the value.\"",
+    ],
+    outcomes: [
+      "Adoption evidence tied to CSM transition",
+      "Early warning when a persona is falling behind the curve",
+      "A defensible ROI story for your exec board",
+    ],
+  },
+  "/integration-setup": {
+    headline: "Guided integration setup — no bespoke IT project required",
+    audience: "IT lead · Integration owner",
+    whyItMatters:
+      "Per-integration wizard walks your IT team through credentials, scopes, field mapping, and test extracts. Standard connectors for Workday, BambooHR, CCH, Salesforce, NetSuite, Snowflake, Outlook — not custom API work.",
+    painsSolved: [
+      "\"Every integration on our last programme was a bespoke build.\"",
+      "\"IT couldn't tell us what fields Dayshape needed.\"",
+    ],
+    outcomes: [
+      "Standard connectors used wherever possible",
+      "Test-extract reconciliation before you trust the feed",
+      "Auditable record of scopes granted and to whom",
+    ],
+  },
+};
+
+
 const categoryTint: Record<Term["category"], string> = {
   "Dayshape product": "bg-primary/10 text-primary",
   "Dayshape delivery": "bg-[hsl(200_70%_50%)]/15 text-[hsl(200_70%_50%)]",
@@ -501,6 +747,7 @@ export default function KnowledgeBase() {
                 <div className="grid gap-3">
                   {items.map((a) => {
                     const Icon = a.icon;
+                    const pitch = clientPitches[a.url];
                     return (
                       <motion.div
                         key={a.url}
@@ -527,8 +774,12 @@ export default function KnowledgeBase() {
                                   </div>
                                 </div>
                               </div>
+                              {pitch && (
+                                <ClientPitchDialog area={a} pitch={pitch} />
+                              )}
                             </div>
                           </CardHeader>
+
                           <CardContent className="space-y-4">
                             <p className="text-sm leading-relaxed">{a.purpose}</p>
                             <div>
@@ -626,3 +877,83 @@ function MetaBlock({ label, items }: { label: string; items: string[] }) {
     </div>
   );
 }
+
+function ClientPitchDialog({ area, pitch }: { area: Area; pitch: ClientPitch }) {
+  const Icon = area.icon;
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline" size="sm" className="shrink-0">
+          <Users className="mr-1.5 h-3.5 w-3.5" />
+          Client view
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+        <DialogHeader>
+          <div className="flex items-center gap-2 text-[11px] uppercase tracking-widest text-muted-foreground">
+            <Icon className="h-3.5 w-3.5" />
+            {area.title} · Customer perspective
+          </div>
+          <DialogTitle className="text-xl leading-snug">{pitch.headline}</DialogTitle>
+          <DialogDescription className="flex items-center gap-1.5 pt-1">
+            <Target className="h-3.5 w-3.5" />
+            {pitch.audience}
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="mt-2 space-y-5">
+          <div>
+            <div className="text-[11px] uppercase tracking-wider text-muted-foreground mb-1.5">
+              Why it matters to you
+            </div>
+            <p className="text-sm leading-relaxed">{pitch.whyItMatters}</p>
+          </div>
+
+          <div>
+            <div className="text-[11px] uppercase tracking-wider text-muted-foreground mb-2">
+              Pains we hear from firms today
+            </div>
+            <div className="space-y-2">
+              {pitch.painsSolved.map((p, i) => (
+                <div
+                  key={i}
+                  className="flex gap-2 rounded-md border border-[hsl(30_95%_55%)]/20 bg-[hsl(30_95%_55%)]/5 p-3 text-sm italic"
+                >
+                  <Quote className="h-3.5 w-3.5 shrink-0 mt-0.5 text-[hsl(30_95%_55%)]" />
+                  <span>{p}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <div className="text-[11px] uppercase tracking-wider text-muted-foreground mb-2">
+              What you get
+            </div>
+            <ul className="space-y-1.5">
+              {pitch.outcomes.map((o, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm">
+                  <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5 text-[hsl(155_60%_45%)]" />
+                  <span>{o}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {pitch.quote && (
+            <div className="rounded-md border-l-4 border-primary bg-primary/5 p-4 text-sm italic">
+              {pitch.quote}
+            </div>
+          )}
+
+          <div className="flex justify-end pt-2">
+            <Button asChild size="sm">
+              <Link to={area.url}>Open {area.title} →</Link>
+            </Button>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
