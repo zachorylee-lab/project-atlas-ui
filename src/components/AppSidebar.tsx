@@ -13,6 +13,8 @@ import {
   Grid3x3,
   ShieldAlert,
   Settings2,
+  GraduationCap,
+  Activity,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
@@ -57,7 +59,14 @@ const navGroups: { label: string; items: { title: string; url: string; icon: typ
     ],
   },
   {
-    label: "Enablement",
+    label: "Customer Enablement",
+    items: [
+      { title: "Training Library", url: "/training-library", icon: GraduationCap },
+      { title: "Adoption Tracker", url: "/adoption", icon: Activity },
+    ],
+  },
+  {
+    label: "Interview & Demo",
     items: [
       { title: "Interview Prep", url: "/interview-prep", icon: MessageSquare },
       { title: "Demo Mode", url: "/demo", icon: Presentation },
