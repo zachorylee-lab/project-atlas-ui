@@ -66,16 +66,16 @@ const navGroups: { label: string; items: { title: string; url: string; icon: typ
     ],
   },
   {
+    label: "Setup",
+    items: [
+      { title: "Integration Setup", url: "/integration-setup", icon: Settings2 },
+    ],
+  },
+  {
     label: "Interview & Demo",
     items: [
       { title: "Interview Prep", url: "/interview-prep", icon: MessageSquare },
       { title: "Demo Mode", url: "/demo", icon: Presentation },
-    ],
-  },
-  {
-    label: "Setup",
-    items: [
-      { title: "Integration Setup", url: "/integration-setup", icon: Settings2 },
     ],
   },
 ];
