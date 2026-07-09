@@ -17,6 +17,7 @@ import {
   Activity,
   ClipboardList,
   ClipboardCheck,
+  BookOpenCheck,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
@@ -39,6 +40,7 @@ const navGroups: { label: string; items: { title: string; url: string; icon: typ
     items: [
       { title: "Implementation Dashboard", url: "/", icon: LayoutDashboard },
       { title: "Portfolio Health", url: "/metrics", icon: BarChart3 },
+      { title: "Knowledge Base", url: "/knowledge-base", icon: BookOpenCheck },
     ],
   },
   {

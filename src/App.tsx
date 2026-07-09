@@ -50,6 +50,7 @@ const App = () => (
           <Route path="/adoption" element={<AdoptionTracker />} />
           <Route path="/configuration-workbook" element={<ConfigurationWorkbook />} />
           <Route path="/uat" element={<UATTracker />} />
+          <Route path="/knowledge-base" element={<KnowledgeBase />} />
 
           <Route path="/pm-tasks" element={<PMTasks />} />
           <Route path="/interview-prep" element={<InterviewPrep />} />
