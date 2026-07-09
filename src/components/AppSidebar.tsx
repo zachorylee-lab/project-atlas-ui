@@ -37,6 +37,7 @@ const navItems = [
   { title: "Workstreams", url: "/workflows", icon: Database },
   { title: "Integrations & Data", url: "/integrations", icon: Plug },
   { title: "Sales Handoff", url: "/handoff", icon: ArrowRightLeft },
+  { title: "RACI Matrix", url: "/raci", icon: Grid3x3 },
   { title: "Interview Prep", url: "/interview-prep", icon: MessageSquare },
   { title: "Demo Mode", url: "/demo", icon: Presentation },
 ];
