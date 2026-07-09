@@ -260,7 +260,39 @@ export default function DemoMode() {
   const beatProgress = Math.min(100, (beatElapsed / beat.durationSec) * 100);
   const overProgress = Math.min(100, (elapsed / TOTAL_SECONDS) * 100);
   const overBudget = elapsed > TOTAL_SECONDS;
+  const beatOver = beatElapsed > beat.durationSec;
   const Icon = beat.icon;
+
+  // Audible + visual cue the moment a beat crosses its target
+  const cuedRef = useRef<string | null>(null);
+  const [flash, setFlash] = useState(false);
+  useEffect(() => {
+    if (!running) return;
+    if (beatElapsed >= beat.durationSec && cuedRef.current !== beat.id) {
+      cuedRef.current = beat.id;
+      setFlash(true);
+      window.setTimeout(() => setFlash(false), 1400);
+      try {
+        const Ctx = window.AudioContext || (window as any).webkitAudioContext;
+        const ctx = new Ctx();
+        const now = ctx.currentTime;
+        [0, 0.18].forEach((t) => {
+          const o = ctx.createOscillator();
+          const g = ctx.createGain();
+          o.type = "sine";
+          o.frequency.value = 880;
+          g.gain.setValueAtTime(0.0001, now + t);
+          g.gain.exponentialRampToValueAtTime(0.25, now + t + 0.01);
+          g.gain.exponentialRampToValueAtTime(0.0001, now + t + 0.14);
+          o.connect(g).connect(ctx.destination);
+          o.start(now + t);
+          o.stop(now + t + 0.16);
+        });
+        window.setTimeout(() => ctx.close(), 800);
+      } catch { /* ignore audio errors */ }
+    }
+  }, [beatElapsed, beat.id, beat.durationSec, running]);
+  useEffect(() => { cuedRef.current = null; setFlash(false); }, [beat.id]);
 
   return (
     <div
@@ -279,6 +311,15 @@ export default function DemoMode() {
           </div>
         </div>
         <div className="flex items-center gap-2">
+          <div className="hidden sm:flex flex-col items-end mr-1">
+            <div className="text-[10px] uppercase tracking-widest text-white/40">This beat</div>
+            <div className={cn(
+              "font-mono text-sm tabular-nums",
+              beatOver ? "text-destructive" : "text-white/90"
+            )}>
+              {fmt(beatElapsed)} <span className="text-white/40">/ {fmt(beat.durationSec)}</span>
+            </div>
+          </div>
           <div className={cn(
             "px-3 py-1.5 rounded-md font-mono text-sm tabular-nums",
             overBudget ? "bg-destructive/20 text-destructive-foreground" : "bg-white/10"
@@ -309,6 +350,35 @@ export default function DemoMode() {
           style={{ width: `${overProgress}%` }}
         />
       </div>
+
+      {/* Beat progress — always visible, current beat vs target */}
+      <div className="px-6 pt-2 shrink-0">
+        <div className="flex items-center justify-between text-[10px] uppercase tracking-widest text-white/40 mb-1">
+          <span>Beat {index + 1} / {BEATS.length} · {beat.phase}</span>
+          <span className={cn("tabular-nums font-mono", beatOver && "text-destructive")}>
+            {fmt(beatElapsed)} / {fmt(beat.durationSec)}{beatOver && " · OVER"}
+          </span>
+        </div>
+        <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+          <div
+            className={cn(
+              "h-full transition-all duration-500",
+              beatOver ? "bg-destructive" : "bg-gradient-to-r from-primary to-accent"
+            )}
+            style={{ width: `${beatProgress}%` }}
+          />
+        </div>
+      </div>
+
+      {/* Flash overlay + banner when a beat ends */}
+      {flash && (
+        <>
+          <div className="pointer-events-none fixed inset-0 z-40 animate-pulse bg-destructive/20 mix-blend-screen" />
+          <div className="pointer-events-none fixed top-20 left-1/2 -translate-x-1/2 z-50 px-5 py-2.5 rounded-full bg-destructive text-destructive-foreground text-sm font-semibold shadow-2xl animate-fade-in">
+            Beat time reached — wrap up and advance
+          </div>
+        </>
+      )}
 
       {/* Main slide */}
       <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-[1fr_360px]">
