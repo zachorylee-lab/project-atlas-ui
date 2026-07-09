@@ -260,7 +260,39 @@ export default function DemoMode() {
   const beatProgress = Math.min(100, (beatElapsed / beat.durationSec) * 100);
   const overProgress = Math.min(100, (elapsed / TOTAL_SECONDS) * 100);
   const overBudget = elapsed > TOTAL_SECONDS;
+  const beatOver = beatElapsed > beat.durationSec;
   const Icon = beat.icon;
+
+  // Audible + visual cue the moment a beat crosses its target
+  const cuedRef = useRef<string | null>(null);
+  const [flash, setFlash] = useState(false);
+  useEffect(() => {
+    if (!running) return;
+    if (beatElapsed >= beat.durationSec && cuedRef.current !== beat.id) {
+      cuedRef.current = beat.id;
+      setFlash(true);
+      window.setTimeout(() => setFlash(false), 1400);
+      try {
+        const Ctx = window.AudioContext || (window as any).webkitAudioContext;
+        const ctx = new Ctx();
+        const now = ctx.currentTime;
+        [0, 0.18].forEach((t) => {
+          const o = ctx.createOscillator();
+          const g = ctx.createGain();
+          o.type = "sine";
+          o.frequency.value = 880;
+          g.gain.setValueAtTime(0.0001, now + t);
+          g.gain.exponentialRampToValueAtTime(0.25, now + t + 0.01);
+          g.gain.exponentialRampToValueAtTime(0.0001, now + t + 0.14);
+          o.connect(g).connect(ctx.destination);
+          o.start(now + t);
+          o.stop(now + t + 0.16);
+        });
+        window.setTimeout(() => ctx.close(), 800);
+      } catch { /* ignore audio errors */ }
+    }
+  }, [beatElapsed, beat.id, beat.durationSec, running]);
+  useEffect(() => { cuedRef.current = null; setFlash(false); }, [beat.id]);
 
   return (
     <div
