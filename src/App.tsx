@@ -17,6 +17,7 @@ import PMTasks from "./pages/PMTasks";
 import InterviewPrep from "./pages/InterviewPrep";
 import DemoMode from "./pages/DemoMode";
 import RACI from "./pages/RACI";
+import RAIDLog from "./pages/RAIDLog";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +37,7 @@ const App = () => (
           <Route path="/handoff" element={<SalesHandoff />} />
           <Route path="/integrations" element={<Integrations />} />
           <Route path="/raci" element={<RACI />} />
+          <Route path="/raid" element={<RAIDLog />} />
           
           <Route path="/pm-tasks" element={<PMTasks />} />
           <Route path="/interview-prep" element={<InterviewPrep />} />
