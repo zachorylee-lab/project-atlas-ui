@@ -18,6 +18,7 @@ import InterviewPrep from "./pages/InterviewPrep";
 import DemoMode from "./pages/DemoMode";
 import RACI from "./pages/RACI";
 import RAIDLog from "./pages/RAIDLog";
+import IntegrationSetup from "./pages/IntegrationSetup";
 
 const queryClient = new QueryClient();
 
