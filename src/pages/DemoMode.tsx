@@ -351,6 +351,35 @@ export default function DemoMode() {
         />
       </div>
 
+      {/* Beat progress — always visible, current beat vs target */}
+      <div className="px-6 pt-2 shrink-0">
+        <div className="flex items-center justify-between text-[10px] uppercase tracking-widest text-white/40 mb-1">
+          <span>Beat {index + 1} / {BEATS.length} · {beat.phase}</span>
+          <span className={cn("tabular-nums font-mono", beatOver && "text-destructive")}>
+            {fmt(beatElapsed)} / {fmt(beat.durationSec)}{beatOver && " · OVER"}
+          </span>
+        </div>
+        <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+          <div
+            className={cn(
+              "h-full transition-all duration-500",
+              beatOver ? "bg-destructive" : "bg-gradient-to-r from-primary to-accent"
+            )}
+            style={{ width: `${beatProgress}%` }}
+          />
+        </div>
+      </div>
+
+      {/* Flash overlay + banner when a beat ends */}
+      {flash && (
+        <>
+          <div className="pointer-events-none fixed inset-0 z-40 animate-pulse bg-destructive/20 mix-blend-screen" />
+          <div className="pointer-events-none fixed top-20 left-1/2 -translate-x-1/2 z-50 px-5 py-2.5 rounded-full bg-destructive text-destructive-foreground text-sm font-semibold shadow-2xl animate-fade-in">
+            Beat time reached — wrap up and advance
+          </div>
+        </>
+      )}
+
       {/* Main slide */}
       <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-[1fr_360px]">
         <div className="relative overflow-hidden flex items-center justify-center p-8 lg:p-16">
