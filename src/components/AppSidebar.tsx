@@ -27,19 +27,39 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 
-const navItems = [
-  { title: "Implementation Dashboard", url: "/", icon: LayoutDashboard },
-  { title: "Portfolio Health", url: "/metrics", icon: BarChart3 },
-  { title: "Active Implementations", url: "/projects", icon: Kanban },
-  { title: "Consultant Task Board", url: "/pm-tasks", icon: ListChecks },
-  { title: "Onboarding Playbook", url: "/playbook", icon: BookOpen },
-  { title: "Templates & SOWs", url: "/templates", icon: FolderOpen },
-  { title: "Workstreams", url: "/workflows", icon: Database },
-  { title: "Integrations & Data", url: "/integrations", icon: Plug },
-  { title: "Sales Handoff", url: "/handoff", icon: ArrowRightLeft },
-  { title: "RACI Matrix", url: "/raci", icon: Grid3x3 },
-  { title: "Interview Prep", url: "/interview-prep", icon: MessageSquare },
-  { title: "Demo Mode", url: "/demo", icon: Presentation },
+const navGroups: { label: string; items: { title: string; url: string; icon: typeof LayoutDashboard }[] }[] = [
+  {
+    label: "Overview",
+    items: [
+      { title: "Implementation Dashboard", url: "/", icon: LayoutDashboard },
+      { title: "Portfolio Health", url: "/metrics", icon: BarChart3 },
+    ],
+  },
+  {
+    label: "Pre-Kickoff",
+    items: [
+      { title: "Sales Handoff", url: "/handoff", icon: ArrowRightLeft },
+      { title: "Onboarding Playbook", url: "/playbook", icon: BookOpen },
+      { title: "RACI Matrix", url: "/raci", icon: Grid3x3 },
+      { title: "Templates & SOWs", url: "/templates", icon: FolderOpen },
+    ],
+  },
+  {
+    label: "Delivery",
+    items: [
+      { title: "Active Implementations", url: "/projects", icon: Kanban },
+      { title: "Consultant Task Board", url: "/pm-tasks", icon: ListChecks },
+      { title: "Workstreams", url: "/workflows", icon: Database },
+      { title: "Integrations & Data", url: "/integrations", icon: Plug },
+    ],
+  },
+  {
+    label: "Enablement",
+    items: [
+      { title: "Interview Prep", url: "/interview-prep", icon: MessageSquare },
+      { title: "Demo Mode", url: "/demo", icon: Presentation },
+    ],
+  },
 ];
 
 export function AppSidebar() {
