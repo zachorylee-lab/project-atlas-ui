@@ -148,6 +148,33 @@ const sourceTint: Record<Source, string> = {
   Slide: "bg-muted text-muted-foreground border-border",
 };
 
+/**
+ * Convert a shared Loom/Scribe/Guidde URL into an embeddable iframe src.
+ * Returns null if the URL isn't from a known embeddable source.
+ */
+function toEmbedUrl(url: string, source: Source): string | null {
+  try {
+    const u = new URL(url);
+    if (source === "Loom" || u.hostname.includes("loom.com")) {
+      // https://www.loom.com/share/<id>  ->  https://www.loom.com/embed/<id>
+      const m = u.pathname.match(/\/(?:share|embed)\/([a-zA-Z0-9]+)/);
+      if (m) return `https://www.loom.com/embed/${m[1]}`;
+    }
+    if (source === "Scribe" || u.hostname.includes("scribehow.com")) {
+      // https://scribehow.com/shared/<slug>  ->  https://scribehow.com/embed/<slug>
+      const m = u.pathname.match(/\/(?:shared|embed)\/([^/?#]+)/);
+      if (m) return `https://scribehow.com/embed/${m[1]}`;
+    }
+    if (source === "Guidde" || u.hostname.includes("guidde.com")) {
+      if (u.pathname.includes("/embed/")) return url;
+      const m = u.pathname.match(/\/share\/([^/?#]+)/);
+      if (m) return `https://app.guidde.com/embed/${m[1]}`;
+    }
+  } catch {}
+  return null;
+}
+
+
 const STORE_KEY = "dayshape.training.library.v1";
 
 function load(): Asset[] {
@@ -165,6 +192,7 @@ export default function TrainingLibrary() {
   const [persona, setPersona] = useState<string>("all");
   const [source, setSource] = useState<string>("all");
   const [open, setOpen] = useState(false);
+  const [preview, setPreview] = useState<Asset | null>(null);
   const [draft, setDraft] = useState<Partial<Asset>>({
     source: "Loom",
     module: "General",
@@ -420,11 +448,17 @@ export default function TrainingLibrary() {
                           </div>
                         </div>
                         <div className="flex gap-2">
-                          <Button asChild size="sm" className="flex-1">
-                            <a href={a.url} target="_blank" rel="noreferrer">
-                              <Play className="mr-1.5 h-3.5 w-3.5" /> Open
-                            </a>
-                          </Button>
+                          {toEmbedUrl(a.url, a.source) ? (
+                            <Button size="sm" className="flex-1" onClick={() => setPreview(a)}>
+                              <Play className="mr-1.5 h-3.5 w-3.5" /> Preview
+                            </Button>
+                          ) : (
+                            <Button asChild size="sm" className="flex-1">
+                              <a href={a.url} target="_blank" rel="noreferrer">
+                                <Play className="mr-1.5 h-3.5 w-3.5" /> Open
+                              </a>
+                            </Button>
+                          )}
                           <Button asChild size="sm" variant="outline">
                             <a href={a.url} target="_blank" rel="noreferrer">
                               <ExternalLink className="h-3.5 w-3.5" />
@@ -475,6 +509,40 @@ export default function TrainingLibrary() {
             })}
           </TabsContent>
         </Tabs>
+
+        <Dialog open={!!preview} onOpenChange={(o) => !o && setPreview(null)}>
+          <DialogContent className="max-w-4xl">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                {preview && (
+                  <Badge variant="outline" className={cn(sourceTint[preview.source])}>
+                    {preview.source}
+                  </Badge>
+                )}
+                {preview?.title}
+              </DialogTitle>
+            </DialogHeader>
+            {preview && (
+              <div className="space-y-3">
+                <div className="relative w-full overflow-hidden rounded-md border bg-muted" style={{ paddingTop: "56.25%" }}>
+                  <iframe
+                    src={toEmbedUrl(preview.url, preview.source) ?? preview.url}
+                    className="absolute inset-0 h-full w-full"
+                    allow="fullscreen; clipboard-write; encrypted-media"
+                    allowFullScreen
+                    title={preview.title}
+                  />
+                </div>
+                <div className="flex items-center justify-between text-xs text-muted-foreground">
+                  <span>{preview.module} · {preview.personas.join(", ")} · {preview.durationMin} min</span>
+                  <a href={preview.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">
+                    Open in {preview.source} <ExternalLink className="h-3 w-3" />
+                  </a>
+                </div>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
       </div>
     </DashboardLayout>
   );
