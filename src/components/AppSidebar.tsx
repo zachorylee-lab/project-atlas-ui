@@ -15,6 +15,8 @@ import {
   Settings2,
   GraduationCap,
   Activity,
+  ClipboardList,
+  ClipboardCheck,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
@@ -54,6 +56,8 @@ const navGroups: { label: string; items: { title: string; url: string; icon: typ
       { title: "Active Implementations", url: "/projects", icon: Kanban },
       { title: "Consultant Task Board", url: "/pm-tasks", icon: ListChecks },
       { title: "Workstreams", url: "/workflows", icon: Database },
+      { title: "Configuration Workbook", url: "/configuration-workbook", icon: ClipboardList },
+      { title: "UAT Tracker", url: "/uat", icon: ClipboardCheck },
       { title: "Integrations & Data", url: "/integrations", icon: Plug },
       { title: "RAID Log", url: "/raid", icon: ShieldAlert },
     ],

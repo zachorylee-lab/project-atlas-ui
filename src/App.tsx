@@ -21,6 +21,8 @@ import RAIDLog from "./pages/RAIDLog";
 import IntegrationSetup from "./pages/IntegrationSetup";
 import TrainingLibrary from "./pages/TrainingLibrary";
 import AdoptionTracker from "./pages/AdoptionTracker";
+import ConfigurationWorkbook from "./pages/ConfigurationWorkbook";
+import UATTracker from "./pages/UATTracker";
 
 const queryClient = new QueryClient();
 
@@ -45,6 +47,8 @@ const App = () => (
           
           <Route path="/training-library" element={<TrainingLibrary />} />
           <Route path="/adoption" element={<AdoptionTracker />} />
+          <Route path="/configuration-workbook" element={<ConfigurationWorkbook />} />
+          <Route path="/uat" element={<UATTracker />} />
 
           <Route path="/pm-tasks" element={<PMTasks />} />
           <Route path="/interview-prep" element={<InterviewPrep />} />
