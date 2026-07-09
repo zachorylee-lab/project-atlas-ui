@@ -192,6 +192,7 @@ export default function TrainingLibrary() {
   const [persona, setPersona] = useState<string>("all");
   const [source, setSource] = useState<string>("all");
   const [open, setOpen] = useState(false);
+  const [preview, setPreview] = useState<Asset | null>(null);
   const [draft, setDraft] = useState<Partial<Asset>>({
     source: "Loom",
     module: "General",
