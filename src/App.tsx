@@ -37,6 +37,7 @@ const App = () => (
           <Route path="/handoff" element={<SalesHandoff />} />
           <Route path="/integrations" element={<Integrations />} />
           <Route path="/raci" element={<RACI />} />
+          <Route path="/raid" element={<RAIDLog />} />
           
           <Route path="/pm-tasks" element={<PMTasks />} />
           <Route path="/interview-prep" element={<InterviewPrep />} />
