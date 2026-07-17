@@ -15,14 +15,14 @@ import {
 
 const fadeUp = { initial: { opacity: 0, y: 16 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.4 } };
 
-type Owner = "Customer" | "Dayshape" | "Joint";
+type Owner = "Customer" | "Red Oak" | "Joint";
 
 type DetailedStep = {
   title: string;
   owner: Owner;
   duration: string;
   description: string;
-  dayshapeRole: string;
+  red oakRole: string;
 };
 
 type Integration = {
@@ -30,7 +30,7 @@ type Integration = {
   description: string;
   status: "available" | "coming-soon" | "custom";
   overview: string;
-  howDayshapeDoesIt: string;
+  howRed OakDoesIt: string;
   bestPractices: string[];
   customerNeeds: string[];
   dataFlows: string[];
@@ -52,16 +52,16 @@ const categories: IntegrationCategory[] = [
     label: "HRIS & People Data",
     icon: Users,
     color: "text-orange-500",
-    description: "HR systems that feed staff, roles, grades, skills, and org hierarchy into Dayshape",
+    description: "HR systems that feed staff, roles, grades, skills, and org hierarchy into Red Oak",
     integrations: [
       {
         name: "Workday HCM",
         description: "Enterprise HRIS: people, org, grades, competencies, absences, joiners/leavers/movers",
         status: "available",
         overview:
-          "Workday is typically the customer's system of record for who works at the firm, what grade they are, and when they're off. Dayshape reads this nightly and layers scheduling and forecasting on top.",
-        howDayshapeDoesIt:
-          "Dayshape provides a Workday RaaS (Reports-as-a-Service) integration pack out-of-the-box: pre-built report specs, field mappings for Worker + Job + Absence, and a scheduled connector that runs nightly at 02:00 in the customer's time zone. The Dayshape SIC configures the mapping, the customer's Workday admin publishes the reports, and Dayshape monitors the sync in the Integrations Health dashboard.",
+          "Workday is typically the customer's system of record for who works at the firm, what grade they are, and when they're off. Red Oak reads this nightly and layers scheduling and forecasting on top.",
+        howRed OakDoesIt:
+          "Red Oak provides a Workday RaaS (Reports-as-a-Service) integration pack out-of-the-box: pre-built report specs, field mappings for Worker + Job + Absence, and a scheduled connector that runs nightly at 02:00 in the customer's time zone. The Red Oak SIC configures the mapping, the customer's Workday admin publishes the reports, and Red Oak monitors the sync in the Integrations Health dashboard.",
         bestPractices: [
           "Use Workday RaaS reports for reliable delta pulls — avoid direct Web Services",
           "Establish Workday Employee ID as the canonical join key across all systems",
@@ -74,8 +74,8 @@ const categories: IntegrationCategory[] = [
           "Data governance sign-off on which fields leave Workday",
         ],
         dataFlows: [
-          "Workday → Dayshape: people, org, grades, absences (nightly)",
-          "Dayshape → Workday: utilisation signals (optional, weekly)",
+          "Workday → Red Oak: people, org, grades, absences (nightly)",
+          "Red Oak → Workday: utilisation signals (optional, weekly)",
         ],
         detailedSteps: [
           {
@@ -84,39 +84,39 @@ const categories: IntegrationCategory[] = [
             duration: "1 day",
             description:
               "Customer's Workday admin creates a dedicated ISU with a strong password rotation policy, and a Domain Security Policy granting Get and Report access to Worker, Job Profile, Organisation, and Absence domains.",
-            dayshapeRole: "Dayshape provides the exact scope list and reviews the security policy before it's activated.",
+            red oakRole: "Red Oak provides the exact scope list and reviews the security policy before it's activated.",
           },
           {
-            title: "Publish Dayshape's RaaS report specs",
+            title: "Publish Red Oak's RaaS report specs",
             owner: "Joint",
             duration: "2–3 days",
             description:
-              "Dayshape ships pre-built XML report specifications for Worker, Org Hierarchy, Grades, and Absences. The customer imports these into Workday Studio, publishes them as web services, and shares the endpoint URLs.",
-            dayshapeRole: "Dayshape SIC walks the Workday ISA through the import and validates the sample output.",
+              "Red Oak ships pre-built XML report specifications for Worker, Org Hierarchy, Grades, and Absences. The customer imports these into Workday Studio, publishes them as web services, and shares the endpoint URLs.",
+            red oakRole: "Red Oak SIC walks the Workday ISA through the import and validates the sample output.",
           },
           {
             title: "Map roles, grades, and offices to the Firm Model",
             owner: "Joint",
             duration: "3–5 days",
             description:
-              "Workday values (e.g. 'Sr Consultant, Chicago') are mapped to Dayshape grades and offices in the Configuration Workbook. Anything that doesn't map is flagged for the customer's Head of Resourcing to decide.",
-            dayshapeRole: "Dayshape drives the workshops, drafts the mapping, and owns the sign-off record.",
+              "Workday values (e.g. 'Sr Consultant, Chicago') are mapped to Red Oak grades and offices in the Configuration Workbook. Anything that doesn't map is flagged for the customer's Head of Resourcing to decide.",
+            red oakRole: "Red Oak drives the workshops, drafts the mapping, and owns the sign-off record.",
           },
           {
             title: "Reconcile a full week's data in sandbox",
             owner: "Joint",
             duration: "1 week",
             description:
-              "Run the nightly connector against a Dayshape sandbox, reconcile headcount, grade mix, and absence counts against Workday reports for a full working week. Any variance > 0.5% is investigated.",
-            dayshapeRole: "Dayshape produces the reconciliation report; the customer's People Ops team signs it off.",
+              "Run the nightly connector against a Red Oak sandbox, reconcile headcount, grade mix, and absence counts against Workday reports for a full working week. Any variance > 0.5% is investigated.",
+            red oakRole: "Red Oak produces the reconciliation report; the customer's People Ops team signs it off.",
           },
           {
             title: "Cut over to production and monitor",
-            owner: "Dayshape",
+            owner: "Red Oak",
             duration: "1 day + 2 weeks Hypercare",
             description:
-              "Sync goes live on production Dayshape. For the first two weeks the SIC monitors the nightly run and any deltas surface in the Integrations Health dashboard within 15 minutes.",
-            dayshapeRole: "Dayshape owns the production monitoring; the customer gets alerts if the feed fails.",
+              "Sync goes live on production Red Oak. For the first two weeks the SIC monitors the nightly run and any deltas surface in the Integrations Health dashboard within 15 minutes.",
+            red oakRole: "Red Oak owns the production monitoring; the customer gets alerts if the feed fails.",
           },
         ],
       },
@@ -126,31 +126,31 @@ const categories: IntegrationCategory[] = [
         status: "available",
         overview:
           "The same integration pattern as Workday, adapted to the customer's HRIS. Each has a supported connector; the moving parts (mapping, reconciliation, cutover) are identical.",
-        howDayshapeDoesIt:
-          "Dayshape maintains native connectors for BambooHR, HiBob, and SuccessFactors that use each platform's REST API with an OAuth 2.0 or API-key auth model. The customer creates an integration user; Dayshape configures the connector, the field mapping, and the sync cadence.",
+        howRed OakDoesIt:
+          "Red Oak maintains native connectors for BambooHR, HiBob, and SuccessFactors that use each platform's REST API with an OAuth 2.0 or API-key auth model. The customer creates an integration user; Red Oak configures the connector, the field mapping, and the sync cadence.",
         bestPractices: [
           "Standardise your role/grade taxonomy across offices before you sync",
           "Document how contractors, secondees, and part-timers are handled",
           "Confirm ownership of leaver deprovisioning end-to-end",
         ],
         customerNeeds: ["HRIS admin", "API keys or OAuth app", "Data mapping document"],
-        dataFlows: ["HRIS → Dayshape (people, org, absences) — nightly or hourly"],
+        dataFlows: ["HRIS → Red Oak (people, org, absences) — nightly or hourly"],
         detailedSteps: [
           {
             title: "Create the integration user or OAuth app",
             owner: "Customer",
             duration: "1 day",
             description:
-              "Customer generates API credentials scoped to the fields Dayshape needs (people, jobs, absences). No write access required.",
-            dayshapeRole: "Dayshape provides the exact scope list and receives credentials via secure vault.",
+              "Customer generates API credentials scoped to the fields Red Oak needs (people, jobs, absences). No write access required.",
+            red oakRole: "Red Oak provides the exact scope list and receives credentials via secure vault.",
           },
           {
-            title: "Configure the Dayshape connector",
-            owner: "Dayshape",
+            title: "Configure the Red Oak connector",
+            owner: "Red Oak",
             duration: "1 day",
             description:
-              "Dayshape configures the connector in the customer's tenant, sets the schedule, and runs a first extract into sandbox.",
-            dayshapeRole: "Dayshape owns end-to-end.",
+              "Red Oak configures the connector in the customer's tenant, sets the schedule, and runs a first extract into sandbox.",
+            red oakRole: "Red Oak owns end-to-end.",
           },
           {
             title: "Map fields to the Firm Model",
@@ -158,7 +158,7 @@ const categories: IntegrationCategory[] = [
             duration: "2–3 days",
             description:
               "Grades, offices, and employment types are mapped in the Configuration Workbook. Contractor and secondee rules documented.",
-            dayshapeRole: "Dayshape drafts the mapping; customer's People Ops confirms.",
+            red oakRole: "Red Oak drafts the mapping; customer's People Ops confirms.",
           },
           {
             title: "Pilot sync with a subset of the firm",
@@ -166,15 +166,15 @@ const categories: IntegrationCategory[] = [
             duration: "3–5 days",
             description:
               "Sync 1–2 offices or a single practice. Reconcile counts and spot-check individuals. Fix mapping edge cases.",
-            dayshapeRole: "Dayshape produces the pilot reconciliation report.",
+            red oakRole: "Red Oak produces the pilot reconciliation report.",
           },
           {
             title: "Go-live firm-wide",
-            owner: "Dayshape",
+            owner: "Red Oak",
             duration: "1 day",
             description:
               "Turn on for the full firm. Monitor the first nightly run and confirm counts.",
-            dayshapeRole: "Dayshape owns; customer is informed.",
+            red oakRole: "Red Oak owns; customer is informed.",
           },
         ],
       },
@@ -192,13 +192,13 @@ const categories: IntegrationCategory[] = [
         description: "Wolters Kluwer practice management — engagements, clients, staff, time and billing",
         status: "available",
         overview:
-          "For firms on CCH Axcess, the engagement master lives there. Dayshape schedules against those engagements and reads time actuals back to drive utilisation and realisation reporting.",
-        howDayshapeDoesIt:
-          "Dayshape has a productised CCH Axcess connector using the CCH Axcess API. It reads engagements, clients, budgets, and time transactions on a nightly schedule (or hourly for time actuals). Dayshape's SIC owns the engagement type mapping — the piece that always needs firm-specific decisions.",
+          "For firms on CCH Axcess, the engagement master lives there. Red Oak schedules against those engagements and reads time actuals back to drive utilisation and realisation reporting.",
+        howRed OakDoesIt:
+          "Red Oak has a productised CCH Axcess connector using the CCH Axcess API. It reads engagements, clients, budgets, and time transactions on a nightly schedule (or hourly for time actuals). Red Oak's SIC owns the engagement type mapping — the piece that always needs firm-specific decisions.",
         bestPractices: [
-          "Treat CCH engagement master as the source of truth — Dayshape schedules against it",
-          "Map CCH engagement types to Dayshape templates before go-live, not after",
-          "Push time actuals from CCH into Dayshape for utilisation + realisation reporting",
+          "Treat CCH engagement master as the source of truth — Red Oak schedules against it",
+          "Map CCH engagement types to Red Oak templates before go-live, not after",
+          "Push time actuals from CCH into Red Oak for utilisation + realisation reporting",
           "Reconcile daily during Hypercare to catch drift early",
         ],
         customerNeeds: [
@@ -207,8 +207,8 @@ const categories: IntegrationCategory[] = [
           "Documented engagement type taxonomy",
         ],
         dataFlows: [
-          "CCH → Dayshape: engagements, clients, budgets (nightly)",
-          "CCH → Dayshape: time transactions (hourly)",
+          "CCH → Red Oak: engagements, clients, budgets (nightly)",
+          "CCH → Red Oak: time transactions (hourly)",
         ],
         detailedSteps: [
           {
@@ -217,39 +217,39 @@ const categories: IntegrationCategory[] = [
             duration: "2 days",
             description:
               "Customer's CCH admin creates an API user with read access to Engagement, Client, Staff, and Time modules. Provides the tenant ID and API base URL.",
-            dayshapeRole: "Dayshape confirms the required CCH modules are licensed and scopes the API user.",
+            red oakRole: "Red Oak confirms the required CCH modules are licensed and scopes the API user.",
           },
           {
             title: "Inventory and map engagement types",
             owner: "Joint",
             duration: "1 week",
             description:
-              "Every CCH engagement type is listed in the Configuration Workbook and mapped to a Dayshape engagement template (Annual audit, Tax compliance – 1120, Advisory, etc.). Unmapped types are decided by the practice leads.",
-            dayshapeRole: "Dayshape runs the mapping workshops with each practice; documents and signs off.",
+              "Every CCH engagement type is listed in the Configuration Workbook and mapped to a Red Oak engagement template (Annual audit, Tax compliance – 1120, Advisory, etc.). Unmapped types are decided by the practice leads.",
+            red oakRole: "Red Oak runs the mapping workshops with each practice; documents and signs off.",
           },
           {
             title: "Backfill open engagements into sandbox",
-            owner: "Dayshape",
+            owner: "Red Oak",
             duration: "3 days",
             description:
-              "Load all currently-open CCH engagements into a Dayshape sandbox. Spot-check budgets, staff, and dates against CCH.",
-            dayshapeRole: "Dayshape owns; customer PM validates a sample.",
+              "Load all currently-open CCH engagements into a Red Oak sandbox. Spot-check budgets, staff, and dates against CCH.",
+            red oakRole: "Red Oak owns; customer PM validates a sample.",
           },
           {
             title: "Validate WIP tie-out with finance",
             owner: "Joint",
             duration: "1 week",
             description:
-              "Reconcile hours and dollars for a completed month between CCH and Dayshape. Finance team signs off variance is < 0.1%.",
-            dayshapeRole: "Dayshape produces the tie-out report; customer's controller signs off.",
+              "Reconcile hours and dollars for a completed month between CCH and Red Oak. Finance team signs off variance is < 0.1%.",
+            red oakRole: "Red Oak produces the tie-out report; customer's controller signs off.",
           },
           {
             title: "Go-live and enter daily reconciliation in Hypercare",
-            owner: "Dayshape",
+            owner: "Red Oak",
             duration: "1 day + 2 weeks Hypercare",
             description:
               "Production sync enabled. For the first two weeks the SIC runs a daily reconciliation report; any variance is investigated same-day.",
-            dayshapeRole: "Dayshape owns Hypercare; customer sees the reconciliation report each morning.",
+            red oakRole: "Red Oak owns Hypercare; customer sees the reconciliation report each morning.",
           },
         ],
       },
@@ -258,40 +258,40 @@ const categories: IntegrationCategory[] = [
         description: "Practice management platform common in mid-market and large accounting firms",
         status: "available",
         overview:
-          "Same pattern as CCH — Practice Engine holds engagements, Dayshape schedules against them and reads actuals back for reporting.",
-        howDayshapeDoesIt:
-          "Dayshape uses the Practice Engine REST API. Nightly sync of engagements and clients; hourly sync of time transactions. Dayshape's SIC drives the engagement taxonomy mapping and the parent/child client hierarchy decisions.",
+          "Same pattern as CCH — Practice Engine holds engagements, Red Oak schedules against them and reads actuals back for reporting.",
+        howRed OakDoesIt:
+          "Red Oak uses the Practice Engine REST API. Nightly sync of engagements and clients; hourly sync of time transactions. Red Oak's SIC drives the engagement taxonomy mapping and the parent/child client hierarchy decisions.",
         bestPractices: [
           "Use Practice Engine's REST API for engagement master and time actuals",
-          "Confirm client hierarchy (parent/child) is preserved in Dayshape",
+          "Confirm client hierarchy (parent/child) is preserved in Red Oak",
           "Version the engagement type mapping so template changes are auditable",
         ],
         customerNeeds: ["Practice Engine admin", "API credentials", "Client + engagement taxonomy"],
-        dataFlows: ["Practice Engine → Dayshape: engagements, clients, budgets, time actuals"],
+        dataFlows: ["Practice Engine → Red Oak: engagements, clients, budgets, time actuals"],
         detailedSteps: [
           {
             title: "Enable Practice Engine REST API and issue credentials",
             owner: "Customer",
             duration: "2 days",
             description:
-              "Customer's Practice Engine admin enables the REST API (may require a Wolters Kluwer support ticket) and generates an API key for Dayshape.",
-            dayshapeRole: "Dayshape provides the required scopes and receives credentials via secure vault.",
+              "Customer's Practice Engine admin enables the REST API (may require a Wolters Kluwer support ticket) and generates an API key for Red Oak.",
+            red oakRole: "Red Oak provides the required scopes and receives credentials via secure vault.",
           },
           {
             title: "Map client hierarchy and engagement types",
             owner: "Joint",
             duration: "1 week",
             description:
-              "Parent/child client relationships and engagement types are captured in the Configuration Workbook and mapped to Dayshape.",
-            dayshapeRole: "Dayshape leads the mapping workshops with each practice.",
+              "Parent/child client relationships and engagement types are captured in the Configuration Workbook and mapped to Red Oak.",
+            red oakRole: "Red Oak leads the mapping workshops with each practice.",
           },
           {
             title: "Sync engagements into sandbox and reconcile",
-            owner: "Dayshape",
+            owner: "Red Oak",
             duration: "3 days",
             description:
               "Full open engagement backlog is loaded and reconciled against Practice Engine.",
-            dayshapeRole: "Dayshape owns; customer signs off a sample.",
+            red oakRole: "Red Oak owns; customer signs off a sample.",
           },
           {
             title: "Reconcile time actuals for one month",
@@ -299,15 +299,15 @@ const categories: IntegrationCategory[] = [
             duration: "1 week",
             description:
               "A completed month's time is reconciled hour-by-hour. Variance target < 0.5%.",
-            dayshapeRole: "Dayshape produces the report; customer's controller signs off.",
+            red oakRole: "Red Oak produces the report; customer's controller signs off.",
           },
           {
             title: "Go-live with daily monitoring",
-            owner: "Dayshape",
+            owner: "Red Oak",
             duration: "1 day + 2 weeks Hypercare",
             description:
-              "Production cutover; Dayshape monitors the daily reconciliation during Hypercare.",
-            dayshapeRole: "Dayshape owns Hypercare.",
+              "Production cutover; Red Oak monitors the daily reconciliation during Hypercare.",
+            red oakRole: "Red Oak owns Hypercare.",
           },
         ],
       },
@@ -316,9 +316,9 @@ const categories: IntegrationCategory[] = [
         description: "Practice management for accounting firms — engagements, time, billing",
         status: "available",
         overview:
-          "Practice CS integrates via scheduled exports (or the newer API where licensed). Same integration pattern — engagements in, actuals in, Dayshape drives scheduling on top.",
-        howDayshapeDoesIt:
-          "Dayshape supports both the Practice CS API (where the customer has it licensed) and scheduled file exports for firms on the classic deployment. Nightly cadence for engagements, hourly (API) or nightly (file) for time actuals.",
+          "Practice CS integrates via scheduled exports (or the newer API where licensed). Same integration pattern — engagements in, actuals in, Red Oak drives scheduling on top.",
+        howRed OakDoesIt:
+          "Red Oak supports both the Practice CS API (where the customer has it licensed) and scheduled file exports for firms on the classic deployment. Nightly cadence for engagements, hourly (API) or nightly (file) for time actuals.",
         bestPractices: [
           "Confirm export cadence supports at least nightly sync of engagements",
           "Version the engagement type mapping so changes are auditable",
@@ -328,15 +328,15 @@ const categories: IntegrationCategory[] = [
           "Export mechanism (API or scheduled file)",
           "Engagement type mapping",
         ],
-        dataFlows: ["Practice CS → Dayshape: engagements, time actuals"],
+        dataFlows: ["Practice CS → Red Oak: engagements, time actuals"],
         detailedSteps: [
           {
             title: "Choose transport: API or scheduled file",
             owner: "Joint",
             duration: "2 days",
             description:
-              "Dayshape and customer confirm which Practice CS licence is in use and pick the appropriate transport.",
-            dayshapeRole: "Dayshape recommends based on licence and volumes.",
+              "Red Oak and customer confirm which Practice CS licence is in use and pick the appropriate transport.",
+            red oakRole: "Red Oak recommends based on licence and volumes.",
           },
           {
             title: "Configure export or API credentials",
@@ -344,30 +344,30 @@ const categories: IntegrationCategory[] = [
             duration: "2–3 days",
             description:
               "Customer sets up either scheduled export jobs or API credentials scoped to engagements and time.",
-            dayshapeRole: "Dayshape provides the exact spec.",
+            red oakRole: "Red Oak provides the exact spec.",
           },
           {
             title: "Map engagement types",
             owner: "Joint",
             duration: "1 week",
             description:
-              "Practice CS engagement types mapped to Dayshape templates in the Configuration Workbook.",
-            dayshapeRole: "Dayshape drives.",
+              "Practice CS engagement types mapped to Red Oak templates in the Configuration Workbook.",
+            red oakRole: "Red Oak drives.",
           },
           {
             title: "Load history and reconcile",
-            owner: "Dayshape",
+            owner: "Red Oak",
             duration: "3 days",
             description:
               "Backfill open engagements and reconcile counts.",
-            dayshapeRole: "Dayshape owns.",
+            red oakRole: "Red Oak owns.",
           },
           {
             title: "Go-live and monitor",
-            owner: "Dayshape",
+            owner: "Red Oak",
             duration: "1 day + 2 weeks",
             description: "Production cutover with Hypercare monitoring.",
-            dayshapeRole: "Dayshape owns Hypercare.",
+            red oakRole: "Red Oak owns Hypercare.",
           },
         ],
       },
@@ -385,9 +385,9 @@ const categories: IntegrationCategory[] = [
         description: "Finance / ERP systems that own billing, WIP, and revenue",
         status: "available",
         overview:
-          "The finance system owns billing and revenue; Dayshape owns planned effort. Two-way integration lets Dayshape push planned revenue for forecast alignment and pull actuals for realisation reporting.",
-        howDayshapeDoesIt:
-          "Dayshape has connectors for the three major PS ERPs. Weekly outbound push of approved time and planned revenue after each finance close cutoff; weekly inbound pull of actuals. Dayshape's SIC works closely with the customer's finance controller because this is the integration finance cares most about.",
+          "The finance system owns billing and revenue; Red Oak owns planned effort. Two-way integration lets Red Oak push planned revenue for forecast alignment and pull actuals for realisation reporting.",
+        howRed OakDoesIt:
+          "Red Oak has connectors for the three major PS ERPs. Weekly outbound push of approved time and planned revenue after each finance close cutoff; weekly inbound pull of actuals. Red Oak's SIC works closely with the customer's finance controller because this is the integration finance cares most about.",
         bestPractices: [
           "Agree the accounting calendar (fiscal periods, close cutoffs) up front",
           "Reconcile WIP monthly during Hypercare to build finance team trust",
@@ -395,8 +395,8 @@ const categories: IntegrationCategory[] = [
         ],
         customerNeeds: ["Finance system admin", "Chart of accounts / cost centres", "Fiscal calendar"],
         dataFlows: [
-          "ERP → Dayshape: rates, actuals (weekly)",
-          "Dayshape → ERP: approved time, planned revenue (weekly)",
+          "ERP → Red Oak: rates, actuals (weekly)",
+          "Red Oak → ERP: approved time, planned revenue (weekly)",
         ],
         detailedSteps: [
           {
@@ -404,24 +404,24 @@ const categories: IntegrationCategory[] = [
             owner: "Customer",
             duration: "2 days",
             description:
-              "Customer's finance IT team creates an integration user with the scopes Dayshape needs (time, revenue, chart of accounts).",
-            dayshapeRole: "Dayshape provides the scope list.",
+              "Customer's finance IT team creates an integration user with the scopes Red Oak needs (time, revenue, chart of accounts).",
+            red oakRole: "Red Oak provides the scope list.",
           },
           {
             title: "Map cost centres and chart of accounts",
             owner: "Joint",
             duration: "1 week",
             description:
-              "Every Dayshape practice/office is mapped to a cost centre; time-code categories mapped to GL codes.",
-            dayshapeRole: "Dayshape drives the workshop with finance.",
+              "Every Red Oak practice/office is mapped to a cost centre; time-code categories mapped to GL codes.",
+            red oakRole: "Red Oak drives the workshop with finance.",
           },
           {
             title: "Reconcile a pilot period",
             owner: "Joint",
             duration: "2 weeks",
             description:
-              "For a completed month, reconcile approved time and revenue between Dayshape and the ERP. Variance target < 0.05%.",
-            dayshapeRole: "Dayshape produces the reconciliation; finance signs off.",
+              "For a completed month, reconcile approved time and revenue between Red Oak and the ERP. Variance target < 0.05%.",
+            red oakRole: "Red Oak produces the reconciliation; finance signs off.",
           },
           {
             title: "Sign off with the CFO's team",
@@ -429,15 +429,15 @@ const categories: IntegrationCategory[] = [
             duration: "1 week",
             description:
               "Formal sign-off from the customer's CFO or controller.",
-            dayshapeRole: "Dayshape supports the sign-off review meeting.",
+            red oakRole: "Red Oak supports the sign-off review meeting.",
           },
           {
             title: "Go-live at month-end and Hypercare",
-            owner: "Dayshape",
+            owner: "Red Oak",
             duration: "1 month",
             description:
-              "Go-live is aligned to a month-end so the first live push is a clean period. Dayshape monitors the first close cycle.",
-            dayshapeRole: "Dayshape owns Hypercare.",
+              "Go-live is aligned to a month-end so the first live push is a clean period. Red Oak monitors the first close cycle.",
+            red oakRole: "Red Oak owns Hypercare.",
           },
         ],
       },
@@ -448,31 +448,31 @@ const categories: IntegrationCategory[] = [
     label: "Calendar & Productivity",
     icon: Calendar,
     color: "text-rose-500",
-    description: "Publishing Dayshape bookings to individual calendars and pulling personal availability",
+    description: "Publishing Red Oak bookings to individual calendars and pulling personal availability",
     integrations: [
       {
         name: "Microsoft 365 / Outlook",
-        description: "Two-way calendar sync — bookings to Outlook, absences back to Dayshape",
+        description: "Two-way calendar sync — bookings to Outlook, absences back to Red Oak",
         status: "available",
         overview:
-          "Consultants live in Outlook. Dayshape writes their bookings into Outlook so they see their schedule in the calendar they already use, and reads absences back to prevent over-booking.",
-        howDayshapeDoesIt:
-          "Dayshape uses Microsoft Graph API with application permissions and tenant admin consent — not per-user OAuth, which would break as soon as someone changes their password. The Dayshape SIC coordinates the Entra ID (Azure AD) app registration with the customer's M365 admin.",
+          "Consultants live in Outlook. Red Oak writes their bookings into Outlook so they see their schedule in the calendar they already use, and reads absences back to prevent over-booking.",
+        howRed OakDoesIt:
+          "Red Oak uses Microsoft Graph API with application permissions and tenant admin consent — not per-user OAuth, which would break as soon as someone changes their password. The Red Oak SIC coordinates the Entra ID (Azure AD) app registration with the customer's M365 admin.",
         bestPractices: [
           "Use application permissions with tenant admin consent — not per-user OAuth",
-          "Filter which meeting categories flow back to Dayshape",
+          "Filter which meeting categories flow back to Red Oak",
           "Handle recurring bookings carefully to avoid event explosion",
         ],
         customerNeeds: ["Microsoft 365 tenant admin", "Graph API app registration", "Calendar sync policy"],
-        dataFlows: ["Dayshape → Outlook: bookings", "Outlook → Dayshape: absences, blocked time"],
+        dataFlows: ["Red Oak → Outlook: bookings", "Outlook → Red Oak: absences, blocked time"],
         detailedSteps: [
           {
-            title: "Register the Dayshape app in Entra ID",
+            title: "Register the Red Oak app in Entra ID",
             owner: "Customer",
             duration: "1 day",
             description:
-              "Customer's M365 admin registers a new app for Dayshape in Entra ID and captures the app ID and tenant ID.",
-            dayshapeRole: "Dayshape provides the exact app registration checklist and required scopes.",
+              "Customer's M365 admin registers a new app for Red Oak in Entra ID and captures the app ID and tenant ID.",
+            red oakRole: "Red Oak provides the exact app registration checklist and required scopes.",
           },
           {
             title: "Grant Graph API scopes with tenant admin consent",
@@ -480,15 +480,15 @@ const categories: IntegrationCategory[] = [
             duration: "1 day",
             description:
               "M365 admin grants Calendars.ReadWrite and User.Read.All (application scope) and provides admin consent for the whole tenant.",
-            dayshapeRole: "Dayshape validates the granted scopes and receives the client secret via secure vault.",
+            red oakRole: "Red Oak validates the granted scopes and receives the client secret via secure vault.",
           },
           {
             title: "Agree the calendar sync policy",
             owner: "Joint",
             duration: "3 days",
             description:
-              "Firm decides: what meeting categories flow back to Dayshape as blocking, how PTO is represented, whether Dayshape bookings appear as free/busy/tentative in Outlook.",
-            dayshapeRole: "Dayshape SIC drives the decision workshop; captures in the Configuration Workbook.",
+              "Firm decides: what meeting categories flow back to Red Oak as blocking, how PTO is represented, whether Red Oak bookings appear as free/busy/tentative in Outlook.",
+            red oakRole: "Red Oak SIC drives the decision workshop; captures in the Configuration Workbook.",
           },
           {
             title: "Pilot with a single user cohort",
@@ -496,15 +496,15 @@ const categories: IntegrationCategory[] = [
             duration: "1 week",
             description:
               "Enable for 20–50 users across grades. Confirm bookings appear correctly and absences flow back.",
-            dayshapeRole: "Dayshape monitors; customer coordinates the pilot users.",
+            red oakRole: "Red Oak monitors; customer coordinates the pilot users.",
           },
           {
             title: "Firm-wide rollout",
-            owner: "Dayshape",
+            owner: "Red Oak",
             duration: "1 day + 1 week monitoring",
             description:
               "Enable for the whole firm. Monitor Graph API rate limits and event volumes.",
-            dayshapeRole: "Dayshape owns.",
+            red oakRole: "Red Oak owns.",
           },
         ],
       },
@@ -514,22 +514,22 @@ const categories: IntegrationCategory[] = [
         status: "available",
         overview:
           "Same value as the Outlook integration for Google Workspace firms.",
-        howDayshapeDoesIt:
-          "Dayshape uses a Google Cloud service account with domain-wide delegation, scoped to Calendar. Customer's Workspace admin authorises the service account in the Admin Console.",
+        howRed OakDoesIt:
+          "Red Oak uses a Google Cloud service account with domain-wide delegation, scoped to Calendar. Customer's Workspace admin authorises the service account in the Admin Console.",
         bestPractices: [
           "Use a domain-wide delegation service account",
           "Document handling of shared calendars and delegates",
         ],
         customerNeeds: ["Google Workspace super admin", "Ability to authorise a service account"],
-        dataFlows: ["Dayshape → Google Calendar: bookings", "Google → Dayshape: absences"],
+        dataFlows: ["Red Oak → Google Calendar: bookings", "Google → Red Oak: absences"],
         detailedSteps: [
           {
             title: "Create a Google Cloud service account",
             owner: "Joint",
             duration: "1 day",
             description:
-              "Dayshape provides the JSON of the service account it uses; customer's Workspace admin authorises it.",
-            dayshapeRole: "Dayshape creates the service account and provides the client ID.",
+              "Red Oak provides the JSON of the service account it uses; customer's Workspace admin authorises it.",
+            red oakRole: "Red Oak creates the service account and provides the client ID.",
           },
           {
             title: "Authorise domain-wide delegation",
@@ -537,7 +537,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 day",
             description:
               "In Workspace Admin Console → API Controls, authorise the client ID with Calendar scope.",
-            dayshapeRole: "Dayshape provides the exact scope string.",
+            red oakRole: "Red Oak provides the exact scope string.",
           },
           {
             title: "Pilot with a user cohort",
@@ -545,14 +545,14 @@ const categories: IntegrationCategory[] = [
             duration: "1 week",
             description:
               "Enable for 20–50 users. Validate bookings and absences.",
-            dayshapeRole: "Dayshape monitors.",
+            red oakRole: "Red Oak monitors.",
           },
           {
             title: "Firm-wide rollout",
-            owner: "Dayshape",
+            owner: "Red Oak",
             duration: "1 day",
             description: "Enable domain-wide.",
-            dayshapeRole: "Dayshape owns.",
+            red oakRole: "Red Oak owns.",
           },
         ],
       },
@@ -563,20 +563,20 @@ const categories: IntegrationCategory[] = [
     label: "Migrations from Legacy Resourcing",
     icon: ArrowRight,
     color: "text-amber-500",
-    description: "Retain, ProStaff, Deltek, spreadsheets, and in-house tools — the systems Dayshape typically replaces",
+    description: "Retain, ProStaff, Deltek, spreadsheets, and in-house tools — the systems Red Oak typically replaces",
     integrations: [
       {
         name: "Retain / ProStaff / Deltek / Spreadsheets",
         description: "Extract → map → load → parallel-run → cutover → decommission",
         status: "available",
         overview:
-          "Most Dayshape customers are replacing something. The migration approach is the same regardless of source: inventory, rebuild the taxonomy in Dayshape (don't copy legacy quirks), load 12–24 months of history, parallel-run for a full weekly cycle, then cut over.",
-        howDayshapeDoesIt:
-          "Dayshape has a migration accelerator: extract templates for the common legacy systems, a mapping workbook, a bulk-load API, and a parallel-run reconciliation report. The SIC runs the migration as a distinct workstream inside the Configuration Workbook.",
+          "Most Red Oak customers are replacing something. The migration approach is the same regardless of source: inventory, rebuild the taxonomy in Red Oak (don't copy legacy quirks), load 12–24 months of history, parallel-run for a full weekly cycle, then cut over.",
+        howRed OakDoesIt:
+          "Red Oak has a migration accelerator: extract templates for the common legacy systems, a mapping workbook, a bulk-load API, and a parallel-run reconciliation report. The SIC runs the migration as a distinct workstream inside the Configuration Workbook.",
         bestPractices: [
           "Inventory every active engagement and open booking before quoting the migration",
           "Migrate a rolling 12–24 months of history so partners keep prior-year context",
-          "Rebuild the role/grade/skill taxonomy in Dayshape rather than copying legacy quirks",
+          "Rebuild the role/grade/skill taxonomy in Red Oak rather than copying legacy quirks",
           "Run parallel scheduling for one full weekly cycle before cutover",
         ],
         customerNeeds: [
@@ -585,7 +585,7 @@ const categories: IntegrationCategory[] = [
           "Historical time actuals for at least 12 months",
         ],
         dataFlows: [
-          "Legacy export → Dayshape: engagements, bookings, 12–24m history",
+          "Legacy export → Red Oak: engagements, bookings, 12–24m history",
           "Parallel run → cutover → legacy decommission",
         ],
         detailedSteps: [
@@ -595,39 +595,39 @@ const categories: IntegrationCategory[] = [
             duration: "2 weeks",
             description:
               "Every active engagement, open booking, role, grade, and skill in the legacy system is inventoried. Anything ambiguous is decided in workshops.",
-            dayshapeRole: "Dayshape drives; customer's resource managers provide the data.",
+            red oakRole: "Red Oak drives; customer's resource managers provide the data.",
           },
           {
             title: "Rebuild taxonomy in the Firm Model",
             owner: "Joint",
             duration: "2 weeks",
             description:
-              "Roles, grades, offices, and skills are (re)designed in Dayshape — not copied from legacy. Legacy → new mapping is captured for the history migration.",
-            dayshapeRole: "Dayshape recommends the taxonomy based on best practice across firms.",
+              "Roles, grades, offices, and skills are (re)designed in Red Oak — not copied from legacy. Legacy → new mapping is captured for the history migration.",
+            red oakRole: "Red Oak recommends the taxonomy based on best practice across firms.",
           },
           {
             title: "Load 12–24 months of history",
-            owner: "Dayshape",
+            owner: "Red Oak",
             duration: "1–2 weeks",
             description:
               "Historical engagements, bookings, and time actuals are loaded so partners retain prior-year context.",
-            dayshapeRole: "Dayshape owns end-to-end.",
+            red oakRole: "Red Oak owns end-to-end.",
           },
           {
             title: "Parallel-run for a full weekly cycle",
             owner: "Joint",
             duration: "1–2 weeks",
             description:
-              "Resource managers schedule in both legacy and Dayshape for one or two weekly cycles. Variance report generated daily.",
-            dayshapeRole: "Dayshape produces the daily variance report; customer schedulers do the double-work.",
+              "Resource managers schedule in both legacy and Red Oak for one or two weekly cycles. Variance report generated daily.",
+            red oakRole: "Red Oak produces the daily variance report; customer schedulers do the double-work.",
           },
           {
             title: "Cutover and decommission legacy",
             owner: "Joint",
             duration: "1 weekend",
             description:
-              "Weekend cutover: legacy goes read-only Friday PM, Dayshape becomes system of record Monday AM. Legacy is decommissioned after 90-day parallel history availability.",
-            dayshapeRole: "Dayshape runs the runbook.",
+              "Weekend cutover: legacy goes read-only Friday PM, Red Oak becomes system of record Monday AM. Legacy is decommissioned after 90-day parallel history availability.",
+            red oakRole: "Red Oak runs the runbook.",
           },
         ],
       },
@@ -638,63 +638,63 @@ const categories: IntegrationCategory[] = [
     label: "SSO & Identity",
     icon: KeyRound,
     color: "text-blue-500",
-    description: "SAML 2.0 SSO and SCIM provisioning for the Dayshape tenant",
+    description: "SAML 2.0 SSO and SCIM provisioning for the Red Oak tenant",
     integrations: [
       {
         name: "Okta / Azure AD / Google Workspace",
-        description: "SAML SSO + SCIM for Dayshape user provisioning and de-provisioning",
+        description: "SAML SSO + SCIM for Red Oak user provisioning and de-provisioning",
         status: "available",
         overview:
-          "Users sign into Dayshape with their firm credentials. SCIM ensures that when someone leaves the firm their Dayshape access is revoked automatically — no manual clean-up.",
-        howDayshapeDoesIt:
-          "Dayshape is a pre-built application in the Okta, Azure AD, and Google Workspace catalogues. The customer's IdP admin adds it, configures SCIM with the token Dayshape provides, and maps IdP groups to Dayshape roles.",
+          "Users sign into Red Oak with their firm credentials. SCIM ensures that when someone leaves the firm their Red Oak access is revoked automatically — no manual clean-up.",
+        howRed OakDoesIt:
+          "Red Oak is a pre-built application in the Okta, Azure AD, and Google Workspace catalogues. The customer's IdP admin adds it, configures SCIM with the token Red Oak provides, and maps IdP groups to Red Oak roles.",
         bestPractices: [
           "Use SCIM for de-provisioning the moment a staff member leaves",
-          "Build IdP groups that map to Dayshape roles (Resource Manager, Partner, Staff, Admin)",
+          "Build IdP groups that map to Red Oak roles (Resource Manager, Partner, Staff, Admin)",
           "Keep one emergency break-glass local admin outside SSO",
         ],
         customerNeeds: ["IdP admin", "Group/role mapping", "Custom tenant subdomain (optional)"],
-        dataFlows: ["IdP → Dayshape: SAML assertions + SCIM provisioning"],
+        dataFlows: ["IdP → Red Oak: SAML assertions + SCIM provisioning"],
         detailedSteps: [
           {
-            title: "Add Dayshape from the IdP app catalogue",
+            title: "Add Red Oak from the IdP app catalogue",
             owner: "Customer",
             duration: "1 hour",
             description:
-              "IdP admin adds the pre-built Dayshape app in Okta / Entra / Workspace catalogue.",
-            dayshapeRole: "Dayshape provides the tenant ACS URL and Entity ID.",
+              "IdP admin adds the pre-built Red Oak app in Okta / Entra / Workspace catalogue.",
+            red oakRole: "Red Oak provides the tenant ACS URL and Entity ID.",
           },
           {
-            title: "Configure SAML with Dayshape metadata",
+            title: "Configure SAML with Red Oak metadata",
             owner: "Joint",
             duration: "1 day",
             description:
               "SAML metadata exchanged; test login for one user.",
-            dayshapeRole: "Dayshape validates the assertion contents.",
+            red oakRole: "Red Oak validates the assertion contents.",
           },
           {
             title: "Configure SCIM provisioning",
             owner: "Customer",
             duration: "1 day",
             description:
-              "SCIM endpoint and bearer token from Dayshape entered into IdP; sync started.",
-            dayshapeRole: "Dayshape provides SCIM token; monitors the initial sync.",
+              "SCIM endpoint and bearer token from Red Oak entered into IdP; sync started.",
+            red oakRole: "Red Oak provides SCIM token; monitors the initial sync.",
           },
           {
-            title: "Map IdP groups to Dayshape roles",
+            title: "Map IdP groups to Red Oak roles",
             owner: "Joint",
             duration: "2 days",
             description:
-              "Groups like 'Resource Managers – US' mapped to Dayshape roles. Documented in Configuration Workbook.",
-            dayshapeRole: "Dayshape drives the mapping.",
+              "Groups like 'Resource Managers – US' mapped to Red Oak roles. Documented in Configuration Workbook.",
+            red oakRole: "Red Oak drives the mapping.",
           },
           {
             title: "Pilot, roll out, decommission local logins",
-            owner: "Dayshape",
+            owner: "Red Oak",
             duration: "1 week",
             description:
               "Pilot with 50 users, then all users. Local logins disabled except for the break-glass admin.",
-            dayshapeRole: "Dayshape owns.",
+            red oakRole: "Red Oak owns.",
           },
         ],
       },
@@ -705,23 +705,23 @@ const categories: IntegrationCategory[] = [
     label: "Reporting & Data Warehouse",
     icon: Shield,
     color: "text-emerald-500",
-    description: "Export Dayshape data to the firm's warehouse and BI stack for firm-wide reporting",
+    description: "Export Red Oak data to the firm's warehouse and BI stack for firm-wide reporting",
     integrations: [
       {
         name: "Snowflake / BigQuery / Power BI / Tableau",
         description: "Scheduled export of engagements, bookings, utilisation, forecasts, and time actuals",
         status: "available",
         overview:
-          "Dayshape data becomes most valuable when it's joined to the firm's other data in the warehouse — finance, marketing, HR. Dayshape pushes hourly or nightly into Snowflake/BigQuery so the firm's analytics team owns downstream reporting.",
-        howDayshapeDoesIt:
-          "Dayshape has native connectors for Snowflake and BigQuery, and a generic S3/Azure Blob drop for other warehouses. The SIC works with the customer's analytics team on the semantic model and partition strategy.",
+          "Red Oak data becomes most valuable when it's joined to the firm's other data in the warehouse — finance, marketing, HR. Red Oak pushes hourly or nightly into Snowflake/BigQuery so the firm's analytics team owns downstream reporting.",
+        howRed OakDoesIt:
+          "Red Oak has native connectors for Snowflake and BigQuery, and a generic S3/Azure Blob drop for other warehouses. The SIC works with the customer's analytics team on the semantic model and partition strategy.",
         bestPractices: [
           "Partition tables by fiscal period for efficient BI queries",
           "Design a semantic layer (dbt / Power BI dataset) so partners get consistent metrics",
-          "Version-control BI models alongside the Dayshape configuration",
+          "Version-control BI models alongside the Red Oak configuration",
         ],
         customerNeeds: ["Warehouse admin", "BI tool licence", "Analytics owner named in RACI"],
-        dataFlows: ["Dayshape → Warehouse → BI: utilisation, forecast, realisation, bookings"],
+        dataFlows: ["Red Oak → Warehouse → BI: utilisation, forecast, realisation, bookings"],
         detailedSteps: [
           {
             title: "Choose destination and cadence",
@@ -729,7 +729,7 @@ const categories: IntegrationCategory[] = [
             duration: "2 days",
             description:
               "Warehouse (Snowflake, BigQuery, Redshift, etc.) and cadence (hourly, nightly) confirmed.",
-            dayshapeRole: "Dayshape recommends based on volumes and BI patterns.",
+            red oakRole: "Red Oak recommends based on volumes and BI patterns.",
           },
           {
             title: "Provision destination storage and credentials",
@@ -737,15 +737,15 @@ const categories: IntegrationCategory[] = [
             duration: "3 days",
             description:
               "Customer provisions the target schema/dataset and shares write credentials.",
-            dayshapeRole: "Dayshape provides the schema DDL.",
+            red oakRole: "Red Oak provides the schema DDL.",
           },
           {
             title: "Schedule the export and validate counts",
-            owner: "Dayshape",
+            owner: "Red Oak",
             duration: "3 days",
             description:
-              "Dayshape configures the export and runs three days of syncs. Row counts and totals validated.",
-            dayshapeRole: "Dayshape owns.",
+              "Red Oak configures the export and runs three days of syncs. Row counts and totals validated.",
+            red oakRole: "Red Oak owns.",
           },
           {
             title: "Hand off to the analytics team",
@@ -753,15 +753,15 @@ const categories: IntegrationCategory[] = [
             duration: "1 week",
             description:
               "Analytics team validates the schema, builds the semantic layer, and takes ownership of downstream BI.",
-            dayshapeRole: "Dayshape provides the schema doc and the recommended semantic model.",
+            red oakRole: "Red Oak provides the schema doc and the recommended semantic model.",
           },
           {
             title: "Go-live and monitor",
-            owner: "Dayshape",
+            owner: "Red Oak",
             duration: "1 day + 2 weeks",
             description:
-              "Production sync live; Dayshape monitors during Hypercare.",
-            dayshapeRole: "Dayshape owns Hypercare.",
+              "Production sync live; Red Oak monitors during Hypercare.",
+            red oakRole: "Red Oak owns Hypercare.",
           },
         ],
       },
@@ -771,13 +771,13 @@ const categories: IntegrationCategory[] = [
 
 const ownerTint: Record<Owner, string> = {
   Customer: "bg-[hsl(200_70%_50%)]/15 text-[hsl(200_70%_50%)]",
-  Dayshape: "bg-primary/15 text-primary",
+  Red Oak: "bg-primary/15 text-primary",
   Joint: "bg-[hsl(280_55%_55%)]/15 text-[hsl(280_55%_55%)]",
 };
 
 const ownerIcon: Record<Owner, React.ElementType> = {
   Customer: Building2,
-  Dayshape: Zap,
+  Red Oak: Zap,
   Joint: User2,
 };
 
@@ -793,11 +793,11 @@ export default function Integrations() {
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2">
             <Plug className="h-5 w-5 text-primary" />
-            <h1 className="text-2xl font-bold text-foreground">Dayshape Integrations & Data</h1>
+            <h1 className="text-2xl font-bold text-foreground">Red Oak Integrations & Data</h1>
           </div>
           <p className="text-sm text-muted-foreground">
-            Every standard Dayshape integration — with step-by-step setup, who owns each step, how long it takes,
-            and how Dayshape does it. Open any integration for the full playbook.
+            Every standard Red Oak integration — with step-by-step setup, who owns each step, how long it takes,
+            and how Red Oak does it. Open any integration for the full playbook.
           </p>
         </div>
 
@@ -903,15 +903,15 @@ export default function Integrations() {
                 <p className="text-sm leading-relaxed">{selectedIntegration.overview}</p>
               </div>
 
-              {/* How Dayshape does it */}
+              {/* How Red Oak does it */}
               <div className="rounded-lg border-l-4 border-primary bg-primary/5 p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <Zap className="h-4 w-4 text-primary" />
                   <p className="text-xs font-semibold uppercase tracking-wider text-primary">
-                    How Dayshape does it
+                    How Red Oak does it
                   </p>
                 </div>
-                <p className="text-sm leading-relaxed">{selectedIntegration.howDayshapeDoesIt}</p>
+                <p className="text-sm leading-relaxed">{selectedIntegration.howRed OakDoesIt}</p>
               </div>
 
               {/* Data flows + Customer needs, side by side */}
@@ -977,9 +977,9 @@ export default function Integrations() {
                             </p>
                             <div className="rounded-md bg-primary/5 border-l-2 border-primary/40 px-3 py-2">
                               <p className="text-[11px] font-semibold uppercase tracking-wider text-primary mb-0.5">
-                                Dayshape's role
+                                Red Oak's role
                               </p>
-                              <p className="text-xs leading-relaxed">{step.dayshapeRole}</p>
+                              <p className="text-xs leading-relaxed">{step.red oakRole}</p>
                             </div>
                           </div>
                         </div>

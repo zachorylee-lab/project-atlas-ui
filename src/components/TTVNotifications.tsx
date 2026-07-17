@@ -36,7 +36,7 @@ export function TTVNotifications() {
           </Badge>
         </div>
         <p className="text-xs text-muted-foreground mt-1">
-          Upcoming and at-risk milestones across the active Dayshape portfolio
+          Upcoming and at-risk milestones across the active Red Oak portfolio
         </p>
       </CardHeader>
       <CardContent>

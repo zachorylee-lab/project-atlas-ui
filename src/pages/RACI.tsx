@@ -19,7 +19,7 @@ type RACI = "R" | "A" | "C" | "I" | "-";
 type Stakeholder = {
   id: string;
   role: string;
-  side: "Customer" | "Dayshape";
+  side: "Customer" | "Red Oak";
   seniority: string;
   responsibilities: string;
 };
@@ -36,7 +36,7 @@ const STAKEHOLDERS: Stakeholder[] = [
   { id: "exec", role: "Executive Sponsor (COO / Managing Partner)", side: "Customer", seniority: "C-suite / Partner",
     responsibilities: "Owns the business case. Unblocks funding, escalations, and cross-service-line politics. Signs the charter and go/no-go." },
   { id: "hrm", role: "Head of Resource Management", side: "Customer", seniority: "Director",
-    responsibilities: "Day-to-day accountable owner for the platform. Approves scheduling policy, utilization targets, and AI Auto-Scheduler tuning." },
+    responsibilities: "Day-to-day accountable owner for the platform. Approves scheduling policy, utilization targets, and AI Review tuning." },
   { id: "rm", role: "Resource Managers", side: "Customer", seniority: "Manager",
     responsibilities: "Primary end users. Validate engagement templates, run parallel scheduling, and go through the Technical Enablement cohort." },
   { id: "hris", role: "HRIS Owner (Workday / BambooHR)", side: "Customer", seniority: "Manager",
@@ -45,11 +45,11 @@ const STAKEHOLDERS: Stakeholder[] = [
     responsibilities: "Owns engagement, WIP, and billing data feeds. Approves engagement-type mapping." },
   { id: "it", role: "IT / InfoSec", side: "Customer", seniority: "Manager / Director",
     responsibilities: "Reviews SSO/SAML, data residency, network egress, and integration security. Owns tenant sign-off." },
-  { id: "sic", role: "Dayshape Senior Implementation Consultant", side: "Dayshape", seniority: "Senior IC",
-    responsibilities: "End-to-end delivery lead. Runs discovery, configures the firm model, tunes the AI Auto-Scheduler, drives UAT, and owns go-live." },
-  { id: "sc", role: "Dayshape Solution Consultant", side: "Dayshape", seniority: "Senior IC",
+  { id: "sic", role: "Red Oak Senior Implementation Consultant", side: "Red Oak", seniority: "Senior IC",
+    responsibilities: "End-to-end delivery lead. Runs discovery, configures the firm model, tunes the AI Review, drives UAT, and owns go-live." },
+  { id: "sc", role: "Red Oak Solution Consultant", side: "Red Oak", seniority: "Senior IC",
     responsibilities: "Technical integrations lead. Owns HRIS/practice-management/calendar/finance wiring and data reconciliation." },
-  { id: "csm", role: "Dayshape Customer Success Manager", side: "Dayshape", seniority: "Manager",
+  { id: "csm", role: "Red Oak Customer Success Manager", side: "Red Oak", seniority: "Manager",
     responsibilities: "Post-launch relationship owner. Receives stakeholder hierarchy, adoption baseline, and CSAT scorecard at handover." },
 ];
 
@@ -66,7 +66,7 @@ const WORKSTREAMS: Workstream[] = [
     description: "Workday, Practice Engine/CCH, Outlook/Google, NetSuite/Sage Intacct wiring + reconciliation." },
   { id: "engagements", name: "Engagement Templates", phase: "Build",
     description: "Per-service-line engagement types ratified by service line leaders." },
-  { id: "aitune", name: "AI Auto-Scheduler Tuning", phase: "Build",
+  { id: "aitune", name: "AI Review Tuning", phase: "Build",
     description: "Weightings for utilization, skill match, staff development, geography." },
   { id: "uat", name: "UAT + Parallel Run", phase: "Testing",
     description: "Scenario scripts, weekly parallel vs legacy tool, ≤5% variance target." },
@@ -79,7 +79,7 @@ const WORKSTREAMS: Workstream[] = [
   { id: "csmhandover", name: "CSM Handover", phase: "Hypercare",
     description: "Stakeholder hierarchy, adoption scorecard, feature-request log, exit report." },
   { id: "advocacy", name: "Product Advocacy / Feature Requests", phase: "Hypercare",
-    description: "Customer use-cases and enhancement requests routed to Dayshape Product." },
+    description: "Customer use-cases and enhancement requests routed to Red Oak Product." },
 ];
 
 // ---------- Default RACI (rows = workstreams, cols = stakeholders) ----------
@@ -143,7 +143,7 @@ export default function RACI() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "dayshape-raci-matrix.csv";
+    a.download = "red oak-raci-matrix.csv";
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -168,7 +168,7 @@ export default function RACI() {
           <div>
             <h1 className="text-3xl font-semibold tracking-tight">RACI Matrix</h1>
             <p className="text-muted-foreground mt-1 max-w-3xl">
-              The single-page answer to "who owns what?" across every workstream of a Dayshape
+              The single-page answer to "who owns what?" across every workstream of a Red Oak
               implementation. Signed by the executive sponsor at kickoff and handed to the CSM at close.
             </p>
           </div>

@@ -8,7 +8,7 @@ const handoffs = [
   {
     customer: "Baker Tilly",
     ae: "Chris D.",
-    deal: "$620K ARR · Core RM + AI Auto-Scheduler + Forecasting + Reporting",
+    deal: "$620K ARR · Core RM + AI Review + Forecasting + Reporting",
     segment: "6,000 staff · Multi-region · Practice Engine + Workday",
     readiness: 94,
     status: "ready" as const,
@@ -30,7 +30,7 @@ const handoffs = [
   {
     customer: "Wolf & Company",
     ae: "Mark T.",
-    deal: "$340K ARR · Full Suite + AI Auto-Scheduler + Analytics",
+    deal: "$340K ARR · Full Suite + AI Review + Analytics",
     segment: "700 staff · Firm-wide centralization · CCH Axcess",
     readiness: 100,
     status: "ready" as const,
@@ -59,16 +59,16 @@ const statusStyles = {
 
 const checklist = [
   "Signed order form / MSA in place",
-  "Modules in scope confirmed (Core RM / AI Auto-Scheduler / Forecasting / Reporting)",
+  "Modules in scope confirmed (Core RM / AI Review / Forecasting / Reporting)",
   "Service lines documented (Audit, Tax, Advisory, Consulting)",
   "HRIS identified (Workday / BambooHR / HiBob / SAP SuccessFactors)",
   "Practice management identified (CCH Axcess / Practice Engine / Thomson Reuters)",
   "Legacy resourcing tool documented (Retain / ProStaff / Deltek / spreadsheets)",
   "Pilot service line and phased rollout plan confirmed",
   "Executive sponsor (COO / Managing Partner / Head of RM) identified",
-  "Success criteria & Time to First Schedule target confirmed",
+  "Success criteria & Time to First Review target confirmed",
   "Data / Privacy / IT contact identified (GDPR / SOC2 review)",
-  "Dayshape Senior Implementation Consultant, Solution Consultant, and CSM assigned",
+  "Red Oak Senior Implementation Consultant, Solution Consultant, and CSM assigned",
   "Firm kickoff scheduled",
 ];
 
@@ -79,7 +79,7 @@ export default function SalesHandoff() {
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-2xl font-semibold">Sales Handoff · Sales to Delivery</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Manage the transition from closed Dayshape deals to active firm implementations. All items must be complete before kickoff.
+            Manage the transition from closed Red Oak deals to active firm implementations. All items must be complete before kickoff.
           </p>
         </motion.div>
 

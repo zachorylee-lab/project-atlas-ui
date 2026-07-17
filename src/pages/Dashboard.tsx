@@ -17,7 +17,7 @@ import { motion } from "framer-motion";
 
 const stats = [
   { label: "Active Implementations", value: "12", change: "+4 this quarter", icon: Briefcase, trend: "up" as const },
-  { label: "Time to First Schedule", value: "18 days", change: "Target: 21 days · TTV proxy", icon: Clock, trend: "up" as const },
+  { label: "Time to First Review", value: "18 days", change: "Target: 21 days · TTV proxy", icon: Clock, trend: "up" as const },
   { label: "On-Time Go-Live", value: "91%", change: "TTM rolling avg", icon: Clock, trend: "up" as const },
   { label: "Customer CSAT", value: "4.7/5", change: "Post-launch · pre-CSM handover", icon: Smile, trend: "up" as const },
 ];
@@ -43,7 +43,7 @@ export default function Dashboard() {
         <motion.div {...fadeUp}>
           <h1 className="text-2xl font-semibold text-foreground">Professional Services · Implementation Dashboard</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Portfolio view across Dayshape implementations at large accounting and professional services firms — partnering with Solution Consultants, CSMs, and AEs to drive Time-to-Value on centralized resourcing, forecasting, utilization, and the AI Auto-Scheduler.
+            Portfolio view across Red Oak implementations at large accounting and financial services firms — partnering with Solution Consultants, CSMs, and AEs to drive Time-to-Value on centralized resourcing, forecasting, utilization, and the AI Review.
           </p>
         </motion.div>
 

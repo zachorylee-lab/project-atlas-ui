@@ -30,7 +30,7 @@ type Workstream =
   | "Integrations"
   | "Engagement Mapping"
   | "Scheduling & Forecast"
-  | "AI Auto-Scheduler";
+  | "AI Review";
 
 type TestScript = {
   id: string;
@@ -70,7 +70,7 @@ const sevTint: Record<Severity, string> = {
 const scripts: TestScript[] = [
   { id: "UAT-001", workstream: "Firm Model", title: "Create new office and inherit holiday calendar", persona: "Admin", steps: 6, result: "Pass", lastRun: "2 Jul", tester: "P. Patel", priority: "Must" },
   { id: "UAT-002", workstream: "Firm Model", title: "Change grade rate mid-year and version rate card", persona: "Admin", steps: 8, result: "Pass", lastRun: "2 Jul", tester: "P. Patel", priority: "Must" },
-  { id: "UAT-003", workstream: "Integrations", title: "Workday new-joiner appears in Dayshape within 24h", persona: "People Ops", steps: 4, result: "Pass", lastRun: "3 Jul", tester: "T. Nguyen", priority: "Must" },
+  { id: "UAT-003", workstream: "Integrations", title: "Workday new-joiner appears in Red Oak within 24h", persona: "People Ops", steps: 4, result: "Pass", lastRun: "3 Jul", tester: "T. Nguyen", priority: "Must" },
   { id: "UAT-004", workstream: "Integrations", title: "Salesforce Closed-Won creates engagement shell", persona: "Sales Ops", steps: 5, result: "Fail", lastRun: "3 Jul", tester: "T. Nguyen", priority: "Must" },
   { id: "UAT-005", workstream: "Integrations", title: "CCH Axcess client sync reconciliation report", persona: "Tax IT", steps: 7, result: "Blocked", lastRun: "3 Jul", tester: "T. Nguyen", priority: "Should" },
   { id: "UAT-006", workstream: "Engagement Mapping", title: "Apply Annual Audit template with independence rule", persona: "Resource Manager", steps: 9, result: "Pass", lastRun: "4 Jul", tester: "S. Reid", priority: "Must" },
@@ -78,18 +78,18 @@ const scripts: TestScript[] = [
   { id: "UAT-008", workstream: "Scheduling & Forecast", title: "Book Senior across two overlapping audits — expect warning", persona: "Scheduler", steps: 5, result: "Pass", lastRun: "5 Jul", tester: "A. Diaz", priority: "Must" },
   { id: "UAT-009", workstream: "Scheduling & Forecast", title: "13-week rolling forecast matches Snowflake", persona: "Analyst", steps: 6, result: "Pass", lastRun: "5 Jul", tester: "A. Diaz", priority: "Must" },
   { id: "UAT-010", workstream: "Scheduling & Forecast", title: "PTO request blocks over-allocation on approval", persona: "Consultant", steps: 4, result: "Not run", priority: "Should" },
-  { id: "UAT-011", workstream: "AI Auto-Scheduler", title: "Auto-schedule 40 audit engagements — grade mix respected", persona: "Resource Manager", steps: 8, result: "Pass", lastRun: "6 Jul", tester: "S. Reid", priority: "Should" },
-  { id: "UAT-012", workstream: "AI Auto-Scheduler", title: "Independence violation is a hard block, not a warning", persona: "Partner", steps: 3, result: "Not run", priority: "Must" },
-  { id: "UAT-013", workstream: "AI Auto-Scheduler", title: "Manager-in-the-loop review UX under 30s per assignment", persona: "Manager", steps: 5, result: "Not run", priority: "Should" },
+  { id: "UAT-011", workstream: "AI Review", title: "Auto-schedule 40 audit engagements — grade mix respected", persona: "Resource Manager", steps: 8, result: "Pass", lastRun: "6 Jul", tester: "S. Reid", priority: "Should" },
+  { id: "UAT-012", workstream: "AI Review", title: "Independence violation is a hard block, not a warning", persona: "Partner", steps: 3, result: "Not run", priority: "Must" },
+  { id: "UAT-013", workstream: "AI Review", title: "Manager-in-the-loop review UX under 30s per assignment", persona: "Manager", steps: 5, result: "Not run", priority: "Should" },
   { id: "UAT-014", workstream: "Firm Model", title: "Deactivate a service line without breaking history", persona: "Admin", steps: 5, result: "Pass", lastRun: "6 Jul", tester: "P. Patel", priority: "Should" },
   { id: "UAT-015", workstream: "Integrations", title: "NetSuite weekly time export reconciles to hour", persona: "Finance", steps: 6, result: "Not run", priority: "Must" },
 ];
 
 const defects: Defect[] = [
-  { id: "DEF-014", script: "UAT-004", summary: "Salesforce oppty with no primary contact fails to map to engagement owner", severity: "Sev-2", status: "In fix", owner: "Dayshape Eng" },
-  { id: "DEF-015", script: "UAT-007", summary: "Approval skips Partner when Manager and Partner are the same person", severity: "Sev-1", status: "In fix", owner: "Dayshape Eng" },
+  { id: "DEF-014", script: "UAT-004", summary: "Salesforce oppty with no primary contact fails to map to engagement owner", severity: "Sev-2", status: "In fix", owner: "Red Oak Eng" },
+  { id: "DEF-015", script: "UAT-007", summary: "Approval skips Partner when Manager and Partner are the same person", severity: "Sev-1", status: "In fix", owner: "Red Oak Eng" },
   { id: "DEF-016", script: "UAT-005", summary: "CCH Axcess sandbox rate-limited; blocking retest until Monday", severity: "Sev-3", status: "Open", owner: "Baker Tilly IT" },
-  { id: "DEF-011", script: "UAT-001", summary: "Holiday calendar picker shows FY25 dates only — fixed in 2026.7.2", severity: "Sev-3", status: "Closed", owner: "Dayshape Eng" },
+  { id: "DEF-011", script: "UAT-001", summary: "Holiday calendar picker shows FY25 dates only — fixed in 2026.7.2", severity: "Sev-3", status: "Closed", owner: "Red Oak Eng" },
 ];
 
 const workstreams: Workstream[] = [
@@ -97,7 +97,7 @@ const workstreams: Workstream[] = [
   "Integrations",
   "Engagement Mapping",
   "Scheduling & Forecast",
-  "AI Auto-Scheduler",
+  "AI Review",
 ];
 
 const wsColor: Record<Workstream, string> = {
@@ -105,7 +105,7 @@ const wsColor: Record<Workstream, string> = {
   Integrations: "hsl(280 55% 55%)",
   "Engagement Mapping": "hsl(30 95% 55%)",
   "Scheduling & Forecast": "hsl(155 60% 45%)",
-  "AI Auto-Scheduler": "hsl(340 70% 55%)",
+  "AI Review": "hsl(340 70% 55%)",
 };
 
 export default function UATTracker() {
@@ -412,7 +412,7 @@ export default function UATTracker() {
                 <div className="rounded-md border bg-muted/20 p-4 text-sm">
                   <div className="text-[11px] uppercase tracking-wider text-muted-foreground">Sign-off statement</div>
                   <p className="mt-2 leading-relaxed">
-                    "Baker Tilly confirms that Dayshape has been tested against the agreed scenarios for
+                    "Baker Tilly confirms that Red Oak has been tested against the agreed scenarios for
                     Firm Model, Integrations, Engagement Mapping, Scheduling & Forecast, and the AI
                     Auto-Scheduler pilot; that all Sev-1 defects are closed; and that any residual Sev-2/3
                     items are accepted with the mitigations recorded in the RAID log. We approve Go-Live on

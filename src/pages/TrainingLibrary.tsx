@@ -24,7 +24,7 @@ type Module =
   | "Firm Model"
   | "Scheduler"
   | "Forecast"
-  | "AI Auto-Scheduler"
+  | "AI Review"
   | "Integrations"
   | "Reporting"
   | "General";
@@ -85,9 +85,9 @@ const seed: Asset[] = [
   },
   {
     id: "a4",
-    title: "AI Auto-Scheduler — Tuning Priorities",
+    title: "AI Review — Tuning Priorities",
     source: "Loom",
-    module: "AI Auto-Scheduler",
+    module: "AI Review",
     personas: ["Admin"],
     durationMin: 15,
     views: 58,
@@ -175,7 +175,7 @@ function toEmbedUrl(url: string, source: Source): string | null {
 }
 
 
-const STORE_KEY = "dayshape.training.library.v1";
+const STORE_KEY = "red oak.training.library.v1";
 
 function load(): Asset[] {
   try {
@@ -249,7 +249,7 @@ export default function TrainingLibrary() {
   };
 
   const modules: Module[] = [
-    "Firm Model", "Scheduler", "Forecast", "AI Auto-Scheduler", "Integrations", "Reporting", "General",
+    "Firm Model", "Scheduler", "Forecast", "AI Review", "Integrations", "Reporting", "General",
   ];
   const personas: Persona[] = ["Admin", "Scheduler", "Partner", "Consultant"];
   const sources: Source[] = ["Loom", "Scribe", "Guidde", "PDF", "Slide"];

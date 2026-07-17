@@ -38,7 +38,7 @@ type ReqCategory =
   | "Integrations"
   | "Reporting"
   | "Security & Access"
-  | "AI Auto-Scheduler";
+  | "AI Review";
 
 type Requirement = {
   id: string;
@@ -47,13 +47,13 @@ type Requirement = {
   priority: ReqPriority;
   status: ReqStatus;
   source: string;      // workshop, stakeholder, doc
-  owner: string;       // Dayshape SIC or customer lead
+  owner: string;       // Red Oak SIC or customer lead
   acceptance: string;  // acceptance criteria
   workstream: string;
   notes: string;
 };
 
-const STORAGE_KEY = "dayshape.requirements.v1";
+const STORAGE_KEY = "red oak.requirements.v1";
 
 const seed: Requirement[] = [
   {
@@ -71,13 +71,13 @@ const seed: Requirement[] = [
   {
     id: "REQ-002",
     title: "Auto-schedule audit engagements by grade + skill",
-    category: "AI Auto-Scheduler",
+    category: "AI Review",
     priority: "Must",
     status: "Confirmed",
     source: "Workshop 3 · Audit Partner",
-    owner: "Dayshape — SIC",
+    owner: "Red Oak — SIC",
     acceptance: "Auto-Scheduler proposals accepted ≥ 65% by RMs on pilot service line within 4 weeks of go-live.",
-    workstream: "AI Auto-Scheduler",
+    workstream: "AI Review",
     notes: "Rules: match grade band, minimum skill score 3/5, respect PTO + non-charge blocks.",
   },
   {
@@ -112,9 +112,9 @@ const seed: Requirement[] = [
     status: "Confirmed",
     source: "InfoSec review",
     owner: "Customer — IT Security",
-    acceptance: "Users provisioned/deprovisioned in Dayshape within 15 min of Okta change.",
+    acceptance: "Users provisioned/deprovisioned in Red Oak within 15 min of Okta change.",
     workstream: "Integrations",
-    notes: "SAML metadata exchanged; SCIM pending Dayshape enablement toggle.",
+    notes: "SAML metadata exchanged; SCIM pending Red Oak enablement toggle.",
   },
   {
     id: "REQ-006",
@@ -123,7 +123,7 @@ const seed: Requirement[] = [
     priority: "Should",
     status: "Draft",
     source: "Workshop 4 · Partners round-table",
-    owner: "Dayshape — Solution Consultant",
+    owner: "Red Oak — Solution Consultant",
     acceptance: "Reassignments > 20 hrs on a partner's job require partner approval before commit.",
     workstream: "Scheduling",
     notes: "Partners disagree on threshold — need decision from Head of RM.",
@@ -196,7 +196,7 @@ const phases = [
     icon: MessagesSquare,
     goal: "Understand the firm as it actually works today — not as documented.",
     activities: [
-      "Executive workshop: strategic goals, success metrics, Time to First Schedule target.",
+      "Executive workshop: strategic goals, success metrics, Time to First Review target.",
       "Process workshops: current state resourcing walkthrough, pain points, workarounds.",
       "Data workshop: sources of truth (HRIS, practice mgmt, spreadsheets), quality gaps.",
       "Shadow an RM: watch a real scheduling session, capture 'day in the life' friction.",
@@ -237,9 +237,9 @@ const workshopTemplates = [
     who: "COO / Managing Partner / Head of RM",
     questions: [
       "What does success look like at 90 days? At 12 months?",
-      "What is our target Time to First Schedule?",
+      "What is our target Time to First Review?",
       "What decisions are we willing to standardize across the firm?",
-      "Where are you willing to change process to fit Dayshape's model?",
+      "Where are you willing to change process to fit Red Oak's model?",
       "Which service line is the pilot, and why?",
     ],
   },
@@ -262,17 +262,17 @@ const workshopTemplates = [
       "What API access do we have today; what needs procurement or security review?",
       "What refresh cadence is acceptable — real-time, nightly, weekly?",
       "How do you currently reconcile mismatches across systems?",
-      "Any InfoSec constraints on where Dayshape can read/write?",
+      "Any InfoSec constraints on where Red Oak can read/write?",
     ],
   },
   {
     name: "Partner Round-Table (45 min)",
     who: "3-5 partners across service lines",
     questions: [
-      "What would make you trust Dayshape's assignment more than your own judgment?",
+      "What would make you trust Red Oak's assignment more than your own judgment?",
       "What information do you need before approving a staff change?",
       "Which controls are non-negotiable for you as a partner?",
-      "What behavior do you want the AI Auto-Scheduler to reinforce?",
+      "What behavior do you want the AI Review to reinforce?",
     ],
   },
 ];
@@ -288,7 +288,7 @@ const goodVsBad = [
   },
   {
     bad: "Sync with HR.",
-    good: "Nightly Workday → Dayshape sync of staff, grade, office, PTO completes < 20 min with 100% ID match; failures alert #dayshape-integrations.",
+    good: "Nightly Workday → Red Oak sync of staff, grade, office, PTO completes < 20 min with 100% ID match; failures alert #red oak-integrations.",
   },
 ];
 
@@ -378,7 +378,7 @@ export default function RequirementsGathering() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "dayshape-requirements.csv";
+    a.download = "red oak-requirements.csv";
     a.click();
     URL.revokeObjectURL(url);
     toast.success("Exported requirements.csv");
@@ -395,7 +395,7 @@ export default function RequirementsGathering() {
             </div>
             <p className="text-sm text-muted-foreground max-w-3xl">
               The discovery method, workshop templates, and living register the SIC uses to turn a signed
-              Dayshape SOW into a testable, MoSCoW-prioritized baseline before configuration begins.
+              Red Oak SOW into a testable, MoSCoW-prioritized baseline before configuration begins.
             </p>
           </div>
           <div className="flex gap-2">
@@ -418,7 +418,7 @@ export default function RequirementsGathering() {
                     <Select value={draft.category} onValueChange={(v) => setDraft({ ...draft, category: v as ReqCategory })}>
                       <SelectTrigger><SelectValue placeholder="Select category" /></SelectTrigger>
                       <SelectContent>
-                        {["Firm Model","Scheduling Rules","Engagements","Forecasting","Integrations","Reporting","Security & Access","AI Auto-Scheduler"].map((c) => (
+                        {["Firm Model","Scheduling Rules","Engagements","Forecasting","Integrations","Reporting","Security & Access","AI Review"].map((c) => (
                           <SelectItem key={c} value={c}>{c}</SelectItem>
                         ))}
                       </SelectContent>
@@ -500,7 +500,7 @@ export default function RequirementsGathering() {
                 <SelectTrigger className="w-[200px]"><SelectValue /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All categories</SelectItem>
-                  {["Firm Model","Scheduling Rules","Engagements","Forecasting","Integrations","Reporting","Security & Access","AI Auto-Scheduler"].map((c) => (
+                  {["Firm Model","Scheduling Rules","Engagements","Forecasting","Integrations","Reporting","Security & Access","AI Review"].map((c) => (
                     <SelectItem key={c} value={c}>{c}</SelectItem>
                   ))}
                 </SelectContent>

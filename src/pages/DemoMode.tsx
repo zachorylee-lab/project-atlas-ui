@@ -39,7 +39,7 @@ const BEATS: Beat[] = [
       "Utilization decisions get made on gut feel, not signal",
     ],
     speakerNotes:
-      "Open with empathy for the audience — most Dayshape buyers were Resource Managers themselves. Land the pain in one sentence, then transition: 'That's why I built this console — to show how I'd run a Dayshape implementation end-to-end.'",
+      "Open with empathy for the audience — most Red Oak buyers were Resource Managers themselves. Land the pain in one sentence, then transition: 'That's why I built this console — to show how I'd run a Red Oak implementation end-to-end.'",
     durationSec: 60,
   },
   {
@@ -50,12 +50,12 @@ const BEATS: Beat[] = [
     kicker: "Sales → Delivery",
     title: "Handoff starts before day one",
     narrative:
-      "The Senior Implementation Consultant is looped in during late-stage sales. We lock scope, confirm modules — Core RM, AI Auto-Scheduler, Forecasting — and identify the source systems (Workday, Practice Engine, NetSuite) before the ink is dry.",
+      "The Senior Implementation Consultant is looped in during late-stage sales. We lock scope, confirm modules — Core RM, AI Review, Forecasting — and identify the source systems (Workday, Practice Engine, NetSuite) before the ink is dry.",
     bullets: [
       "Signed order form + module list validated",
       "Legacy tool identified (Retain / ProStaff / Deltek / spreadsheets)",
       "Sandbox tenant provisioned, delivery pod assigned",
-      "TTV targets — TTFS and TTFF — set with the AE",
+      "TTV targets — TTFR and TTAP — set with the AE",
     ],
     speakerNotes:
       "Emphasize: 'No surprises at kickoff.' The handoff doc is the single source of truth. Show the Sales Handoff tab if asked.",
@@ -70,7 +70,7 @@ const BEATS: Beat[] = [
     kicker: "Align the firm",
     title: "Discovery is where we earn trust",
     narrative:
-      "COO, Head of RM, HR, IT, Practice Ops, and a Partner sponsor in one room. We walk the current-state resourcing model, capture pain, and lock success criteria: Time to First Schedule, Time to First Forecast, forecast accuracy, and adoption.",
+      "COO, Head of RM, HR, IT, Practice Ops, and a Partner sponsor in one room. We walk the current-state resourcing model, capture pain, and lock success criteria: Time to First Review, Time to First Approved Piece, forecast accuracy, and adoption.",
     bullets: [
       "Charter + RACI signed by executive sponsor",
       "Current-state discovery workbook — roles, grades, skills, engagement types",
@@ -90,13 +90,13 @@ const BEATS: Beat[] = [
     kicker: "The heavy lifting",
     title: "Firm model, integrations, and AI tuning",
     narrative:
-      "This is where the implementation lives or dies. We stand up the firm hierarchy, load the skills taxonomy, wire Workday for people, Practice Engine for engagements, calendars for availability, and finance for WIP. Then we tune the AI Auto-Scheduler weightings — utilization, skill match, staff development.",
+      "This is where the implementation lives or dies. We stand up the firm hierarchy, load the skills taxonomy, wire Workday for people, Practice Engine for engagements, calendars for availability, and finance for WIP. Then we tune the AI Review weightings — utilization, skill match, staff development.",
     bullets: [
       "Firm hierarchy: offices, service lines, teams, cost centers",
       "Integrations: HRIS + Practice Management + Calendar + Finance",
       "Engagement templates ratified by service line leaders",
       "Historical bookings migrated with reconciliation report",
-      "AI Auto-Scheduler tuning parameters documented",
+      "AI Review tuning parameters documented",
     ],
     speakerNotes:
       "This is the longest beat — 90-120 seconds. If demoing live, click into the Integrations page here.",
@@ -152,7 +152,7 @@ const BEATS: Beat[] = [
     kicker: "Land the value",
     title: "Hypercare, CSM handover, and product advocacy",
     narrative:
-      "30-60 days of hypercare. We stabilize the first busy season, tune AI acceptance rate, and capture CSAT. Firm stakeholder hierarchy is documented and handed to the CSM. Customer use-cases and feature requests flow back to Dayshape Product as advocacy input.",
+      "30-60 days of hypercare. We stabilize the first busy season, tune AI acceptance rate, and capture CSAT. Firm stakeholder hierarchy is documented and handed to the CSM. Customer use-cases and feature requests flow back to Red Oak Product as advocacy input.",
     bullets: [
       "Hypercare exit report: incidents, MTTR, utilization uplift, forecast accuracy",
       "CSAT + adoption scorecard",
@@ -173,10 +173,10 @@ const BEATS: Beat[] = [
     kicker: "Why this matters",
     title: "This console is how I'd show up on day one",
     narrative:
-      "Everything you just saw — the playbook, the KPIs, the interview prep, the workstreams — is how I structure a Dayshape implementation. It's opinionated, it's outcome-driven, and it's built to hand off cleanly to Customer Success.",
+      "Everything you just saw — the playbook, the KPIs, the interview prep, the workstreams — is how I structure a Red Oak implementation. It's opinionated, it's outcome-driven, and it's built to hand off cleanly to Customer Success.",
     bullets: [
       "Structured 6-phase methodology, not ad-hoc",
-      "TTFS and TTFF are the north star",
+      "TTFR and TTAP are the north star",
       "Enablement + advocacy are first-class deliverables",
       "Happy to take questions.",
     ],
@@ -306,7 +306,7 @@ export default function DemoMode() {
             <span className="text-xs font-bold">D</span>
           </div>
           <div>
-            <div className="text-xs uppercase tracking-widest text-white/50">Dayshape · Demo Mode</div>
+            <div className="text-xs uppercase tracking-widest text-white/50">Red Oak · Demo Mode</div>
             <div className="text-sm font-medium">Implementation methodology walkthrough</div>
           </div>
         </div>

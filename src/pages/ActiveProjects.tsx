@@ -27,7 +27,7 @@ const initialProjects: Project[] = [
   { id: "2", name: "Wolf & Company", segment: "700 staff · CCH Axcess · Full firm centralization", owner: "A. Piggott", phase: 4, status: "on-track", progress: 78, startDate: "Feb 1", targetDate: "Apr 5", daysRemaining: 11 },
   { id: "3", name: "Baker Tilly", segment: "6,000 staff · Multi-region · Practice Engine + Workday", owner: "L. Martin", phase: 1, status: "on-track", progress: 18, startDate: "Mar 10", targetDate: "Jul 1", daysRemaining: 97 },
   { id: "4", name: "Bennett Thrasher", segment: "500 staff · Utilization + realization focus", owner: "S. Pickard", phase: 5, status: "on-track", progress: 95, startDate: "Dec 5", targetDate: "Mar 28", daysRemaining: 3 },
-  { id: "5", name: "Azets UK", segment: "6,500 staff · Retain → Dayshape · Sage Intacct", owner: "A. Pereira", phase: 3, status: "at-risk", progress: 47, startDate: "Feb 15", targetDate: "May 30", daysRemaining: 66 },
+  { id: "5", name: "Azets UK", segment: "6,500 staff · Retain → Red Oak · Sage Intacct", owner: "A. Pereira", phase: 3, status: "at-risk", progress: 47, startDate: "Feb 15", targetDate: "May 30", daysRemaining: 66 },
   { id: "6", name: "MHA", segment: "1,400 staff · Firm-wide utilization consistency", owner: "T. Bauer", phase: 0, status: "not-started", progress: 5, startDate: "Mar 22", targetDate: "Jun 15", daysRemaining: 82 },
   { id: "7", name: "Bishop Fleming", segment: "550 staff · Advisory expansion · Practice Engine", owner: "S. Khan", phase: 3, status: "on-track", progress: 55, startDate: "Jan 28", targetDate: "May 10", daysRemaining: 46 },
   { id: "8", name: "Grant Thornton NL", segment: "1,900 staff · AI scheduling · Workday", owner: "M. Rivera", phase: 4, status: "on-track", progress: 78, startDate: "Nov 20", targetDate: "Apr 2", daysRemaining: 8 },
@@ -116,7 +116,7 @@ export default function ActiveProjects() {
             <div>
               <h1 className="text-2xl font-semibold">Active Implementations</h1>
               <p className="text-sm text-muted-foreground mt-1">
-                Track Dayshape firm implementations across the 6-phase delivery framework.
+                Track Red Oak firm implementations across the 6-phase delivery framework.
               </p>
             </div>
             <div className="flex items-center bg-muted rounded-lg p-0.5">

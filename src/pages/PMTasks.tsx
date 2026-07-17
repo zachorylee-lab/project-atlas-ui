@@ -50,19 +50,19 @@ type Task = {
 const initialTasks: Task[] = [
   {
     id: "t1",
-    title: "Validate Workday → Dayshape person + org sync (6,000 staff)",
+    title: "Validate Workday → Red Oak person + org sync (6,000 staff)",
     client: "Baker Tilly", owner: "Me", due: "Apr 12", priority: "P1", status: "doing",
-    description: "Confirm the Workday RaaS reports map cleanly into Dayshape people, offices, and grades. Flag any grade-mapping edge cases and confirm JLM propagation within 24h.",
+    description: "Confirm the Workday RaaS reports map cleanly into Red Oak people, offices, and grades. Flag any grade-mapping edge cases and confirm JLM propagation within 24h.",
     subtasks: [
       { label: "Pull current Workday RaaS report specs from firm HR data team", done: true },
-      { label: "Diff against Dayshape grade taxonomy (24 grades)", done: true },
+      { label: "Diff against Red Oak grade taxonomy (24 grades)", done: true },
       { label: "Identify contractor / secondee edge cases", done: false },
       { label: "Confirm canonical person ID (employee_id)", done: false },
       { label: "Sign-off from Solution Consultant + Baker Tilly HR Data Lead", done: false },
     ],
     links: [
       { label: "Workday tenant", href: "#" },
-      { label: "Dayshape grade taxonomy doc", href: "#" },
+      { label: "Red Oak grade taxonomy doc", href: "#" },
     ],
     activity: [
       { text: "Created task — pulled in from Baker Tilly kickoff notes", ts: "Apr 1" },
@@ -90,21 +90,21 @@ const initialTasks: Task[] = [
     description: "Get Baker Tilly's IT team scoped for SAML SSO and SCIM provisioning. Confirm group-to-role mapping (Resource Manager / Partner / Staff / Admin).",
     subtasks: [
       { label: "Intro call with IT identity lead", done: false },
-      { label: "Share Dayshape SSO configuration guide", done: false },
+      { label: "Share Red Oak SSO configuration guide", done: false },
       { label: "Collect Azure AD tenant + app registration details", done: false },
       { label: "Schedule pilot user rollout", done: false },
     ],
-    links: [{ label: "Dayshape SSO docs", href: "https://dayshape.com/resource-management-software" }],
+    links: [{ label: "Red Oak SSO docs", href: "https://red oak.com/resource-management-software" }],
     activity: [],
   },
   {
     id: "t4",
     title: "CCH Axcess engagement master — validate mapping",
     client: "Wolf & Company", owner: "Solution Consultant", due: "Apr 5", priority: "P1", status: "doing",
-    description: "Verify CCH Axcess → Dayshape engagement master lands with correct client, partner, budget, and engagement type. 12,400 engagements in scope.",
+    description: "Verify CCH Axcess → Red Oak engagement master lands with correct client, partner, budget, and engagement type. 12,400 engagements in scope.",
     subtasks: [
       { label: "Configure CCH Axcess API integration user", done: true },
-      { label: "Map engagement types to Dayshape templates", done: true },
+      { label: "Map engagement types to Red Oak templates", done: true },
       { label: "Run reconciliation on 1,000 sample engagements", done: false },
       { label: "Validate WIP tie-out with Finance", done: false },
     ],
@@ -122,7 +122,7 @@ const initialTasks: Task[] = [
       { label: "Pull week 2 reconciliation report", done: true },
       { label: "Confirm booking delta < 3%", done: true },
       { label: "Investigate 2 partner override discrepancies", done: false },
-      { label: "Approve week 4 cutover to Dayshape as primary", done: false },
+      { label: "Approve week 4 cutover to Red Oak as primary", done: false },
     ],
     links: [{ label: "Parallel-run report", href: "#" }],
     activity: [{ text: "Week 2 numbers look healthy — 2.1% delta", ts: "Apr 1" }],
@@ -146,7 +146,7 @@ const initialTasks: Task[] = [
     client: "Plante Moran", owner: "Me", due: "Apr 22", priority: "P2", status: "todo",
     description: "Wrap Plante Moran hypercare with a written exit report covering KPIs hit, open risks, adoption %, Auto-Scheduler acceptance, and a CSAT survey to the exec sponsor + working team.",
     subtasks: [
-      { label: "Compile TTFS / TTFF / on-time metrics", done: false },
+      { label: "Compile TTFR / TTAP / on-time metrics", done: false },
       { label: "Compile Auto-Scheduler acceptance rate", done: false },
       { label: "Document open risks for CSM", done: false },
       { label: "Send CSAT survey (5 questions)", done: false },
@@ -188,7 +188,7 @@ const initialTasks: Task[] = [
     id: "t10",
     title: "Risk register — launch date at risk; propose new plan",
     client: "Azets UK", owner: "Me", due: "Apr 6", priority: "P1", status: "doing",
-    description: "TTFS slip likely. Update risk register with mitigation options: (a) reduce migration scope, (b) push launch 2 weeks, (c) phased launch by region.",
+    description: "TTFR slip likely. Update risk register with mitigation options: (a) reduce migration scope, (b) push launch 2 weeks, (c) phased launch by region.",
     subtasks: [
       { label: "Quantify slip impact (days + $ ARR risk)", done: true },
       { label: "Draft 3 mitigation options", done: false },
@@ -215,7 +215,7 @@ const initialTasks: Task[] = [
     id: "t12",
     title: "Bennett Thrasher — first firm-wide schedule published",
     client: "Bennett Thrasher", owner: "Me", due: "Mar 28", priority: "P1", status: "done",
-    description: "First firm-wide weekly schedule published across audit + tax. Achieved Time to First Schedule at day 41.",
+    description: "First firm-wide weekly schedule published across audit + tax. Achieved Time to First Review at day 41.",
     subtasks: [
       { label: "QA schedule in sandbox tenant", done: true },
       { label: "Firm sign-off", done: true },
@@ -508,7 +508,7 @@ export default function PMTasks() {
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-2xl font-semibold">Consultant Task Board</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Daily implementation board across every active Dayshape firm rollout. Click a task to open details, manage subtasks, log activity, or update status. Drag to move between columns.
+            Daily implementation board across every active Red Oak firm rollout. Click a task to open details, manage subtasks, log activity, or update status. Drag to move between columns.
           </p>
         </motion.div>
 
