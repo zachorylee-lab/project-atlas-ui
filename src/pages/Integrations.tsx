@@ -22,7 +22,7 @@ type DetailedStep = {
   owner: Owner;
   duration: string;
   description: string;
-  red oakRole: string;
+  redOakRole: string;
 };
 
 type Integration = {
@@ -30,7 +30,7 @@ type Integration = {
   description: string;
   status: "available" | "coming-soon" | "custom";
   overview: string;
-  howRed OakDoesIt: string;
+  howRedOakDoesIt: string;
   bestPractices: string[];
   customerNeeds: string[];
   dataFlows: string[];
@@ -60,7 +60,7 @@ const categories: IntegrationCategory[] = [
         status: "available",
         overview:
           "Workday is typically the customer's system of record for who works at the firm, what grade they are, and when they're off. Red Oak reads this nightly and layers scheduling and forecasting on top.",
-        howRed OakDoesIt:
+        howRedOakDoesIt:
           "Red Oak provides a Workday RaaS (Reports-as-a-Service) integration pack out-of-the-box: pre-built report specs, field mappings for Worker + Job + Absence, and a scheduled connector that runs nightly at 02:00 in the customer's time zone. The Red Oak SIC configures the mapping, the customer's Workday admin publishes the reports, and Red Oak monitors the sync in the Integrations Health dashboard.",
         bestPractices: [
           "Use Workday RaaS reports for reliable delta pulls — avoid direct Web Services",
@@ -84,7 +84,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 day",
             description:
               "Customer's Workday admin creates a dedicated ISU with a strong password rotation policy, and a Domain Security Policy granting Get and Report access to Worker, Job Profile, Organisation, and Absence domains.",
-            red oakRole: "Red Oak provides the exact scope list and reviews the security policy before it's activated.",
+            redOakRole: "Red Oak provides the exact scope list and reviews the security policy before it's activated.",
           },
           {
             title: "Publish Red Oak's RaaS report specs",
@@ -92,7 +92,7 @@ const categories: IntegrationCategory[] = [
             duration: "2–3 days",
             description:
               "Red Oak ships pre-built XML report specifications for Worker, Org Hierarchy, Grades, and Absences. The customer imports these into Workday Studio, publishes them as web services, and shares the endpoint URLs.",
-            red oakRole: "Red Oak SIC walks the Workday ISA through the import and validates the sample output.",
+            redOakRole: "Red Oak SIC walks the Workday ISA through the import and validates the sample output.",
           },
           {
             title: "Map roles, grades, and offices to the Firm Model",
@@ -100,7 +100,7 @@ const categories: IntegrationCategory[] = [
             duration: "3–5 days",
             description:
               "Workday values (e.g. 'Sr Consultant, Chicago') are mapped to Red Oak grades and offices in the Configuration Workbook. Anything that doesn't map is flagged for the customer's Head of Resourcing to decide.",
-            red oakRole: "Red Oak drives the workshops, drafts the mapping, and owns the sign-off record.",
+            redOakRole: "Red Oak drives the workshops, drafts the mapping, and owns the sign-off record.",
           },
           {
             title: "Reconcile a full week's data in sandbox",
@@ -108,7 +108,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 week",
             description:
               "Run the nightly connector against a Red Oak sandbox, reconcile headcount, grade mix, and absence counts against Workday reports for a full working week. Any variance > 0.5% is investigated.",
-            red oakRole: "Red Oak produces the reconciliation report; the customer's People Ops team signs it off.",
+            redOakRole: "Red Oak produces the reconciliation report; the customer's People Ops team signs it off.",
           },
           {
             title: "Cut over to production and monitor",
@@ -116,7 +116,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 day + 2 weeks Hypercare",
             description:
               "Sync goes live on production Red Oak. For the first two weeks the SIC monitors the nightly run and any deltas surface in the Integrations Health dashboard within 15 minutes.",
-            red oakRole: "Red Oak owns the production monitoring; the customer gets alerts if the feed fails.",
+            redOakRole: "Red Oak owns the production monitoring; the customer gets alerts if the feed fails.",
           },
         ],
       },
@@ -126,7 +126,7 @@ const categories: IntegrationCategory[] = [
         status: "available",
         overview:
           "The same integration pattern as Workday, adapted to the customer's HRIS. Each has a supported connector; the moving parts (mapping, reconciliation, cutover) are identical.",
-        howRed OakDoesIt:
+        howRedOakDoesIt:
           "Red Oak maintains native connectors for BambooHR, HiBob, and SuccessFactors that use each platform's REST API with an OAuth 2.0 or API-key auth model. The customer creates an integration user; Red Oak configures the connector, the field mapping, and the sync cadence.",
         bestPractices: [
           "Standardise your role/grade taxonomy across offices before you sync",
@@ -142,7 +142,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 day",
             description:
               "Customer generates API credentials scoped to the fields Red Oak needs (people, jobs, absences). No write access required.",
-            red oakRole: "Red Oak provides the exact scope list and receives credentials via secure vault.",
+            redOakRole: "Red Oak provides the exact scope list and receives credentials via secure vault.",
           },
           {
             title: "Configure the Red Oak connector",
@@ -150,7 +150,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 day",
             description:
               "Red Oak configures the connector in the customer's tenant, sets the schedule, and runs a first extract into sandbox.",
-            red oakRole: "Red Oak owns end-to-end.",
+            redOakRole: "Red Oak owns end-to-end.",
           },
           {
             title: "Map fields to the Firm Model",
@@ -158,7 +158,7 @@ const categories: IntegrationCategory[] = [
             duration: "2–3 days",
             description:
               "Grades, offices, and employment types are mapped in the Configuration Workbook. Contractor and secondee rules documented.",
-            red oakRole: "Red Oak drafts the mapping; customer's People Ops confirms.",
+            redOakRole: "Red Oak drafts the mapping; customer's People Ops confirms.",
           },
           {
             title: "Pilot sync with a subset of the firm",
@@ -166,7 +166,7 @@ const categories: IntegrationCategory[] = [
             duration: "3–5 days",
             description:
               "Sync 1–2 offices or a single practice. Reconcile counts and spot-check individuals. Fix mapping edge cases.",
-            red oakRole: "Red Oak produces the pilot reconciliation report.",
+            redOakRole: "Red Oak produces the pilot reconciliation report.",
           },
           {
             title: "Go-live firm-wide",
@@ -174,7 +174,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 day",
             description:
               "Turn on for the full firm. Monitor the first nightly run and confirm counts.",
-            red oakRole: "Red Oak owns; customer is informed.",
+            redOakRole: "Red Oak owns; customer is informed.",
           },
         ],
       },
@@ -193,7 +193,7 @@ const categories: IntegrationCategory[] = [
         status: "available",
         overview:
           "For firms on CCH Axcess, the engagement master lives there. Red Oak schedules against those engagements and reads time actuals back to drive utilisation and realisation reporting.",
-        howRed OakDoesIt:
+        howRedOakDoesIt:
           "Red Oak has a productised CCH Axcess connector using the CCH Axcess API. It reads engagements, clients, budgets, and time transactions on a nightly schedule (or hourly for time actuals). Red Oak's SIC owns the engagement type mapping — the piece that always needs firm-specific decisions.",
         bestPractices: [
           "Treat CCH engagement master as the source of truth — Red Oak schedules against it",
@@ -217,7 +217,7 @@ const categories: IntegrationCategory[] = [
             duration: "2 days",
             description:
               "Customer's CCH admin creates an API user with read access to Engagement, Client, Staff, and Time modules. Provides the tenant ID and API base URL.",
-            red oakRole: "Red Oak confirms the required CCH modules are licensed and scopes the API user.",
+            redOakRole: "Red Oak confirms the required CCH modules are licensed and scopes the API user.",
           },
           {
             title: "Inventory and map engagement types",
@@ -225,7 +225,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 week",
             description:
               "Every CCH engagement type is listed in the Configuration Workbook and mapped to a Red Oak engagement template (Annual audit, Tax compliance – 1120, Advisory, etc.). Unmapped types are decided by the practice leads.",
-            red oakRole: "Red Oak runs the mapping workshops with each practice; documents and signs off.",
+            redOakRole: "Red Oak runs the mapping workshops with each practice; documents and signs off.",
           },
           {
             title: "Backfill open engagements into sandbox",
@@ -233,7 +233,7 @@ const categories: IntegrationCategory[] = [
             duration: "3 days",
             description:
               "Load all currently-open CCH engagements into a Red Oak sandbox. Spot-check budgets, staff, and dates against CCH.",
-            red oakRole: "Red Oak owns; customer PM validates a sample.",
+            redOakRole: "Red Oak owns; customer PM validates a sample.",
           },
           {
             title: "Validate WIP tie-out with finance",
@@ -241,7 +241,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 week",
             description:
               "Reconcile hours and dollars for a completed month between CCH and Red Oak. Finance team signs off variance is < 0.1%.",
-            red oakRole: "Red Oak produces the tie-out report; customer's controller signs off.",
+            redOakRole: "Red Oak produces the tie-out report; customer's controller signs off.",
           },
           {
             title: "Go-live and enter daily reconciliation in Hypercare",
@@ -249,7 +249,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 day + 2 weeks Hypercare",
             description:
               "Production sync enabled. For the first two weeks the SIC runs a daily reconciliation report; any variance is investigated same-day.",
-            red oakRole: "Red Oak owns Hypercare; customer sees the reconciliation report each morning.",
+            redOakRole: "Red Oak owns Hypercare; customer sees the reconciliation report each morning.",
           },
         ],
       },
@@ -259,7 +259,7 @@ const categories: IntegrationCategory[] = [
         status: "available",
         overview:
           "Same pattern as CCH — Practice Engine holds engagements, Red Oak schedules against them and reads actuals back for reporting.",
-        howRed OakDoesIt:
+        howRedOakDoesIt:
           "Red Oak uses the Practice Engine REST API. Nightly sync of engagements and clients; hourly sync of time transactions. Red Oak's SIC drives the engagement taxonomy mapping and the parent/child client hierarchy decisions.",
         bestPractices: [
           "Use Practice Engine's REST API for engagement master and time actuals",
@@ -275,7 +275,7 @@ const categories: IntegrationCategory[] = [
             duration: "2 days",
             description:
               "Customer's Practice Engine admin enables the REST API (may require a Wolters Kluwer support ticket) and generates an API key for Red Oak.",
-            red oakRole: "Red Oak provides the required scopes and receives credentials via secure vault.",
+            redOakRole: "Red Oak provides the required scopes and receives credentials via secure vault.",
           },
           {
             title: "Map client hierarchy and engagement types",
@@ -283,7 +283,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 week",
             description:
               "Parent/child client relationships and engagement types are captured in the Configuration Workbook and mapped to Red Oak.",
-            red oakRole: "Red Oak leads the mapping workshops with each practice.",
+            redOakRole: "Red Oak leads the mapping workshops with each practice.",
           },
           {
             title: "Sync engagements into sandbox and reconcile",
@@ -291,7 +291,7 @@ const categories: IntegrationCategory[] = [
             duration: "3 days",
             description:
               "Full open engagement backlog is loaded and reconciled against Practice Engine.",
-            red oakRole: "Red Oak owns; customer signs off a sample.",
+            redOakRole: "Red Oak owns; customer signs off a sample.",
           },
           {
             title: "Reconcile time actuals for one month",
@@ -299,7 +299,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 week",
             description:
               "A completed month's time is reconciled hour-by-hour. Variance target < 0.5%.",
-            red oakRole: "Red Oak produces the report; customer's controller signs off.",
+            redOakRole: "Red Oak produces the report; customer's controller signs off.",
           },
           {
             title: "Go-live with daily monitoring",
@@ -307,7 +307,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 day + 2 weeks Hypercare",
             description:
               "Production cutover; Red Oak monitors the daily reconciliation during Hypercare.",
-            red oakRole: "Red Oak owns Hypercare.",
+            redOakRole: "Red Oak owns Hypercare.",
           },
         ],
       },
@@ -317,7 +317,7 @@ const categories: IntegrationCategory[] = [
         status: "available",
         overview:
           "Practice CS integrates via scheduled exports (or the newer API where licensed). Same integration pattern — engagements in, actuals in, Red Oak drives scheduling on top.",
-        howRed OakDoesIt:
+        howRedOakDoesIt:
           "Red Oak supports both the Practice CS API (where the customer has it licensed) and scheduled file exports for firms on the classic deployment. Nightly cadence for engagements, hourly (API) or nightly (file) for time actuals.",
         bestPractices: [
           "Confirm export cadence supports at least nightly sync of engagements",
@@ -336,7 +336,7 @@ const categories: IntegrationCategory[] = [
             duration: "2 days",
             description:
               "Red Oak and customer confirm which Practice CS licence is in use and pick the appropriate transport.",
-            red oakRole: "Red Oak recommends based on licence and volumes.",
+            redOakRole: "Red Oak recommends based on licence and volumes.",
           },
           {
             title: "Configure export or API credentials",
@@ -344,7 +344,7 @@ const categories: IntegrationCategory[] = [
             duration: "2–3 days",
             description:
               "Customer sets up either scheduled export jobs or API credentials scoped to engagements and time.",
-            red oakRole: "Red Oak provides the exact spec.",
+            redOakRole: "Red Oak provides the exact spec.",
           },
           {
             title: "Map engagement types",
@@ -352,7 +352,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 week",
             description:
               "Practice CS engagement types mapped to Red Oak templates in the Configuration Workbook.",
-            red oakRole: "Red Oak drives.",
+            redOakRole: "Red Oak drives.",
           },
           {
             title: "Load history and reconcile",
@@ -360,14 +360,14 @@ const categories: IntegrationCategory[] = [
             duration: "3 days",
             description:
               "Backfill open engagements and reconcile counts.",
-            red oakRole: "Red Oak owns.",
+            redOakRole: "Red Oak owns.",
           },
           {
             title: "Go-live and monitor",
             owner: "Red Oak",
             duration: "1 day + 2 weeks",
             description: "Production cutover with Hypercare monitoring.",
-            red oakRole: "Red Oak owns Hypercare.",
+            redOakRole: "Red Oak owns Hypercare.",
           },
         ],
       },
@@ -386,7 +386,7 @@ const categories: IntegrationCategory[] = [
         status: "available",
         overview:
           "The finance system owns billing and revenue; Red Oak owns planned effort. Two-way integration lets Red Oak push planned revenue for forecast alignment and pull actuals for realisation reporting.",
-        howRed OakDoesIt:
+        howRedOakDoesIt:
           "Red Oak has connectors for the three major PS ERPs. Weekly outbound push of approved time and planned revenue after each finance close cutoff; weekly inbound pull of actuals. Red Oak's SIC works closely with the customer's finance controller because this is the integration finance cares most about.",
         bestPractices: [
           "Agree the accounting calendar (fiscal periods, close cutoffs) up front",
@@ -405,7 +405,7 @@ const categories: IntegrationCategory[] = [
             duration: "2 days",
             description:
               "Customer's finance IT team creates an integration user with the scopes Red Oak needs (time, revenue, chart of accounts).",
-            red oakRole: "Red Oak provides the scope list.",
+            redOakRole: "Red Oak provides the scope list.",
           },
           {
             title: "Map cost centres and chart of accounts",
@@ -413,7 +413,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 week",
             description:
               "Every Red Oak practice/office is mapped to a cost centre; time-code categories mapped to GL codes.",
-            red oakRole: "Red Oak drives the workshop with finance.",
+            redOakRole: "Red Oak drives the workshop with finance.",
           },
           {
             title: "Reconcile a pilot period",
@@ -421,7 +421,7 @@ const categories: IntegrationCategory[] = [
             duration: "2 weeks",
             description:
               "For a completed month, reconcile approved time and revenue between Red Oak and the ERP. Variance target < 0.05%.",
-            red oakRole: "Red Oak produces the reconciliation; finance signs off.",
+            redOakRole: "Red Oak produces the reconciliation; finance signs off.",
           },
           {
             title: "Sign off with the CFO's team",
@@ -429,7 +429,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 week",
             description:
               "Formal sign-off from the customer's CFO or controller.",
-            red oakRole: "Red Oak supports the sign-off review meeting.",
+            redOakRole: "Red Oak supports the sign-off review meeting.",
           },
           {
             title: "Go-live at month-end and Hypercare",
@@ -437,7 +437,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 month",
             description:
               "Go-live is aligned to a month-end so the first live push is a clean period. Red Oak monitors the first close cycle.",
-            red oakRole: "Red Oak owns Hypercare.",
+            redOakRole: "Red Oak owns Hypercare.",
           },
         ],
       },
@@ -456,7 +456,7 @@ const categories: IntegrationCategory[] = [
         status: "available",
         overview:
           "Consultants live in Outlook. Red Oak writes their bookings into Outlook so they see their schedule in the calendar they already use, and reads absences back to prevent over-booking.",
-        howRed OakDoesIt:
+        howRedOakDoesIt:
           "Red Oak uses Microsoft Graph API with application permissions and tenant admin consent — not per-user OAuth, which would break as soon as someone changes their password. The Red Oak SIC coordinates the Entra ID (Azure AD) app registration with the customer's M365 admin.",
         bestPractices: [
           "Use application permissions with tenant admin consent — not per-user OAuth",
@@ -472,7 +472,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 day",
             description:
               "Customer's M365 admin registers a new app for Red Oak in Entra ID and captures the app ID and tenant ID.",
-            red oakRole: "Red Oak provides the exact app registration checklist and required scopes.",
+            redOakRole: "Red Oak provides the exact app registration checklist and required scopes.",
           },
           {
             title: "Grant Graph API scopes with tenant admin consent",
@@ -480,7 +480,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 day",
             description:
               "M365 admin grants Calendars.ReadWrite and User.Read.All (application scope) and provides admin consent for the whole tenant.",
-            red oakRole: "Red Oak validates the granted scopes and receives the client secret via secure vault.",
+            redOakRole: "Red Oak validates the granted scopes and receives the client secret via secure vault.",
           },
           {
             title: "Agree the calendar sync policy",
@@ -488,7 +488,7 @@ const categories: IntegrationCategory[] = [
             duration: "3 days",
             description:
               "Firm decides: what meeting categories flow back to Red Oak as blocking, how PTO is represented, whether Red Oak bookings appear as free/busy/tentative in Outlook.",
-            red oakRole: "Red Oak SIC drives the decision workshop; captures in the Configuration Workbook.",
+            redOakRole: "Red Oak SIC drives the decision workshop; captures in the Configuration Workbook.",
           },
           {
             title: "Pilot with a single user cohort",
@@ -496,7 +496,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 week",
             description:
               "Enable for 20–50 users across grades. Confirm bookings appear correctly and absences flow back.",
-            red oakRole: "Red Oak monitors; customer coordinates the pilot users.",
+            redOakRole: "Red Oak monitors; customer coordinates the pilot users.",
           },
           {
             title: "Firm-wide rollout",
@@ -504,7 +504,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 day + 1 week monitoring",
             description:
               "Enable for the whole firm. Monitor Graph API rate limits and event volumes.",
-            red oakRole: "Red Oak owns.",
+            redOakRole: "Red Oak owns.",
           },
         ],
       },
@@ -514,7 +514,7 @@ const categories: IntegrationCategory[] = [
         status: "available",
         overview:
           "Same value as the Outlook integration for Google Workspace firms.",
-        howRed OakDoesIt:
+        howRedOakDoesIt:
           "Red Oak uses a Google Cloud service account with domain-wide delegation, scoped to Calendar. Customer's Workspace admin authorises the service account in the Admin Console.",
         bestPractices: [
           "Use a domain-wide delegation service account",
@@ -529,7 +529,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 day",
             description:
               "Red Oak provides the JSON of the service account it uses; customer's Workspace admin authorises it.",
-            red oakRole: "Red Oak creates the service account and provides the client ID.",
+            redOakRole: "Red Oak creates the service account and provides the client ID.",
           },
           {
             title: "Authorise domain-wide delegation",
@@ -537,7 +537,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 day",
             description:
               "In Workspace Admin Console → API Controls, authorise the client ID with Calendar scope.",
-            red oakRole: "Red Oak provides the exact scope string.",
+            redOakRole: "Red Oak provides the exact scope string.",
           },
           {
             title: "Pilot with a user cohort",
@@ -545,14 +545,14 @@ const categories: IntegrationCategory[] = [
             duration: "1 week",
             description:
               "Enable for 20–50 users. Validate bookings and absences.",
-            red oakRole: "Red Oak monitors.",
+            redOakRole: "Red Oak monitors.",
           },
           {
             title: "Firm-wide rollout",
             owner: "Red Oak",
             duration: "1 day",
             description: "Enable domain-wide.",
-            red oakRole: "Red Oak owns.",
+            redOakRole: "Red Oak owns.",
           },
         ],
       },
@@ -571,7 +571,7 @@ const categories: IntegrationCategory[] = [
         status: "available",
         overview:
           "Most Red Oak customers are replacing something. The migration approach is the same regardless of source: inventory, rebuild the taxonomy in Red Oak (don't copy legacy quirks), load 12–24 months of history, parallel-run for a full weekly cycle, then cut over.",
-        howRed OakDoesIt:
+        howRedOakDoesIt:
           "Red Oak has a migration accelerator: extract templates for the common legacy systems, a mapping workbook, a bulk-load API, and a parallel-run reconciliation report. The SIC runs the migration as a distinct workstream inside the Configuration Workbook.",
         bestPractices: [
           "Inventory every active engagement and open booking before quoting the migration",
@@ -595,7 +595,7 @@ const categories: IntegrationCategory[] = [
             duration: "2 weeks",
             description:
               "Every active engagement, open booking, role, grade, and skill in the legacy system is inventoried. Anything ambiguous is decided in workshops.",
-            red oakRole: "Red Oak drives; customer's resource managers provide the data.",
+            redOakRole: "Red Oak drives; customer's resource managers provide the data.",
           },
           {
             title: "Rebuild taxonomy in the Firm Model",
@@ -603,7 +603,7 @@ const categories: IntegrationCategory[] = [
             duration: "2 weeks",
             description:
               "Roles, grades, offices, and skills are (re)designed in Red Oak — not copied from legacy. Legacy → new mapping is captured for the history migration.",
-            red oakRole: "Red Oak recommends the taxonomy based on best practice across firms.",
+            redOakRole: "Red Oak recommends the taxonomy based on best practice across firms.",
           },
           {
             title: "Load 12–24 months of history",
@@ -611,7 +611,7 @@ const categories: IntegrationCategory[] = [
             duration: "1–2 weeks",
             description:
               "Historical engagements, bookings, and time actuals are loaded so partners retain prior-year context.",
-            red oakRole: "Red Oak owns end-to-end.",
+            redOakRole: "Red Oak owns end-to-end.",
           },
           {
             title: "Parallel-run for a full weekly cycle",
@@ -619,7 +619,7 @@ const categories: IntegrationCategory[] = [
             duration: "1–2 weeks",
             description:
               "Resource managers schedule in both legacy and Red Oak for one or two weekly cycles. Variance report generated daily.",
-            red oakRole: "Red Oak produces the daily variance report; customer schedulers do the double-work.",
+            redOakRole: "Red Oak produces the daily variance report; customer schedulers do the double-work.",
           },
           {
             title: "Cutover and decommission legacy",
@@ -627,7 +627,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 weekend",
             description:
               "Weekend cutover: legacy goes read-only Friday PM, Red Oak becomes system of record Monday AM. Legacy is decommissioned after 90-day parallel history availability.",
-            red oakRole: "Red Oak runs the runbook.",
+            redOakRole: "Red Oak runs the runbook.",
           },
         ],
       },
@@ -646,7 +646,7 @@ const categories: IntegrationCategory[] = [
         status: "available",
         overview:
           "Users sign into Red Oak with their firm credentials. SCIM ensures that when someone leaves the firm their Red Oak access is revoked automatically — no manual clean-up.",
-        howRed OakDoesIt:
+        howRedOakDoesIt:
           "Red Oak is a pre-built application in the Okta, Azure AD, and Google Workspace catalogues. The customer's IdP admin adds it, configures SCIM with the token Red Oak provides, and maps IdP groups to Red Oak roles.",
         bestPractices: [
           "Use SCIM for de-provisioning the moment a staff member leaves",
@@ -662,7 +662,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 hour",
             description:
               "IdP admin adds the pre-built Red Oak app in Okta / Entra / Workspace catalogue.",
-            red oakRole: "Red Oak provides the tenant ACS URL and Entity ID.",
+            redOakRole: "Red Oak provides the tenant ACS URL and Entity ID.",
           },
           {
             title: "Configure SAML with Red Oak metadata",
@@ -670,7 +670,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 day",
             description:
               "SAML metadata exchanged; test login for one user.",
-            red oakRole: "Red Oak validates the assertion contents.",
+            redOakRole: "Red Oak validates the assertion contents.",
           },
           {
             title: "Configure SCIM provisioning",
@@ -678,7 +678,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 day",
             description:
               "SCIM endpoint and bearer token from Red Oak entered into IdP; sync started.",
-            red oakRole: "Red Oak provides SCIM token; monitors the initial sync.",
+            redOakRole: "Red Oak provides SCIM token; monitors the initial sync.",
           },
           {
             title: "Map IdP groups to Red Oak roles",
@@ -686,7 +686,7 @@ const categories: IntegrationCategory[] = [
             duration: "2 days",
             description:
               "Groups like 'Resource Managers – US' mapped to Red Oak roles. Documented in Configuration Workbook.",
-            red oakRole: "Red Oak drives the mapping.",
+            redOakRole: "Red Oak drives the mapping.",
           },
           {
             title: "Pilot, roll out, decommission local logins",
@@ -694,7 +694,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 week",
             description:
               "Pilot with 50 users, then all users. Local logins disabled except for the break-glass admin.",
-            red oakRole: "Red Oak owns.",
+            redOakRole: "Red Oak owns.",
           },
         ],
       },
@@ -713,7 +713,7 @@ const categories: IntegrationCategory[] = [
         status: "available",
         overview:
           "Red Oak data becomes most valuable when it's joined to the firm's other data in the warehouse — finance, marketing, HR. Red Oak pushes hourly or nightly into Snowflake/BigQuery so the firm's analytics team owns downstream reporting.",
-        howRed OakDoesIt:
+        howRedOakDoesIt:
           "Red Oak has native connectors for Snowflake and BigQuery, and a generic S3/Azure Blob drop for other warehouses. The SIC works with the customer's analytics team on the semantic model and partition strategy.",
         bestPractices: [
           "Partition tables by fiscal period for efficient BI queries",
@@ -729,7 +729,7 @@ const categories: IntegrationCategory[] = [
             duration: "2 days",
             description:
               "Warehouse (Snowflake, BigQuery, Redshift, etc.) and cadence (hourly, nightly) confirmed.",
-            red oakRole: "Red Oak recommends based on volumes and BI patterns.",
+            redOakRole: "Red Oak recommends based on volumes and BI patterns.",
           },
           {
             title: "Provision destination storage and credentials",
@@ -737,7 +737,7 @@ const categories: IntegrationCategory[] = [
             duration: "3 days",
             description:
               "Customer provisions the target schema/dataset and shares write credentials.",
-            red oakRole: "Red Oak provides the schema DDL.",
+            redOakRole: "Red Oak provides the schema DDL.",
           },
           {
             title: "Schedule the export and validate counts",
@@ -745,7 +745,7 @@ const categories: IntegrationCategory[] = [
             duration: "3 days",
             description:
               "Red Oak configures the export and runs three days of syncs. Row counts and totals validated.",
-            red oakRole: "Red Oak owns.",
+            redOakRole: "Red Oak owns.",
           },
           {
             title: "Hand off to the analytics team",
@@ -753,7 +753,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 week",
             description:
               "Analytics team validates the schema, builds the semantic layer, and takes ownership of downstream BI.",
-            red oakRole: "Red Oak provides the schema doc and the recommended semantic model.",
+            redOakRole: "Red Oak provides the schema doc and the recommended semantic model.",
           },
           {
             title: "Go-live and monitor",
@@ -761,7 +761,7 @@ const categories: IntegrationCategory[] = [
             duration: "1 day + 2 weeks",
             description:
               "Production sync live; Red Oak monitors during Hypercare.",
-            red oakRole: "Red Oak owns Hypercare.",
+            redOakRole: "Red Oak owns Hypercare.",
           },
         ],
       },
@@ -911,7 +911,7 @@ export default function Integrations() {
                     How Red Oak does it
                   </p>
                 </div>
-                <p className="text-sm leading-relaxed">{selectedIntegration.howRed OakDoesIt}</p>
+                <p className="text-sm leading-relaxed">{selectedIntegration.howRedOakDoesIt}</p>
               </div>
 
               {/* Data flows + Customer needs, side by side */}
@@ -979,7 +979,7 @@ export default function Integrations() {
                               <p className="text-[11px] font-semibold uppercase tracking-wider text-primary mb-0.5">
                                 Red Oak's role
                               </p>
-                              <p className="text-xs leading-relaxed">{step.red oakRole}</p>
+                              <p className="text-xs leading-relaxed">{step.redOakRole}</p>
                             </div>
                           </div>
                         </div>
