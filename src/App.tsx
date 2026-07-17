@@ -24,6 +24,7 @@ import AdoptionTracker from "./pages/AdoptionTracker";
 import ConfigurationWorkbook from "./pages/ConfigurationWorkbook";
 import UATTracker from "./pages/UATTracker";
 import KnowledgeBase from "./pages/KnowledgeBase";
+import RequirementsGathering from "./pages/RequirementsGathering";
 
 const queryClient = new QueryClient();
 
@@ -51,6 +52,7 @@ const App = () => (
           <Route path="/configuration-workbook" element={<ConfigurationWorkbook />} />
           <Route path="/uat" element={<UATTracker />} />
           <Route path="/knowledge-base" element={<KnowledgeBase />} />
+          <Route path="/requirements" element={<RequirementsGathering />} />
 
           <Route path="/pm-tasks" element={<PMTasks />} />
           <Route path="/interview-prep" element={<InterviewPrep />} />
