@@ -6,8 +6,8 @@ import { motion } from "framer-motion";
 import { ttvKPIs } from "@/lib/portfolioTTV";
 
 const tiles = [
-  { label: "Avg Time to First Schedule", value: `${ttvKPIs.avgTimeToFirstSchedule}d`, target: "Target: 21d", progress: Math.round((1 - ttvKPIs.avgTimeToFirstSchedule / 30) * 100), icon: CalendarCheck, tone: "text-primary" },
-  { label: "Avg Time to First Forecast", value: `${ttvKPIs.avgTimeToFirstForecast}d`, target: "Target: 35d", progress: Math.round((1 - ttvKPIs.avgTimeToFirstForecast / 45) * 100), icon: LineChart, tone: "text-accent" },
+  { label: "Avg Time to First Review", value: `${ttvKPIs.avgTimeToFirstSchedule}d`, target: "Target: 21d", progress: Math.round((1 - ttvKPIs.avgTimeToFirstSchedule / 30) * 100), icon: CalendarCheck, tone: "text-primary" },
+  { label: "Avg Time to First Approved Piece", value: `${ttvKPIs.avgTimeToFirstForecast}d`, target: "Target: 35d", progress: Math.round((1 - ttvKPIs.avgTimeToFirstForecast / 45) * 100), icon: LineChart, tone: "text-accent" },
   { label: "Milestones On-Time", value: `${ttvKPIs.milestonesOnTimePct}%`, target: "Target: 85%", progress: ttvKPIs.milestonesOnTimePct, icon: Target, tone: "text-success" },
   { label: "Milestones At Risk", value: `${ttvKPIs.milestonesAtRisk}`, target: "Across portfolio", progress: 100 - ttvKPIs.milestonesAtRisk * 15, icon: AlertTriangle, tone: "text-warning" },
   { label: "Due This Week", value: `${ttvKPIs.milestonesThisWeek}`, target: "Next 7 days", progress: 60, icon: Clock, tone: "text-primary" },

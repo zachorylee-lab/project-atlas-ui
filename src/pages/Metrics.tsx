@@ -39,8 +39,8 @@ const csatTrend = [
 const kpis = [
   { label: "Customer CSAT", value: "4.7/5", target: "4.5/5", progress: 96 },
   { label: "On-Time Go-Live", value: "91%", target: "90%", progress: 100 },
-  { label: "Time to First Schedule", value: "18 days", target: "21 days", progress: 100 },
-  { label: "Time to First Forecast", value: "32 days", target: "35 days", progress: 100 },
+  { label: "Time to First Review", value: "18 days", target: "21 days", progress: 100 },
+  { label: "Time to First Approved Piece", value: "32 days", target: "35 days", progress: 100 },
 ];
 
 export default function Metrics() {
@@ -50,7 +50,7 @@ export default function Metrics() {
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-2xl font-semibold">Portfolio Health</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Dayshape Professional Services Onboarding KPIs: time-to-value, on-time delivery, adoption, customer satisfaction, and portfolio phase health.
+            Red Oak Compliance Implementation Console KPIs: time-to-value, on-time delivery, adoption, customer satisfaction, and portfolio phase health.
           </p>
         </motion.div>
 
@@ -143,7 +143,7 @@ export default function Metrics() {
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-base font-semibold">Time to First Schedule (days)</CardTitle>
+                <CardTitle className="text-base font-semibold">Time to First Review (days)</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="h-64">

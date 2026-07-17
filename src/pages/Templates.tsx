@@ -30,7 +30,7 @@ const templates: Template[] = [
     updated: "Mar 18, 2026",
     description: "Captures the firm's service line mix, staff population, HRIS + practice management systems, legacy resourcing tool, and integration dependencies before implementation kicks off.",
     tasks: [
-      { label: "Document licensed modules (Core RM / AI Auto-Scheduler / Forecasting / Reporting)", done: false },
+      { label: "Document licensed modules (Core RM / AI Review / Forecasting / Reporting)", done: false },
       { label: "Inventory service lines (Audit, Tax, Advisory, Consulting) and geographies", done: false },
       { label: "Identify HRIS (Workday / BambooHR / HiBob / SAP SuccessFactors)", done: false },
       { label: "Identify practice management (CCH Axcess / Practice Engine / Thomson Reuters)", done: false },
@@ -48,10 +48,10 @@ const templates: Template[] = [
     downloads: 268,
     rating: 4.9,
     updated: "Mar 22, 2026",
-    description: "Validates Dayshape integrations across HRIS, practice management, calendar, and finance — person sync, engagement master, time actuals, and calendar bookings.",
+    description: "Validates Red Oak integrations across HRIS, practice management, calendar, and finance — person sync, engagement master, time actuals, and calendar bookings.",
     tasks: [
       { label: "Person + org sync from HRIS reconciles to source", done: false },
-      { label: "Joiners/leavers/movers land in Dayshape within SLA", done: false },
+      { label: "Joiners/leavers/movers land in Red Oak within SLA", done: false },
       { label: "Engagement master from practice management appears with correct client + partner + budget", done: false },
       { label: "Bookings publish to Outlook / Google calendar", done: false },
       { label: "Time actuals flow back to WIP / finance system", done: false },
@@ -67,9 +67,9 @@ const templates: Template[] = [
     downloads: 124,
     rating: 4.7,
     updated: "Feb 28, 2026",
-    description: "Charter defining scope, service lines, use cases, KPIs, governance, and escalation paths for a Dayshape firm implementation.",
+    description: "Charter defining scope, service lines, use cases, KPIs, governance, and escalation paths for a Red Oak firm implementation.",
     tasks: [
-      { label: "Define business outcomes & success KPIs (TTFS, utilization uplift, forecast accuracy)", done: false },
+      { label: "Define business outcomes & success KPIs (TTFR, utilization uplift, forecast accuracy)", done: false },
       { label: "Document in-scope service lines, offices, and user population", done: false },
       { label: "Identify executive sponsor & steering committee", done: false },
       { label: "Outline assumptions, constraints & dependencies", done: false },
@@ -85,11 +85,11 @@ const templates: Template[] = [
     downloads: 142,
     rating: 4.7,
     updated: "Mar 10, 2026",
-    description: "Historical engagement + booking migration from legacy resourcing tools (Retain, ProStaff, Deltek, spreadsheets) into Dayshape with reconciliation.",
+    description: "Historical engagement + booking migration from legacy resourcing tools (Retain, ProStaff, Deltek, spreadsheets) into Red Oak with reconciliation.",
     tasks: [
       { label: "Extract legacy engagements, bookings, and time actuals", done: false },
-      { label: "Map legacy roles/grades to Dayshape taxonomy", done: false },
-      { label: "Map legacy engagement types to Dayshape templates", done: false },
+      { label: "Map legacy roles/grades to Red Oak taxonomy", done: false },
+      { label: "Map legacy engagement types to Red Oak templates", done: false },
       { label: "Load historical bookings (rolling 12–24 months)", done: false },
       { label: "Reconcile counts vs. legacy source", done: false },
       { label: "Validate open engagement carry-over into busy season", done: false },
@@ -104,7 +104,7 @@ const templates: Template[] = [
     downloads: 232,
     rating: 4.8,
     updated: "Mar 20, 2026",
-    description: "Standardized Dayshape handoff capturing firm context, signed order form, modules in scope, and key stakeholders.",
+    description: "Standardized Red Oak handoff capturing firm context, signed order form, modules in scope, and key stakeholders.",
     tasks: [
       { label: "Fill in deal summary, ARR, and modules purchased", done: false },
       { label: "Document firm goals & success criteria", done: false },
@@ -142,7 +142,7 @@ const templates: Template[] = [
     downloads: 156,
     rating: 4.9,
     updated: "Mar 15, 2026",
-    description: "Step-by-step cutover for promoting Dayshape from sandbox to production, publishing the first firm-wide schedule, and command-center support.",
+    description: "Step-by-step cutover for promoting Red Oak from sandbox to production, publishing the first firm-wide schedule, and command-center support.",
     tasks: [
       { label: "Freeze legacy tool booking changes", done: false },
       { label: "Promote production tenant + SSO configuration", done: false },
@@ -166,7 +166,7 @@ const templates: Template[] = [
       { label: "Track P1/P2 incidents and resolution SLAs", done: false },
       { label: "Report adoption % across Resource Managers and Partners", done: false },
       { label: "Report utilization uplift vs. baseline", done: false },
-      { label: "Report AI Auto-Scheduler acceptance rate", done: false },
+      { label: "Report AI Review acceptance rate", done: false },
       { label: "Capture firm CSAT survey results", done: false },
       { label: "Document open items and ownership", done: false },
       { label: "Hold internal lessons-learned retro", done: false },
@@ -181,10 +181,10 @@ const templates: Template[] = [
     downloads: 118,
     rating: 4.8,
     updated: "Mar 25, 2026",
-    description: "Structured enablement plan — Resource Manager workshops, Partner briefings, AI Auto-Scheduler technical enablement, knowledge checks, and BAU handover.",
+    description: "Structured enablement plan — Resource Manager workshops, Partner briefings, AI Review technical enablement, knowledge checks, and BAU handover.",
     tasks: [
       { label: "Confirm training audiences (Resource Managers, Partners, Staff, Admin)", done: false },
-      { label: "Schedule AI Auto-Scheduler Technical Enablement workshop", done: false },
+      { label: "Schedule AI Review Technical Enablement workshop", done: false },
       { label: "Deliver build-along sessions for the first 3 scheduling scenarios", done: false },
       { label: "Run knowledge checks on booking rules, forecasting, and dashboards", done: false },
       { label: "Record enablement videos and upload to firm LMS", done: false },
@@ -200,12 +200,12 @@ const templates: Template[] = [
     downloads: 104,
     rating: 4.4,
     updated: "Feb 14, 2026",
-    description: "Dayshape change order template — documents scope deltas vs. signed order form, effort, pricing, and sign-off.",
+    description: "Red Oak change order template — documents scope deltas vs. signed order form, effort, pricing, and sign-off.",
     tasks: [
       { label: "Capture the requested change and rationale", done: false },
       { label: "Map change to original scope", done: false },
       { label: "Estimate effort (hours) and timeline impact", done: false },
-      { label: "Confirm pricing with Dayshape AE & Delivery Lead", done: false },
+      { label: "Confirm pricing with Red Oak AE & Delivery Lead", done: false },
       { label: "Send change order to firm for signature", done: false },
       { label: "Update project plan and risk register", done: false },
       { label: "Log additional services revenue", done: false },
@@ -240,7 +240,7 @@ export default function Templates() {
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-2xl font-semibold">Templates & SOW Library</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Dayshape Professional Services Onboarding standard templates — discovery, integration test plans, migration runbooks, cutover runbooks, and adoption reports.
+            Red Oak Compliance Implementation Console standard templates — discovery, integration test plans, migration runbooks, cutover runbooks, and adoption reports.
           </p>
         </motion.div>
 

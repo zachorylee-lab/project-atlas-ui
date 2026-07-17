@@ -85,7 +85,7 @@ const PROVIDERS: Provider[] = [
   {
     id: "posthog", name: "PostHog", category: "Analytics",
     icon: LineChart, color: "from-[#1D4AFF] to-[#F54E00]",
-    blurb: "Real Dayshape tenant adoption, AI Auto-Scheduler acceptance rate, and workstream usage signals.",
+    blurb: "Real Red Oak tenant adoption, AI Review acceptance rate, and workstream usage signals.",
     authType: "API Key",
     suggestedAreas: ["metrics", "workflows", "integrations-page"],
   },
@@ -100,7 +100,7 @@ const PROVIDERS: Provider[] = [
 
 const AREAS: Area[] = [
   { id: "metrics", name: "Portfolio Health", route: "/metrics",
-    description: "TTFS/TTFF, on-time go-live %, CSAT, adoption",
+    description: "TTFR/TTAP, on-time go-live %, CSAT, adoption",
     compatibleWith: ["posthog", "amplitude"] },
   { id: "projects", name: "Active Implementations", route: "/projects",
     description: "Per-account project cards with RAG status",
@@ -131,7 +131,7 @@ const AREAS: Area[] = [
     compatibleWith: ["jira", "linear", "slack"] },
 ];
 
-const STORAGE_KEY = "dayshape-integration-wizard-v1";
+const STORAGE_KEY = "red oak-integration-wizard-v1";
 const STEPS = ["Select providers", "Connect", "Map to areas", "Review"] as const;
 
 type WizardState = {

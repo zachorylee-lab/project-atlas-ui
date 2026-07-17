@@ -15,32 +15,32 @@ const phaseIcons: Record<string, React.ElementType> = {
 const phaseDetails: Record<string, { tasks: string[]; deliverables: string[]; stakeholders: string[] }> = {
   handoff: {
     tasks: [
-      "Review signed order form, licensed modules (Core RM, AI Auto-Scheduler, Forecasting, Reporting), and user count",
+      "Review signed order form, licensed modules (Core RM, AI Review, Forecasting, Reporting), and user count",
       "Confirm service lines in scope (Audit, Tax, Advisory, Consulting) and geographies",
       "Identify source systems: HRIS (Workday / BambooHR / HiBob), practice management (CCH Axcess / Practice Engine / Thomson Reuters), finance (NetSuite / Sage Intacct / Deltek)",
       "Confirm legacy resourcing system being replaced (Retain, ProStaff, Deltek, spreadsheets, in-house)",
-      "Provision Dayshape tenant + sandbox; assign Senior Implementation Consultant, Solution Consultant, CSM, and AE",
+      "Provision Red Oak tenant + sandbox; assign Senior Implementation Consultant, Solution Consultant, CSM, and AE",
     ],
     deliverables: [
       "Sales-to-Delivery handoff brief (fixed-scope SOW locked)",
       "In-scope service lines + integrations confirmed",
-      "Dayshape sandbox tenant + admin credentials",
+      "Red Oak sandbox tenant + admin credentials",
       "Statement of Work + Time-to-Value targets confirmed",
     ],
-    stakeholders: ["Dayshape AE", "Delivery Lead", "Senior Implementation Consultant", "Solution Consultant", "CSM", "Firm COO / Head of Resource Management / Partner-in-Charge"],
+    stakeholders: ["Red Oak AE", "Delivery Lead", "Senior Implementation Consultant", "Solution Consultant", "CSM", "Firm COO / Head of Resource Management / Partner-in-Charge"],
   },
   kickoff: {
     tasks: [
       "Host kickoff with Resource Management, HR, IT, Finance/Practice Ops, and the executive sponsor",
-      "Lock target Time to First Schedule and Time to First Forecast",
-      "Walk through the Dayshape Implementation Methodology and shared RACI",
+      "Lock target Time to First Review and Time to First Approved Piece",
+      "Walk through the Red Oak Implementation Methodology and shared RACI",
       "Discover current resourcing model: how staff are booked today, forecast horizon, WIP visibility, key pain points",
       "Set weekly status cadence and executive steering committee",
-      "Define success criteria: TTFS, forecast accuracy, utilization, realization, adoption rate",
+      "Define success criteria: TTFR, forecast accuracy, utilization, realization, adoption rate",
     ],
     deliverables: [
       "Project charter & timeline (Smartsheet / Asana)",
-      "RACI across Dayshape and firm teams",
+      "RACI across Red Oak and firm teams",
       "Risk & assumption register",
       "Current-state resourcing discovery workbook (roles, grades, skills, engagement types, booking rules)",
     ],
@@ -54,7 +54,7 @@ const phaseDetails: Record<string, { tasks: string[]; deliverables: string[]; st
       "Stand up integrations: Workday / HRIS person + org sync, Practice Engine / CCH Axcess engagement master data, calendar (Outlook/Google), finance/WIP sync",
       "Migrate historical bookings and engagements from the legacy system for continuity",
       "Configure booking rules, conflict checks, absence & non-chargeable time categories",
-      "Enable AI Auto-Scheduler and configure preference weightings (utilization, skill match, staff development)",
+      "Enable AI Review and configure preference weightings (utilization, skill match, staff development)",
       "Build Power BI / Tableau / Snowflake feeds for firm reporting",
     ],
     deliverables: [
@@ -62,7 +62,7 @@ const phaseDetails: Record<string, { tasks: string[]; deliverables: string[]; st
       "Integration pipelines live (HRIS + practice management + calendar + finance)",
       "Engagement templates library ratified by service line leaders",
       "Historical bookings loaded with reconciliation report",
-      "AI Auto-Scheduler tuning parameters documented",
+      "AI Review tuning parameters documented",
     ],
     stakeholders: ["Senior Implementation Consultant", "Solution Consultant", "Firm IT / Integrations Lead", "HR Data Owner", "Practice Management Owner", "Service Line Champions"],
   },
@@ -89,7 +89,7 @@ const phaseDetails: Record<string, { tasks: string[]; deliverables: string[]; st
     tasks: [
       "Execute cutover: production tenant, live HRIS/practice management sync, retire legacy tool",
       "Publish first firm-wide schedule with Senior Implementation Consultant + Solution Consultant on-call",
-      "Deliver Advanced Scheduling & AI Auto-Scheduler Technical Enablement so Resource Managers self-serve",
+      "Deliver Advanced Scheduling & AI Review Technical Enablement so Resource Managers self-serve",
       "Open command center / Teams war room for launch week",
       "Send firm-wide comms: tenant access, training links, support routing",
       "Daily executive standup; track P1/P2 issues to closure",
@@ -101,18 +101,18 @@ const phaseDetails: Record<string, { tasks: string[]; deliverables: string[]; st
       "Day-1 utilization + booking dashboard",
       "Customer enablement sign-off (training + knowledge checks completed)",
     ],
-    stakeholders: ["Senior Implementation Consultant", "Firm RM Team", "Dayshape Support", "Executive Sponsor"],
+    stakeholders: ["Senior Implementation Consultant", "Firm RM Team", "Red Oak Support", "Executive Sponsor"],
   },
   hypercare: {
     tasks: [
       "Run 30–60 day hypercare with daily then weekly check-ins",
       "Stabilize first busy-season / peak-cycle scheduling event",
-      "Tune AI Auto-Scheduler acceptance rate; iterate on preference weightings",
+      "Tune AI Review acceptance rate; iterate on preference weightings",
       "Capture CSAT + adoption metrics and surface expansion opportunities to AE + CSM (additional service lines, forecasting depth, advanced reporting)",
       "Document firm stakeholder hierarchy and hand over to Customer Success Manager (CSM)",
       "Feed firm use-case feedback to Product as advocacy input",
       "Hold enablement office hours and knowledge checks to confirm BAU readiness",
-      "Hold internal Dayshape retro: what to repeat, what to fix",
+      "Hold internal Red Oak retro: what to repeat, what to fix",
     ],
     deliverables: [
       "Hypercare exit report (incidents, MTTR, utilization uplift, forecast accuracy)",
@@ -121,7 +121,7 @@ const phaseDetails: Record<string, { tasks: string[]; deliverables: string[]; st
       "Lessons-learned retro deck",
       "Firm self-service readiness assessment",
     ],
-    stakeholders: ["Senior Implementation Consultant", "Firm RM Team", "Dayshape CSM", "Dayshape Support"],
+    stakeholders: ["Senior Implementation Consultant", "Firm RM Team", "Red Oak CSM", "Red Oak Support"],
   },
 };
 
@@ -130,9 +130,9 @@ export default function Playbook() {
     <DashboardLayout>
       <div className="space-y-8 max-w-4xl">
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-2xl font-semibold">Dayshape Implementation Playbook</h1>
+          <h1 className="text-2xl font-semibold">Red Oak Implementation Playbook</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            The 6-phase Dayshape Implementation Methodology used to launch new professional services firms — from sales handoff through adoption — covering configuration, integrations, data migration, training, AI Auto-Scheduler tuning, and firm-wide go-live.
+            The 6-phase Red Oak Implementation Methodology used to launch new financial services firms — from sales handoff through adoption — covering configuration, integrations, data migration, training, AI Review tuning, and firm-wide go-live.
           </p>
         </motion.div>
 

@@ -6,48 +6,48 @@ import { motion } from "framer-motion";
 
 const handoffs = [
   {
-    customer: "Baker Tilly",
+    customer: "Raymond James",
     ae: "Chris D.",
-    deal: "$620K ARR · Core RM + AI Auto-Scheduler + Forecasting + Reporting",
-    segment: "6,000 staff · Multi-region · Practice Engine + Workday",
+    deal: "$780K ARR · Advertising Review + AI Review + Registration Management + Internet Supervision",
+    segment: "8,500 registered reps · Multi-region · Salesforce Financial Services Cloud + Smarsh archive",
     readiness: 94,
     status: "ready" as const,
     submitted: "Mar 22, 2026",
     items: { complete: 11, total: 12 },
-    notes: "Migrating from spreadsheets + ProStaff. Multi-region rollout starting with US audit, then advisory.",
+    notes: "Migrating from legacy in-house advertising review workflow. Multi-region rollout starting with independent contractor channel, then employee advisors.",
   },
   {
-    customer: "Menzies",
+    customer: "Cambridge Investment Research",
     ae: "Amy L.",
-    deal: "$210K ARR · Core RM + Forecasting",
-    segment: "600 staff · UK · CCH Axcess",
+    deal: "$210K ARR · Advertising Review + Disclosure Management",
+    segment: "3,800 reps · Independent BD · Marketo + Global Relay",
     readiness: 67,
     status: "incomplete" as const,
     submitted: "Mar 20, 2026",
     items: { complete: 8, total: 12 },
-    notes: "Need CCH Axcess API access confirmation and partner sign-off on service line hierarchy. Busy-season cutover forces aggressive build timeline.",
+    notes: "Need Global Relay archival API keys and CCO sign-off on disclosure library taxonomy. Q2 marketing campaign cadence forces aggressive build timeline.",
   },
   {
-    customer: "Wolf & Company",
+    customer: "LEO Wealth",
     ae: "Mark T.",
-    deal: "$340K ARR · Full Suite + AI Auto-Scheduler + Analytics",
-    segment: "700 staff · Firm-wide centralization · CCH Axcess",
+    deal: "$340K ARR · Full Suite + AI Review + Social Media Compliance + Analytics",
+    segment: "$8B AUM RIA · Firm-wide centralization · Salesforce + Hearsay",
     readiness: 100,
     status: "ready" as const,
     submitted: "Mar 18, 2026",
     items: { complete: 12, total: 12 },
-    notes: "Strong sponsor (COO + Head of Resource Management). Legacy spreadsheet-based process being retired.",
+    notes: "Strong sponsor (COO Stephen Tally + Head of Marketing Compliance). Legacy email-based review process being retired.",
   },
   {
-    customer: "MHA",
+    customer: "Franklin Templeton",
     ae: "Jen S.",
-    deal: "$280K ARR · Core RM + Forecasting",
-    segment: "1,400 staff · UK multi-office · Utilization consistency focus",
+    deal: "$620K ARR · Advertising Review + AI Review + Disclosure + Distribution & Engagement",
+    segment: "Global asset manager · Institutional + retail · Adobe Experience Manager + Seismic",
     readiness: 42,
     status: "blocked" as const,
     submitted: "Mar 15, 2026",
     items: { complete: 5, total: 12 },
-    notes: "MSA pending legal review. Executive sponsor changed mid-deal — re-confirming scope and pilot service line before kickoff.",
+    notes: "MSA pending legal review. Executive sponsor changed mid-deal — re-confirming scope and pilot business unit (US Retail vs. EMEA Institutional) before kickoff.",
   },
 ];
 
@@ -59,16 +59,16 @@ const statusStyles = {
 
 const checklist = [
   "Signed order form / MSA in place",
-  "Modules in scope confirmed (Core RM / AI Auto-Scheduler / Forecasting / Reporting)",
-  "Service lines documented (Audit, Tax, Advisory, Consulting)",
-  "HRIS identified (Workday / BambooHR / HiBob / SAP SuccessFactors)",
-  "Practice management identified (CCH Axcess / Practice Engine / Thomson Reuters)",
-  "Legacy resourcing tool documented (Retain / ProStaff / Deltek / spreadsheets)",
-  "Pilot service line and phased rollout plan confirmed",
-  "Executive sponsor (COO / Managing Partner / Head of RM) identified",
-  "Success criteria & Time to First Schedule target confirmed",
-  "Data / Privacy / IT contact identified (GDPR / SOC2 review)",
-  "Dayshape Senior Implementation Consultant, Solution Consultant, and CSM assigned",
+  "Modules in scope confirmed (Advertising Review / AI Review / Disclosure / Registration / Supervision)",
+  "Business units / channels documented (Employee advisors, Independent reps, Institutional, Retail)",
+  "Marketing systems identified (Adobe Experience Manager / Marketo / Seismic / SharePoint)",
+  "CRM identified (Salesforce Financial Services Cloud / Microsoft Dynamics / Redtail)",
+  "Archival vendor identified (Smarsh / Global Relay / Proofpoint) for WORM books-and-records",
+  "FINRA CRD/IARD access approach confirmed (for Registration Management)",
+  "Executive sponsor (CCO / COO / Chief Marketing Compliance Officer) identified",
+  "Success criteria & Time to First Review target confirmed",
+  "InfoSec / Data Privacy contact identified (SOC 2, SEC Rule 17a-4 review)",
+  "Red Oak Senior Implementation Consultant, Solution Consultant, and CSM assigned",
   "Firm kickoff scheduled",
 ];
 
@@ -79,7 +79,7 @@ export default function SalesHandoff() {
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-2xl font-semibold">Sales Handoff · Sales to Delivery</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Manage the transition from closed Dayshape deals to active firm implementations. All items must be complete before kickoff.
+            Manage the transition from closed Red Oak deals to active firm implementations. All items must be complete before kickoff.
           </p>
         </motion.div>
 

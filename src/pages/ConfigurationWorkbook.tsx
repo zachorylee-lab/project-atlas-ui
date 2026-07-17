@@ -61,7 +61,7 @@ const bakerTilly: Customer = {
       id: "org",
       title: "Firm & organisational model",
       icon: Building2,
-      owner: "Sam Reid (Dayshape SIC)",
+      owner: "Sam Reid (Red Oak SIC)",
       approver: "Priya Patel (Head of Resourcing)",
       status: "Signed off",
       progress: 100,
@@ -136,7 +136,7 @@ const bakerTilly: Customer = {
       status: "Drafting",
       progress: 55,
       summary:
-        "Engagement templates, statuses, approval routing, and the mapping from CRM opportunity to Dayshape engagement.",
+        "Engagement templates, statuses, approval routing, and the mapping from CRM opportunity to Red Oak engagement.",
       fields: [
         { label: "CRM system of record", value: "Salesforce (Opportunity → Engagement on Closed-Won)" },
         { label: "Engagement code format", value: "{Practice}-{FY}-{Seq}  e.g. AUD-26-00184" },
@@ -164,7 +164,7 @@ const bakerTilly: Customer = {
       status: "Drafting",
       progress: 40,
       summary:
-        "Working patterns, non-chargeable buckets, forecast horizon, and constraints the AI Auto-Scheduler must respect.",
+        "Working patterns, non-chargeable buckets, forecast horizon, and constraints the AI Review must respect.",
       fields: [
         { label: "Standard working week", value: "37.5h (US) / 37.0h (UK)" },
         { label: "Forecast horizon", value: "Rolling 13 weeks + FY view" },
@@ -220,7 +220,7 @@ const bakerTilly: Customer = {
     },
     {
       id: "ai",
-      title: "AI Auto-Scheduler tuning",
+      title: "AI Review tuning",
       icon: Sparkles,
       owner: "Sam Reid",
       approver: "M. Johnson",
@@ -264,7 +264,7 @@ export default function ConfigurationWorkbook() {
             </div>
             <h1 className="mt-1 text-3xl font-semibold tracking-tight">Configuration Workbook</h1>
             <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
-              The single source of truth for every Dayshape design decision — firm model, grades,
+              The single source of truth for every Red Oak design decision — firm model, grades,
               engagements, scheduling rules, integrations, and AI tuning. Sign-off here unlocks Testing.
             </p>
           </div>

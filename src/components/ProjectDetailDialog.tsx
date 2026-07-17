@@ -49,7 +49,7 @@ const phaseTasks: Record<number, PhaseTask[]> = {
     { label: "Conduct kickoff with COO, Head of RM, HR, IT", done: false },
     { label: "Confirm implementation timeline and milestones", done: false },
     { label: "Introduce team members and roles", done: false },
-    { label: "Define success criteria (TTFS, adoption, utilization uplift)", done: false },
+    { label: "Define success criteria (TTFR, adoption, utilization uplift)", done: false },
     { label: "Distribute project charter for sign-off", done: false },
   ],
   2: [
@@ -58,13 +58,13 @@ const phaseTasks: Record<number, PhaseTask[]> = {
     { label: "Build engagement templates by service line", done: false },
     { label: "Wire HRIS + practice management + calendar + finance integrations", done: false },
     { label: "Migrate historical bookings and engagements", done: false },
-    { label: "Configure AI Auto-Scheduler preference weightings", done: false },
+    { label: "Configure AI Review preference weightings", done: false },
     { label: "Document configuration decisions", done: false },
   ],
   3: [
     { label: "Prepare UAT scenario test plan", done: false },
     { label: "Set up parallel scheduling in sandbox", done: false },
-    { label: "Run first weekly scheduling cycle in Dayshape", done: false },
+    { label: "Run first weekly scheduling cycle in Red Oak", done: false },
     { label: "Deliver Resource Manager technical enablement workshop", done: false },
     { label: "Deliver Partner / Service Line briefings", done: false },
     { label: "Log and triage integration + booking defects", done: false },
@@ -80,7 +80,7 @@ const phaseTasks: Record<number, PhaseTask[]> = {
   ],
   5: [
     { label: "Set up daily adoption + integration health monitoring", done: false },
-    { label: "Tune AI Auto-Scheduler based on Resource Manager overrides", done: false },
+    { label: "Tune AI Review based on Resource Manager overrides", done: false },
     { label: "Triage and resolve post-launch issues", done: false },
     { label: "Conduct mid-hypercare review with COO + Head of RM", done: false },
     { label: "Gather firm CSAT and adoption metrics", done: false },
@@ -118,8 +118,8 @@ const defaultTTV = (startDate: string, targetDate: string): TTVMilestone[] => [
   { label: "Kickoff Complete", owner: "Senior Implementation Consultant", date: startDate, status: "done", icon: Handshake, note: "Charter signed, RACI distributed" },
   { label: "Firm Model Configured", owner: "Solution Consultant", date: "+2 wks", status: "done", icon: Zap, note: "Offices, service lines, roles, grades, skills loaded" },
   { label: "Integrations Live", owner: "Solution Consultant", date: "+4 wks", status: "in-progress", icon: Database, note: "HRIS + practice management + calendar wired and reconciled" },
-  { label: "First Firm-Wide Schedule Published", owner: "Head of Resource Management", date: "+6 wks", status: "upcoming", icon: CalendarCheck, note: "TTFS milestone — first live weekly schedule" },
-  { label: "First Forecast Cycle", owner: "Strategy Consultant", date: "+8 wks", status: "upcoming", icon: LineChart, note: "TTFF milestone — first 3-month capacity forecast" },
+  { label: "First Firm-Wide Schedule Published", owner: "Head of Resource Management", date: "+6 wks", status: "upcoming", icon: CalendarCheck, note: "TTFR milestone — first live weekly schedule" },
+  { label: "First Forecast Cycle", owner: "Strategy Consultant", date: "+8 wks", status: "upcoming", icon: LineChart, note: "TTAP milestone — first 3-month capacity forecast" },
   { label: "CSM Handover", owner: "Senior Implementation Consultant → CSM", date: targetDate, status: "upcoming", icon: Target, note: "Adoption exit, success plan handover" },
 ];
 
@@ -128,7 +128,7 @@ const ttvOverrides: Record<string, TTVMilestone[]> = {
     { label: "Kickoff Complete", owner: "E. Cicero (SIC)", date: "Jan 18", status: "done", icon: Handshake, note: "Plante Moran firm-wide RM charter signed" },
     { label: "Firm Model Configured", owner: "R. Patel (SC)", date: "Feb 2", status: "done", icon: Zap, note: "3,600 staff, 9 offices, audit + tax + advisory hierarchy live" },
     { label: "Workday HRIS Wired", owner: "J. Liu (Data)", date: "Feb 18", status: "done", icon: Database, note: "RaaS sync live; JLM propagation < 12h" },
-    { label: "First Firm-Wide Schedule Published", owner: "L. Nguyen (RM Lead)", date: "Mar 5", status: "done", icon: CalendarCheck, note: "TTFS = 49 days; audit service line, 78% Auto-Scheduler acceptance" },
+    { label: "First Firm-Wide Schedule Published", owner: "L. Nguyen (RM Lead)", date: "Mar 5", status: "done", icon: CalendarCheck, note: "TTFR = 49 days; audit service line, 78% Auto-Scheduler acceptance" },
     { label: "First Forecast Cycle", owner: "Plante Moran Strategy", date: "Mar 22", status: "in-progress", icon: LineChart, note: "3-year busy-season forecast in partner review" },
     { label: "CSM Handover", owner: "E. Cicero → K. Park", date: "Apr 20", status: "upcoming", icon: Target, note: "Adoption exit + ROI readout scheduled" },
   ],
@@ -143,8 +143,8 @@ const ttvOverrides: Record<string, TTVMilestone[]> = {
   "5": [
     { label: "Kickoff Complete", owner: "A. Pereira (SIC)", date: "Feb 18", status: "done", icon: Handshake },
     { label: "Firm Model Configured", owner: "T. Yamada (SC)", date: "Mar 4", status: "done", icon: Zap, note: "6,500 staff, 80 offices across UK regions" },
-    { label: "Retain → Dayshape Migration", owner: "P. Osei (Data)", date: "Mar 30", status: "at-risk", icon: Database, note: "Historical engagement mapping behind by ~10 days" },
-    { label: "First Firm-Wide Schedule Published", owner: "Azets Resourcing", date: "Apr 18", status: "at-risk", icon: CalendarCheck, note: "TTFS slipped; mitigation plan in flight" },
+    { label: "Retain → Red Oak Migration", owner: "P. Osei (Data)", date: "Mar 30", status: "at-risk", icon: Database, note: "Historical engagement mapping behind by ~10 days" },
+    { label: "First Firm-Wide Schedule Published", owner: "Azets Resourcing", date: "Apr 18", status: "at-risk", icon: CalendarCheck, note: "TTFR slipped; mitigation plan in flight" },
     { label: "First Forecast Cycle", owner: "G. Iyer (Strategy)", date: "May 10", status: "upcoming", icon: LineChart, note: "3-year capacity forecast, regionalized" },
     { label: "CSM Handover", owner: "A. Pereira → H. Kim", date: "May 30", status: "upcoming", icon: Target },
   ],
@@ -186,7 +186,7 @@ function relatedIntegrations(label: string): { name: string; category: string }[
     { name: "History Loader", category: "Tooling" },
   ];
   if (l.includes("schedule")) return [
-    { name: "AI Auto-Scheduler", category: "Scheduling" },
+    { name: "AI Review", category: "Scheduling" },
     { name: "Booking Rules", category: "Configuration" },
   ];
   if (l.includes("forecast")) return [

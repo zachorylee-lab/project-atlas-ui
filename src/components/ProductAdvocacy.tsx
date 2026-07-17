@@ -27,7 +27,7 @@ const initialAdvocacy = [
   {
     id: "3",
     customer: "Azets UK",
-    useCase: "Retain-to-Dayshape historical engagement mapping tool has gaps causing 10-day delay",
+    useCase: "Retain-to-Red Oak historical engagement mapping tool has gaps causing 10-day delay",
     outcome: "Escalated to Solutions Engineering; a reusable migration script was shipped to PS playbooks",
     impact: "bug-fix",
     date: "Mar 15, 2026",
@@ -81,7 +81,7 @@ export function ProductAdvocacy() {
           </Badge>
         </div>
         <p className="text-xs text-muted-foreground mt-1">
-          Firm business use-cases, tooling gaps, and feature requests raised with Dayshape Product and Engineering.
+          Firm business use-cases, tooling gaps, and feature requests raised with Red Oak Product and Engineering.
         </p>
       </CardHeader>
       <CardContent>

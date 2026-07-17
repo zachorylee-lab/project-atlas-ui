@@ -97,12 +97,12 @@ export function AppSidebar() {
       <SidebarHeader className="p-4">
         <div className="flex items-center gap-3">
           <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent">
-            <span className="text-sm font-bold text-white">D</span>
+            <span className="text-sm font-bold text-white">R</span>
           </div>
           {!collapsed && (
             <div className="flex flex-col">
-              <span className="text-sm font-semibold text-sidebar-accent-foreground">Dayshape</span>
-              <span className="text-[10px] uppercase tracking-widest text-sidebar-foreground/60">Professional Services Onboarding</span>
+              <span className="text-sm font-semibold text-sidebar-accent-foreground">Red Oak</span>
+              <span className="text-[10px] uppercase tracking-widest text-sidebar-foreground/60">Compliance Implementation Console</span>
             </div>
           )}
         </div>
@@ -140,8 +140,8 @@ export function AppSidebar() {
       <SidebarFooter className="p-4">
         {!collapsed && (
           <div className="rounded-lg bg-sidebar-accent/50 p-3">
-            <p className="text-[11px] text-sidebar-foreground/70">Dayshape Delivery · v2026.Q2</p>
-            <p className="text-[10px] text-sidebar-foreground/50 mt-0.5">Scheduling · Forecasting · Utilization · AI Auto-Scheduler</p>
+            <p className="text-[11px] text-sidebar-foreground/70">Red Oak Delivery · v2026.Q2</p>
+            <p className="text-[10px] text-sidebar-foreground/50 mt-0.5">Ad Review · AI Review · Disclosures · Registration · Supervision</p>
           </div>
         )}
       </SidebarFooter>

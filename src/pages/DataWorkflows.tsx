@@ -23,7 +23,7 @@ const modulesMeta: Record<ModuleId, { label: string; icon: React.ElementType; co
   integrations: { label: "Integrations",      icon: Database,     color: "text-pink-500",    description: "Workday / BambooHR HRIS, CCH Axcess / Practice Engine, calendar, and finance systems" },
   engagements:  { label: "Engagements",       icon: CalendarClock, color: "text-violet-500", description: "Engagement templates, budgets, role/grade requirements, and booking rules" },
   scheduling:   { label: "Scheduling & Forecast", icon: BarChart3, color: "text-rose-500",   description: "Firm-wide scheduling, forecast cycles, utilization dashboards, and reporting" },
-  ai:           { label: "AI Auto-Scheduler", icon: Sparkles,     color: "text-amber-500",   description: "Preference weightings, skill match, staff development, and scenario simulation" },
+  ai:           { label: "AI Review", icon: Sparkles,     color: "text-amber-500",   description: "Preference weightings, skill match, staff development, and scenario simulation" },
 };
 
 const implementationChecklists: Record<ModuleId, WorkflowTask[]> = {
@@ -68,7 +68,7 @@ const implementationChecklists: Record<ModuleId, WorkflowTask[]> = {
     { label: "Sign off KPI definitions with COO + Head of RM", done: false },
   ],
   ai: [
-    { label: "Enable AI Auto-Scheduler in the tenant", done: false },
+    { label: "Enable AI Review in the tenant", done: false },
     { label: "Configure preference weightings (utilization, skill match, development)", done: false },
     { label: "Define do-not-book rules (partner overrides, client no-fly)", done: false },
     { label: "Pilot on one service line for two weekly cycles", done: false },
@@ -81,31 +81,31 @@ const implementationChecklists: Record<ModuleId, WorkflowTask[]> = {
 
 const migrationData: Record<ModuleId, MigrationItem[]> = {
   firm: [
-    { source: "Legacy org hierarchy", target: "Dayshape offices/teams", records: "~40 units", status: "pending" },
-    { source: "Spreadsheet role/grade list", target: "Dayshape taxonomy", records: "~24 grades", status: "pending" },
-    { source: "HR skills survey", target: "Dayshape skills library", records: "~120 skills", status: "pending" },
-    { source: "Workday people file", target: "Dayshape staff", records: "~6,000 staff", status: "pending" },
+    { source: "Legacy org hierarchy", target: "Red Oak offices/teams", records: "~40 units", status: "pending" },
+    { source: "Spreadsheet role/grade list", target: "Red Oak taxonomy", records: "~24 grades", status: "pending" },
+    { source: "HR skills survey", target: "Red Oak skills library", records: "~120 skills", status: "pending" },
+    { source: "Workday people file", target: "Red Oak staff", records: "~6,000 staff", status: "pending" },
   ],
   integrations: [
-    { source: "Workday HCM", target: "Dayshape people + org", records: "6,000 records + JLM", status: "pending" },
-    { source: "CCH Axcess", target: "Dayshape engagement master", records: "~12,400 engagements", status: "pending" },
-    { source: "Outlook calendars", target: "Dayshape bookings sync", records: "Firm-wide", status: "pending" },
-    { source: "NetSuite time actuals", target: "Dayshape actuals", records: "Rolling 24 months", status: "pending" },
+    { source: "Workday HCM", target: "Red Oak people + org", records: "6,000 records + JLM", status: "pending" },
+    { source: "CCH Axcess", target: "Red Oak engagement master", records: "~12,400 engagements", status: "pending" },
+    { source: "Outlook calendars", target: "Red Oak bookings sync", records: "Firm-wide", status: "pending" },
+    { source: "NetSuite time actuals", target: "Red Oak actuals", records: "Rolling 24 months", status: "pending" },
   ],
   engagements: [
-    { source: "Legacy engagement types", target: "Dayshape templates", records: "~35 templates", status: "pending" },
-    { source: "Open engagements", target: "Dayshape engagements", records: "~4,800 open", status: "pending" },
-    { source: "Historical bookings", target: "Dayshape history", records: "Rolling 24 months", status: "pending" },
-    { source: "Client hierarchy", target: "Dayshape clients", records: "~9,200 clients", status: "pending" },
+    { source: "Legacy engagement types", target: "Red Oak templates", records: "~35 templates", status: "pending" },
+    { source: "Open engagements", target: "Red Oak engagements", records: "~4,800 open", status: "pending" },
+    { source: "Historical bookings", target: "Red Oak history", records: "Rolling 24 months", status: "pending" },
+    { source: "Client hierarchy", target: "Red Oak clients", records: "~9,200 clients", status: "pending" },
   ],
   scheduling: [
-    { source: "Legacy weekly schedule", target: "Dayshape schedule", records: "First live cycle", status: "pending" },
-    { source: "Legacy forecast spreadsheet", target: "Dayshape forecast", records: "3-year horizon", status: "pending" },
-    { source: "Excel utilization report", target: "Dayshape dashboard", records: "By grade + office", status: "pending" },
+    { source: "Legacy weekly schedule", target: "Red Oak schedule", records: "First live cycle", status: "pending" },
+    { source: "Legacy forecast spreadsheet", target: "Red Oak forecast", records: "3-year horizon", status: "pending" },
+    { source: "Excel utilization report", target: "Red Oak dashboard", records: "By grade + office", status: "pending" },
     { source: "Static BI cube", target: "Power BI dataset", records: "Semantic layer", status: "pending" },
   ],
   ai: [
-    { source: "Manual RM preferences", target: "AI Auto-Scheduler config", records: "Pilot service line", status: "pending" },
+    { source: "Manual RM preferences", target: "AI Review config", records: "Pilot service line", status: "pending" },
     { source: "Skill match rules", target: "Auto-Scheduler weightings", records: "~120 skills", status: "pending" },
     { source: "Partner no-fly list", target: "Do-not-book rules", records: "~40 rules", status: "pending" },
     { source: "Staff development targets", target: "Development weightings", records: "All grades", status: "pending" },
@@ -142,7 +142,7 @@ const configSteps: Record<ModuleId, ConfigStep[]> = {
     { label: "Reporting Exports", description: "Power BI dataset, Tableau extract, Snowflake feed", done: false },
   ],
   ai: [
-    { label: "AI Auto-Scheduler", description: "Enable tenant-wide with a documented governance model", done: false },
+    { label: "AI Review", description: "Enable tenant-wide with a documented governance model", done: false },
     { label: "Preference Weightings", description: "Balance utilization, skill match, staff development, partner preferences", done: false },
     { label: "Do-Not-Book Rules", description: "Client no-fly, staff overrides, mandatory training blocks", done: false },
     { label: "Scenario Simulation", description: "Model busy-season demand vs. capacity before committing", done: false },
@@ -204,9 +204,9 @@ export default function DataWorkflows() {
       <motion.div {...fadeUp}>
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">Dayshape Workstreams</h1>
+            <h1 className="text-2xl font-bold tracking-tight">Red Oak Workstreams</h1>
             <p className="text-sm text-muted-foreground mt-1">
-              Configure, migrate, and validate each workstream of a Dayshape firm implementation
+              Configure, migrate, and validate each workstream of a Red Oak firm implementation
             </p>
           </div>
           <Badge variant="outline" className="text-xs gap-1.5 px-3 py-1.5">

@@ -68,7 +68,7 @@ const customers: Customer[] = [
     modules: [
       { module: "Scheduler", loomViews: 412, scribeCompletions: 188, featureAdoption: 91, trend: 4 },
       { module: "Forecast", loomViews: 96, scribeCompletions: 64, featureAdoption: 72, trend: 8 },
-      { module: "AI Auto-Scheduler", loomViews: 58, scribeCompletions: 22, featureAdoption: 34, trend: 12 },
+      { module: "AI Review", loomViews: 58, scribeCompletions: 22, featureAdoption: 34, trend: 12 },
       { module: "Firm Model", loomViews: 184, scribeCompletions: 121, featureAdoption: 100, trend: 0 },
       { module: "Reporting", loomViews: 44, scribeCompletions: 28, featureAdoption: 58, trend: -3 },
     ],
@@ -97,7 +97,7 @@ const customers: Customer[] = [
     modules: [
       { module: "Scheduler", loomViews: 620, scribeCompletions: 240, featureAdoption: 74, trend: 11 },
       { module: "Forecast", loomViews: 140, scribeCompletions: 62, featureAdoption: 48, trend: 6 },
-      { module: "AI Auto-Scheduler", loomViews: 32, scribeCompletions: 8, featureAdoption: 12, trend: 4 },
+      { module: "AI Review", loomViews: 32, scribeCompletions: 8, featureAdoption: 12, trend: 4 },
       { module: "Firm Model", loomViews: 240, scribeCompletions: 180, featureAdoption: 96, trend: 1 },
       { module: "Reporting", loomViews: 71, scribeCompletions: 34, featureAdoption: 41, trend: -2 },
     ],
@@ -125,7 +125,7 @@ const customers: Customer[] = [
     modules: [
       { module: "Scheduler", loomViews: 210, scribeCompletions: 88, featureAdoption: 55, trend: 15 },
       { module: "Forecast", loomViews: 40, scribeCompletions: 18, featureAdoption: 22, trend: 5 },
-      { module: "AI Auto-Scheduler", loomViews: 6, scribeCompletions: 0, featureAdoption: 0, trend: 0 },
+      { module: "AI Review", loomViews: 6, scribeCompletions: 0, featureAdoption: 0, trend: 0 },
       { module: "Firm Model", loomViews: 120, scribeCompletions: 84, featureAdoption: 88, trend: 3 },
       { module: "Reporting", loomViews: 18, scribeCompletions: 6, featureAdoption: 14, trend: 2 },
     ],

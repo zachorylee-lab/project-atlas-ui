@@ -70,7 +70,7 @@ const SEVERITY_COLOR: Record<Severity, string> = {
 
 const WORKSTREAMS = [
   "Handoff", "Discovery", "Firm Model", "Integrations", "Engagement Templates",
-  "AI Auto-Scheduler", "UAT & Parallel Run", "Training", "Go-Live", "Hypercare", "CSM Handover",
+  "AI Review", "UAT & Parallel Run", "Training", "Go-Live", "Hypercare", "CSM Handover",
 ];
 
 const SEED: Entry[] = [
@@ -85,16 +85,16 @@ const SEED: Entry[] = [
   },
   {
     id: "R-002", type: "Risk",
-    title: "Partner group resistance to AI Auto-Scheduler recommendations",
+    title: "Partner group resistance to AI Review recommendations",
     description: "Two service line partners have publicly said they don't trust algorithmic staffing.",
-    workstream: "AI Auto-Scheduler", owner: "SIC",
+    workstream: "AI Review", owner: "SIC",
     status: "Open", severity: "Critical", probability: "High", impact: "High",
     mitigation: "1:1 briefings with each partner; pilot with Advisory service line first; publish acceptance-rate dashboard weekly.",
     dueDate: "2026-08-01", raised: "2026-07-03",
   },
   {
     id: "A-001", type: "Assumption",
-    title: "Practice Engine engagement types map cleanly to Dayshape templates",
+    title: "Practice Engine engagement types map cleanly to Red Oak templates",
     description: "Assumed 1:1 mapping. Not yet validated against actual Practice Engine config.",
     workstream: "Engagement Templates", owner: "SIC",
     status: "Open", severity: "Medium",
@@ -208,7 +208,7 @@ export default function RAIDLog() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "dayshape-raid-log.csv";
+    a.download = "red oak-raid-log.csv";
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -221,7 +221,7 @@ export default function RAIDLog() {
           <div>
             <h1 className="text-3xl font-semibold tracking-tight">RAID Log</h1>
             <p className="text-muted-foreground mt-1 max-w-3xl">
-              Risks, Assumptions, Issues, and Dependencies across the Dayshape implementation.
+              Risks, Assumptions, Issues, and Dependencies across the Red Oak implementation.
               Reviewed weekly in the steering committee, exported for the CSM handover.
             </p>
           </div>
