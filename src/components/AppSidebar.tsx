@@ -49,6 +49,7 @@ const navGroups: { label: string; items: { title: string; url: string; icon: typ
     items: [
       { title: "Sales Handoff", url: "/handoff", icon: ArrowRightLeft },
       { title: "Onboarding Playbook", url: "/playbook", icon: BookOpen },
+      { title: "Requirements Gathering", url: "/requirements", icon: ScrollText },
       { title: "RACI Matrix", url: "/raci", icon: Grid3x3 },
       { title: "Templates & SOWs", url: "/templates", icon: FolderOpen },
     ],
