@@ -140,8 +140,8 @@ export function AppSidebar() {
       <SidebarFooter className="p-4">
         {!collapsed && (
           <div className="rounded-lg bg-sidebar-accent/50 p-3">
-            <p className="text-[11px] text-sidebar-foreground/70">Dayshape Delivery · v2026.Q2</p>
-            <p className="text-[10px] text-sidebar-foreground/50 mt-0.5">Scheduling · Forecasting · Utilization · AI Auto-Scheduler</p>
+            <p className="text-[11px] text-sidebar-foreground/70">Red Oak Delivery · v2026.Q2</p>
+            <p className="text-[10px] text-sidebar-foreground/50 mt-0.5">Ad Review · AI Review · Disclosures · Registration · Supervision</p>
           </div>
         )}
       </SidebarFooter>
