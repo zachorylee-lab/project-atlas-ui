@@ -771,13 +771,13 @@ const categories: IntegrationCategory[] = [
 
 const ownerTint: Record<Owner, string> = {
   Customer: "bg-[hsl(200_70%_50%)]/15 text-[hsl(200_70%_50%)]",
-  Red Oak: "bg-primary/15 text-primary",
+  "Red Oak": "bg-primary/15 text-primary",
   Joint: "bg-[hsl(280_55%_55%)]/15 text-[hsl(280_55%_55%)]",
 };
 
 const ownerIcon: Record<Owner, React.ElementType> = {
   Customer: Building2,
-  Red Oak: Zap,
+  "Red Oak": Zap,
   Joint: User2,
 };
 
