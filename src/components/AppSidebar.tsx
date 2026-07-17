@@ -18,6 +18,7 @@ import {
   ClipboardList,
   ClipboardCheck,
   BookOpenCheck,
+  ScrollText,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
