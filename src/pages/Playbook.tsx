@@ -139,7 +139,7 @@ export default function Playbook() {
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-2xl font-semibold">Red Oak Implementation Playbook</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            The 6-phase Red Oak Implementation Methodology used to launch new financial services firms — from sales handoff through adoption — covering configuration, integrations, data migration, training, AI Review tuning, and firm-wide go-live.
+            The 6-phase Red Oak Implementation Methodology used to launch new financial services firms on the compliance platform — from sales handoff through adoption — covering review workflows, disclosure library and rules-engine build, CRM / marketing / archival / FINRA integrations, AI Review tuning, WORM-compliant books-and-records validation, and firm-wide cutover.
           </p>
         </motion.div>
 
