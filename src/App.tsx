@@ -24,6 +24,7 @@ import AdoptionTracker from "./pages/AdoptionTracker";
 import ConfigurationWorkbook from "./pages/ConfigurationWorkbook";
 import UATTracker from "./pages/UATTracker";
 import KnowledgeBase from "./pages/KnowledgeBase";
+import RequirementsGathering from "./pages/RequirementsGathering";
 
 const queryClient = new QueryClient();
 
