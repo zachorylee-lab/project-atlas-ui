@@ -202,6 +202,165 @@ const sections: { title: string; icon: React.ElementType; color: string; intro: 
   },
 ];
 
+type StarScenario = {
+  title: string;
+  prompt: string;
+  tags: string[];
+  situation: string;
+  task: string;
+  action: string[];
+  result: string[];
+  soundbite: string;
+};
+
+const starScenarios: StarScenario[] = [
+  {
+    title: "Migrating a Broker-Dealer off Email + SharePoint Advertising Review",
+    prompt: "Tell me about a time you led a high-stakes platform migration under a hard deadline.",
+    tags: ["Migration", "Advertising Review", "Smarsh", "Hard deadline"],
+    situation:
+      "A mid-sized independent broker-dealer with 2,400 reps was running advertising review over email + SharePoint. The CCO had committed the board to a Q4 retail-marketing campaign, and the SEC exam cycle was 90 days out. Cycle times were 6+ days, first-pass approval was under 40%, and there was no defensible audit trail into their Smarsh archive.",
+    task:
+      "Own the 14-week Red Oak implementation end-to-end: review workflow, disclosure library, Marketo + Seismic integration, Smarsh WORM archival, historical migration, reviewer enablement, and cutover — with go-live locked before the Q4 campaign and no SEC-exam disruption.",
+    action: [
+      "Locked the smallest valuable launch in kickoff — retail marketing channel only, with Social and Advisor-generated content deferred to Phase 2 in the change log.",
+      "Ran three parallel workstreams from week 1: compliance program config (with the CCO), Smarsh + Marketo integrations (with the Solution Consultant + IT), and 18 months of prior-approval history migration.",
+      "Escalated the InfoSec SOC 2 review to the CISO in week 3 with two options — 3-week slip vs. Red Oak's pre-approved SOC 2 pack — and got a decision inside 48 hours.",
+      "Turned AI Review on the pilot fact-sheet workflow at conservative thresholds in week 8 so reviewers saw acceptance data before UAT sign-off.",
+      "Ran a two-week parallel review of one live campaign in both systems before cutover, plus a 100-piece Smarsh reconciliation to prove the WORM feed.",
+    ],
+    result: [
+      "Launched 4 days ahead of the Q4 campaign date.",
+      "Review cycle time dropped from 6.2 days → 1.8 days inside 60 days of go-live.",
+      "AI Review suggestion acceptance hit 78% in the first cycle, 84% by day 90.",
+      "First-pass approval climbed from 38% → 71%.",
+      "Zero findings on the subsequent SEC exam for the advertising-review book of record.",
+      "CSAT 4.9/5, and the firm expanded into Social Media Compliance within 90 days of handover.",
+    ],
+    soundbite:
+      "The unlock wasn't the tool — it was refusing to lift-and-shift the legacy dysfunction and forcing the CCO to sign off on a rebuilt disclosure taxonomy in week 2.",
+  },
+  {
+    title: "Recovering a Stalled Smarsh Archival Integration",
+    prompt: "Tell me about a project that went off the rails and how you recovered it.",
+    tags: ["Recovery", "InfoSec", "17a-4", "Escalation"],
+    situation:
+      "Eight weeks into a Red Oak rollout at a hybrid RIA/BD, the Smarsh archival integration was 4 weeks behind. The customer's InfoSec team had blocked the API keys pending a full SOC 2 re-review, and the CCO was quietly telling the AE they were considering pausing the project. A Q4 marketing launch and books-and-records defensibility under SEC Rule 17a-4 both depended on that feed.",
+    task:
+      "Protect the Q4 date, restore CCO confidence, and get the WORM archival flow production-ready without cutting a compliance corner.",
+    action: [
+      "Called a same-day 1:1 with the CCO — no slides, one open question: 'What has actually changed for you?' — and mirrored the concerns back in writing within 24 hours.",
+      "Escalated to the customer's CISO with two costed options: 3-week slip on full re-review, or accept Red Oak's pre-approved SOC 2 attestation pack and shorten the internal review to 2 weeks. Named owners and dates on both.",
+      "Issued the change order within 48 hours of the CISO's decision, re-baselined the plan in Smartsheet, and re-set executive expectations on the next status call.",
+      "Instituted a daily 15-minute integration standup with Red Oak's Solution Consultant, the Smarsh SPOC, and the customer's IT lead until the feed was green.",
+      "Ran a 100-piece reconciliation sample end-to-end before flipping to production so the CCO could sign off with evidence, not a promise.",
+    ],
+    result: [
+      "Launched 5 days late instead of 4 weeks late — inside the Q4 campaign window.",
+      "Zero gaps on the WORM feed at go-live; every reviewed piece landed with correct metadata and immutability flag.",
+      "CCO NPS moved from a detractor to a promoter in the post-launch survey.",
+      "Trust rebuilt through delivery led directly to a Social Media Compliance module expansion the next quarter.",
+    ],
+    soundbite:
+      "Escalation with data and two options isn't panic — it's leadership. The relationship survived because I brought the CISO a decision, not a problem.",
+  },
+  {
+    title: "Landing AI Review with a Skeptical Compliance Team",
+    prompt: "Tell me about a time you drove adoption of a new capability against internal resistance.",
+    tags: ["AI Review", "Adoption", "Change management"],
+    situation:
+      "A top-20 asset manager had bought Red Oak with AI Review included, but the Chief Marketing Compliance Officer and her four senior reviewers were openly skeptical — worried about losing judgment, missing risks, and personal accountability for AI mistakes. Two months post-config, AI Review was switched off and the ROI case for the exec sponsor was slipping.",
+    task:
+      "Get AI Review live on at least one high-volume content type, hit measurable suggestion acceptance, and give the CMCO a defensible tuning story to tell her board — without steamrolling the reviewer team.",
+    action: [
+      "Ran a 90-minute Decisioning workshop with the CMCO and reviewers — reframed AI Review as 'a first-pass reviewer that you tune and veto,' not a replacement.",
+      "Piloted on fact sheets only, at conservative confidence thresholds, for two review cycles. Explicitly told reviewers to override freely and logged every override.",
+      "Built a weekly tuning ritual: suggestion acceptance rate, false-positive categories, and the top 5 override reasons were reviewed with the CMCO every Friday for six weeks.",
+      "Shared anonymized benchmarks from two comparable Red Oak firms so the reviewers saw the destination, not just the process.",
+      "Turned the reviewer team into co-authors of the rule tuning — every override became a proposed rule refinement they approved.",
+    ],
+    result: [
+      "AI Review acceptance climbed from 41% (week 1) → 79% (week 8) on fact sheets.",
+      "Cycle time on fact sheets dropped 62%; first-pass approval up 18 points.",
+      "Expanded from fact sheets to pitch books and quarterly performance reports by month 4.",
+      "The CMCO presented the tuning discipline as a case study at Red Oak's customer summit.",
+      "The reviewer team went from AI-skeptics to internal champions — one of them is now the customer's SPOC on Phase 2.",
+    ],
+    soundbite:
+      "Reviewers don't trust AI because it's smart — they trust it because they get to veto it and watch it learn from them. My job is to make that loop visible weekly.",
+  },
+  {
+    title: "Configuring FINRA CRD/IARD + Disclosure Management Jointly",
+    prompt: "Walk me through a complex configuration decision you brokered across compliance and marketing.",
+    tags: ["Disclosure", "Registration", "FINRA", "Cross-functional"],
+    situation:
+      "A national wirehouse-adjacent BD wanted to run multi-state retail campaigns but was routinely shipping ads into states where the sponsoring rep wasn't registered — a repeat FINRA finding. Marketing blamed compliance for slow reviews; compliance blamed marketing for sloppy intake; the CCO wanted the problem gone in this implementation.",
+    task:
+      "Configure Red Oak so that jurisdictional non-compliance was blocked at intake, not caught at approval — without adding friction that would make marketing route around the tool.",
+    action: [
+      "Ran a joint working session with the CCO, Head of Marketing, and IT to map the required data: rep, jurisdiction, product, audience, and disclosure set.",
+      "Configured Disclosure Management with jurisdiction-tagged, versioned disclosure libraries owned by the compliance team.",
+      "Wired the FINRA CRD/IARD integration through Registration Management so rep licensure and CE status were current in Red Oak nightly.",
+      "Built a joint validation rule: at intake, Red Oak checks (rep × jurisdiction × product) against Registration Management and auto-applies the correct disclosure set from Disclosure Management — non-compliant combinations are rejected before hitting a reviewer.",
+      "Wrote the enablement doc for marketing ops so intake failures came back with a clear, self-serve remediation path — not a compliance ticket.",
+    ],
+    result: [
+      "Jurisdictional deficiencies at approval dropped from 14% of pieces to under 1%.",
+      "Reviewer cycle time on multi-state campaigns dropped 34% because non-compliant intake was filtered upstream.",
+      "The next FINRA exam closed with no jurisdictional-registration findings on the advertising book.",
+      "Marketing's satisfaction score with compliance rose materially — the CCO cited it in her board update.",
+    ],
+    soundbite:
+      "The win was moving the compliance check from approval back to intake. Same rule, radically different customer experience.",
+  },
+  {
+    title: "Championing a Customer Use Case into Red Oak's Product Roadmap",
+    prompt: "Tell me about a time you advocated for customer feedback with product or engineering.",
+    tags: ["Product advocacy", "Voice of customer"],
+    situation:
+      "Three of my implementations — an RIA, a BD, and an asset manager — independently flagged the same gap: quarterly performance-report reviews required reviewers to manually cross-check performance claims against a source-of-truth dataset, adding 2–3 days per piece. It wasn't in the roadmap.",
+    task:
+      "Turn a pattern of one-off customer complaints into a fundable product decision — without becoming the AE who cries wolf on every feature request.",
+    action: [
+      "Logged each request against the specific customer use case, not as generic feedback: 'US mid-market RIA doing quarterly performance-report reviews is blocked by X.'",
+      "Wrote a one-page brief showing the pattern across three customers with the cycle-time impact, revenue-at-risk if any of them didn't renew, and the CSAT signal.",
+      "Took it to the Red Oak PM through the standard product intake and to the AEs on those three accounts so it hit the roadmap conversation from two directions.",
+      "Volunteered my three customers as design partners once it was scoped, and ran the beta validation sessions myself.",
+    ],
+    result: [
+      "The capability shipped in the next major release cycle as a native AI Review check on performance claims.",
+      "Cycle time on quarterly performance-report reviews dropped ~40% at the three design-partner firms.",
+      "All three renewed and two expanded module coverage — the PM cited the brief as the template for future customer-led feature intake.",
+    ],
+    soundbite:
+      "Product doesn't act on complaints — it acts on patterns with dollars attached. My job is to convert three angry emails into one fundable decision.",
+  },
+  {
+    title: "Clean CSM Handover on a Complex Wirehouse Rollout",
+    prompt: "Tell me about a time you set a customer up for success beyond your own engagement.",
+    tags: ["CSM transition", "Adoption", "Handover"],
+    situation:
+      "Wrapping a 22-week Red Oak rollout at a large asset manager with multiple regional compliance teams, three archival vendors, and an unresolved Phase 2 backlog. The CSM was new to the account and the CCO had been burned by prior vendors dropping the ball at handover.",
+    task:
+      "Deliver a warm CSM handover that protected NPS, surfaced expansion hooks, and made sure the CSM walked into week one already knowing the politics and open commitments.",
+    action: [
+      "Built a written handover pack: stakeholder map (CCO, COO, Chief Marketing Compliance Officer, Marketing Ops lead, IT, InfoSec, three archival SPOCs), what shipped, Phase 2 backlog, open risks, adoption metrics, AI Review tuning history, integration health, and cycle-time trend.",
+      "Ran a joint warm-handover call with the CSM, AE, and executive sponsor — I introduced the CSM, walked the pack, and explicitly transferred the relationship in front of the sponsor.",
+      "Scheduled two 30-minute shadow calls in the following two weeks so the CSM could observe office hours before running them solo.",
+      "Flagged two expansion hooks (Social Media Compliance and Distribution & Engagement) with the AE, pre-qualified against the customer's Phase 2 backlog.",
+    ],
+    result: [
+      "CSM was operating the account solo by week 3 post-handover with no re-escalations to me.",
+      "Post-handover CSAT held at 4.8/5; the CCO cited the handover explicitly as the best she'd experienced from a SaaS vendor.",
+      "One of the two expansion hooks closed inside 60 days.",
+      "The handover pack was adopted as the Onboarding team's template.",
+    ],
+    soundbite:
+      "A clean handover is how Red Oak protects its 84 NPS and lands module expansions — it's not the last mile, it's the first mile of the next contract.",
+  },
+];
+
+
 export default function InterviewPrep() {
   return (
     <DashboardLayout>
