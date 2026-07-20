@@ -2,7 +2,7 @@ import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
-import { MessageSquare, Briefcase, Users, Shield, Sparkles, AlertTriangle } from "lucide-react";
+import { MessageSquare, Briefcase, Users, Shield, Sparkles, AlertTriangle, Target, ListChecks, Zap, Trophy } from "lucide-react";
 import { motion } from "framer-motion";
 
 type QA = { q: string; a: string };
