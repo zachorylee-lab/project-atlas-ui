@@ -387,6 +387,83 @@ export default function InterviewPrep() {
           </CardContent>
         </Card>
 
+        <Card className="border-primary/40">
+          <CardHeader className="pb-3">
+            <div className="flex items-center gap-3">
+              <div className="rounded-lg bg-primary/10 p-2">
+                <Trophy className="h-4 w-4 text-primary" />
+              </div>
+              <div>
+                <CardTitle className="text-base">STAR Scenarios — Red Oak Senior Implementation Consultant</CardTitle>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  Full Situation / Task / Action / Result stories built for the Red Oak domain — advertising review, AI Review, disclosure &amp; registration, FINRA, Smarsh archival, CSM handover, and product advocacy. Swap the metrics for your own numbers before the interview.
+                </p>
+              </div>
+              <Badge variant="secondary" className="ml-auto text-[10px]">
+                {starScenarios.length} scenarios
+              </Badge>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <Accordion type="multiple" className="space-y-2">
+              {starScenarios.map((s, i) => (
+                <AccordionItem key={i} value={`star-${i}`} className="border rounded-lg px-3">
+                  <AccordionTrigger className="hover:no-underline text-sm font-medium text-left py-3">
+                    <div className="flex flex-col gap-1 pr-3">
+                      <span>{s.title}</span>
+                      <span className="text-xs text-muted-foreground font-normal italic">"{s.prompt}"</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="pb-4 space-y-4">
+                    <div className="flex flex-wrap gap-1.5">
+                      {s.tags.map((t) => (
+                        <Badge key={t} variant="outline" className="text-[10px]">{t}</Badge>
+                      ))}
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <div className="rounded-lg border p-3 space-y-1.5">
+                        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                          <Target className="h-3.5 w-3.5 text-primary" /> Situation
+                        </div>
+                        <p className="text-sm leading-relaxed">{s.situation}</p>
+                      </div>
+                      <div className="rounded-lg border p-3 space-y-1.5">
+                        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                          <ListChecks className="h-3.5 w-3.5 text-primary" /> Task
+                        </div>
+                        <p className="text-sm leading-relaxed">{s.task}</p>
+                      </div>
+                    </div>
+
+                    <div className="rounded-lg border p-3 space-y-2">
+                      <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                        <Zap className="h-3.5 w-3.5 text-primary" /> Action
+                      </div>
+                      <ul className="text-sm leading-relaxed space-y-1.5 list-disc list-inside marker:text-primary/60">
+                        {s.action.map((a, idx) => <li key={idx}>{a}</li>)}
+                      </ul>
+                    </div>
+
+                    <div className="rounded-lg border border-primary/30 bg-primary/5 p-3 space-y-2">
+                      <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-primary">
+                        <Trophy className="h-3.5 w-3.5" /> Result
+                      </div>
+                      <ul className="text-sm leading-relaxed space-y-1.5 list-disc list-inside marker:text-primary">
+                        {s.result.map((r, idx) => <li key={idx}>{r}</li>)}
+                      </ul>
+                    </div>
+
+                    <div className="text-sm italic text-muted-foreground border-l-2 border-primary/40 pl-3">
+                      Soundbite: {s.soundbite}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </CardContent>
+        </Card>
+
         {sections.map((section, sIdx) => {
           const Icon = section.icon;
           return (
